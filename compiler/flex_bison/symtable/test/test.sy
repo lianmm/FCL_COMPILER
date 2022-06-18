@@ -1,0 +1,3 @@
+int a;
+int ast(int a){
+return 1;}

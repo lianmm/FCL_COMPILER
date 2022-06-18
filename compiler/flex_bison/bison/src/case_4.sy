@@ -1,0 +1,9 @@
+int main()
+{
+	int a;	int b;	int c;int d=3;
+	a=1;	b=2;	c=3;
+	a=b+3;
+	c=a-2-a*3+c/2.43;
+	putint(b+c,32,43);
+	return 0;
+}

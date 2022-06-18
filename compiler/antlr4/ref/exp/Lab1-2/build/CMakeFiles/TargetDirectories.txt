@@ -1,0 +1,6 @@
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/rebuild_cache.dir
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/edit_cache.dir
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/astbuilder.dir
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/antlr4_runtime-build_shared.dir
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/antlr4_runtime-build_static.dir
+/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/antlr4_runtime.dir

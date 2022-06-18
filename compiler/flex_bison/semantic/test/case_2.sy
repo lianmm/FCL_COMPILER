@@ -1,0 +1,18 @@
+void func(){
+    
+    
+    
+    
+    
+    
+    
+    return 5;
+}
+int a[10];int b;
+int main(){
+a=3;
+int v;
+5=6;
+5*func;
+b(4,3);
+}
