@@ -1,5 +1,0 @@
-case_2.sy:9 ‘return’ with a value, in function returning void
-case_2.sy:13 assignment to expression with array type
-case_2.sy:15 lvalue required as left operand of assignment
-case_2.sy:16 invalid operands to binary operator *
-case_2.sy:17 ‘a’ is not a function

@@ -1,5 +1,0 @@
-case_3.sy:9 subscripted value is not an array
-case_3.sy:11 too few arguments to function ‘area’
-case_3.sy:12 too many arguments to function ‘area’
-case_3.sy:17 ‘foo’ undeclared
-case_3.sy:17 array subscript is not an integer

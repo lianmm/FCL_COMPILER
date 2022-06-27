@@ -1,6 +1,0 @@
-# Target labels
- antlr4_runtime
-# Source files and their labels
-/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/antlr4_runtime-build_static
-/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/CMakeFiles/antlr4_runtime-build_static.rule
-/home/chui/桌面/compiler/antlr4/ref/exp/Lab1-2/build/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_static.rule

@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/astbuilder.dir/main.cpp.o CMakeFiles/astbuilder.dir/src/AstBuilder.cpp.o CMakeFiles/astbuilder.dir/antlr4cpp_generated_src/SafeCLexer/SafeCLexer.cpp.o CMakeFiles/astbuilder.dir/antlr4cpp_generated_src/SafeCParser/SafeCParser.cpp.o  -o astbuilder  antlr4_runtime/src/antlr4_runtime/runtime/Cpp/dist/libantlr4-runtime.a 

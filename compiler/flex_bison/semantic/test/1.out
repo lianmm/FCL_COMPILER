@@ -1,4 +1,0 @@
-case_1.sy:15 redefinition of ‘foo’
-case_1.sy:16 redefinition of ‘n’
-case_1.sy:17 ‘foo’ redeclared as different kind of symbol
-case_1.sy:27 ‘r’ undeclared
