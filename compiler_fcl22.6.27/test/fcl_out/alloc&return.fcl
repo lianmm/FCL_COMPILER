@@ -1,0 +1,230 @@
+
+func0:
+
+.L2:
+	goto_eq	#1	#1	.L3
+	goto	.L4
+
+.L3:
+	goto_eq	#1	#1	.L5
+	goto	.L6
+
+.L5:
+	ASSIGN	r0	#0
+	goto	.L1
+	goto	.L7
+
+.L6:
+	ASSIGN	r0	#21
+	goto	.L1
+
+.L7:
+	ASSIGN	r0	#12
+	goto	.L1
+	goto	.L2
+
+.L4:
+	ASSIGN	r0	#54
+	goto	.L1
+
+.L1:
+	func_end:	func0
+
+func1:
+	param	a1
+	alloca	#4	a1
+	ASSIGN	a1	#2
+	load	a1	t1
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#3
+
+.L8:
+	func_end:	func1
+
+func2:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+
+.L10:
+	func_end:	func2
+
+func3:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+
+.L11:
+	func_end:	func3
+
+func4:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	param	a4
+	alloca	#4	a4
+	ASSIGN	a1	#5
+	load	a1	t1
+	ASSIGN	a2	#5
+	load	a2	t2
+	ASSIGN	a3	#5
+	load	a3	t3
+	ASSIGN	a4	#5
+	load	a4	t4
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+
+.L12:
+	func_end:	func4
+
+func5:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	param	a4
+	alloca	#4	a4
+	param	a5
+	alloca	#4	a5
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+	ASSIGN	a1	#6
+	ASSIGN	a2	#6
+	ASSIGN	a3	#6
+	ASSIGN	a4	#6
+	load	a4	t1
+	ASSIGN	a5	#6
+	load	a5	t2
+
+.L17:
+	func_end:	func5
+
+func6:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	param	a4
+	alloca	#4	a4
+	param	a5
+	alloca	#4	a5
+	param	a6
+	alloca	#4	a6
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+	ASSIGN	a1	#6
+	ASSIGN	a2	#6
+	ASSIGN	a3	#6
+	ASSIGN	a4	#6
+	ASSIGN	a5	#6
+	load	a5	t1
+	ASSIGN	a6	#6
+	load	a6	t2
+
+.L23:
+	func_end:	func6
+
+func7:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	param	a4
+	alloca	#4	a4
+	param	a5
+	alloca	#4	a5
+	param	a6
+	alloca	#4	a6
+	param	a7
+	alloca	#4	a7
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+	alloca	#4	b3
+	ASSIGN	b3	#4
+	ASSIGN	a1	#6
+	ASSIGN	a2	#6
+	ASSIGN	a3	#6
+	ASSIGN	a4	#6
+	ASSIGN	a5	#6
+	ASSIGN	a6	#6
+	load	a6	t1
+	ASSIGN	a7	#6
+	load	a7	t2
+
+.L30:
+	func_end:	func7
+
+func8:
+	param	a1
+	alloca	#4	a1
+	param	a2
+	alloca	#4	a2
+	param	a3
+	alloca	#4	a3
+	param	a4
+	alloca	#4	a4
+	param	a5
+	alloca	#4	a5
+	param	a6
+	alloca	#4	a6
+	param	a7
+	alloca	#4	a7
+	param	a8
+	alloca	#4	a8
+	alloca	#4	b1
+	ASSIGN	b1	#3
+	alloca	#4	b2
+	ASSIGN	b2	#5
+	alloca	#4	b3
+	ASSIGN	b3	#4
+	ASSIGN	a1	#6
+	ASSIGN	a2	#6
+	ASSIGN	a3	#6
+	ASSIGN	a4	#6
+	ASSIGN	a5	#6
+	ASSIGN	a6	#6
+	ASSIGN	a7	#6
+	load	a7	t1
+	ASSIGN	a8	#6
+	load	a8	t2
+
+.L38:
+	func_end:	func8
+
+main:
+	ASSIGN	r0	#1
+	goto	.L47
+
+.L47:
+	func_end:	main

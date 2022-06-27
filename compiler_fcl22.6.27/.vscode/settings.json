@@ -1,0 +1,17 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "gen_ir.h": "c",
+        "cmath": "cpp",
+        "unordered_map": "cpp",
+        "string_view": "cpp"
+    },
+    "cSpell.words": [
+        "alloca",
+        "ARROFF",
+        "codenode",
+        "trslt"
+    ]
+}

@@ -1,0 +1,53 @@
+
+main:
+	alloca	#324	a
+	alloca	#4	i
+	alloca	#4	j
+	alloca	#4	n
+	alloca	#4	m
+	ASSIGN	i	#0
+	load	i	t1
+
+.L3:
+	jlt	t1	#9	t2
+	goto_eq	t2	#1	.L4
+	goto	.L5
+
+.L4:
+	ASSIGN	j	#0
+	load	j	t3
+
+.L8:
+	jlt	t3	#9	t4
+	goto_eq	t4	#1	.L9
+	goto	.L10
+
+.L9:
+	ASSIGN	t5	#9
+	mul	t5	t1	t6
+	add	t3	t6	t7
+	add	t1	#1	t8
+	add	t3	t1	t9
+	mul	t8	t9	t10
+	arroff_err	a,	[t10, t7]
+	ASSIGN	t11	#9
+	mul	t11	t1	t12
+	add	t3	t12	t13
+	err_arroff	t14,	[a, t13]
+	arg	t14
+	call_void	putint
+	add	t3	#1	t15
+	ASSIGN	j	t15
+	goto	.L8
+
+.L10:
+	add	t1	#1	t16
+	ASSIGN	i	t16
+	goto	.L3
+
+.L5:
+	ASSIGN	r0	#2
+	goto	.L1
+
+.L1:
+	func_end:	main

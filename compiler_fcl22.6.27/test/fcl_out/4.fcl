@@ -1,0 +1,71 @@
+
+fib:
+	param	n
+	alloca	#4	n
+	load	n	t1
+	eq	t1	#0	t2
+	goto_eq	t2	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	r0	#0
+	goto	.L1
+	goto	.L4
+
+.L3:
+	eq	t1	#1	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	ASSIGN	r0	#1
+	goto	.L1
+	goto	.L8
+
+.L7:
+	sub	t1	#1	t4
+	arg	t4
+	CALL	fib	t5
+	sub	t1	#2	t6
+	arg	t6
+	CALL	fib	t7
+	add	t5	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L8:
+
+.L4:
+
+.L1:
+	func_end:	fib
+
+main:
+	alloca	#4	x
+	ASSIGN	x	#0
+	alloca	#4	i
+	ASSIGN	t1	#1
+	ASSIGN	i	t1
+
+.L14:
+	load	i	t2
+	jlt	t2	#8	t3
+	goto_eq	t3	#1	.L15
+	goto	.L16
+
+.L15:
+	load	x	t6
+	arg	t2
+	CALL	fib	t5
+	add	t6	t5	t7
+	ASSIGN	x	t7
+	add	t2	#1	t4
+	ASSIGN	i	t4
+	goto	.L14
+
+.L16:
+	ASSIGN	r0	t6
+	goto	.L13
+
+.L13:
+	func_end:	main
