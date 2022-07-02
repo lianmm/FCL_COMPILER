@@ -1,0 +1,74 @@
+
+ifWhile:
+	alloca	#4	a
+	ASSIGN	t0	#0
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#3
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+
+.L14:
+	load	b	t5
+	ASSIGN	t6	#2
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L15
+	goto	.L16
+
+.L15:
+	load	b	t8
+	ASSIGN	t9	#2
+	add	t8	t9	t10
+	ASSIGN	b	t10
+	goto	.L14
+
+.L16:
+	load	b	t11
+	ASSIGN	t12	#25
+	add	t11	t12	t13
+	ASSIGN	b	t13
+	goto	.L10
+
+.L9:
+
+.L32:
+	load	a	t14
+	ASSIGN	t15	#5
+	jlt	t14	t15	t16
+	goto_eq	t16	#1	.L33
+	goto	.L34
+
+.L33:
+	load	b	t17
+	ASSIGN	t18	#2
+	mul	t17	t18	t19
+	ASSIGN	b	t19
+	load	a	t20
+	ASSIGN	t21	#1
+	add	t20	t21	t22
+	ASSIGN	a	t22
+	goto	.L32
+
+.L34:
+
+.L10:
+	load	b	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	ifWhile
+
+main:
+	CALL	ifWhile	t0
+	ASSIGN	r0	t0
+	goto	.L50
+
+.L50:
+	func_end:	main

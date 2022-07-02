@@ -1,0 +1,608 @@
+	alloca	#4	TOKEN_NUM
+	ASSIGN	t0	#0
+	ASSIGN	TOKEN_NUM	t0
+	alloca	#4	TOKEN_OTHER
+	ASSIGN	t1	#1
+	ASSIGN	TOKEN_OTHER	t1
+	alloca	#4	last_char
+	ASSIGN	t2	#32
+	ASSIGN	last_char	t2
+	alloca	#4	num
+	alloca	#4	other
+	alloca	#4	cur_token
+
+next_char:
+	CALL	getch	t0
+	ASSIGN	last_char	t0
+	load	last_char	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	next_char
+
+is_space:
+	param	c
+	alloca	#4	c
+	load	c	t0
+	ASSIGN	t1	#32
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L9
+	goto	.L10
+
+.L10:
+	ASSIGN	t3	#10
+	eq	t0	t3	t4
+
+.L11:
+
+.L9:
+	goto_eq	t2	#1	.L6
+	goto	.L7
+
+.L6:
+	ASSIGN	t6	#1
+	ASSIGN	r0	t6
+	goto	.L5
+	goto	.L8
+
+.L7:
+	ASSIGN	t7	#0
+	ASSIGN	r0	t7
+	goto	.L5
+
+.L8:
+
+.L5:
+	func_end:	is_space
+
+is_num:
+	param	c
+	alloca	#4	c
+	load	c	t0
+	ASSIGN	t1	#48
+	jge	t0	t1	t2
+	goto_eq	t2	#1	.L23
+	goto	.L22
+
+.L23:
+	ASSIGN	t3	#57
+	jle	t0	t3	t4
+
+.L24:
+
+.L22:
+	goto_eq	t2	#1	.L19
+	goto	.L20
+
+.L19:
+	ASSIGN	t6	#1
+	ASSIGN	r0	t6
+	goto	.L18
+	goto	.L21
+
+.L20:
+	ASSIGN	t7	#0
+	ASSIGN	r0	t7
+	goto	.L18
+
+.L21:
+
+.L18:
+	func_end:	is_num
+
+next_token:
+
+.L32:
+	load	last_char	t0
+	arg	t0
+	CALL	is_space	t1
+	neq	t1	#0	t1
+	goto_eq	t1	#1	.L33
+	goto	.L34
+
+.L33:
+	CALL	next_char	t2
+	goto	.L32
+
+.L34:
+	load	last_char	t3
+	arg	t3
+	CALL	is_num	t4
+	neq	t4	#0	t4
+	goto_eq	t4	#1	.L35
+	goto	.L36
+
+.L35:
+	ASSIGN	t5	#48
+	sub	t3	t5	t6
+	ASSIGN	num	t6
+
+.L44:
+	CALL	next_char	t7
+	arg	t7
+	CALL	is_num	t8
+	neq	t8	#0	t8
+	goto_eq	t8	#1	.L45
+	goto	.L46
+
+.L45:
+	load	num	t9
+	ASSIGN	t10	#10
+	mul	t9	t10	t11
+	load	last_char	t12
+	add	t11	t12	t13
+	ASSIGN	t14	#48
+	sub	t13	t14	t15
+	ASSIGN	num	t15
+	goto	.L44
+
+.L46:
+	ASSIGN	t16	#0
+	ASSIGN	cur_token	t16
+	goto	.L37
+
+.L36:
+	load	last_char	t17
+	ASSIGN	other	t17
+	CALL	next_char	t18
+	ASSIGN	t19	#1
+	ASSIGN	cur_token	t19
+
+.L37:
+	load	cur_token	t20
+	ASSIGN	r0	t20
+	goto	.L31
+
+.L31:
+	func_end:	next_token
+
+panic:
+	ASSIGN	t0	#112
+	arg	t0
+	call_void	putch
+	ASSIGN	t1	#97
+	arg	t1
+	call_void	putch
+	ASSIGN	t2	#110
+	arg	t2
+	call_void	putch
+	ASSIGN	t3	#105
+	arg	t3
+	call_void	putch
+	ASSIGN	t4	#99
+	arg	t4
+	call_void	putch
+	ASSIGN	t5	#33
+	arg	t5
+	call_void	putch
+	ASSIGN	t6	#10
+	arg	t6
+	call_void	putch
+	ASSIGN	t7	#-1
+	ASSIGN	r0	t7
+	goto	.L68
+
+.L68:
+	func_end:	panic
+
+get_op_prec:
+	param	op
+	alloca	#4	op
+	load	op	t0
+	ASSIGN	t1	#43
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L72
+	goto	.L73
+
+.L73:
+	ASSIGN	t3	#45
+	eq	t0	t3	t4
+
+.L74:
+
+.L72:
+	goto_eq	t2	#1	.L70
+	goto	.L71
+
+.L70:
+	ASSIGN	t6	#10
+	ASSIGN	r0	t6
+	goto	.L69
+
+.L71:
+	load	op	t7
+	ASSIGN	t8	#42
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L86
+	goto	.L87
+
+.L87:
+	ASSIGN	t10	#47
+	eq	t7	t10	t11
+
+.L88:
+
+.L86:
+	goto_eq	t9	#1	.L83
+	goto	.L84
+
+.L84:
+	ASSIGN	t13	#37
+	eq	t7	t13	t14
+
+.L85:
+
+.L83:
+	goto_eq	t9	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t16	#20
+	ASSIGN	r0	t16
+	goto	.L69
+
+.L82:
+	ASSIGN	t17	#0
+	ASSIGN	r0	t17
+	goto	.L69
+
+.L69:
+	func_end:	get_op_prec
+
+stack_push:
+	param	s
+	alloca	#4	s
+	param	v
+	alloca	#4	v
+	ASSIGN	t0	#0
+	ASSIGN	t1	#0
+	load	s	t2
+	exp_arroff	t3,	[t2, t1]
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	load	s	t6
+	arroff_exp	t5,	[t6, t0]
+	ASSIGN	t7	#0
+	load	v	t8
+	load	s	t9
+	arroff_exp	t8,	[t9, t7]
+
+.L98:
+	func_end:	stack_push
+
+stack_pop:
+	param	s
+	alloca	#4	s
+	ASSIGN	t0	#0
+	load	s	t1
+	exp_arroff	t2,	[t1, t0]
+	load	s	t3
+	exp_arroff	t4,	[t3, t2]
+	alloca	#4	last
+	ASSIGN	last	t4
+	ASSIGN	t5	#0
+	ASSIGN	t6	#0
+	load	s	t7
+	exp_arroff	t8,	[t7, t6]
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	load	s	t11
+	arroff_exp	t10,	[t11, t5]
+	load	last	t12
+	ASSIGN	r0	t12
+	goto	.L108
+
+.L108:
+	func_end:	stack_pop
+
+stack_peek:
+	param	s
+	alloca	#4	s
+	ASSIGN	t0	#0
+	load	s	t1
+	exp_arroff	t2,	[t1, t0]
+	load	s	t3
+	exp_arroff	t4,	[t3, t2]
+	ASSIGN	r0	t4
+	goto	.L115
+
+.L115:
+	func_end:	stack_peek
+
+stack_size:
+	param	s
+	alloca	#4	s
+	ASSIGN	t0	#0
+	load	s	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	r0	t2
+	goto	.L116
+
+.L116:
+	func_end:	stack_size
+
+eval_op:
+	param	op
+	alloca	#4	op
+	param	lhs
+	alloca	#4	lhs
+	param	rhs
+	alloca	#4	rhs
+	load	op	t0
+	ASSIGN	t1	#43
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L118
+	goto	.L119
+
+.L118:
+	load	lhs	t3
+	load	rhs	t4
+	add	t3	t4	t5
+	ASSIGN	r0	t5
+	goto	.L117
+
+.L119:
+	load	op	t6
+	ASSIGN	t7	#45
+	eq	t6	t7	t8
+	goto_eq	t8	#1	.L126
+	goto	.L127
+
+.L126:
+	sub	t3	t4	t9
+	ASSIGN	r0	t9
+	goto	.L117
+
+.L127:
+	load	op	t10
+	ASSIGN	t11	#42
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L134
+	goto	.L135
+
+.L134:
+	mul	t3	t4	t13
+	ASSIGN	r0	t13
+	goto	.L117
+
+.L135:
+	load	op	t14
+	ASSIGN	t15	#47
+	eq	t14	t15	t16
+	goto_eq	t16	#1	.L142
+	goto	.L143
+
+.L142:
+	div	t3	t4	t17
+	ASSIGN	r0	t17
+	goto	.L117
+
+.L143:
+	load	op	t18
+	ASSIGN	t19	#37
+	eq	t18	t19	t20
+	goto_eq	t20	#1	.L150
+	goto	.L151
+
+.L150:
+	mod	t3	t4	t21
+	ASSIGN	r0	t21
+	goto	.L117
+
+.L151:
+	ASSIGN	t22	#0
+	ASSIGN	r0	t22
+	goto	.L117
+
+.L117:
+	func_end:	eval_op
+
+eval:
+	alloca	#1024	oprs
+	alloca	#1024	ops
+	ASSIGN	t0	#0
+	neq	t20	t0	t1
+	goto_eq	t1	#1	.L159
+	goto	.L160
+
+.L159:
+	CALL	panic	t2
+	ASSIGN	r0	t2
+	goto	.L158
+
+.L160:
+	ASSIGN	t3	#-1036
+	load	num	t4
+	arg	t3
+	arg	t4
+	call_void	stack_push
+	CALL	next_token	t5
+
+.L164:
+	load	cur_token	t6
+	ASSIGN	t7	#1
+	eq	t6	t7	t8
+	goto_eq	t8	#1	.L165
+	goto	.L166
+
+.L165:
+	alloca	#4	op
+	load	other	t9
+	ASSIGN	op	t9
+	load	op	t10
+	arg	t10
+	CALL	get_op_prec	t11
+	not	t11	t12
+	goto_eq	t12	#1	.L170
+	goto	.L171
+
+.L170:
+	goto	.L166
+
+.L171:
+	CALL	next_token	t13
+
+.L172:
+	ASSIGN	t14	#-2060
+	arg	t14
+	CALL	stack_size	t15
+	neq	t15	#0	t21
+	goto_eq	t15	#1	.L176
+	goto	.L175
+
+.L176:
+	ASSIGN	t16	#-2060
+	arg	t16
+	CALL	stack_peek	t17
+	arg	t17
+	CALL	get_op_prec	t18
+	load	op	t19
+	arg	t19
+	CALL	get_op_prec	t20
+	jge	t18	t20	t21
+
+.L177:
+
+.L175:
+	goto_eq	t15	#1	.L173
+	goto	.L174
+
+.L173:
+	ASSIGN	t23	#-2060
+	arg	t23
+	CALL	stack_pop	t24
+	alloca	#4	cur_op
+	ASSIGN	cur_op	t24
+	ASSIGN	t25	#-1036
+	arg	t25
+	CALL	stack_pop	t26
+	alloca	#4	rhs
+	ASSIGN	rhs	t26
+	ASSIGN	t27	#-1036
+	arg	t27
+	CALL	stack_pop	t28
+	alloca	#4	lhs
+	ASSIGN	lhs	t28
+	ASSIGN	t29	#-1036
+	load	cur_op	t30
+	load	lhs	t31
+	load	rhs	t32
+	arg	t30
+	arg	t31
+	arg	t32
+	CALL	eval_op	t33
+	arg	t29
+	arg	t33
+	call_void	stack_push
+	goto	.L172
+
+.L174:
+	ASSIGN	t34	#-2060
+	load	op	t35
+	arg	t34
+	arg	t35
+	call_void	stack_push
+	load	cur_token	t36
+	ASSIGN	t37	#0
+	neq	t36	t37	t38
+	goto_eq	t38	#1	.L181
+	goto	.L182
+
+.L181:
+	CALL	panic	t39
+	ASSIGN	r0	t39
+	goto	.L158
+
+.L182:
+	ASSIGN	t40	#-1036
+	load	num	t41
+	arg	t40
+	arg	t41
+	call_void	stack_push
+	CALL	next_token	t42
+	goto	.L164
+
+.L166:
+	CALL	next_token	t43
+
+.L186:
+	ASSIGN	t44	#-2060
+	arg	t44
+	CALL	stack_size	t45
+	neq	t45	#0	t45
+	goto_eq	t45	#1	.L187
+	goto	.L188
+
+.L187:
+	ASSIGN	t46	#-2060
+	arg	t46
+	CALL	stack_pop	t47
+	alloca	#4	cur_op
+	ASSIGN	cur_op	t47
+	ASSIGN	t48	#-1036
+	arg	t48
+	CALL	stack_pop	t49
+	alloca	#4	rhs
+	ASSIGN	rhs	t49
+	ASSIGN	t50	#-1036
+	arg	t50
+	CALL	stack_pop	t51
+	alloca	#4	lhs
+	ASSIGN	lhs	t51
+	ASSIGN	t52	#-1036
+	load	cur_op	t53
+	load	lhs	t54
+	load	rhs	t55
+	arg	t53
+	arg	t54
+	arg	t55
+	CALL	eval_op	t56
+	arg	t52
+	arg	t56
+	call_void	stack_push
+	goto	.L186
+
+.L188:
+	ASSIGN	t57	#-1036
+	arg	t57
+	CALL	stack_peek	t58
+	ASSIGN	r0	t58
+	goto	.L158
+
+.L158:
+	func_end:	eval
+
+main:
+	CALL	getint	t0
+	alloca	#4	count
+	ASSIGN	count	t0
+	CALL	getch	t1
+	CALL	next_token	t2
+
+.L190:
+	load	count	t3
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L191
+	goto	.L192
+
+.L191:
+	CALL	eval	t4
+	arg	t4
+	call_void	putint
+	ASSIGN	t5	#10
+	arg	t5
+	call_void	putch
+	load	count	t6
+	ASSIGN	t7	#1
+	sub	t6	t7	t8
+	ASSIGN	count	t8
+	goto	.L190
+
+.L192:
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L189
+
+.L189:
+	func_end:	main

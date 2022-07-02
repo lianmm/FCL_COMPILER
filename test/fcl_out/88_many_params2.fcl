@@ -1,0 +1,230 @@
+
+func:
+	alloca	#4	index
+	ASSIGN	t0	#0
+	ASSIGN	index	t0
+
+.L2:
+	load	index	t1
+	ASSIGN	t2	#10
+	jlt	t1	t2	t3
+	goto_eq	t3	#1	.L3
+	goto	.L4
+
+.L3:
+	load	a	t4
+	ASSIGN	t5	空变量
+	mul	t5	t4	t6
+	add	t1	t6	t7
+	load	b	t8
+	exp_arroff	t9,	[t8, t7]
+	arg	t9
+	call_void	putint
+	load	index	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	index	t12
+	goto	.L2
+
+.L4:
+	ASSIGN	t13	#10
+	arg	t13
+	call_void	putch
+	load	c	t14
+	load	d	t15
+	exp_arroff	t16,	[t15, t14]
+	arg	t16
+	call_void	putint
+	ASSIGN	t17	#10
+	arg	t17
+	call_void	putch
+
+.L14:
+	ASSIGN	t18	#10
+	jlt	i	t18	t19
+	goto_eq	t19	#1	.L15
+	goto	.L16
+
+.L15:
+	load	h	t20
+	ASSIGN	t21	#128875
+	mul	t20	t21	t22
+	ASSIGN	t23	#3724
+	mod	t22	t23	t24
+	load	g	t25
+	arroff_exp	t24,	[t25, i]
+	ASSIGN	t26	#1
+	add	i	t26	t27
+	ASSIGN	i	t27
+	load	h	t28
+	ASSIGN	t29	#7
+	add	t28	t29	t30
+	ASSIGN	h	t30
+	goto	.L14
+
+.L16:
+	load	e	t31
+	load	f	t32
+	add	t31	t32	t33
+	ASSIGN	r0	t33
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#16348	a
+	alloca	#12508	b
+	ASSIGN	t0	#1
+	ASSIGN	t1	#67
+	ASSIGN	t2	#17
+	mul	t1	t2	t3
+	add	t0	t3	t4
+	ASSIGN	t5	#6
+	arroff_exp	t5,	[a, t4]
+	ASSIGN	t6	#3
+	ASSIGN	t7	#67
+	ASSIGN	t8	#17
+	mul	t7	t8	t9
+	add	t6	t9	t10
+	ASSIGN	t11	#7
+	arroff_exp	t11,	[a, t10]
+	ASSIGN	t12	#4
+	ASSIGN	t13	#67
+	ASSIGN	t14	#17
+	mul	t13	t14	t15
+	add	t12	t15	t16
+	ASSIGN	t17	#4
+	arroff_exp	t17,	[a, t16]
+	ASSIGN	t18	#7
+	ASSIGN	t19	#67
+	ASSIGN	t20	#17
+	mul	t19	t20	t21
+	add	t18	t21	t22
+	ASSIGN	t23	#9
+	arroff_exp	t23,	[a, t22]
+	ASSIGN	t24	#11
+	ASSIGN	t25	#67
+	ASSIGN	t26	#17
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	ASSIGN	t29	#11
+	arroff_exp	t29,	[a, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#59
+	ASSIGN	t32	#6
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	ASSIGN	t35	#1
+	arroff_exp	t35,	[b, t34]
+	ASSIGN	t36	#2
+	ASSIGN	t37	#59
+	ASSIGN	t38	#6
+	mul	t37	t38	t39
+	add	t36	t39	t40
+	ASSIGN	t41	#2
+	arroff_exp	t41,	[b, t40]
+	ASSIGN	t42	#3
+	ASSIGN	t43	#59
+	ASSIGN	t44	#6
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#3
+	arroff_exp	t47,	[b, t46]
+	ASSIGN	t48	#9
+	ASSIGN	t49	#59
+	ASSIGN	t50	#6
+	mul	t49	t50	t51
+	add	t48	t51	t52
+	ASSIGN	t53	#9
+	arroff_exp	t53,	[b, t52]
+	alloca	#4	ret
+	ASSIGN	t54	#1
+	ASSIGN	t55	#67
+	ASSIGN	t56	#17
+	mul	t55	t56	t57
+	add	t54	t57	t58
+	exp_arroff	t59,	[a, t58]
+	ASSIGN	t60	#-28868
+	ASSIGN	t61	#3
+	ASSIGN	t62	#67
+	ASSIGN	t63	#17
+	mul	t62	t63	t64
+	add	t61	t64	t65
+	exp_arroff	t66,	[a, t65]
+	ASSIGN	t67	#17
+	exp_arroff	t68,	[a, t67]
+	ASSIGN	t69	#3
+	ASSIGN	t70	#59
+	ASSIGN	t71	#6
+	mul	t70	t71	t72
+	add	t69	t72	t73
+	exp_arroff	t74,	[b, t73]
+	ASSIGN	t75	#0
+	ASSIGN	t76	#59
+	ASSIGN	t77	#6
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[b, t79]
+	ASSIGN	t81	#6
+	exp_arroff	t82,	[b, t81]
+	ASSIGN	t83	#4
+	ASSIGN	t84	#59
+	ASSIGN	t85	#34
+	mul	t84	t85	t86
+	add	t83	t86	t87
+	exp_arroff	t88,	[b, t87]
+	ASSIGN	t89	#18
+	ASSIGN	t90	#59
+	ASSIGN	t91	#51
+	mul	t90	t91	t92
+	add	t89	t92	t93
+	exp_arroff	t94,	[b, t93]
+	arg	t59
+	arg	t60
+	arg	t66
+	arg	t68
+	arg	t74
+	arg	t80
+	arg	t82
+	arg	t88
+	arg	t94
+	CALL	func	t95
+	ASSIGN	t96	#3
+	mul	t95	t96	t97
+	ASSIGN	ret	t97
+
+.L78:
+	load	ret	t98
+	ASSIGN	t99	#0
+	jge	t98	t99	t100
+	goto_eq	t100	#1	.L79
+	goto	.L80
+
+.L79:
+	ASSIGN	t101	#59
+	ASSIGN	t102	#6
+	mul	t101	t102	t103
+	add	t98	t103	t104
+	exp_arroff	t105,	[b, t104]
+	arg	t105
+	call_void	putint
+	ASSIGN	t106	#32
+	arg	t106
+	call_void	putch
+	load	ret	t107
+	ASSIGN	t108	#1
+	sub	t107	t108	t109
+	ASSIGN	ret	t109
+	goto	.L78
+
+.L80:
+	ASSIGN	t110	#10
+	arg	t110
+	call_void	putch
+	ASSIGN	t111	#0
+	ASSIGN	r0	t111
+	goto	.L44
+
+.L44:
+	func_end:	main

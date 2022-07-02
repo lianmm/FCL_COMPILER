@@ -1,0 +1,257 @@
+	alloca	#4	N
+	ASSIGN	t0	#10000
+	ASSIGN	N	t0
+
+long_array:
+	param	k
+	alloca	#4	k
+	alloca	#40000	a1
+	alloca	#40000	a2
+	alloca	#40000	a3
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L2:
+	load	i	t1
+	ASSIGN	t2	#10000
+	jlt	t1	t2	t3
+	goto_eq	t3	#1	.L3
+	goto	.L4
+
+.L3:
+	load	i	t4
+	load	i	t5
+	mul	t4	t5	t6
+	ASSIGN	t7	#10
+	mod	t6	t7	t8
+	arroff_exp	t8,	[a1, t1]
+	load	i	t9
+	ASSIGN	t10	#1
+	add	t9	t10	t11
+	ASSIGN	i	t11
+	goto	.L2
+
+.L4:
+	ASSIGN	t12	#0
+	ASSIGN	i	t12
+
+.L26:
+	load	i	t13
+	ASSIGN	t14	#10000
+	jlt	t13	t14	t15
+	goto_eq	t15	#1	.L27
+	goto	.L28
+
+.L27:
+	exp_arroff	t16,	[a1, t13]
+	exp_arroff	t17,	[a1, t13]
+	mul	t16	t17	t18
+	ASSIGN	t19	#10
+	mod	t18	t19	t20
+	arroff_exp	t20,	[a2, t13]
+	load	i	t21
+	ASSIGN	t22	#1
+	add	t21	t22	t23
+	ASSIGN	i	t23
+	goto	.L26
+
+.L28:
+	ASSIGN	t24	#0
+	ASSIGN	i	t24
+
+.L50:
+	load	i	t25
+	ASSIGN	t26	#10000
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L51
+	goto	.L52
+
+.L51:
+	exp_arroff	t28,	[a2, t25]
+	exp_arroff	t29,	[a2, t25]
+	mul	t28	t29	t30
+	ASSIGN	t31	#100
+	mod	t30	t31	t32
+	exp_arroff	t33,	[a1, t25]
+	add	t32	t33	t34
+	arroff_exp	t34,	[a3, t25]
+	load	i	t35
+	ASSIGN	t36	#1
+	add	t35	t36	t37
+	ASSIGN	i	t37
+	goto	.L50
+
+.L52:
+	alloca	#4	ans
+	ASSIGN	t38	#0
+	ASSIGN	ans	t38
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L77:
+	load	i	t40
+	ASSIGN	t41	#10000
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L78
+	goto	.L79
+
+.L78:
+	load	i	t43
+	ASSIGN	t44	#10
+	jlt	t43	t44	t45
+	goto_eq	t45	#1	.L83
+	goto	.L84
+
+.L83:
+	load	ans	t47
+	exp_arroff	t46,	[a3, t43]
+	add	t47	t46	t48
+	ASSIGN	t49	#1333
+	mod	t48	t49	t50
+	ASSIGN	ans	t50
+	load	ans	t51
+	arg	t51
+	call_void	putint
+	goto	.L85
+
+.L84:
+	load	i	t52
+	ASSIGN	t53	#20
+	jlt	t52	t53	t54
+	goto_eq	t54	#1	.L98
+	goto	.L99
+
+.L98:
+	alloca	#4	j
+	ASSIGN	t55	#5000
+	ASSIGN	j	t55
+
+.L107:
+	load	j	t56
+	ASSIGN	t57	#10000
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L108
+	goto	.L109
+
+.L108:
+	load	ans	t60
+	exp_arroff	t59,	[a3, t52]
+	add	t60	t59	t61
+	exp_arroff	t62,	[a1, t56]
+	sub	t61	t62	t63
+	ASSIGN	ans	t63
+	load	j	t64
+	ASSIGN	t65	#1
+	add	t64	t65	t66
+	ASSIGN	j	t66
+	goto	.L107
+
+.L109:
+	load	ans	t67
+	arg	t67
+	call_void	putint
+	goto	.L100
+
+.L99:
+	load	i	t68
+	ASSIGN	t69	#30
+	jlt	t68	t69	t70
+	goto_eq	t70	#1	.L128
+	goto	.L129
+
+.L128:
+	alloca	#4	j
+	ASSIGN	t71	#5000
+	ASSIGN	j	t71
+
+.L137:
+	load	j	t72
+	ASSIGN	t73	#10000
+	jlt	t72	t73	t74
+	goto_eq	t74	#1	.L138
+	goto	.L139
+
+.L138:
+	load	j	t75
+	ASSIGN	t76	#2233
+	jgt	t75	t76	t77
+	goto_eq	t77	#1	.L143
+	goto	.L144
+
+.L143:
+	load	ans	t79
+	exp_arroff	t78,	[a2, t68]
+	add	t79	t78	t80
+	exp_arroff	t81,	[a1, t75]
+	sub	t80	t81	t82
+	ASSIGN	ans	t82
+	load	j	t83
+	ASSIGN	t84	#1
+	add	t83	t84	t85
+	ASSIGN	j	t85
+	goto	.L145
+
+.L144:
+	load	ans	t87
+	exp_arroff	t86,	[a1, t68]
+	add	t87	t86	t88
+	load	j	t89
+	exp_arroff	t90,	[a3, t89]
+	add	t88	t90	t91
+	ASSIGN	t92	#13333
+	mod	t91	t92	t93
+	ASSIGN	ans	t93
+	load	j	t94
+	ASSIGN	t95	#2
+	add	t94	t95	t96
+	ASSIGN	j	t96
+
+.L145:
+	goto	.L137
+
+.L139:
+	load	ans	t97
+	arg	t97
+	call_void	putint
+	goto	.L130
+
+.L129:
+	load	ans	t102
+	load	i	t98
+	exp_arroff	t99,	[a3, t98]
+	load	k	t100
+	mul	t99	t100	t101
+	add	t102	t101	t103
+	ASSIGN	t104	#99988
+	mod	t103	t104	t105
+	ASSIGN	ans	t105
+
+.L130:
+
+.L100:
+
+.L85:
+	load	i	t106
+	ASSIGN	t107	#1
+	add	t106	t107	t108
+	ASSIGN	i	t108
+	goto	.L77
+
+.L79:
+	load	ans	t109
+	ASSIGN	r0	t109
+	goto	.L1
+
+.L1:
+	func_end:	long_array
+
+main:
+	ASSIGN	t0	#9
+	arg	t0
+	CALL	long_array	t1
+	ASSIGN	r0	t1
+	goto	.L200
+
+.L200:
+	func_end:	main

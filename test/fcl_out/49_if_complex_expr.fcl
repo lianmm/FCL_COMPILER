@@ -1,0 +1,113 @@
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	ASSIGN	t4	#2
+	ASSIGN	result	t4
+	load	d	t5
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	ASSIGN	t8	#2
+	div	t7	t8	t9
+	ASSIGN	t10	#0
+	jlt	t9	t10	t11
+	goto_eq	t11	#1	.L19
+	goto	.L20
+
+.L20:
+	load	a	t12
+	load	b	t13
+	sub	t12	t13	t14
+	ASSIGN	t15	#0
+	neq	t14	t15	t16
+	goto_eq	t16	#1	.L32
+	goto	.L31
+
+.L32:
+	load	c	t17
+	ASSIGN	t18	#3
+	add	t17	t18	t19
+	ASSIGN	t20	#2
+	mod	t19	t20	t21
+	ASSIGN	t22	#0
+	neq	t21	t22	t23
+
+.L33:
+
+.L31:
+
+.L21:
+
+.L19:
+	goto_eq	t11	#1	.L17
+	goto	.L18
+
+.L17:
+	load	result	t26
+	arg	t26
+	call_void	putint
+
+.L18:
+	load	d	t27
+	ASSIGN	t28	#2
+	mod	t27	t28	t29
+	ASSIGN	t30	#67
+	add	t29	t30	t31
+	ASSIGN	t32	#0
+	jlt	t31	t32	t33
+	goto_eq	t33	#1	.L51
+	goto	.L52
+
+.L52:
+	load	a	t34
+	load	b	t35
+	sub	t34	t35	t36
+	ASSIGN	t37	#0
+	neq	t36	t37	t38
+	goto_eq	t38	#1	.L64
+	goto	.L63
+
+.L64:
+	load	c	t39
+	ASSIGN	t40	#2
+	add	t39	t40	t41
+	ASSIGN	t42	#2
+	mod	t41	t42	t43
+	ASSIGN	t44	#0
+	neq	t43	t44	t45
+
+.L65:
+
+.L63:
+
+.L53:
+
+.L51:
+	goto_eq	t33	#1	.L49
+	goto	.L50
+
+.L49:
+	ASSIGN	t48	#4
+	ASSIGN	result	t48
+	load	result	t49
+	arg	t49
+	call_void	putint
+
+.L50:
+	ASSIGN	t50	#0
+	ASSIGN	r0	t50
+	goto	.L1
+
+.L1:
+	func_end:	main

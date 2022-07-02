@@ -1,0 +1,242 @@
+	alloca	#4	n
+
+QuickSort:
+	param	arr
+	alloca	#4	arr
+	param	low
+	alloca	#4	low
+	param	high
+	alloca	#4	high
+	load	low	t0
+	load	high	t1
+	jlt	t0	t1	t2
+	goto_eq	t2	#1	.L2
+	goto	.L3
+
+.L2:
+	alloca	#4	i
+	ASSIGN	i	t0
+	alloca	#4	j
+	ASSIGN	j	t1
+	alloca	#4	k
+	load	arr	t3
+	exp_arroff	t4,	[t3, t0]
+	ASSIGN	k	t4
+
+.L16:
+	load	i	t5
+	load	j	t6
+	jlt	t5	t6	t7
+	goto_eq	t7	#1	.L17
+	goto	.L18
+
+.L17:
+
+.L22:
+	load	i	t8
+	load	j	t9
+	jlt	t8	t9	t10
+	goto_eq	t10	#1	.L26
+	goto	.L25
+
+.L26:
+	load	arr	t11
+	exp_arroff	t12,	[t11, t9]
+	load	k	t13
+	ASSIGN	t14	#1
+	sub	t13	t14	t15
+	jgt	t12	t15	t16
+
+.L27:
+
+.L25:
+	goto_eq	t10	#1	.L23
+	goto	.L24
+
+.L23:
+	load	j	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	j	t20
+	goto	.L22
+
+.L24:
+	load	i	t21
+	load	j	t22
+	jlt	t21	t22	t23
+	goto_eq	t23	#1	.L43
+	goto	.L44
+
+.L43:
+	load	arr	t24
+	exp_arroff	t25,	[t24, t22]
+	load	arr	t26
+	arroff_exp	t25,	[t26, t21]
+	load	i	t27
+	ASSIGN	t28	#1
+	add	t27	t28	t29
+	ASSIGN	i	t29
+
+.L44:
+
+.L57:
+	load	i	t30
+	load	j	t31
+	jlt	t30	t31	t32
+	goto_eq	t32	#1	.L61
+	goto	.L60
+
+.L61:
+	load	arr	t33
+	exp_arroff	t34,	[t33, t30]
+	load	k	t35
+	jlt	t34	t35	t36
+
+.L62:
+
+.L60:
+	goto_eq	t32	#1	.L58
+	goto	.L59
+
+.L58:
+	load	i	t38
+	ASSIGN	t39	#1
+	add	t38	t39	t40
+	ASSIGN	i	t40
+	goto	.L57
+
+.L59:
+	load	i	t41
+	load	j	t42
+	jlt	t41	t42	t43
+	goto_eq	t43	#1	.L75
+	goto	.L76
+
+.L75:
+	load	arr	t44
+	exp_arroff	t45,	[t44, t41]
+	load	arr	t46
+	arroff_exp	t45,	[t46, t42]
+	load	j	t47
+	ASSIGN	t48	#1
+	sub	t47	t48	t49
+	ASSIGN	j	t49
+
+.L76:
+	goto	.L16
+
+.L18:
+	load	i	t50
+	load	k	t51
+	load	arr	t52
+	arroff_exp	t51,	[t52, t50]
+	alloca	#4	tmp
+	ASSIGN	t53	#1
+	sub	t50	t53	t54
+	ASSIGN	tmp	t54
+	load	arr	t55
+	load	tmp	t56
+	arg	t55
+	arg	t0
+	arg	t56
+	CALL	QuickSort	t57
+	ASSIGN	tmp	t57
+	ASSIGN	t58	#1
+	add	t50	t58	t59
+	ASSIGN	tmp	t59
+	load	arr	t60
+	arg	t60
+	arg	t59
+	arg	t1
+	CALL	QuickSort	t61
+	ASSIGN	tmp	t61
+
+.L3:
+	ASSIGN	t62	#0
+	ASSIGN	r0	t62
+	goto	.L1
+
+.L1:
+	func_end:	QuickSort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	alloca	#4	tmp
+	ASSIGN	t22	#9
+	ASSIGN	tmp	t22
+	ASSIGN	t23	#-52
+	load	i	t24
+	load	tmp	t25
+	arg	t23
+	arg	t24
+	arg	t25
+	CALL	QuickSort	t26
+	ASSIGN	i	t26
+
+.L153:
+	load	i	t27
+	load	n	t28
+	jlt	t27	t28	t29
+	goto_eq	t29	#1	.L154
+	goto	.L155
+
+.L154:
+	alloca	#4	tmp
+	exp_arroff	t30,	[a, t27]
+	ASSIGN	tmp	t30
+	load	tmp	t31
+	arg	t31
+	call_void	putint
+	ASSIGN	t32	#10
+	ASSIGN	tmp	t32
+	load	tmp	t33
+	arg	t33
+	call_void	putch
+	load	i	t34
+	ASSIGN	t35	#1
+	add	t34	t35	t36
+	ASSIGN	i	t36
+	goto	.L153
+
+.L155:
+	ASSIGN	t37	#0
+	ASSIGN	r0	t37
+	goto	.L110
+
+.L110:
+	func_end:	main

@@ -1,0 +1,44 @@
+
+main:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	alloca	#4	sum
+	ASSIGN	t1	#0
+	ASSIGN	sum	t1
+
+.L8:
+	load	i	t2
+	ASSIGN	t3	#100
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L9
+	goto	.L10
+
+.L9:
+	load	i	t5
+	ASSIGN	t6	#50
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L14
+	goto	.L15
+
+.L14:
+	goto	.L10
+
+.L15:
+	load	sum	t8
+	load	i	t9
+	add	t8	t9	t10
+	ASSIGN	sum	t10
+	load	i	t11
+	ASSIGN	t12	#1
+	add	t11	t12	t13
+	ASSIGN	i	t13
+	goto	.L8
+
+.L10:
+	load	sum	t14
+	ASSIGN	r0	t14
+	goto	.L1
+
+.L1:
+	func_end:	main

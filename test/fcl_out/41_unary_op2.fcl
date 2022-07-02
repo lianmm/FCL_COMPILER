@@ -1,0 +1,41 @@
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#56
+	ASSIGN	a	t0
+	ASSIGN	t1	#4
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-4
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	a	t6
+	not	t6	t7
+	not	t7	t8
+	not	t8	t9
+	uminus	t9	t10
+	goto_eq	t10	#1	.L17
+	goto	.L18
+
+.L17:
+	ASSIGN	t11	#-1
+	ASSIGN	a	t11
+	goto	.L19
+
+.L18:
+	ASSIGN	t12	#0
+	add	t12	t5	t13
+	ASSIGN	a	t13
+
+.L19:
+	load	a	t14
+	arg	t14
+	call_void	putint
+	ASSIGN	t15	#0
+	ASSIGN	r0	t15
+	goto	.L1
+
+.L1:
+	func_end:	main

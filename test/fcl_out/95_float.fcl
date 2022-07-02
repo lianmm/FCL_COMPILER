@@ -1,0 +1,346 @@
+	alloca	#4	RADIUS
+	ASSIGN	t0	#5.500000
+	ASSIGN	RADIUS	t0
+	alloca	#4	PI
+	ASSIGN	t1	#3.141593
+	ASSIGN	PI	t1
+	alloca	#4	EPS
+	ASSIGN	t2	#0.000001
+	ASSIGN	EPS	t2
+	alloca	#4	FACT
+	ASSIGN	t3	#-33000.000000
+	ASSIGN	FACT	t3
+	alloca	#4	EVAL1
+	ASSIGN	t4	#0
+	ASSIGN	EVAL1	t4
+	ASSIGN	t5	#2
+	mul	t5	PI_HEX	t6
+	ASSIGN	t7	#0
+	mul	t6	t7	t8
+	alloca	#4	EVAL2
+	ASSIGN	EVAL2	t8
+	alloca	#4	EVAL3
+	ASSIGN	t9	#0
+	ASSIGN	EVAL3	t9
+	alloca	#4	CONV1
+	ASSIGN	t10	#233
+	ASSIGN	CONV1	t10
+	alloca	#4	CONV2
+	ASSIGN	t11	#4095
+	ASSIGN	CONV2	t11
+	alloca	#4	MAX
+	ASSIGN	t12	#1000000000.000000
+	ASSIGN	MAX	t12
+	alloca	#4	TWO
+	ASSIGN	t13	#2.900000
+	ASSIGN	TWO	t13
+	alloca	#4	THREE
+	ASSIGN	t14	#3.200000
+	ASSIGN	THREE	t14
+	alloca	#4	FIVE
+	ASSIGN	t15	#0
+	ASSIGN	FIVE	t15
+
+float_abs:
+	param	x
+	alloca	#4	x
+	load	x	t0
+	ASSIGN	t1	#0
+	jlt	t0	t1	t2
+	goto_eq	t2	#1	.L23
+	goto	.L24
+
+.L23:
+	uminus	t0	t3
+	ASSIGN	r0	t3
+	goto	.L22
+
+.L24:
+	load	x	t4
+	ASSIGN	r0	t4
+	goto	.L22
+
+.L22:
+	func_end:	float_abs
+
+circle_area:
+	param	radius
+	alloca	#4	radius
+	ASSIGN	t0	#0
+	load	radius	t1
+	mul	t0	t1	t2
+	mul	t2	t1	t3
+	mul	t1	t1	t4
+	ASSIGN	t5	#0
+	mul	t4	t5	t6
+	add	t3	t6	t7
+	ASSIGN	t8	#2
+	div	t7	t8	t9
+	ASSIGN	r0	t9
+	goto	.L28
+
+.L28:
+	func_end:	circle_area
+
+float_eq:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	load	a	t0
+	load	b	t1
+	sub	t0	t1	t2
+	arg	t2
+	CALL	float_abs	t3
+	ASSIGN	t4	#0
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t6	#-nan
+	ASSIGN	r0	t6
+	goto	.L47
+	goto	.L50
+
+.L49:
+	ASSIGN	t7	#0
+	ASSIGN	r0	t7
+	goto	.L47
+
+.L50:
+
+.L47:
+	func_end:	float_eq
+
+error:
+	ASSIGN	t0	#101
+	arg	t0
+	call_void	putch
+	ASSIGN	t1	#114
+	arg	t1
+	call_void	putch
+	ASSIGN	t2	#114
+	arg	t2
+	call_void	putch
+	ASSIGN	t3	#111
+	arg	t3
+	call_void	putch
+	ASSIGN	t4	#114
+	arg	t4
+	call_void	putch
+	ASSIGN	t5	#10
+	arg	t5
+	call_void	putch
+
+.L63:
+	func_end:	error
+
+ok:
+	ASSIGN	t0	#111
+	arg	t0
+	call_void	putch
+	ASSIGN	t1	#107
+	arg	t1
+	call_void	putch
+	ASSIGN	t2	#10
+	arg	t2
+	call_void	putch
+
+.L64:
+	func_end:	ok
+
+assert:
+	param	cond
+	alloca	#4	cond
+	load	cond	t0
+	not	t0	t1
+	goto_eq	t1	#1	.L66
+	goto	.L67
+
+.L66:
+	call_void	error
+	goto	.L68
+
+.L67:
+	call_void	ok
+
+.L68:
+
+.L65:
+	func_end:	assert
+
+assert_not:
+	param	cond
+	alloca	#4	cond
+	load	cond	t0
+	neq	t0	#0	t0
+	goto_eq	t0	#1	.L70
+	goto	.L71
+
+.L70:
+	call_void	error
+	goto	.L72
+
+.L71:
+	call_void	ok
+
+.L72:
+
+.L69:
+	func_end:	assert_not
+
+main:
+	ASSIGN	t0	#0
+	arg	HEX2
+	arg	t0
+	CALL	float_eq	t1
+	arg	t1
+	call_void	assert_not
+	ASSIGN	t2	#0
+	ASSIGN	t3	#0
+	arg	t2
+	arg	t3
+	CALL	float_eq	t4
+	arg	t4
+	call_void	assert_not
+	ASSIGN	t5	#0
+	ASSIGN	t6	#0
+	arg	t5
+	arg	t6
+	CALL	float_eq	t7
+	arg	t7
+	call_void	assert
+	ASSIGN	t8	#0
+	arg	t8
+	CALL	circle_area	t9
+	ASSIGN	t10	#0
+	arg	t10
+	CALL	circle_area	t11
+	arg	t9
+	arg	t11
+	CALL	float_eq	t12
+	arg	t12
+	call_void	assert
+	ASSIGN	t13	#233
+	ASSIGN	t14	#4095
+	arg	t13
+	arg	t14
+	CALL	float_eq	t15
+	arg	t15
+	call_void	assert_not
+	ASSIGN	t16	#1.500000
+	eq	t16	#1	#1.500000
+	goto_eq	t16	#1	.L74
+	goto	.L75
+
+.L74:
+	call_void	ok
+
+.L75:
+	ASSIGN	t17	#1
+	eq	t17	#1	#3.300000
+	goto_eq	t17	#1	.L76
+	goto	.L77
+
+.L76:
+	call_void	ok
+
+.L77:
+	eq	#0.000000	#1	#0.000000
+	ASSIGN	t18	#0.000000
+	eq	t18	#1	#0.000000
+	goto_eq	t18	#1	.L78
+	goto	.L79
+
+.L78:
+	call_void	error
+
+.L79:
+	eq	#1.000000	#1	#0.300000
+	ASSIGN	t19	#1.000000
+	eq	t19	#1	#0.300000
+	goto_eq	t19	#1	.L83
+	goto	.L84
+
+.L83:
+	call_void	ok
+
+.L84:
+	alloca	#4	i
+	ASSIGN	t20	#1
+	ASSIGN	i	t20
+	alloca	#4	p
+	ASSIGN	t21	#0
+	ASSIGN	p	t21
+	alloca	#40	arr
+	ASSIGN	t22	#1.000000
+	arroff_expi	arr	#0	t22
+	ASSIGN	t23	#2
+	arroff_expi	arr	#4	t23
+	ASSIGN	t24	#-60
+	arg	t24
+	CALL	getfarray	t25
+	alloca	#4	len
+	ASSIGN	len	t25
+
+.L88:
+	load	i	t26
+	ASSIGN	t27	#0
+	jlt	t26	t27	t28
+	goto_eq	t28	#1	.L89
+	goto	.L90
+
+.L89:
+	CALL	getfloat	t29
+	alloca	#4	input
+	ASSIGN	input	t29
+	ASSIGN	t30	#0
+	load	input	t31
+	mul	t30	t31	t32
+	mul	t32	t31	t33
+	alloca	#4	area
+	ASSIGN	area	t33
+	arg	t31
+	CALL	circle_area	t34
+	alloca	#4	area_trunc
+	ASSIGN	area_trunc	t34
+	load	p	t35
+	exp_arroff	t36,	[arr, t35]
+	load	input	t37
+	add	t36	t37	t38
+	arroff_exp	t38,	[arr, t35]
+	load	area	t39
+	arg	t39
+	call_void	putfloat
+	ASSIGN	t40	#32
+	arg	t40
+	call_void	putch
+	load	area_trunc	t41
+	arg	t41
+	call_void	putint
+	ASSIGN	t42	#10
+	arg	t42
+	call_void	putch
+	load	i	t43
+	ASSIGN	t44	#10.000000
+	mul	t43	t44	t45
+	ASSIGN	i	t45
+	load	p	t46
+	ASSIGN	t47	#1
+	add	t46	t47	t48
+	ASSIGN	p	t48
+	goto	.L88
+
+.L90:
+	load	len	t49
+	ASSIGN	t50	#-60
+	arg	t49
+	arg	t50
+	call_void	putfarray
+	ASSIGN	t51	#0
+	ASSIGN	r0	t51
+	goto	.L73
+
+.L73:
+	func_end:	main

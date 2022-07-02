@@ -1,0 +1,49 @@
+
+reverse:
+	param	n
+	alloca	#4	n
+	alloca	#4	next
+	load	n	t0
+	ASSIGN	t1	#1
+	jle	t0	t1	t2
+	goto_eq	t2	#1	.L2
+	goto	.L3
+
+.L2:
+	CALL	getint	t3
+	ASSIGN	next	t3
+	load	next	t4
+	arg	t4
+	call_void	putint
+	goto	.L4
+
+.L3:
+	CALL	getint	t5
+	ASSIGN	next	t5
+	load	n	t6
+	ASSIGN	t7	#1
+	sub	t6	t7	t8
+	arg	t8
+	call_void	reverse
+	load	next	t9
+	arg	t9
+	call_void	putint
+
+.L4:
+
+.L1:
+	func_end:	reverse
+
+main:
+	alloca	#4	i
+	ASSIGN	t0	#200
+	ASSIGN	i	t0
+	load	i	t1
+	arg	t1
+	call_void	reverse
+	ASSIGN	t2	#0
+	ASSIGN	r0	t2
+	goto	.L17
+
+.L17:
+	func_end:	main

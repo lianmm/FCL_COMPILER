@@ -1,0 +1,73 @@
+	alloca	#16384	a
+
+f1:
+	param	b
+	alloca	#4	b
+	ASSIGN	t0	#5
+	ASSIGN	t1	#4000
+	arroff_exp	t1,	[a, t0]
+	ASSIGN	t2	#4000
+	ASSIGN	t3	#3
+	arroff_exp	t3,	[a, t2]
+	ASSIGN	t4	#4095
+	ASSIGN	t5	#7
+	arroff_exp	t5,	[a, t4]
+	ASSIGN	t6	#4095
+	ASSIGN	t7	#2216
+	exp_arroff	t8,	[a, t7]
+	ASSIGN	t9	#9
+	add	t8	t9	t10
+	load	b	t11
+	arroff_exp	t10,	[t11, t6]
+	ASSIGN	t12	#5
+	exp_arroff	t13,	[a, t12]
+	exp_arroff	t14,	[a, t13]
+	ASSIGN	r0	t14
+	goto	.L1
+
+.L1:
+	func_end:	f1
+
+main:
+	alloca	#16384	b
+	ASSIGN	t0	#1
+	arroff_expi	b	#4096	t0
+	ASSIGN	t1	#2
+	arroff_expi	b	#8192	t1
+	ASSIGN	t2	#3
+	arroff_expi	b	#8196	t2
+	ASSIGN	t3	#4
+	arroff_expi	b	#12288	t3
+	ASSIGN	t4	#5
+	arroff_expi	b	#12292	t4
+	ASSIGN	t5	#6
+	arroff_expi	b	#12296	t5
+	alloca	#16384	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#16	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#20	t9
+	ASSIGN	t10	#0
+	exp_arroff	t11,	[c, t10]
+	arg	t11
+	CALL	f1	t12
+	arg	t12
+	call_void	putint
+	ASSIGN	t13	#10
+	arg	t13
+	call_void	putch
+	ASSIGN	t14	#0
+	ASSIGN	t15	#4
+	ASSIGN	t16	#2
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[c, t18]
+	ASSIGN	r0	t19
+	goto	.L17
+
+.L17:
+	func_end:	main

@@ -1,0 +1,70 @@
+
+whileIf:
+	alloca	#4	a
+	ASSIGN	t0	#0
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+
+.L8:
+	load	a	t2
+	ASSIGN	t3	#100
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L9
+	goto	.L10
+
+.L9:
+	load	a	t5
+	ASSIGN	t6	#5
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L14
+	goto	.L15
+
+.L14:
+	ASSIGN	t8	#25
+	ASSIGN	b	t8
+	goto	.L16
+
+.L15:
+	load	a	t9
+	ASSIGN	t10	#10
+	eq	t9	t10	t11
+	goto_eq	t11	#1	.L23
+	goto	.L24
+
+.L23:
+	ASSIGN	t12	#42
+	ASSIGN	b	t12
+	goto	.L25
+
+.L24:
+	load	a	t13
+	ASSIGN	t14	#2
+	mul	t13	t14	t15
+	ASSIGN	b	t15
+
+.L25:
+
+.L16:
+	load	a	t16
+	ASSIGN	t17	#1
+	add	t16	t17	t18
+	ASSIGN	a	t18
+	goto	.L8
+
+.L10:
+	load	b	t19
+	ASSIGN	r0	t19
+	goto	.L1
+
+.L1:
+	func_end:	whileIf
+
+main:
+	CALL	whileIf	t0
+	ASSIGN	r0	t0
+	goto	.L44
+
+.L44:
+	func_end:	main

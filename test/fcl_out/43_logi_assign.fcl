@@ -1,0 +1,41 @@
+	alloca	#4	a
+	alloca	#4	b
+
+main:
+	CALL	getint	t0
+	ASSIGN	a	t0
+	CALL	getint	t1
+	ASSIGN	b	t1
+	alloca	#4	c
+	load	a	t2
+	load	b	t3
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L12
+	goto	.L11
+
+.L12:
+	ASSIGN	t5	#3
+	neq	t2	t5	t6
+
+.L13:
+
+.L11:
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	ASSIGN	t8	#1
+	ASSIGN	c	t8
+	goto	.L10
+
+.L9:
+	ASSIGN	t9	#0
+	ASSIGN	c	t9
+
+.L10:
+	load	c	t10
+	ASSIGN	r0	t10
+	goto	.L1
+
+.L1:
+	func_end:	main

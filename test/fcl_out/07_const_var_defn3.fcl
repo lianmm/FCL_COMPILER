@@ -1,0 +1,14 @@
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#5
+	ASSIGN	r0	t2
+	goto	.L1
+
+.L1:
+	func_end:	main

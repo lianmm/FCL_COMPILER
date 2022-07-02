@@ -1,0 +1,42 @@
+	alloca	#4	k
+	alloca	#4	n
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+
+main:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	ASSIGN	t1	#1
+	ASSIGN	k	t1
+
+.L5:
+	load	i	t2
+	ASSIGN	t3	#9
+	jle	t2	t3	t4
+	goto_eq	t4	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t5
+	ASSIGN	t6	#1
+	add	t5	t6	t7
+	ASSIGN	i	t7
+	load	k	t8
+	ASSIGN	t9	#1
+	add	t8	t9	t10
+	load	k	t11
+	load	k	t12
+	add	t11	t12	t13
+	ASSIGN	k	t13
+	goto	.L5
+
+.L7:
+	load	k	t14
+	arg	t14
+	call_void	putint
+	ASSIGN	r0	t14
+	goto	.L1
+
+.L1:
+	func_end:	main

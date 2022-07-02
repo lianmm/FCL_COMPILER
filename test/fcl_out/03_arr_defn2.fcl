@@ -1,0 +1,9 @@
+	alloca	#400	a
+
+main:
+	ASSIGN	t0	#0
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	main

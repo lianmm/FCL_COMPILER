@@ -1,0 +1,384 @@
+
+func1:
+	param	x
+	alloca	#4	x
+	param	y
+	alloca	#4	y
+	param	z
+	alloca	#4	z
+	load	z	t0
+	ASSIGN	t1	#0
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L2
+	goto	.L3
+
+.L2:
+	load	x	t3
+	load	y	t4
+	mul	t3	t4	t5
+	ASSIGN	r0	t5
+	goto	.L1
+	goto	.L4
+
+.L3:
+	load	z	t6
+	sub	t4	t6	t7
+	ASSIGN	t8	#0
+	arg	t3
+	arg	t7
+	arg	t8
+	CALL	func1	t9
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L4:
+
+.L1:
+	func_end:	func1
+
+func2:
+	param	x
+	alloca	#4	x
+	param	y
+	alloca	#4	y
+	load	y	t0
+	neq	t0	#0	t0
+	goto_eq	t0	#1	.L15
+	goto	.L16
+
+.L15:
+	load	x	t1
+	mod	t1	t0	t2
+	ASSIGN	t3	#0
+	arg	t2
+	arg	t3
+	CALL	func2	t4
+	ASSIGN	r0	t4
+	goto	.L14
+	goto	.L17
+
+.L16:
+	ASSIGN	r0	t1
+	goto	.L14
+
+.L17:
+
+.L14:
+	func_end:	func2
+
+func3:
+	param	x
+	alloca	#4	x
+	param	y
+	alloca	#4	y
+	load	y	t0
+	ASSIGN	t1	#0
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L22
+	goto	.L23
+
+.L22:
+	load	x	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	r0	t5
+	goto	.L21
+	goto	.L24
+
+.L23:
+	load	y	t6
+	add	t3	t6	t7
+	ASSIGN	t8	#0
+	arg	t7
+	arg	t8
+	CALL	func3	t9
+	ASSIGN	r0	t9
+	goto	.L21
+
+.L24:
+
+.L21:
+	func_end:	func3
+
+func4:
+	param	x
+	alloca	#4	x
+	param	y
+	alloca	#4	y
+	param	z
+	alloca	#4	z
+	load	x	t0
+	neq	t0	#0	t0
+	goto_eq	t0	#1	.L35
+	goto	.L36
+
+.L35:
+	load	y	t1
+	ASSIGN	r0	t1
+	goto	.L34
+	goto	.L37
+
+.L36:
+	load	z	t2
+	ASSIGN	r0	t2
+	goto	.L34
+
+.L37:
+
+.L34:
+	func_end:	func4
+
+func5:
+	param	x
+	alloca	#4	x
+	load	x	t0
+	uminus	t0	t1
+	ASSIGN	r0	t1
+	goto	.L38
+
+.L38:
+	func_end:	func5
+
+func6:
+	param	x
+	alloca	#4	x
+	param	y
+	alloca	#4	y
+	load	x	t0
+	load	y	t1
+	neq	t0	#0	t1
+	goto_eq	t0	#1	.L44
+	goto	.L43
+
+.L44:
+	neq	t1	#0	t2
+
+.L45:
+
+.L43:
+	goto_eq	t0	#1	.L40
+	goto	.L41
+
+.L40:
+	ASSIGN	t3	#1
+	ASSIGN	r0	t3
+	goto	.L39
+	goto	.L42
+
+.L41:
+	ASSIGN	t4	#0
+	ASSIGN	r0	t4
+	goto	.L39
+
+.L42:
+
+.L39:
+	func_end:	func6
+
+func7:
+	param	x
+	alloca	#4	x
+	load	x	t0
+	not	t0	t1
+	goto_eq	t1	#1	.L47
+	goto	.L48
+
+.L47:
+	ASSIGN	t2	#1
+	ASSIGN	r0	t2
+	goto	.L46
+	goto	.L49
+
+.L48:
+	ASSIGN	t3	#0
+	ASSIGN	r0	t3
+	goto	.L46
+
+.L49:
+
+.L46:
+	func_end:	func7
+
+main:
+	CALL	getint	t0
+	alloca	#4	i1
+	ASSIGN	i1	t0
+	CALL	getint	t1
+	alloca	#4	i2
+	ASSIGN	i2	t1
+	CALL	getint	t2
+	alloca	#4	i3
+	ASSIGN	i3	t2
+	CALL	getint	t3
+	alloca	#4	i4
+	ASSIGN	i4	t3
+	alloca	#40	arr
+	alloca	#4	i
+	ASSIGN	t4	#0
+	ASSIGN	i	t4
+
+.L51:
+	load	i	t5
+	ASSIGN	t6	#10
+	jlt	t5	t6	t7
+	goto_eq	t7	#1	.L52
+	goto	.L53
+
+.L52:
+	CALL	getint	t8
+	arroff_exp	t8,	[arr, t5]
+	load	i	t9
+	ASSIGN	t10	#1
+	add	t9	t10	t11
+	ASSIGN	i	t11
+	goto	.L51
+
+.L53:
+	load	i1	t12
+	arg	t12
+	CALL	func7	t13
+	load	i2	t14
+	arg	t14
+	CALL	func5	t15
+	arg	t13
+	arg	t15
+	CALL	func6	t16
+	load	i3	t17
+	arg	t16
+	arg	t17
+	CALL	func2	t18
+	load	i4	t19
+	arg	t18
+	arg	t19
+	CALL	func3	t20
+	arg	t20
+	CALL	func5	t21
+	ASSIGN	t22	#0
+	exp_arroff	t23,	[arr, t22]
+	ASSIGN	t24	#1
+	exp_arroff	t25,	[arr, t24]
+	arg	t25
+	CALL	func5	t26
+	ASSIGN	t27	#2
+	exp_arroff	t28,	[arr, t27]
+	ASSIGN	t29	#3
+	exp_arroff	t30,	[arr, t29]
+	arg	t30
+	CALL	func7	t31
+	arg	t28
+	arg	t31
+	CALL	func6	t32
+	ASSIGN	t33	#4
+	exp_arroff	t34,	[arr, t33]
+	ASSIGN	t35	#5
+	exp_arroff	t36,	[arr, t35]
+	arg	t36
+	CALL	func7	t37
+	arg	t34
+	arg	t37
+	CALL	func2	t38
+	arg	t26
+	arg	t32
+	arg	t38
+	CALL	func4	t39
+	ASSIGN	t40	#6
+	exp_arroff	t41,	[arr, t40]
+	arg	t39
+	arg	t41
+	CALL	func3	t42
+	ASSIGN	t43	#7
+	exp_arroff	t44,	[arr, t43]
+	arg	t42
+	arg	t44
+	CALL	func2	t45
+	ASSIGN	t46	#8
+	exp_arroff	t47,	[arr, t46]
+	ASSIGN	t48	#9
+	exp_arroff	t49,	[arr, t48]
+	arg	t49
+	CALL	func7	t50
+	arg	t47
+	arg	t50
+	CALL	func3	t51
+	arg	t45
+	arg	t51
+	arg	t12
+	CALL	func1	t52
+	arg	t21
+	arg	t23
+	arg	t52
+	CALL	func4	t53
+	arg	t17
+	CALL	func7	t54
+	arg	t54
+	arg	t19
+	CALL	func3	t55
+	arg	t14
+	arg	t55
+	CALL	func2	t56
+	arg	t53
+	arg	t56
+	CALL	func3	t57
+	ASSIGN	t58	#0
+	exp_arroff	t59,	[arr, t58]
+	ASSIGN	t60	#1
+	exp_arroff	t61,	[arr, t60]
+	arg	t57
+	arg	t59
+	arg	t61
+	CALL	func1	t62
+	ASSIGN	t63	#2
+	exp_arroff	t64,	[arr, t63]
+	arg	t62
+	arg	t64
+	CALL	func2	t65
+	ASSIGN	t66	#3
+	exp_arroff	t67,	[arr, t66]
+	ASSIGN	t68	#4
+	exp_arroff	t69,	[arr, t68]
+	ASSIGN	t70	#5
+	exp_arroff	t71,	[arr, t70]
+	arg	t71
+	CALL	func5	t72
+	arg	t69
+	arg	t72
+	CALL	func3	t73
+	ASSIGN	t74	#6
+	exp_arroff	t75,	[arr, t74]
+	arg	t75
+	CALL	func5	t76
+	arg	t73
+	arg	t76
+	CALL	func2	t77
+	ASSIGN	t78	#7
+	exp_arroff	t79,	[arr, t78]
+	ASSIGN	t80	#8
+	exp_arroff	t81,	[arr, t80]
+	arg	t81
+	CALL	func7	t82
+	arg	t77
+	arg	t79
+	arg	t82
+	CALL	func1	t83
+	ASSIGN	t84	#9
+	exp_arroff	t85,	[arr, t84]
+	arg	t85
+	CALL	func5	t86
+	arg	t83
+	arg	t86
+	CALL	func2	t87
+	arg	t87
+	arg	t12
+	CALL	func3	t88
+	arg	t65
+	arg	t67
+	arg	t88
+	CALL	func1	t89
+	alloca	#4	a
+	ASSIGN	a	t89
+	load	a	t90
+	ASSIGN	r0	t90
+	goto	.L50
+
+.L50:
+	func_end:	main

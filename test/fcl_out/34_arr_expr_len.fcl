@@ -1,0 +1,50 @@
+	alloca	#4	N
+	ASSIGN	t0	#-1
+	ASSIGN	N	t0
+	alloca	#24	arr
+	ASSIGN	t1	#1
+	arroff_expi	arr	#0	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#4	t2
+	ASSIGN	t3	#33
+	arroff_expi	arr	#8	t3
+	ASSIGN	t4	#4
+	arroff_expi	arr	#12	t4
+	ASSIGN	t5	#5
+	arroff_expi	arr	#16	t5
+	ASSIGN	t6	#6
+	arroff_expi	arr	#20	t6
+
+main:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	alloca	#4	sum
+	ASSIGN	t1	#0
+	ASSIGN	sum	t1
+
+.L26:
+	load	i	t2
+	ASSIGN	t3	#6
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L27
+	goto	.L28
+
+.L27:
+	load	sum	t6
+	exp_arroff	t5,	[arr, t2]
+	add	t6	t5	t7
+	ASSIGN	sum	t7
+	load	i	t8
+	ASSIGN	t9	#1
+	add	t8	t9	t10
+	ASSIGN	i	t10
+	goto	.L26
+
+.L28:
+	load	sum	t11
+	ASSIGN	r0	t11
+	goto	.L25
+
+.L25:
+	func_end:	main

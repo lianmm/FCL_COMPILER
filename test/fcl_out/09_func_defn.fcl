@@ -1,0 +1,29 @@
+	alloca	#4	a
+
+func:
+	param	p
+	alloca	#4	p
+	load	p	t0
+	ASSIGN	t1	#1
+	sub	t0	t1	t2
+	ASSIGN	p	t2
+	ASSIGN	r0	t2
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	load	a	t1
+	arg	t1
+	CALL	func	t2
+	ASSIGN	b	t2
+	load	b	t3
+	ASSIGN	r0	t3
+	goto	.L8
+
+.L8:
+	func_end:	main

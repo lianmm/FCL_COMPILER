@@ -1,0 +1,58 @@
+
+doubleWhile:
+	alloca	#4	i
+	ASSIGN	t0	#5
+	ASSIGN	i	t0
+	alloca	#4	j
+	ASSIGN	t1	#7
+	ASSIGN	j	t1
+
+.L8:
+	load	i	t2
+	ASSIGN	t3	#100
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L9
+	goto	.L10
+
+.L9:
+	load	i	t5
+	ASSIGN	t6	#30
+	add	t5	t6	t7
+	ASSIGN	i	t7
+
+.L20:
+	load	j	t8
+	ASSIGN	t9	#100
+	jlt	t8	t9	t10
+	goto_eq	t10	#1	.L21
+	goto	.L22
+
+.L21:
+	load	j	t11
+	ASSIGN	t12	#6
+	add	t11	t12	t13
+	ASSIGN	j	t13
+	goto	.L20
+
+.L22:
+	load	j	t14
+	ASSIGN	t15	#100
+	sub	t14	t15	t16
+	ASSIGN	j	t16
+	goto	.L8
+
+.L10:
+	load	j	t17
+	ASSIGN	r0	t17
+	goto	.L1
+
+.L1:
+	func_end:	doubleWhile
+
+main:
+	CALL	doubleWhile	t0
+	ASSIGN	r0	t0
+	goto	.L38
+
+.L38:
+	func_end:	main

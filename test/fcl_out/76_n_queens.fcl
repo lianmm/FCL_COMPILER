@@ -1,0 +1,187 @@
+	alloca	#200	ans
+	alloca	#4	sum
+	ASSIGN	t0	#0
+	ASSIGN	sum	t0
+	alloca	#4	n
+	alloca	#200	row
+	alloca	#200	line1
+	alloca	#400	line2
+
+printans:
+	load	sum	t0
+	ASSIGN	t1	#1
+	add	t0	t1	t2
+	ASSIGN	sum	t2
+	alloca	#4	i
+	ASSIGN	t3	#1
+	ASSIGN	i	t3
+
+.L8:
+	load	i	t4
+	load	n	t5
+	jle	t4	t5	t6
+	goto_eq	t6	#1	.L9
+	goto	.L10
+
+.L9:
+	exp_arroff	t7,	[ans, t4]
+	arg	t7
+	call_void	putint
+	load	i	t8
+	load	n	t9
+	eq	t8	t9	t10
+	goto_eq	t10	#1	.L14
+	goto	.L15
+
+.L14:
+	ASSIGN	t11	#10
+	arg	t11
+	call_void	putch
+	goto	.L1
+	goto	.L16
+
+.L15:
+	ASSIGN	t12	#32
+	arg	t12
+	call_void	putch
+
+.L16:
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L8
+
+.L10:
+
+.L1:
+	func_end:	printans
+
+f:
+	param	step
+	alloca	#4	step
+	alloca	#4	i
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L27:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L28
+	goto	.L29
+
+.L28:
+	exp_arroff	t4,	[row, t1]
+	ASSIGN	t5	#1
+	neq	t4	t5	t6
+	goto_eq	t6	#1	.L39
+	goto	.L38
+
+.L39:
+	load	step	t7
+	add	t7	t1	t8
+	exp_arroff	t9,	[line1, t8]
+	ASSIGN	t10	#0
+	eq	t9	t10	t11
+
+.L40:
+
+.L38:
+	goto_eq	t6	#1	.L36
+	goto	.L35
+
+.L36:
+	add	t2	t7	t13
+	sub	t13	t1	t14
+	exp_arroff	t15,	[line2, t14]
+	not	t15	t16
+
+.L37:
+
+.L35:
+	goto_eq	t6	#1	.L33
+	goto	.L34
+
+.L33:
+	load	i	t18
+	arroff_exp	t18,	[ans, t7]
+	load	step	t19
+	load	n	t20
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L59
+	goto	.L60
+
+.L59:
+	call_void	printans
+
+.L60:
+	ASSIGN	t22	#1
+	arroff_exp	t22,	[row, t18]
+	load	step	t23
+	add	t23	t18	t24
+	ASSIGN	t25	#1
+	arroff_exp	t25,	[line1, t24]
+	load	n	t26
+	add	t26	t23	t27
+	sub	t27	t18	t28
+	ASSIGN	t29	#1
+	arroff_exp	t29,	[line2, t28]
+	load	step	t30
+	ASSIGN	t31	#1
+	add	t30	t31	t32
+	arg	t32
+	call_void	f
+	ASSIGN	t33	#0
+	arroff_exp	t33,	[row, t18]
+	add	t30	t18	t34
+	ASSIGN	t35	#0
+	arroff_exp	t35,	[line1, t34]
+	add	t26	t30	t36
+	sub	t36	t18	t37
+	ASSIGN	t38	#0
+	arroff_exp	t38,	[line2, t37]
+
+.L34:
+	load	i	t39
+	ASSIGN	t40	#1
+	add	t39	t40	t41
+	ASSIGN	i	t41
+	goto	.L27
+
+.L29:
+
+.L26:
+	func_end:	f
+
+main:
+	CALL	getint	t0
+	alloca	#4	N
+	ASSIGN	N	t0
+
+.L110:
+	load	N	t1
+	ASSIGN	t2	#0
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L111
+	goto	.L112
+
+.L111:
+	CALL	getint	t4
+	ASSIGN	n	t4
+	ASSIGN	t5	#1
+	arg	t5
+	call_void	f
+	load	N	t6
+	ASSIGN	t7	#1
+	sub	t6	t7	t8
+	ASSIGN	N	t8
+	goto	.L110
+
+.L112:
+	load	sum	t9
+	ASSIGN	r0	t9
+	goto	.L109
+
+.L109:
+	func_end:	main
