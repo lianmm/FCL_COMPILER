@@ -83,3 +83,1448 @@ main:
 
 .L50:
 	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	t18
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+deepWhileBr:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	alloca	#4	c
+	load	a	t0
+	load	b	t1
+	add	t0	t1	t2
+	ASSIGN	c	t2
+
+.L8:
+	load	c	t3
+	ASSIGN	t4	#75
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L9
+	goto	.L10
+
+.L9:
+	alloca	#4	d
+	ASSIGN	t6	#42
+	ASSIGN	d	t6
+	load	c	t7
+	ASSIGN	t8	#100
+	jlt	t7	t8	t9
+	goto_eq	t9	#1	.L17
+	goto	.L18
+
+.L17:
+	load	c	t10
+	load	d	t11
+	add	t10	t11	t12
+	ASSIGN	c	t12
+	load	c	t13
+	ASSIGN	t14	#99
+	jgt	t13	t14	t15
+	goto_eq	t15	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#4	e
+	load	d	t16
+	ASSIGN	t17	#2
+	mul	t16	t17	t18
+	ASSIGN	e	t18
+	ASSIGN	t19	#1
+	eq	t19	#1	e
+	goto_eq	t19	#1	.L39
+	goto	.L40
+
+.L39:
+	load	e	t20
+	ASSIGN	t21	#2
+	mul	t20	t21	t22
+	ASSIGN	c	t22
+
+.L40:
+
+.L29:
+
+.L18:
+	goto	.L8
+
+.L10:
+	load	c	t23
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	deepWhileBr
+
+main:
+	alloca	#4	p
+	ASSIGN	t0	#2
+	ASSIGN	p	t0
+	load	p	t1
+	arg	t1
+	arg	t1
+	CALL	deepWhileBr	t2
+	ASSIGN	r0	t2
+	goto	.L50
+
+.L50:
+	func_end:	main

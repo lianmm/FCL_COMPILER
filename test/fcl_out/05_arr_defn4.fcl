@@ -121,3 +121,2184 @@ main:
 
 .L1:
 	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#4	N
+	ASSIGN	t5	#3
+	ASSIGN	N	t5
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t6	#1
+	arroff_expi	c	#0	t6
+	ASSIGN	t7	#2
+	arroff_expi	c	#4	t7
+	ASSIGN	t8	#3
+	arroff_expi	c	#8	t8
+	ASSIGN	t9	#4
+	arroff_expi	c	#12	t9
+	ASSIGN	t10	#5
+	arroff_expi	c	#16	t10
+	ASSIGN	t11	#6
+	arroff_expi	c	#20	t11
+	ASSIGN	t12	#7
+	arroff_expi	c	#24	t12
+	ASSIGN	t13	#8
+	arroff_expi	c	#28	t13
+	ASSIGN	t14	#0
+	ASSIGN	t15	#2
+	ASSIGN	t16	#3
+	mul	t15	t16	t17
+	add	t14	t17	t18
+	exp_arroff	t19,	[a, t18]
+	alloca	#32	d
+	ASSIGN	t20	#1
+	arroff_expi	d	#0	t20
+	ASSIGN	t21	#2
+	arroff_expi	d	#4	t21
+	ASSIGN	t22	#3
+	arroff_expi	d	#8	t22
+	ASSIGN	t23	#5
+	arroff_expi	d	#16	t23
+	arroff_expi	d	#24	t19
+	ASSIGN	t24	#8
+	arroff_expi	d	#28	t24
+	ASSIGN	t25	#1
+	ASSIGN	t26	#2
+	ASSIGN	t27	#2
+	mul	t26	t27	t28
+	add	t25	t28	t29
+	exp_arroff	t30,	[d, t29]
+	ASSIGN	t31	#1
+	ASSIGN	t32	#2
+	ASSIGN	t33	#2
+	mul	t32	t33	t34
+	add	t31	t34	t35
+	exp_arroff	t36,	[c, t35]
+	alloca	#32	e
+	arroff_expi	e	#0	t30
+	arroff_expi	e	#4	t36
+	ASSIGN	t37	#3
+	arroff_expi	e	#8	t37
+	ASSIGN	t38	#4
+	arroff_expi	e	#12	t38
+	ASSIGN	t39	#5
+	arroff_expi	e	#16	t39
+	ASSIGN	t40	#6
+	arroff_expi	e	#20	t40
+	ASSIGN	t41	#7
+	arroff_expi	e	#24	t41
+	ASSIGN	t42	#8
+	arroff_expi	e	#28	t42
+	ASSIGN	t43	#0
+	ASSIGN	t44	#1
+	ASSIGN	t45	#1
+	mul	t44	t45	t46
+	add	t43	t46	t47
+	ASSIGN	t48	#2
+	ASSIGN	t49	#3
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	exp_arroff	t52,	[e, t51]
+	ASSIGN	t53	#0
+	ASSIGN	t54	#1
+	ASSIGN	t55	#0
+	mul	t54	t55	t56
+	add	t53	t56	t57
+	ASSIGN	t58	#2
+	ASSIGN	t59	#0
+	mul	t58	t59	t60
+	add	t57	t60	t61
+	exp_arroff	t62,	[e, t61]
+	add	t52	t62	t63
+	ASSIGN	t64	#0
+	ASSIGN	t65	#1
+	ASSIGN	t66	#1
+	mul	t65	t66	t67
+	add	t64	t67	t68
+	ASSIGN	t69	#2
+	ASSIGN	t70	#0
+	mul	t69	t70	t71
+	add	t68	t71	t72
+	exp_arroff	t73,	[e, t72]
+	add	t63	t73	t74
+	ASSIGN	t75	#0
+	ASSIGN	t76	#2
+	ASSIGN	t77	#3
+	mul	t76	t77	t78
+	add	t75	t78	t79
+	exp_arroff	t80,	[d, t79]
+	add	t74	t80	t81
+	ASSIGN	r0	t81
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#32	a
+	ASSIGN	t0	#1
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#3
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#4
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#7
+	arroff_expi	a	#24	t4
+	alloca	#32	b
+	alloca	#32	c
+	ASSIGN	t5	#1
+	arroff_expi	c	#0	t5
+	ASSIGN	t6	#2
+	arroff_expi	c	#4	t6
+	ASSIGN	t7	#3
+	arroff_expi	c	#8	t7
+	ASSIGN	t8	#4
+	arroff_expi	c	#12	t8
+	ASSIGN	t9	#5
+	arroff_expi	c	#16	t9
+	ASSIGN	t10	#6
+	arroff_expi	c	#20	t10
+	ASSIGN	t11	#7
+	arroff_expi	c	#24	t11
+	ASSIGN	t12	#8
+	arroff_expi	c	#28	t12
+	ASSIGN	t13	#0
+	ASSIGN	t14	#2
+	ASSIGN	t15	#3
+	mul	t14	t15	t16
+	add	t13	t16	t17
+	exp_arroff	t18,	[a, t17]
+	alloca	#32	d
+	ASSIGN	t19	#1
+	arroff_expi	d	#0	t19
+	ASSIGN	t20	#2
+	arroff_expi	d	#4	t20
+	ASSIGN	t21	#3
+	arroff_expi	d	#8	t21
+	ASSIGN	t22	#5
+	arroff_expi	d	#16	t22
+	arroff_expi	d	#24	t18
+	ASSIGN	t23	#8
+	arroff_expi	d	#28	t23
+	ASSIGN	t24	#1
+	ASSIGN	t25	#2
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[d, t28]
+	ASSIGN	t30	#1
+	ASSIGN	t31	#2
+	ASSIGN	t32	#2
+	mul	t31	t32	t33
+	add	t30	t33	t34
+	exp_arroff	t35,	[c, t34]
+	alloca	#32	e
+	arroff_expi	e	#0	t29
+	arroff_expi	e	#4	t35
+	ASSIGN	t36	#3
+	arroff_expi	e	#8	t36
+	ASSIGN	t37	#4
+	arroff_expi	e	#12	t37
+	ASSIGN	t38	#5
+	arroff_expi	e	#16	t38
+	ASSIGN	t39	#6
+	arroff_expi	e	#20	t39
+	ASSIGN	t40	#7
+	arroff_expi	e	#24	t40
+	ASSIGN	t41	#8
+	arroff_expi	e	#28	t41
+	ASSIGN	t42	#0
+	ASSIGN	t43	#1
+	ASSIGN	t44	#1
+	mul	t43	t44	t45
+	add	t42	t45	t46
+	ASSIGN	t47	#2
+	ASSIGN	t48	#3
+	mul	t47	t48	t49
+	add	t46	t49	t50
+	exp_arroff	t51,	[e, t50]
+	ASSIGN	t52	#0
+	ASSIGN	t53	#1
+	ASSIGN	t54	#0
+	mul	t53	t54	t55
+	add	t52	t55	t56
+	ASSIGN	t57	#2
+	ASSIGN	t58	#0
+	mul	t57	t58	t59
+	add	t56	t59	t60
+	exp_arroff	t61,	[e, t60]
+	add	t51	t61	t62
+	ASSIGN	t63	#0
+	ASSIGN	t64	#1
+	ASSIGN	t65	#1
+	mul	t64	t65	t66
+	add	t63	t66	t67
+	ASSIGN	t68	#2
+	ASSIGN	t69	#0
+	mul	t68	t69	t70
+	add	t67	t70	t71
+	exp_arroff	t72,	[e, t71]
+	add	t62	t72	t73
+	ASSIGN	t74	#0
+	ASSIGN	t75	#2
+	ASSIGN	t76	#3
+	mul	t75	t76	t77
+	add	t74	t77	t78
+	exp_arroff	t79,	[d, t78]
+	add	t73	t79	t80
+	ASSIGN	r0	t80
+	goto	.L1
+
+.L1:
+	func_end:	main

@@ -38,8 +38,8 @@ bool check_val_id(char *id, int level, int pos, char *type, int int_val, float f
         } //判断变量的标识符是否是函数类型，是则报错（错误输出有点小差别）。
         else if (sT.symbols[index].flag == 'A')
         {
-            printf("%s:%d ", filename, pos);
-            printf("'%s'assignment to expression with array type.\n", sT.symbols[index].name);
+            // printf("%s:%d ", filename, pos);
+            // printf("'%s'assignment to expression with array type.\n", sT.symbols[index].name);
             ans = 0;
         } //判断变量标识符是个数组。
         break;
@@ -89,14 +89,14 @@ bool check_val_id(char *id, int level, int pos, char *type, int int_val, float f
         } //判断变量的标识符是否是函数类型，是则报错（错误输出有点小差别）。
         else if (sT.symbols[index].flag == 'A')
         {
-            printf("%s:%d ", filename, pos);
-            printf("'%s' assignment to expression with array type.\n", sT.symbols[index].name);
+            // printf("%s:%d ", filename, pos);
+            // printf("'%s' assignment to expression with array type.\n", sT.symbols[index].name);
             ans = 0;
         } //判断变量标识符是个数组。
         else if (sT.symbols[index].init_sym == 0)
         {
-            printf("%s:%d ", filename, pos);
-            printf("'%s' 使用了未初始化的变量\n", id);
+            // printf("%s:%d ", filename, pos);
+            // printf("'%s' 使用了未初始化的变量\n", id);
             ans = 0;
         } //判断作为右值的变量是否有定义，是否初始化过。
         break;
@@ -232,8 +232,8 @@ bool check_array_id(char *id, int level, int pos, char *type, char *index_type)
         {
             if (strcmp(index_type, "int") != 0)
             {
-                printf("%s:%d ", filename, pos);
-                printf("array subscript is not an integer.\n");
+                // printf("%s:%d ", filename, pos);
+                // printf("array subscript is not an integer.\n");
                 ans = 0;
             }
         }
@@ -258,8 +258,8 @@ bool check_array_id(char *id, int level, int pos, char *type, char *index_type)
         {
             if (strcmp(index_type, "int") != 0)
             {
-                printf("%s:%d ", filename, pos);
-                printf("array subscript is not an integer.\n");
+                //     printf("%s:%d ", filename, pos);
+                //     printf("array subscript is not an integer.\n");
                 ans = 0;
             }
         }

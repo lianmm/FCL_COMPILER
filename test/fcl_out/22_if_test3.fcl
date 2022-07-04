@@ -47,3 +47,738 @@ main:
 
 .L28:
 	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main
+
+ififElse:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#10
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#5
+	eq	t2	t3	t4
+	goto_eq	t4	#1	.L8
+	goto	.L9
+
+.L8:
+	load	b	t5
+	ASSIGN	t6	#10
+	eq	t5	t6	t7
+	goto_eq	t7	#1	.L13
+	goto	.L14
+
+.L13:
+	ASSIGN	t8	#25
+	ASSIGN	a	t8
+	goto	.L15
+
+.L14:
+	load	a	t9
+	ASSIGN	t10	#15
+	add	t9	t10	t11
+	ASSIGN	a	t11
+
+.L15:
+
+.L9:
+	load	a	t12
+	ASSIGN	r0	t12
+	goto	.L1
+
+.L1:
+	func_end:	ififElse
+
+main:
+	CALL	ififElse	t0
+	ASSIGN	r0	t0
+	goto	.L28
+
+.L28:
+	func_end:	main

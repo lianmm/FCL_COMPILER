@@ -250,3 +250,3302 @@ main:
 
 .L145:
 	func_end:	main
+	alloca	#4	TAPE_LEN
+	ASSIGN	t0	#65536
+	ASSIGN	TAPE_LEN	t0
+	alloca	#4	BUFFER_LEN
+	ASSIGN	t1	#32768
+	ASSIGN	BUFFER_LEN	t1
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t2	#0
+	ASSIGN	ptr	t2
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	arroff_exp	t5,	[program, t2]
+	load	i	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	ASSIGN	i	t8
+	goto	.L2
+
+.L4:
+	load	i	t9
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[program, t9]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	input	t4
+	exp_arroff	t5,	[t4, t1]
+	ASSIGN	cur_char	t5
+	load	cur_char	t6
+	ASSIGN	t7	#62
+	eq	t6	t7	t8
+	goto_eq	t8	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t9
+	ASSIGN	t10	#1
+	add	t9	t10	t11
+	ASSIGN	ptr	t11
+	goto	.L29
+
+.L28:
+	load	cur_char	t12
+	ASSIGN	t13	#60
+	eq	t12	t13	t14
+	goto_eq	t14	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	ptr	t17
+	goto	.L41
+
+.L40:
+	load	cur_char	t18
+	ASSIGN	t19	#43
+	eq	t18	t19	t20
+	goto_eq	t20	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t21
+	exp_arroff	t22,	[tape, t21]
+	ASSIGN	t23	#1
+	add	t22	t23	t24
+	arroff_exp	t24,	[tape, t21]
+	goto	.L53
+
+.L52:
+	load	cur_char	t25
+	ASSIGN	t26	#45
+	eq	t25	t26	t27
+	goto_eq	t27	#1	.L63
+	goto	.L64
+
+.L63:
+	exp_arroff	t28,	[tape, t21]
+	ASSIGN	t29	#1
+	sub	t28	t29	t30
+	arroff_exp	t30,	[tape, t21]
+	goto	.L65
+
+.L64:
+	load	cur_char	t31
+	ASSIGN	t32	#46
+	eq	t31	t32	t33
+	goto_eq	t33	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t34
+	exp_arroff	t35,	[tape, t34]
+	arg	t35
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t36
+	ASSIGN	t37	#44
+	eq	t36	t37	t38
+	goto_eq	t38	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t39
+	arroff_exp	t39,	[tape, t34]
+	goto	.L83
+
+.L82:
+	load	cur_char	t40
+	ASSIGN	t41	#93
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t43
+	exp_arroff	t44,	[tape, t43]
+	neq	t44	#0	t45
+
+.L94:
+
+.L92:
+	goto_eq	t42	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t46	#1
+	ASSIGN	loop	t46
+
+.L101:
+	load	loop	t47
+	ASSIGN	t48	#0
+	jgt	t47	t48	t49
+	goto_eq	t49	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t50
+	ASSIGN	t51	#1
+	sub	t50	t51	t52
+	ASSIGN	i	t52
+	load	input	t53
+	exp_arroff	t54,	[t53, t52]
+	ASSIGN	cur_char	t54
+	load	cur_char	t55
+	ASSIGN	t56	#91
+	eq	t55	t56	t57
+	goto_eq	t57	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t58
+	ASSIGN	t59	#1
+	sub	t58	t59	t60
+	ASSIGN	loop	t60
+	goto	.L118
+
+.L117:
+	load	cur_char	t61
+	ASSIGN	t62	#93
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t64
+	ASSIGN	t65	#1
+	add	t64	t65	t66
+	ASSIGN	loop	t66
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	i	t69
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#4	TAPE_LEN
+	ASSIGN	t0	#65536
+	ASSIGN	TAPE_LEN	t0
+	alloca	#4	BUFFER_LEN
+	ASSIGN	t1	#32768
+	ASSIGN	BUFFER_LEN	t1
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t2	#0
+	ASSIGN	ptr	t2
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	arroff_exp	t5,	[program, t2]
+	load	i	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	ASSIGN	i	t8
+	goto	.L2
+
+.L4:
+	load	i	t9
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[program, t9]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	input	t4
+	exp_arroff	t5,	[t4, t1]
+	ASSIGN	cur_char	t5
+	load	cur_char	t6
+	ASSIGN	t7	#62
+	eq	t6	t7	t8
+	goto_eq	t8	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t9
+	ASSIGN	t10	#1
+	add	t9	t10	t11
+	ASSIGN	ptr	t11
+	goto	.L29
+
+.L28:
+	load	cur_char	t12
+	ASSIGN	t13	#60
+	eq	t12	t13	t14
+	goto_eq	t14	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	ptr	t17
+	goto	.L41
+
+.L40:
+	load	cur_char	t18
+	ASSIGN	t19	#43
+	eq	t18	t19	t20
+	goto_eq	t20	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t21
+	exp_arroff	t22,	[tape, t21]
+	ASSIGN	t23	#1
+	add	t22	t23	t24
+	arroff_exp	t24,	[tape, t21]
+	goto	.L53
+
+.L52:
+	load	cur_char	t25
+	ASSIGN	t26	#45
+	eq	t25	t26	t27
+	goto_eq	t27	#1	.L63
+	goto	.L64
+
+.L63:
+	exp_arroff	t28,	[tape, t21]
+	ASSIGN	t29	#1
+	sub	t28	t29	t30
+	arroff_exp	t30,	[tape, t21]
+	goto	.L65
+
+.L64:
+	load	cur_char	t31
+	ASSIGN	t32	#46
+	eq	t31	t32	t33
+	goto_eq	t33	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t34
+	exp_arroff	t35,	[tape, t34]
+	arg	t35
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t36
+	ASSIGN	t37	#44
+	eq	t36	t37	t38
+	goto_eq	t38	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t39
+	arroff_exp	t39,	[tape, t34]
+	goto	.L83
+
+.L82:
+	load	cur_char	t40
+	ASSIGN	t41	#93
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t43
+	exp_arroff	t44,	[tape, t43]
+	neq	t44	#0	t45
+
+.L94:
+
+.L92:
+	goto_eq	t42	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t46	#1
+	ASSIGN	loop	t46
+
+.L101:
+	load	loop	t47
+	ASSIGN	t48	#0
+	jgt	t47	t48	t49
+	goto_eq	t49	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t50
+	ASSIGN	t51	#1
+	sub	t50	t51	t52
+	ASSIGN	i	t52
+	load	input	t53
+	exp_arroff	t54,	[t53, t52]
+	ASSIGN	cur_char	t54
+	load	cur_char	t55
+	ASSIGN	t56	#91
+	eq	t55	t56	t57
+	goto_eq	t57	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t58
+	ASSIGN	t59	#1
+	sub	t58	t59	t60
+	ASSIGN	loop	t60
+	goto	.L118
+
+.L117:
+	load	cur_char	t61
+	ASSIGN	t62	#93
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t64
+	ASSIGN	t65	#1
+	add	t64	t65	t66
+	ASSIGN	loop	t66
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	i	t69
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#4	TAPE_LEN
+	ASSIGN	t0	#65536
+	ASSIGN	TAPE_LEN	t0
+	alloca	#4	BUFFER_LEN
+	ASSIGN	t1	#32768
+	ASSIGN	BUFFER_LEN	t1
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t2	#0
+	ASSIGN	ptr	t2
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	load	i	t5
+	CALL	getch	t6
+	arroff_exp	t6,	[program, t5]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	load	i	t10
+	ASSIGN	t11	#0
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	load	ptr	t23
+	exp_arroff	t24,	[tape, t23]
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	arroff_exp	t26,	[tape, t22]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	load	ptr	t31
+	exp_arroff	t32,	[tape, t31]
+	ASSIGN	t33	#1
+	sub	t32	t33	t34
+	arroff_exp	t34,	[tape, t30]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	load	ptr	t43
+	CALL	getch	t44
+	arroff_exp	t44,	[tape, t43]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#4	TAPE_LEN
+	ASSIGN	t0	#65536
+	ASSIGN	TAPE_LEN	t0
+	alloca	#4	BUFFER_LEN
+	ASSIGN	t1	#32768
+	ASSIGN	BUFFER_LEN	t1
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t2	#0
+	ASSIGN	ptr	t2
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	load	i	t5
+	CALL	getch	t6
+	arroff_exp	t6,	[program, t5]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	load	i	t10
+	ASSIGN	t11	#0
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	load	ptr	t23
+	exp_arroff	t24,	[tape, t23]
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	arroff_exp	t26,	[tape, t22]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	load	ptr	t31
+	exp_arroff	t32,	[tape, t31]
+	ASSIGN	t33	#1
+	sub	t32	t33	t34
+	arroff_exp	t34,	[tape, t30]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	load	ptr	t43
+	CALL	getch	t44
+	arroff_exp	t44,	[tape, t43]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	load	i	t5
+	CALL	getch	t6
+	arroff_exp	t6,	[program, t5]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	load	i	t10
+	ASSIGN	t11	#0
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	load	ptr	t23
+	exp_arroff	t24,	[tape, t23]
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	arroff_exp	t26,	[tape, t22]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	load	ptr	t31
+	exp_arroff	t32,	[tape, t31]
+	ASSIGN	t33	#1
+	sub	t32	t33	t34
+	arroff_exp	t34,	[tape, t30]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	load	ptr	t43
+	CALL	getch	t44
+	arroff_exp	t44,	[tape, t43]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	load	i	t5
+	CALL	getch	t6
+	arroff_exp	t6,	[program, t5]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	load	i	t10
+	ASSIGN	t11	#0
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	load	ptr	t23
+	exp_arroff	t24,	[tape, t23]
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	arroff_exp	t26,	[tape, t22]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	load	ptr	t31
+	exp_arroff	t32,	[tape, t31]
+	ASSIGN	t33	#1
+	sub	t32	t33	t34
+	arroff_exp	t34,	[tape, t30]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	load	ptr	t43
+	CALL	getch	t44
+	arroff_exp	t44,	[tape, t43]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main
+	alloca	#262144	tape
+	alloca	#131072	program
+	alloca	#4	ptr
+	ASSIGN	t0	#0
+	ASSIGN	ptr	t0
+
+read_program:
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+	CALL	getint	t1
+	alloca	#4	len
+	ASSIGN	len	t1
+
+.L2:
+	load	i	t2
+	load	len	t3
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t5
+	load	i	t6
+	arroff_exp	t5,	[program, t6]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+	ASSIGN	t11	#0
+	load	i	t10
+	arroff_exp	t11,	[program, t10]
+
+.L1:
+	func_end:	read_program
+
+interpret:
+	param	input
+	alloca	#4	input
+	alloca	#4	cur_char
+	alloca	#4	loop
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L21:
+	load	i	t1
+	load	input	t2
+	exp_arroff	t3,	[t2, t1]
+	neq	t3	#0	t3
+	goto_eq	t3	#1	.L22
+	goto	.L23
+
+.L22:
+	load	i	t4
+	load	input	t5
+	exp_arroff	t6,	[t5, t4]
+	ASSIGN	cur_char	t6
+	load	cur_char	t7
+	ASSIGN	t8	#62
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L27
+	goto	.L28
+
+.L27:
+	load	ptr	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	ptr	t12
+	goto	.L29
+
+.L28:
+	load	cur_char	t13
+	ASSIGN	t14	#60
+	eq	t13	t14	t15
+	goto_eq	t15	#1	.L39
+	goto	.L40
+
+.L39:
+	load	ptr	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	ASSIGN	ptr	t18
+	goto	.L41
+
+.L40:
+	load	cur_char	t19
+	ASSIGN	t20	#43
+	eq	t19	t20	t21
+	goto_eq	t21	#1	.L51
+	goto	.L52
+
+.L51:
+	load	ptr	t22
+	exp_arroff	t23,	[tape, t22]
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	load	ptr	t26
+	arroff_exp	t25,	[tape, t26]
+	goto	.L53
+
+.L52:
+	load	cur_char	t27
+	ASSIGN	t28	#45
+	eq	t27	t28	t29
+	goto_eq	t29	#1	.L63
+	goto	.L64
+
+.L63:
+	load	ptr	t30
+	exp_arroff	t31,	[tape, t30]
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	load	ptr	t34
+	arroff_exp	t33,	[tape, t34]
+	goto	.L65
+
+.L64:
+	load	cur_char	t35
+	ASSIGN	t36	#46
+	eq	t35	t36	t37
+	goto_eq	t37	#1	.L75
+	goto	.L76
+
+.L75:
+	load	ptr	t38
+	exp_arroff	t39,	[tape, t38]
+	arg	t39
+	call_void	putch
+	goto	.L77
+
+.L76:
+	load	cur_char	t40
+	ASSIGN	t41	#44
+	eq	t40	t41	t42
+	goto_eq	t42	#1	.L81
+	goto	.L82
+
+.L81:
+	CALL	getch	t43
+	load	ptr	t44
+	arroff_exp	t43,	[tape, t44]
+	goto	.L83
+
+.L82:
+	load	cur_char	t45
+	ASSIGN	t46	#93
+	eq	t45	t46	t47
+	goto_eq	t47	#1	.L93
+	goto	.L92
+
+.L93:
+	load	ptr	t48
+	exp_arroff	t49,	[tape, t48]
+	neq	t49	#0	t50
+
+.L94:
+
+.L92:
+	goto_eq	t47	#1	.L90
+	goto	.L91
+
+.L90:
+	ASSIGN	t51	#1
+	ASSIGN	loop	t51
+
+.L101:
+	load	loop	t52
+	ASSIGN	t53	#0
+	jgt	t52	t53	t54
+	goto_eq	t54	#1	.L102
+	goto	.L103
+
+.L102:
+	load	i	t55
+	ASSIGN	t56	#1
+	sub	t55	t56	t57
+	ASSIGN	i	t57
+	load	i	t58
+	load	input	t59
+	exp_arroff	t60,	[t59, t58]
+	ASSIGN	cur_char	t60
+	load	cur_char	t61
+	ASSIGN	t62	#91
+	eq	t61	t62	t63
+	goto_eq	t63	#1	.L116
+	goto	.L117
+
+.L116:
+	load	loop	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	loop	t66
+	goto	.L118
+
+.L117:
+	load	cur_char	t67
+	ASSIGN	t68	#93
+	eq	t67	t68	t69
+	goto_eq	t69	#1	.L128
+	goto	.L129
+
+.L128:
+	load	loop	t70
+	ASSIGN	t71	#1
+	add	t70	t71	t72
+	ASSIGN	loop	t72
+
+.L129:
+
+.L118:
+	goto	.L101
+
+.L103:
+
+.L91:
+
+.L83:
+
+.L77:
+
+.L65:
+
+.L53:
+
+.L41:
+
+.L29:
+	load	i	t73
+	ASSIGN	t74	#1
+	add	t73	t74	t75
+	ASSIGN	i	t75
+	goto	.L21
+
+.L23:
+
+.L20:
+	func_end:	interpret
+
+main:
+	call_void	read_program
+	ASSIGN	t0	#-393280
+	arg	t0
+	call_void	interpret
+	ASSIGN	t1	#0
+	ASSIGN	r0	t1
+	goto	.L145
+
+.L145:
+	func_end:	main

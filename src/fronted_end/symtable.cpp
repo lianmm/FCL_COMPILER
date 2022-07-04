@@ -13,8 +13,8 @@ struct arr_val_table avT;
 char glo_name[33], glo_alias[10] = "", glo_flag;
 struct opn glo_offset;
 char glo_type[36];
-int glo_int_val = 0x7f7f7f7f;
-float glo_float_val = 3.402823466e+38F;
+int glo_int_val = 0;
+float glo_float_val = 0;
 int glo_level, glo_paramnum;
 char *glo_tmp_type;
 int glo_init_sym;
@@ -39,11 +39,34 @@ int mkarr(struct opn arr_lim[], int D)
     return aT.top - 1;
 }
 
-void mkcarrs() {}
-
+void display_fT()
+{
+    int i;
+    printf("\tfT:\t");
+    for (i = 0; i < fT.top; i++)
+    {
+        printf("\t%d", fT.funcs[i]);
+    }
+    printf("\n");
+}
 //构造新的符号并插入sT。
 void mksym(struct symboltable *sT, char *name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size)
 {
+
+    sT->symbols[sT->index].address = 0;
+    sT->symbols[sT->index].flagca = ' ';
+    sT->symbols[sT->index].flage = ' ';
+    sT->symbols[sT->index].init_sym = 0;
+    sT->symbols[sT->index].level = 0;
+    sT->symbols[sT->index].no_ris = 0;
+    sT->symbols[sT->index].offset.const_int = 0;
+    sT->symbols[sT->index].val_index = 0;
+    strcpy(sT->symbols[sT->index].type, " ");
+    sT->symbols[sT->index].status = 0;
+    sT->symbols[sT->index].size.const_int = 0;
+    sT->symbols[sT->index].paramnum = 0;
+    sT->symbols[sT->index].paras[0] = 0;
+    sT->symbols[sT->index].paras[1] = 0;
     strcpy(sT->symbols[sT->index].name, name);
     sT->symbols[sT->index].level = level;
     strcpy(sT->symbols[sT->index].type, type);
@@ -92,9 +115,9 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     case 'F':
     {
         fT.funcs[fT.top] = sT->index, fT.top++;
-        if (fT.top == 1)
+        if (fT.top == 16)
             offset.const_int = 0;
-        else
+        else if (fT.top > 16)
             offset.const_int = sT->symbols[fT.funcs[fT.top - 2]].offset.const_int + sT->symbols[fT.funcs[fT.top - 2]].size.const_int;
         break;
     }
@@ -155,16 +178,10 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     case 'P':
     {
         //首形参偏移维护；
-        if (sT->symbols[sT->index - 1].flag != 'P' && sT->symbols[sT->index - 1].flage != 'P')
+        if ((sT->symbols[sT->index - 1].flag != 'P' && sT->symbols[sT->index - 1].flage != 'P') || sT->symbols[sT->index - 1].flag == 'F')
         {
-            if (fT.top == 0)
-            {
-                offset.const_int = 16;
-            }
-            else
-            {
-                offset.const_int = 16;
-            }
+
+            offset.const_int = 16;
         }
         //其他形参偏移维护；
         else
@@ -208,7 +225,6 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
 
     sT->symbols[sT->index].offset.const_int = offset.const_int;
     sT->index++;
-    // DisplaySymbolTable(*sT);
 }
 
 //显示当前数组内情向量表中的内容。
@@ -274,6 +290,9 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'F':
         {
             printf("%d\t%s\t%d\t%s\t%c\t参数个数：%d", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
+            printf("\t函数形参标识表： ");
+            for (int j = 0; j < sT.symbols[i].paramnum; j++)
+                printf("\t%d", sT.symbols[i].paras[j]);
             printf("\t函数空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t函数地址偏移：%d", sT.symbols[i].offset.const_int);
             printf("\t函数静态符号表索引：%d", sT.symbols[i].val_index);
@@ -389,8 +408,8 @@ void init()
     strcpy(glo_name, "");
     glo_flag = ' ';
     glo_init_sym = 0;
-    glo_int_val = 0x7f7f7f7f;
-    glo_float_val = 3.402823466e+38F;
+    glo_int_val = 0;
+    glo_float_val = 0;
     glo_paramnum = -1;
     glo_offset.const_int = 0;
     glo_offset.type = 'i';
@@ -400,7 +419,7 @@ void init()
     glo_size.const_int = 0;
 }
 
-//将库函数直接导入符号表，避免依赖问题；
+//将库函数直接导入符号表，避免语义检查不识别的问题；
 void add_lib()
 {
     struct opn topn;
@@ -409,13 +428,20 @@ void add_lib()
     mksym(&sT, (char *)"getint", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getch", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getarray", 0, (char *)"int(int[])", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 3;
     mksym(&sT, (char *)"getfloat", 0, (char *)"float(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getfarray", 0, (char *)"int(float[])", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 4;
     mksym(&sT, (char *)"putint", 0, (char *)"void(int)", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 1;
     mksym(&sT, (char *)"putch", 0, (char *)"void(int)", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 1;
     mksym(&sT, (char *)"putarray", 0, (char *)"void(int,int[])", 2, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 1, sT.symbols[sT.index - 1].paras[1] = 3;
     mksym(&sT, (char *)"putfloat", 0, (char *)"void(float)", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 2;
     mksym(&sT, (char *)"putfarray", 0, (char *)"void(int,float[])", 2, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 1, sT.symbols[sT.index - 1].paras[1] = 4;
     mksym(&sT, (char *)"putf", 0, (char *)"void(char[],...)", -2, (char *)"", 'F', topn, 0, 0, 0, topn); //支持可变参数。
     mksym(&sT, (char *)"before_main", 0, (char *)"void(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"after_main", 0, (char *)"void(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);

@@ -25,6 +25,7 @@ struct symbol
     //分配状态；有栈上已分配，寄存器上已分配几种；
     int address; //栈上地址；栈上已分配才有效；
     int no_ris;  //对应寄存器编号，寄存器已分配才有效；
+    int paras[250];//形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
 };
 
 //符号表，是一个顺序栈，index初值为0

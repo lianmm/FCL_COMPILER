@@ -7,7 +7,7 @@
 
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
-#define MAXLENGTH 1000     //定义符号表的大小
+#define MAXLENGTH 2000     //定义符号表的大小
 extern char filename[50];  //输入文件名；
 extern int lev;            //???
 
@@ -29,6 +29,8 @@ struct opn
     int address;       //栈地址
     int no_ris;
     int status;
+    char flage;
+    char flaga;
 };
 
 //抽象语法树结点枚举类型；

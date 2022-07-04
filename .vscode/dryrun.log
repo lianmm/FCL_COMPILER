@@ -1,4 +1,4 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/chui/桌面/compiler_fcl'
 make: Leaving directory '/home/chui/桌面/compiler_fcl'
  

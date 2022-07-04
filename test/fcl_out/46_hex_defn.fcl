@@ -9,3 +9,190 @@ main:
 
 .L1:
 	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#15
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main

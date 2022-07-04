@@ -18,3 +18,363 @@ main:
 
 .L1:
 	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#20	a
+	ASSIGN	t0	#0
+	arroff_expi	a	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	a	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	a	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	a	#12	t3
+	ASSIGN	t4	#4
+	arroff_expi	a	#16	t4
+
+main:
+	ASSIGN	t0	#4
+	exp_arroff	t1,	[a, t0]
+	ASSIGN	r0	t1
+	goto	.L1
+
+.L1:
+	func_end:	main

@@ -1,6 +1,8 @@
 %define parse.error verbose
 %locations
 %{
+#pragma comment(linker, "/STACK:102400000,102400000")
+// #include "segvCatch.h"
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
@@ -65,6 +67,7 @@ program: ExtDefList  {
       //printf("CompUnit:\n"); display_ast($1,3); 
 //使用命令行参数选择是否打印AST，并选择生成中间代码的输出方式（打印 或 新建文件生成）。TODO
       gen_IR($1);
+      //display_ast($1,0);
       gen_arm(0);
       gen_arm(1);
       }
@@ -87,7 +90,7 @@ Specifier: TYPE  {$$=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy($$->type_id,$1)
 VoidType: VOID {$$=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy($$->type_id,$1);$$->type=VOID;}  
 
 Def: Specifier DecList SEMICOLON {$$=mknode(VAR_DEF,$1,$2,NULL,yylineno);}
-      |CONST Specifier ConstDecList SEMICOLON  {$$=mknode(CONST_VAR_DEF,$2,$3,NULL,yylineno);}  //该结点对应一个const外部变量声明
+      |CONST Specifier ConstDecList SEMICOLON  {$$=mknode(CONST_VAR_DEF,$2,$3,NULL,yylineno);}  //该结点对应一个const变量声明
    ;
 DecList: VarDec  {$$=mknode(DEC_LIST,$1,NULL,NULL,yylineno);}
        | VarDec COMMA DecList  {$$=mknode(DEC_LIST,$1,$3,NULL,yylineno);}

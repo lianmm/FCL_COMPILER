@@ -302,3 +302,4137 @@ main:
 
 .L107:
 	func_end:	main
+	alloca	#4	INF
+	ASSIGN	t0	#65535
+	ASSIGN	INF	t0
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	ASSIGN	t4	#16
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	add	t1	t6	t7
+	exp_arroff	t8,	[e, t7]
+	arroff_exp	t8,	[dis, t1]
+	ASSIGN	t9	#0
+	arroff_exp	t9,	[book, t1]
+	load	i	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	i	t12
+	goto	.L5
+
+.L7:
+	ASSIGN	t13	#1
+	ASSIGN	t14	#1
+	arroff_exp	t14,	[book, t13]
+	ASSIGN	t15	#1
+	ASSIGN	i	t15
+
+.L29:
+	load	i	t19
+	load	n	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	jle	t19	t18	t20
+	goto_eq	t20	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t21	#65535
+	ASSIGN	min_num	t21
+	alloca	#4	min_index
+	ASSIGN	t22	#0
+	ASSIGN	min_index	t22
+	alloca	#4	k
+	ASSIGN	t23	#1
+	ASSIGN	k	t23
+
+.L38:
+	load	k	t24
+	load	n	t25
+	jle	t24	t25	t26
+	goto_eq	t26	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t28
+	exp_arroff	t27,	[dis, t24]
+	jgt	t28	t27	t29
+	goto_eq	t29	#1	.L47
+	goto	.L46
+
+.L47:
+	exp_arroff	t30,	[book, t24]
+	ASSIGN	t31	#0
+	eq	t30	t31	t32
+
+.L48:
+
+.L46:
+	goto_eq	t29	#1	.L44
+	goto	.L45
+
+.L44:
+	exp_arroff	t34,	[dis, t24]
+	ASSIGN	min_num	t34
+	load	k	t35
+	ASSIGN	min_index	t35
+
+.L45:
+	load	k	t36
+	ASSIGN	t37	#1
+	add	t36	t37	t38
+	ASSIGN	k	t38
+	goto	.L38
+
+.L40:
+	load	min_index	t39
+	ASSIGN	t40	#1
+	arroff_exp	t40,	[book, t39]
+	alloca	#4	j
+	ASSIGN	t41	#1
+	ASSIGN	j	t41
+
+.L70:
+	load	j	t42
+	load	n	t43
+	jle	t42	t43	t44
+	goto_eq	t44	#1	.L71
+	goto	.L72
+
+.L71:
+	ASSIGN	t45	#16
+	mul	t45	t39	t46
+	add	t42	t46	t47
+	exp_arroff	t48,	[e, t47]
+	ASSIGN	t49	#65535
+	jlt	t48	t49	t50
+	goto_eq	t50	#1	.L76
+	goto	.L77
+
+.L76:
+	exp_arroff	t51,	[dis, t42]
+	exp_arroff	t52,	[dis, t39]
+	ASSIGN	t53	#16
+	mul	t53	t39	t54
+	add	t42	t54	t55
+	exp_arroff	t56,	[e, t55]
+	add	t52	t56	t57
+	jgt	t51	t57	t58
+	goto_eq	t58	#1	.L81
+	goto	.L82
+
+.L81:
+	exp_arroff	t59,	[dis, t39]
+	ASSIGN	t60	#16
+	mul	t60	t39	t61
+	add	t42	t61	t62
+	exp_arroff	t63,	[e, t62]
+	add	t59	t63	t64
+	arroff_exp	t64,	[dis, t42]
+
+.L82:
+
+.L77:
+	load	j	t65
+	ASSIGN	t66	#1
+	add	t65	t66	t67
+	ASSIGN	j	t67
+	goto	.L70
+
+.L72:
+	load	i	t68
+	ASSIGN	t69	#1
+	add	t68	t69	t70
+	ASSIGN	i	t70
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t13	#16
+	mul	t13	t10	t14
+	add	t11	t14	t15
+	ASSIGN	t16	#0
+	arroff_exp	t16,	[e, t15]
+	goto	.L131
+
+.L130:
+	load	i	t17
+	load	j	t18
+	ASSIGN	t19	#16
+	mul	t19	t17	t20
+	add	t18	t20	t21
+	ASSIGN	t22	#65535
+	arroff_exp	t22,	[e, t21]
+
+.L131:
+	load	j	t23
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	ASSIGN	j	t25
+	goto	.L123
+
+.L125:
+	load	i	t26
+	ASSIGN	t27	#1
+	add	t26	t27	t28
+	ASSIGN	i	t28
+	goto	.L117
+
+.L119:
+	ASSIGN	t29	#1
+	ASSIGN	i	t29
+
+.L156:
+	load	i	t30
+	load	m	t31
+	jle	t30	t31	t32
+	goto_eq	t32	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t33
+	alloca	#4	u
+	ASSIGN	u	t33
+	CALL	getint	t34
+	alloca	#4	v
+	ASSIGN	v	t34
+	load	u	t35
+	load	v	t36
+	ASSIGN	t37	#16
+	mul	t37	t35	t38
+	add	t36	t38	t39
+	CALL	getint	t40
+	arroff_exp	t40,	[e, t39]
+	load	i	t41
+	ASSIGN	t42	#1
+	add	t41	t42	t43
+	ASSIGN	i	t43
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t44	#1
+	ASSIGN	i	t44
+
+.L174:
+	load	i	t45
+	load	n	t46
+	jle	t45	t46	t47
+	goto_eq	t47	#1	.L175
+	goto	.L176
+
+.L175:
+	exp_arroff	t48,	[dis, t45]
+	arg	t48
+	call_void	putint
+	ASSIGN	t49	#32
+	arg	t49
+	call_void	putch
+	load	i	t50
+	ASSIGN	t51	#1
+	add	t50	t51	t52
+	ASSIGN	i	t52
+	goto	.L174
+
+.L176:
+	ASSIGN	t53	#10
+	arg	t53
+	call_void	putch
+	ASSIGN	t54	#0
+	ASSIGN	r0	t54
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#4	INF
+	ASSIGN	t0	#65535
+	ASSIGN	INF	t0
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	ASSIGN	t4	#16
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	add	t1	t6	t7
+	exp_arroff	t8,	[e, t7]
+	arroff_exp	t8,	[dis, t1]
+	ASSIGN	t9	#0
+	arroff_exp	t9,	[book, t1]
+	load	i	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	i	t12
+	goto	.L5
+
+.L7:
+	ASSIGN	t13	#1
+	ASSIGN	t14	#1
+	arroff_exp	t14,	[book, t13]
+	ASSIGN	t15	#1
+	ASSIGN	i	t15
+
+.L29:
+	load	i	t19
+	load	n	t16
+	ASSIGN	t17	#1
+	sub	t16	t17	t18
+	jle	t19	t18	t20
+	goto_eq	t20	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t21	#65535
+	ASSIGN	min_num	t21
+	alloca	#4	min_index
+	ASSIGN	t22	#0
+	ASSIGN	min_index	t22
+	alloca	#4	k
+	ASSIGN	t23	#1
+	ASSIGN	k	t23
+
+.L38:
+	load	k	t24
+	load	n	t25
+	jle	t24	t25	t26
+	goto_eq	t26	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t28
+	exp_arroff	t27,	[dis, t24]
+	jgt	t28	t27	t29
+	goto_eq	t29	#1	.L47
+	goto	.L46
+
+.L47:
+	exp_arroff	t30,	[book, t24]
+	ASSIGN	t31	#0
+	eq	t30	t31	t32
+
+.L48:
+
+.L46:
+	goto_eq	t29	#1	.L44
+	goto	.L45
+
+.L44:
+	exp_arroff	t34,	[dis, t24]
+	ASSIGN	min_num	t34
+	load	k	t35
+	ASSIGN	min_index	t35
+
+.L45:
+	load	k	t36
+	ASSIGN	t37	#1
+	add	t36	t37	t38
+	ASSIGN	k	t38
+	goto	.L38
+
+.L40:
+	load	min_index	t39
+	ASSIGN	t40	#1
+	arroff_exp	t40,	[book, t39]
+	alloca	#4	j
+	ASSIGN	t41	#1
+	ASSIGN	j	t41
+
+.L70:
+	load	j	t42
+	load	n	t43
+	jle	t42	t43	t44
+	goto_eq	t44	#1	.L71
+	goto	.L72
+
+.L71:
+	ASSIGN	t45	#16
+	mul	t45	t39	t46
+	add	t42	t46	t47
+	exp_arroff	t48,	[e, t47]
+	ASSIGN	t49	#65535
+	jlt	t48	t49	t50
+	goto_eq	t50	#1	.L76
+	goto	.L77
+
+.L76:
+	exp_arroff	t51,	[dis, t42]
+	exp_arroff	t52,	[dis, t39]
+	ASSIGN	t53	#16
+	mul	t53	t39	t54
+	add	t42	t54	t55
+	exp_arroff	t56,	[e, t55]
+	add	t52	t56	t57
+	jgt	t51	t57	t58
+	goto_eq	t58	#1	.L81
+	goto	.L82
+
+.L81:
+	exp_arroff	t59,	[dis, t39]
+	ASSIGN	t60	#16
+	mul	t60	t39	t61
+	add	t42	t61	t62
+	exp_arroff	t63,	[e, t62]
+	add	t59	t63	t64
+	arroff_exp	t64,	[dis, t42]
+
+.L82:
+
+.L77:
+	load	j	t65
+	ASSIGN	t66	#1
+	add	t65	t66	t67
+	ASSIGN	j	t67
+	goto	.L70
+
+.L72:
+	load	i	t68
+	ASSIGN	t69	#1
+	add	t68	t69	t70
+	ASSIGN	i	t70
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t13	#16
+	mul	t13	t10	t14
+	add	t11	t14	t15
+	ASSIGN	t16	#0
+	arroff_exp	t16,	[e, t15]
+	goto	.L131
+
+.L130:
+	load	i	t17
+	load	j	t18
+	ASSIGN	t19	#16
+	mul	t19	t17	t20
+	add	t18	t20	t21
+	ASSIGN	t22	#65535
+	arroff_exp	t22,	[e, t21]
+
+.L131:
+	load	j	t23
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	ASSIGN	j	t25
+	goto	.L123
+
+.L125:
+	load	i	t26
+	ASSIGN	t27	#1
+	add	t26	t27	t28
+	ASSIGN	i	t28
+	goto	.L117
+
+.L119:
+	ASSIGN	t29	#1
+	ASSIGN	i	t29
+
+.L156:
+	load	i	t30
+	load	m	t31
+	jle	t30	t31	t32
+	goto_eq	t32	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t33
+	alloca	#4	u
+	ASSIGN	u	t33
+	CALL	getint	t34
+	alloca	#4	v
+	ASSIGN	v	t34
+	load	u	t35
+	load	v	t36
+	ASSIGN	t37	#16
+	mul	t37	t35	t38
+	add	t36	t38	t39
+	CALL	getint	t40
+	arroff_exp	t40,	[e, t39]
+	load	i	t41
+	ASSIGN	t42	#1
+	add	t41	t42	t43
+	ASSIGN	i	t43
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t44	#1
+	ASSIGN	i	t44
+
+.L174:
+	load	i	t45
+	load	n	t46
+	jle	t45	t46	t47
+	goto_eq	t47	#1	.L175
+	goto	.L176
+
+.L175:
+	exp_arroff	t48,	[dis, t45]
+	arg	t48
+	call_void	putint
+	ASSIGN	t49	#32
+	arg	t49
+	call_void	putch
+	load	i	t50
+	ASSIGN	t51	#1
+	add	t50	t51	t52
+	ASSIGN	i	t52
+	goto	.L174
+
+.L176:
+	ASSIGN	t53	#10
+	arg	t53
+	call_void	putch
+	ASSIGN	t54	#0
+	ASSIGN	r0	t54
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#4	INF
+	ASSIGN	t0	#65535
+	ASSIGN	INF	t0
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	load	i	t5
+	ASSIGN	t6	#16
+	ASSIGN	t7	#1
+	mul	t6	t7	t8
+	add	t5	t8	t9
+	exp_arroff	t10,	[e, t9]
+	arroff_exp	t10,	[dis, t4]
+	load	i	t11
+	ASSIGN	t12	#0
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t16	#1
+	ASSIGN	t17	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	load	min_index	t45
+	ASSIGN	t46	#1
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	j	t71
+	load	min_index	t72
+	exp_arroff	t73,	[dis, t72]
+	load	min_index	t74
+	load	j	t75
+	ASSIGN	t76	#16
+	mul	t76	t74	t77
+	add	t75	t77	t78
+	exp_arroff	t79,	[e, t78]
+	add	t73	t79	t80
+	arroff_exp	t80,	[dis, t71]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	ASSIGN	t18	#0
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	ASSIGN	t24	#65535
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	load	u	t37
+	load	v	t38
+	ASSIGN	t39	#16
+	mul	t39	t37	t40
+	add	t38	t40	t41
+	CALL	getint	t42
+	arroff_exp	t42,	[e, t41]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#4	INF
+	ASSIGN	t0	#65535
+	ASSIGN	INF	t0
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	load	i	t5
+	ASSIGN	t6	#16
+	ASSIGN	t7	#1
+	mul	t6	t7	t8
+	add	t5	t8	t9
+	exp_arroff	t10,	[e, t9]
+	arroff_exp	t10,	[dis, t4]
+	load	i	t11
+	ASSIGN	t12	#0
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t16	#1
+	ASSIGN	t17	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	load	min_index	t45
+	ASSIGN	t46	#1
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	j	t71
+	load	min_index	t72
+	exp_arroff	t73,	[dis, t72]
+	load	min_index	t74
+	load	j	t75
+	ASSIGN	t76	#16
+	mul	t76	t74	t77
+	add	t75	t77	t78
+	exp_arroff	t79,	[e, t78]
+	add	t73	t79	t80
+	arroff_exp	t80,	[dis, t71]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	ASSIGN	t18	#0
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	ASSIGN	t24	#65535
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	load	u	t37
+	load	v	t38
+	ASSIGN	t39	#16
+	mul	t39	t37	t40
+	add	t38	t40	t41
+	CALL	getint	t42
+	arroff_exp	t42,	[e, t41]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	load	i	t5
+	ASSIGN	t6	#16
+	ASSIGN	t7	#1
+	mul	t6	t7	t8
+	add	t5	t8	t9
+	exp_arroff	t10,	[e, t9]
+	arroff_exp	t10,	[dis, t4]
+	load	i	t11
+	ASSIGN	t12	#0
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t16	#1
+	ASSIGN	t17	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	load	min_index	t45
+	ASSIGN	t46	#1
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	j	t71
+	load	min_index	t72
+	exp_arroff	t73,	[dis, t72]
+	load	min_index	t74
+	load	j	t75
+	ASSIGN	t76	#16
+	mul	t76	t74	t77
+	add	t75	t77	t78
+	exp_arroff	t79,	[e, t78]
+	add	t73	t79	t80
+	arroff_exp	t80,	[dis, t71]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	ASSIGN	t18	#0
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	ASSIGN	t24	#65535
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	load	u	t37
+	load	v	t38
+	ASSIGN	t39	#16
+	mul	t39	t37	t40
+	add	t38	t40	t41
+	CALL	getint	t42
+	arroff_exp	t42,	[e, t41]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	load	i	t5
+	ASSIGN	t6	#16
+	ASSIGN	t7	#1
+	mul	t6	t7	t8
+	add	t5	t8	t9
+	exp_arroff	t10,	[e, t9]
+	arroff_exp	t10,	[dis, t4]
+	load	i	t11
+	ASSIGN	t12	#0
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t16	#1
+	ASSIGN	t17	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	load	min_index	t45
+	ASSIGN	t46	#1
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	j	t71
+	load	min_index	t72
+	exp_arroff	t73,	[dis, t72]
+	load	min_index	t74
+	load	j	t75
+	ASSIGN	t76	#16
+	mul	t76	t74	t77
+	add	t75	t77	t78
+	exp_arroff	t79,	[e, t78]
+	add	t73	t79	t80
+	arroff_exp	t80,	[dis, t71]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	ASSIGN	t18	#0
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	ASSIGN	t24	#65535
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	load	u	t37
+	load	v	t38
+	ASSIGN	t39	#16
+	mul	t39	t37	t40
+	add	t38	t40	t41
+	CALL	getint	t42
+	arroff_exp	t42,	[e, t41]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main
+	alloca	#1024	e
+	alloca	#64	book
+	alloca	#64	dis
+	alloca	#4	n
+	alloca	#4	m
+	alloca	#4	v1
+	alloca	#4	v2
+	alloca	#4	w
+
+Dijkstra:
+	alloca	#4	i
+	alloca	#4	j
+	ASSIGN	t0	#1
+	ASSIGN	i	t0
+
+.L5:
+	load	i	t1
+	load	n	t2
+	jle	t1	t2	t3
+	goto_eq	t3	#1	.L6
+	goto	.L7
+
+.L6:
+	load	i	t4
+	ASSIGN	t5	#16
+	ASSIGN	t6	#1
+	mul	t5	t6	t7
+	add	t4	t7	t8
+	exp_arroff	t9,	[e, t8]
+	load	i	t10
+	arroff_exp	t9,	[dis, t10]
+	ASSIGN	t12	#0
+	load	i	t11
+	arroff_exp	t12,	[book, t11]
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L5
+
+.L7:
+	ASSIGN	t17	#1
+	ASSIGN	t16	#1
+	arroff_exp	t17,	[book, t16]
+	ASSIGN	t18	#1
+	ASSIGN	i	t18
+
+.L29:
+	load	i	t22
+	load	n	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	jle	t22	t21	t23
+	goto_eq	t23	#1	.L30
+	goto	.L31
+
+.L30:
+	alloca	#4	min_num
+	ASSIGN	t24	#65535
+	ASSIGN	min_num	t24
+	alloca	#4	min_index
+	ASSIGN	t25	#0
+	ASSIGN	min_index	t25
+	alloca	#4	k
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L38:
+	load	k	t27
+	load	n	t28
+	jle	t27	t28	t29
+	goto_eq	t29	#1	.L39
+	goto	.L40
+
+.L39:
+	load	min_num	t32
+	load	k	t30
+	exp_arroff	t31,	[dis, t30]
+	jgt	t32	t31	t33
+	goto_eq	t33	#1	.L47
+	goto	.L46
+
+.L47:
+	load	k	t34
+	exp_arroff	t35,	[book, t34]
+	ASSIGN	t36	#0
+	eq	t35	t36	t37
+
+.L48:
+
+.L46:
+	goto_eq	t33	#1	.L44
+	goto	.L45
+
+.L44:
+	load	k	t39
+	exp_arroff	t40,	[dis, t39]
+	ASSIGN	min_num	t40
+	load	k	t41
+	ASSIGN	min_index	t41
+
+.L45:
+	load	k	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	k	t44
+	goto	.L38
+
+.L40:
+	ASSIGN	t46	#1
+	load	min_index	t45
+	arroff_exp	t46,	[book, t45]
+	alloca	#4	j
+	ASSIGN	t47	#1
+	ASSIGN	j	t47
+
+.L70:
+	load	j	t48
+	load	n	t49
+	jle	t48	t49	t50
+	goto_eq	t50	#1	.L71
+	goto	.L72
+
+.L71:
+	load	min_index	t51
+	load	j	t52
+	ASSIGN	t53	#16
+	mul	t53	t51	t54
+	add	t52	t54	t55
+	exp_arroff	t56,	[e, t55]
+	ASSIGN	t57	#65535
+	jlt	t56	t57	t58
+	goto_eq	t58	#1	.L76
+	goto	.L77
+
+.L76:
+	load	j	t59
+	exp_arroff	t60,	[dis, t59]
+	load	min_index	t61
+	exp_arroff	t62,	[dis, t61]
+	load	min_index	t63
+	load	j	t64
+	ASSIGN	t65	#16
+	mul	t65	t63	t66
+	add	t64	t66	t67
+	exp_arroff	t68,	[e, t67]
+	add	t62	t68	t69
+	jgt	t60	t69	t70
+	goto_eq	t70	#1	.L81
+	goto	.L82
+
+.L81:
+	load	min_index	t71
+	exp_arroff	t72,	[dis, t71]
+	load	min_index	t73
+	load	j	t74
+	ASSIGN	t75	#16
+	mul	t75	t73	t76
+	add	t74	t76	t77
+	exp_arroff	t78,	[e, t77]
+	add	t72	t78	t79
+	load	j	t80
+	arroff_exp	t79,	[dis, t80]
+
+.L82:
+
+.L77:
+	load	j	t81
+	ASSIGN	t82	#1
+	add	t81	t82	t83
+	ASSIGN	j	t83
+	goto	.L70
+
+.L72:
+	load	i	t84
+	ASSIGN	t85	#1
+	add	t84	t85	t86
+	ASSIGN	i	t86
+	goto	.L29
+
+.L31:
+
+.L1:
+	func_end:	Dijkstra
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	n	t0
+	CALL	getint	t1
+	ASSIGN	m	t1
+	ASSIGN	t2	#1
+	ASSIGN	i	t2
+
+.L117:
+	load	i	t3
+	load	n	t4
+	jle	t3	t4	t5
+	goto_eq	t5	#1	.L118
+	goto	.L119
+
+.L118:
+	alloca	#4	j
+	ASSIGN	t6	#1
+	ASSIGN	j	t6
+
+.L123:
+	load	j	t7
+	load	n	t8
+	jle	t7	t8	t9
+	goto_eq	t9	#1	.L124
+	goto	.L125
+
+.L124:
+	load	i	t10
+	load	j	t11
+	eq	t10	t11	t12
+	goto_eq	t12	#1	.L129
+	goto	.L130
+
+.L129:
+	ASSIGN	t18	#0
+	load	i	t13
+	load	j	t14
+	ASSIGN	t15	#16
+	mul	t15	t13	t16
+	add	t14	t16	t17
+	arroff_exp	t18,	[e, t17]
+	goto	.L131
+
+.L130:
+	ASSIGN	t24	#65535
+	load	i	t19
+	load	j	t20
+	ASSIGN	t21	#16
+	mul	t21	t19	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[e, t23]
+
+.L131:
+	load	j	t25
+	ASSIGN	t26	#1
+	add	t25	t26	t27
+	ASSIGN	j	t27
+	goto	.L123
+
+.L125:
+	load	i	t28
+	ASSIGN	t29	#1
+	add	t28	t29	t30
+	ASSIGN	i	t30
+	goto	.L117
+
+.L119:
+	ASSIGN	t31	#1
+	ASSIGN	i	t31
+
+.L156:
+	load	i	t32
+	load	m	t33
+	jle	t32	t33	t34
+	goto_eq	t34	#1	.L157
+	goto	.L158
+
+.L157:
+	CALL	getint	t35
+	alloca	#4	u
+	ASSIGN	u	t35
+	CALL	getint	t36
+	alloca	#4	v
+	ASSIGN	v	t36
+	CALL	getint	t37
+	load	u	t38
+	load	v	t39
+	ASSIGN	t40	#16
+	mul	t40	t38	t41
+	add	t39	t41	t42
+	arroff_exp	t37,	[e, t42]
+	load	i	t43
+	ASSIGN	t44	#1
+	add	t43	t44	t45
+	ASSIGN	i	t45
+	goto	.L156
+
+.L158:
+	call_void	Dijkstra
+	ASSIGN	t46	#1
+	ASSIGN	i	t46
+
+.L174:
+	load	i	t47
+	load	n	t48
+	jle	t47	t48	t49
+	goto_eq	t49	#1	.L175
+	goto	.L176
+
+.L175:
+	load	i	t50
+	exp_arroff	t51,	[dis, t50]
+	arg	t51
+	call_void	putint
+	ASSIGN	t52	#32
+	arg	t52
+	call_void	putch
+	load	i	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	i	t55
+	goto	.L174
+
+.L176:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	ASSIGN	t57	#0
+	ASSIGN	r0	t57
+	goto	.L107
+
+.L107:
+	func_end:	main

@@ -294,3 +294,5095 @@ main:
 
 .L138:
 	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	arr	t14
+	exp_arroff	t15,	[t14, t11]
+	ASSIGN	t16	#1
+	add	t11	t16	t17
+	load	arr	t18
+	exp_arroff	t19,	[t18, t17]
+	jlt	t15	t19	t20
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t22
+	ASSIGN	t23	#1
+	add	t22	t23	t24
+	ASSIGN	son	t24
+
+.L34:
+	load	arr	t25
+	exp_arroff	t26,	[t25, t1]
+	load	son	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	jgt	t26	t29	t30
+	goto_eq	t30	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t31	#0
+	ASSIGN	r0	t31
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t32
+	load	dad	t33
+	load	son	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	swap	t35
+	ASSIGN	dad	t35
+	load	son	t36
+	ASSIGN	dad	t36
+	load	dad	t37
+	ASSIGN	t38	#2
+	mul	t37	t38	t39
+	ASSIGN	t40	#1
+	add	t39	t40	t41
+	ASSIGN	son	t41
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t42	#0
+	ASSIGN	r0	t42
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	exp_arroff	t28,	[a, t25]
+	ASSIGN	tmp	t28
+	load	tmp	t29
+	arg	t29
+	call_void	putint
+	ASSIGN	t30	#10
+	ASSIGN	tmp	t30
+	load	tmp	t31
+	arg	t31
+	call_void	putch
+	load	i	t32
+	ASSIGN	t33	#1
+	add	t32	t33	t34
+	ASSIGN	i	t34
+	goto	.L178
+
+.L180:
+	ASSIGN	t35	#0
+	ASSIGN	r0	t35
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	arr	t14
+	exp_arroff	t15,	[t14, t11]
+	ASSIGN	t16	#1
+	add	t11	t16	t17
+	load	arr	t18
+	exp_arroff	t19,	[t18, t17]
+	jlt	t15	t19	t20
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t22
+	ASSIGN	t23	#1
+	add	t22	t23	t24
+	ASSIGN	son	t24
+
+.L34:
+	load	arr	t25
+	exp_arroff	t26,	[t25, t1]
+	load	son	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	jgt	t26	t29	t30
+	goto_eq	t30	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t31	#0
+	ASSIGN	r0	t31
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t32
+	load	dad	t33
+	load	son	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	swap	t35
+	ASSIGN	dad	t35
+	load	son	t36
+	ASSIGN	dad	t36
+	load	dad	t37
+	ASSIGN	t38	#2
+	mul	t37	t38	t39
+	ASSIGN	t40	#1
+	add	t39	t40	t41
+	ASSIGN	son	t41
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t42	#0
+	ASSIGN	r0	t42
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	exp_arroff	t28,	[a, t25]
+	ASSIGN	tmp	t28
+	load	tmp	t29
+	arg	t29
+	call_void	putint
+	ASSIGN	t30	#10
+	ASSIGN	tmp	t30
+	load	tmp	t31
+	arg	t31
+	call_void	putch
+	load	i	t32
+	ASSIGN	t33	#1
+	add	t32	t33	t34
+	ASSIGN	i	t34
+	goto	.L178
+
+.L180:
+	ASSIGN	t35	#0
+	ASSIGN	r0	t35
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t1	#0
+	ASSIGN	t2	#4
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t3	#1
+	ASSIGN	t4	#3
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t5	#2
+	ASSIGN	t6	#9
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t7	#3
+	ASSIGN	t8	#2
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t9	#4
+	ASSIGN	t10	#0
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t11	#5
+	ASSIGN	t12	#1
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t13	#6
+	ASSIGN	t14	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t15	#7
+	ASSIGN	t16	#5
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t17	#8
+	ASSIGN	t18	#7
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t19	#9
+	ASSIGN	t20	#8
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main
+	alloca	#4	n
+
+swap:
+	param	array
+	alloca	#4	array
+	param	i
+	alloca	#4	i
+	param	j
+	alloca	#4	j
+	alloca	#4	temp
+	load	i	t0
+	load	array	t1
+	exp_arroff	t2,	[t1, t0]
+	ASSIGN	temp	t2
+	load	j	t3
+	load	array	t4
+	exp_arroff	t5,	[t4, t3]
+	load	array	t6
+	arroff_exp	t5,	[t6, t0]
+	load	temp	t7
+	load	array	t8
+	arroff_exp	t7,	[t8, t3]
+	ASSIGN	t9	#0
+	ASSIGN	r0	t9
+	goto	.L1
+
+.L1:
+	func_end:	swap
+
+heap_ajust:
+	param	arr
+	alloca	#4	arr
+	param	start
+	alloca	#4	start
+	param	end
+	alloca	#4	end
+	alloca	#4	dad
+	load	start	t0
+	ASSIGN	dad	t0
+	alloca	#4	son
+	load	dad	t1
+	ASSIGN	t2	#2
+	mul	t1	t2	t3
+	ASSIGN	t4	#1
+	add	t3	t4	t5
+	ASSIGN	son	t5
+
+.L24:
+	load	son	t9
+	load	end	t6
+	ASSIGN	t7	#1
+	add	t6	t7	t8
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L25
+	goto	.L26
+
+.L25:
+	load	son	t11
+	load	end	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L36
+	goto	.L35
+
+.L36:
+	load	son	t14
+	load	arr	t15
+	exp_arroff	t16,	[t15, t14]
+	load	son	t17
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	arr	t20
+	exp_arroff	t21,	[t20, t19]
+	jlt	t16	t21	t22
+
+.L37:
+
+.L35:
+	goto_eq	t13	#1	.L33
+	goto	.L34
+
+.L33:
+	load	son	t24
+	ASSIGN	t25	#1
+	add	t24	t25	t26
+	ASSIGN	son	t26
+
+.L34:
+	load	dad	t27
+	load	arr	t28
+	exp_arroff	t29,	[t28, t27]
+	load	son	t30
+	load	arr	t31
+	exp_arroff	t32,	[t31, t30]
+	jgt	t29	t32	t33
+	goto_eq	t33	#1	.L53
+	goto	.L54
+
+.L53:
+	ASSIGN	t34	#0
+	ASSIGN	r0	t34
+	goto	.L11
+	goto	.L55
+
+.L54:
+	load	arr	t35
+	load	dad	t36
+	load	son	t37
+	arg	t35
+	arg	t36
+	arg	t37
+	CALL	swap	t38
+	ASSIGN	dad	t38
+	load	son	t39
+	ASSIGN	dad	t39
+	load	dad	t40
+	ASSIGN	t41	#2
+	mul	t40	t41	t42
+	ASSIGN	t43	#1
+	add	t42	t43	t44
+	ASSIGN	son	t44
+
+.L55:
+	goto	.L24
+
+.L26:
+	ASSIGN	t45	#0
+	ASSIGN	r0	t45
+	goto	.L11
+
+.L11:
+	func_end:	heap_ajust
+
+heap_sort:
+	param	arr
+	alloca	#4	arr
+	param	len
+	alloca	#4	len
+	alloca	#4	i
+	alloca	#4	tmp
+	load	len	t0
+	ASSIGN	t1	#2
+	div	t0	t1	t2
+	ASSIGN	t3	#1
+	sub	t2	t3	t4
+	ASSIGN	i	t4
+
+.L84:
+	load	i	t5
+	ASSIGN	t6	#-1
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L85
+	goto	.L86
+
+.L85:
+	load	len	t8
+	ASSIGN	t9	#1
+	sub	t8	t9	t10
+	ASSIGN	tmp	t10
+	load	arr	t11
+	load	i	t12
+	load	tmp	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	CALL	heap_ajust	t14
+	ASSIGN	tmp	t14
+	load	i	t15
+	ASSIGN	t16	#1
+	sub	t15	t16	t17
+	ASSIGN	i	t17
+	goto	.L84
+
+.L86:
+	load	len	t18
+	ASSIGN	t19	#1
+	sub	t18	t19	t20
+	ASSIGN	i	t20
+
+.L111:
+	load	i	t21
+	ASSIGN	t22	#0
+	jgt	t21	t22	t23
+	goto_eq	t23	#1	.L112
+	goto	.L113
+
+.L112:
+	alloca	#4	tmp0
+	ASSIGN	t24	#0
+	ASSIGN	tmp0	t24
+	load	arr	t25
+	load	tmp0	t26
+	load	i	t27
+	arg	t25
+	arg	t26
+	arg	t27
+	CALL	swap	t28
+	ASSIGN	tmp	t28
+	load	i	t29
+	ASSIGN	t30	#1
+	sub	t29	t30	t31
+	ASSIGN	tmp	t31
+	load	arr	t32
+	load	tmp0	t33
+	load	tmp	t34
+	arg	t32
+	arg	t33
+	arg	t34
+	CALL	heap_ajust	t35
+	ASSIGN	tmp	t35
+	load	i	t36
+	ASSIGN	t37	#1
+	sub	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L111
+
+.L113:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L74
+
+.L74:
+	func_end:	heap_sort
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	ASSIGN	t22	#-192
+	load	n	t23
+	arg	t22
+	arg	t23
+	CALL	heap_sort	t24
+	ASSIGN	i	t24
+
+.L178:
+	load	i	t25
+	load	n	t26
+	jlt	t25	t26	t27
+	goto_eq	t27	#1	.L179
+	goto	.L180
+
+.L179:
+	alloca	#4	tmp
+	load	i	t28
+	exp_arroff	t29,	[a, t28]
+	ASSIGN	tmp	t29
+	load	tmp	t30
+	arg	t30
+	call_void	putint
+	ASSIGN	t31	#10
+	ASSIGN	tmp	t31
+	load	tmp	t32
+	arg	t32
+	call_void	putch
+	load	i	t33
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	ASSIGN	i	t35
+	goto	.L178
+
+.L180:
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L138
+
+.L138:
+	func_end:	main

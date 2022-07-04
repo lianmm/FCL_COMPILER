@@ -17,3 +17,307 @@ main:
 
 .L2:
 	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main
+
+defn:
+	ASSIGN	t0	#4
+	ASSIGN	r0	t0
+	goto	.L1
+
+.L1:
+	func_end:	defn
+
+main:
+	CALL	defn	t0
+	alloca	#4	a
+	ASSIGN	a	t0
+	load	a	t1
+	ASSIGN	r0	t1
+	goto	.L2
+
+.L2:
+	func_end:	main

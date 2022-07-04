@@ -1,251 +1,583 @@
-	alloca	#4	TAPE_LEN
-	ASSIGN	t0	#65536
-	ASSIGN	TAPE_LEN	t0
-	alloca	#4	BUFFER_LEN
-	ASSIGN	t1	#32768
-	ASSIGN	BUFFER_LEN	t1
-	alloca	#262144	tape
-	alloca	#131072	program
-	alloca	#4	ptr
-	ASSIGN	t2	#0
-	ASSIGN	ptr	t2
+	ASSIGN	t179	#0
+	ASSIGN	t180	#7
+	mul	t180	t161	t181
+	add	t179	t181	t182
+	ASSIGN	t183	#126
+	mul	t183	t160	t184
+	add	t182	t184	t185
+	ASSIGN	t186	#2268
+	mul	t186	t159	t187
+	add	t185	t187	t188
+	ASSIGN	t189	#40824
+	mul	t189	t158	t190
+	add	t188	t190	t191
+	ASSIGN	t192	#734832
+	mul	t192	t157	t193
+	add	t191	t193	t194
+	exp_arroff	t195,	[dp, t194]
+	ASSIGN	t178	#7
+	alloca	#52907904	dp
+	alloca	#800	list
 
-read_program:
-	alloca	#4	i
-	ASSIGN	t0	#0
-	ASSIGN	i	t0
-	CALL	getint	t1
-	alloca	#4	len
-	ASSIGN	len	t1
+equal:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	load	a	t0
+	load	b	t1
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L2
+	goto	.L3
 
 .L2:
-	load	i	t2
-	load	len	t3
-	jlt	t2	t3	t4
-	goto_eq	t4	#1	.L3
-	goto	.L4
+	ASSIGN	t3	#1
+	ASSIGN	r0	t3
+	goto	.L1
 
 .L3:
-	CALL	getch	t5
-	arroff_exp	t5,	[program, t2]
-	load	i	t6
-	ASSIGN	t7	#1
-	add	t6	t7	t8
-	ASSIGN	i	t8
-	goto	.L2
-
-.L4:
-	load	i	t9
-	ASSIGN	t10	#0
-	arroff_exp	t10,	[program, t9]
+	ASSIGN	t4	#0
+	ASSIGN	r0	t4
+	goto	.L1
 
 .L1:
-	func_end:	read_program
+	func_end:	equal
 
-interpret:
-	param	input
-	alloca	#4	input
-	alloca	#4	cur_char
-	alloca	#4	loop
-	alloca	#4	i
-	ASSIGN	t0	#0
-	ASSIGN	i	t0
+dfs:
+	param	a
+	alloca	#4	a
+	param	b
+	alloca	#4	b
+	param	c
+	alloca	#4	c
+	param	d
+	alloca	#4	d
+	param	e
+	alloca	#4	e
+	param	last
+	alloca	#4	last
+	ASSIGN	t0	#36
+	arg	t0
+	call_void	putch
+	load	a	t1
+	arg	t1
+	call_void	putint
+	ASSIGN	t2	#32
+	arg	t2
+	call_void	putch
+	load	b	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	t4	#32
+	arg	t4
+	call_void	putch
+	load	c	t5
+	arg	t5
+	call_void	putint
+	ASSIGN	t6	#32
+	arg	t6
+	call_void	putch
+	load	d	t7
+	arg	t7
+	call_void	putint
+	ASSIGN	t8	#32
+	arg	t8
+	call_void	putch
+	load	e	t9
+	arg	t9
+	call_void	putint
+	ASSIGN	t10	#32
+	arg	t10
+	call_void	putch
+	load	last	t11
+	arg	t11
+	call_void	putint
+	ASSIGN	t12	#32
+	arg	t12
+	call_void	putch
+	ASSIGN	t13	#7
+	mul	t13	t9	t14
+	add	t11	t14	t15
+	ASSIGN	t16	#126
+	mul	t16	t7	t17
+	add	t15	t17	t18
+	ASSIGN	t19	#2268
+	mul	t19	t5	t20
+	add	t18	t20	t21
+	ASSIGN	t22	#40824
+	mul	t22	t3	t23
+	add	t21	t23	t24
+	ASSIGN	t25	#734832
+	mul	t25	t1	t26
+	add	t24	t26	t27
+	exp_arroff	t28,	[dp, t27]
+	ASSIGN	t29	#-1
+	neq	t28	t29	t30
+	goto_eq	t30	#1	.L8
+	goto	.L9
 
-.L21:
-	load	i	t1
-	load	input	t2
-	exp_arroff	t3,	[t2, t1]
-	neq	t3	#0	t3
-	goto_eq	t3	#1	.L22
-	goto	.L23
+.L8:
+	ASSIGN	t31	#7
+	mul	t31	t9	t32
+	add	t11	t32	t33
+	ASSIGN	t34	#126
+	mul	t34	t7	t35
+	add	t33	t35	t36
+	ASSIGN	t37	#2268
+	mul	t37	t5	t38
+	add	t36	t38	t39
+	ASSIGN	t40	#40824
+	mul	t40	t3	t41
+	add	t39	t41	t42
+	ASSIGN	t43	#734832
+	mul	t43	t1	t44
+	add	t42	t44	t45
+	exp_arroff	t46,	[dp, t45]
+	ASSIGN	r0	t46
+	goto	.L7
 
-.L22:
-	load	input	t4
-	exp_arroff	t5,	[t4, t1]
-	ASSIGN	cur_char	t5
-	load	cur_char	t6
-	ASSIGN	t7	#62
-	eq	t6	t7	t8
-	goto_eq	t8	#1	.L27
-	goto	.L28
+.L9:
+	load	a	t47
+	load	b	t48
+	add	t47	t48	t49
+	load	c	t50
+	add	t49	t50	t51
+	load	d	t52
+	add	t51	t52	t53
+	load	e	t54
+	add	t53	t54	t55
+	ASSIGN	t56	#0
+	eq	t55	t56	t57
+	goto_eq	t57	#1	.L13
+	goto	.L14
 
-.L27:
-	load	ptr	t9
-	ASSIGN	t10	#1
-	add	t9	t10	t11
-	ASSIGN	ptr	t11
-	goto	.L29
+.L13:
+	ASSIGN	t58	#1
+	ASSIGN	r0	t58
+	goto	.L7
 
-.L28:
-	load	cur_char	t12
-	ASSIGN	t13	#60
-	eq	t12	t13	t14
-	goto_eq	t14	#1	.L39
-	goto	.L40
+.L14:
+	alloca	#4	ans
+	ASSIGN	t59	#0
+	ASSIGN	ans	t59
+	load	a	t60
+	neq	t60	#0	t60
+	goto_eq	t60	#1	.L30
+	goto	.L31
 
-.L39:
-	load	ptr	t15
-	ASSIGN	t16	#1
-	sub	t15	t16	t17
-	ASSIGN	ptr	t17
-	goto	.L41
+.L30:
+	load	ans	t74
+	load	last	t61
+	ASSIGN	t62	#2
+	arg	t61
+	arg	t62
+	CALL	equal	t63
+	sub	t60	t63	t64
+	ASSIGN	t65	#1
+	sub	t60	t65	t66
+	load	b	t67
+	load	c	t68
+	load	d	t69
+	load	e	t70
+	ASSIGN	t71	#1
+	arg	t66
+	arg	t67
+	arg	t68
+	arg	t69
+	arg	t70
+	arg	t71
+	CALL	dfs	t72
+	mul	t64	t72	t73
+	add	t74	t73	t75
+	ASSIGN	t76	#1000000007
+	mod	t75	t76	t77
+	ASSIGN	ans	t77
 
-.L40:
-	load	cur_char	t18
-	ASSIGN	t19	#43
-	eq	t18	t19	t20
-	goto_eq	t20	#1	.L51
-	goto	.L52
+.L31:
+	load	b	t78
+	neq	t78	#0	t78
+	goto_eq	t78	#1	.L50
+	goto	.L51
+
+.L50:
+	load	ans	t94
+	load	last	t79
+	ASSIGN	t80	#3
+	arg	t79
+	arg	t80
+	CALL	equal	t81
+	sub	t78	t81	t82
+	load	a	t83
+	ASSIGN	t84	#1
+	add	t83	t84	t85
+	ASSIGN	t86	#1
+	sub	t78	t86	t87
+	load	c	t88
+	load	d	t89
+	load	e	t90
+	ASSIGN	t91	#2
+	arg	t85
+	arg	t87
+	arg	t88
+	arg	t89
+	arg	t90
+	arg	t91
+	CALL	dfs	t92
+	mul	t82	t92	t93
+	add	t94	t93	t95
+	ASSIGN	t96	#1000000007
+	mod	t95	t96	t97
+	ASSIGN	ans	t97
 
 .L51:
-	load	ptr	t21
-	exp_arroff	t22,	[tape, t21]
-	ASSIGN	t23	#1
-	add	t22	t23	t24
-	arroff_exp	t24,	[tape, t21]
-	goto	.L53
+	load	c	t98
+	neq	t98	#0	t98
+	goto_eq	t98	#1	.L73
+	goto	.L74
 
-.L52:
-	load	cur_char	t25
-	ASSIGN	t26	#45
-	eq	t25	t26	t27
-	goto_eq	t27	#1	.L63
-	goto	.L64
+.L73:
+	load	ans	t114
+	load	last	t99
+	ASSIGN	t100	#4
+	arg	t99
+	arg	t100
+	CALL	equal	t101
+	sub	t98	t101	t102
+	load	a	t103
+	load	b	t104
+	ASSIGN	t105	#1
+	add	t104	t105	t106
+	ASSIGN	t107	#1
+	sub	t98	t107	t108
+	load	d	t109
+	load	e	t110
+	ASSIGN	t111	#3
+	arg	t103
+	arg	t106
+	arg	t108
+	arg	t109
+	arg	t110
+	arg	t111
+	CALL	dfs	t112
+	mul	t102	t112	t113
+	add	t114	t113	t115
+	ASSIGN	t116	#1000000007
+	mod	t115	t116	t117
+	ASSIGN	ans	t117
 
-.L63:
-	exp_arroff	t28,	[tape, t21]
-	ASSIGN	t29	#1
-	sub	t28	t29	t30
-	arroff_exp	t30,	[tape, t21]
-	goto	.L65
+.L74:
+	load	d	t118
+	neq	t118	#0	t118
+	goto_eq	t118	#1	.L96
+	goto	.L97
 
-.L64:
-	load	cur_char	t31
-	ASSIGN	t32	#46
-	eq	t31	t32	t33
-	goto_eq	t33	#1	.L75
-	goto	.L76
+.L96:
+	load	ans	t134
+	load	last	t119
+	ASSIGN	t120	#5
+	arg	t119
+	arg	t120
+	CALL	equal	t121
+	sub	t118	t121	t122
+	load	a	t123
+	load	b	t124
+	load	c	t125
+	ASSIGN	t126	#1
+	add	t125	t126	t127
+	ASSIGN	t128	#1
+	sub	t118	t128	t129
+	load	e	t130
+	ASSIGN	t131	#4
+	arg	t123
+	arg	t124
+	arg	t127
+	arg	t129
+	arg	t130
+	arg	t131
+	CALL	dfs	t132
+	mul	t122	t132	t133
+	add	t134	t133	t135
+	ASSIGN	t136	#1000000007
+	mod	t135	t136	t137
+	ASSIGN	ans	t137
 
-.L75:
-	load	ptr	t34
-	exp_arroff	t35,	[tape, t34]
-	arg	t35
-	call_void	putch
-	goto	.L77
+.L97:
+	load	e	t138
+	neq	t138	#0	t138
+	goto_eq	t138	#1	.L119
+	goto	.L120
 
-.L76:
-	load	cur_char	t36
-	ASSIGN	t37	#44
-	eq	t36	t37	t38
-	goto_eq	t38	#1	.L81
-	goto	.L82
+.L119:
+	load	ans	t150
+	load	a	t139
+	load	b	t140
+	load	c	t141
+	load	d	t142
+	ASSIGN	t143	#1
+	add	t142	t143	t144
+	ASSIGN	t145	#1
+	sub	t138	t145	t146
+	ASSIGN	t147	#5
+	arg	t139
+	arg	t140
+	arg	t141
+	arg	t144
+	arg	t146
+	arg	t147
+	CALL	dfs	t148
+	mul	t138	t148	t149
+	add	t150	t149	t151
+	ASSIGN	t152	#1000000007
+	mod	t151	t152	t153
+	ASSIGN	ans	t153
 
-.L81:
-	CALL	getch	t39
-	arroff_exp	t39,	[tape, t34]
-	goto	.L83
+.L120:
+	load	ans	t154
+	ASSIGN	t155	#1000000007
+	mod	t154	t155	t156
+	load	a	t157
+	load	b	t158
+	load	c	t159
+	load	d	t160
+	load	e	t161
+	load	last	t162
+	ASSIGN	t163	#7
+	mul	t163	t161	t164
+	add	t162	t164	t165
+	ASSIGN	t166	#126
+	mul	t166	t160	t167
+	add	t165	t167	t168
+	ASSIGN	t169	#2268
+	mul	t169	t159	t170
+	add	t168	t170	t171
+	ASSIGN	t172	#40824
+	mul	t172	t158	t173
+	add	t171	t173	t174
+	ASSIGN	t175	#734832
+	mul	t175	t157	t176
+	add	t174	t176	t177
+	arroff_exp	t156,	[dp, t177]
+	ASSIGN	t178	#7
+	ASSIGN	t179	#0
+	ASSIGN	t180	#7
+	mul	t180	t161	t181
+	add	t179	t181	t182
+	ASSIGN	t183	#126
+	mul	t183	t160	t184
+	add	t182	t184	t185
+	ASSIGN	t186	#2268
+	mul	t186	t159	t187
+	add	t185	t187	t188
+	ASSIGN	t189	#40824
+	mul	t189	t158	t190
+	add	t188	t190	t191
+	ASSIGN	t192	#734832
+	mul	t192	t157	t193
+	add	t191	t193	t194
+	exp_arroffa	dp	t194	t195
+	arg	t178
+	arg	t195
+	call_void	putarray
+	ASSIGN	t196	#7
+	mul	t196	t161	t197
+	add	t162	t197	t198
+	ASSIGN	t199	#126
+	mul	t199	t160	t200
+	add	t198	t200	t201
+	ASSIGN	t202	#2268
+	mul	t202	t159	t203
+	add	t201	t203	t204
+	ASSIGN	t205	#40824
+	mul	t205	t158	t206
+	add	t204	t206	t207
+	ASSIGN	t208	#734832
+	mul	t208	t157	t209
+	add	t207	t209	t210
+	exp_arroff	t211,	[dp, t210]
+	ASSIGN	r0	t211
+	goto	.L7
 
-.L82:
-	load	cur_char	t40
-	ASSIGN	t41	#93
-	eq	t40	t41	t42
-	goto_eq	t42	#1	.L93
-	goto	.L92
-
-.L93:
-	load	ptr	t43
-	exp_arroff	t44,	[tape, t43]
-	neq	t44	#0	t45
-
-.L94:
-
-.L92:
-	goto_eq	t42	#1	.L90
-	goto	.L91
-
-.L90:
-	ASSIGN	t46	#1
-	ASSIGN	loop	t46
-
-.L101:
-	load	loop	t47
-	ASSIGN	t48	#0
-	jgt	t47	t48	t49
-	goto_eq	t49	#1	.L102
-	goto	.L103
-
-.L102:
-	load	i	t50
-	ASSIGN	t51	#1
-	sub	t50	t51	t52
-	ASSIGN	i	t52
-	load	input	t53
-	exp_arroff	t54,	[t53, t52]
-	ASSIGN	cur_char	t54
-	load	cur_char	t55
-	ASSIGN	t56	#91
-	eq	t55	t56	t57
-	goto_eq	t57	#1	.L116
-	goto	.L117
-
-.L116:
-	load	loop	t58
-	ASSIGN	t59	#1
-	sub	t58	t59	t60
-	ASSIGN	loop	t60
-	goto	.L118
-
-.L117:
-	load	cur_char	t61
-	ASSIGN	t62	#93
-	eq	t61	t62	t63
-	goto_eq	t63	#1	.L128
-	goto	.L129
-
-.L128:
-	load	loop	t64
-	ASSIGN	t65	#1
-	add	t64	t65	t66
-	ASSIGN	loop	t66
-
-.L129:
-
-.L118:
-	goto	.L101
-
-.L103:
-
-.L91:
-
-.L83:
-
-.L77:
-
-.L65:
-
-.L53:
-
-.L41:
-
-.L29:
-	load	i	t67
-	ASSIGN	t68	#1
-	add	t67	t68	t69
-	ASSIGN	i	t69
-	goto	.L21
-
-.L23:
-
-.L20:
-	func_end:	interpret
+.L7:
+	func_end:	dfs
+	alloca	#80	cns
+	ASSIGN	t212	#0
+	arroff_expi	cns	#0	t212
+	ASSIGN	t213	#0
+	arroff_expi	cns	#4	t213
+	ASSIGN	t214	#5
+	arroff_expi	cns	#8	t214
+	ASSIGN	t215	#0
+	arroff_expi	cns	#12	t215
+	ASSIGN	t216	#0
+	arroff_expi	cns	#16	t216
 
 main:
-	call_void	read_program
-	ASSIGN	t0	#-393220
-	arg	t0
-	call_void	interpret
+	CALL	getint	t0
+	alloca	#4	n
+	ASSIGN	n	t0
+	alloca	#4	i
 	ASSIGN	t1	#0
-	ASSIGN	r0	t1
+	ASSIGN	i	t1
+
+.L146:
+	load	i	t2
+	ASSIGN	t3	#18
+	jlt	t2	t3	t4
+	goto_eq	t4	#1	.L147
+	goto	.L148
+
+.L147:
+	alloca	#4	j
+	ASSIGN	t5	#0
+	ASSIGN	j	t5
+
+.L152:
+	load	j	t6
+	ASSIGN	t7	#18
+	jlt	t6	t7	t8
+	goto_eq	t8	#1	.L153
+	goto	.L154
+
+.L153:
+	alloca	#4	k
+	ASSIGN	t9	#0
+	ASSIGN	k	t9
+
+.L158:
+	load	k	t10
+	ASSIGN	t11	#18
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L159
+	goto	.L160
+
+.L159:
+	alloca	#4	l
+	ASSIGN	t13	#0
+	ASSIGN	l	t13
+
+.L164:
+	load	l	t14
+	ASSIGN	t15	#18
+	jlt	t14	t15	t16
+	goto_eq	t16	#1	.L165
+	goto	.L166
+
+.L165:
+	alloca	#4	m
+	ASSIGN	t17	#0
+	ASSIGN	m	t17
+
+.L170:
+	load	m	t18
+	ASSIGN	t19	#18
+	jlt	t18	t19	t20
+	goto_eq	t20	#1	.L171
+	goto	.L172
+
+.L171:
+	alloca	#4	h
+	ASSIGN	t21	#0
+	ASSIGN	h	t21
+
+.L176:
+	load	h	t22
+	ASSIGN	t23	#7
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L177
+	goto	.L178
+
+.L177:
+	ASSIGN	t46	#-1
+	load	i	t25
+	load	j	t26
+	load	k	t27
+	load	l	t28
+	load	m	t29
+	load	h	t30
+	ASSIGN	t31	#7
+	mul	t31	t29	t32
+	add	t30	t32	t33
+	ASSIGN	t34	#126
+	mul	t34	t28	t35
+	add	t33	t35	t36
+	ASSIGN	t37	#2268
+	mul	t37	t27	t38
+	add	t36	t38	t39
+	ASSIGN	t40	#40824
+	mul	t40	t26	t41
+	add	t39	t41	t42
+	ASSIGN	t43	#734832
+	mul	t43	t25	t44
+	add	t42	t44	t45
+	arroff_exp	t46,	[dp, t45]
+	load	h	t47
+	ASSIGN	t48	#1
+	add	t47	t48	t49
+	ASSIGN	h	t49
+	goto	.L176
+
+.L178:
+	load	m	t50
+	ASSIGN	t51	#1
+	add	t50	t51	t52
+	ASSIGN	m	t52
+	goto	.L170
+
+.L172:
+	load	l	t53
+	ASSIGN	t54	#1
+	add	t53	t54	t55
+	ASSIGN	l	t55
+	goto	.L164
+
+.L166:
+	load	k	t56
+	ASSIGN	t57	#1
+	add	t56	t57	t58
+	ASSIGN	k	t58
+	goto	.L158
+
+.L160:
+	load	j	t59
+	ASSIGN	t60	#1
+	add	t59	t60	t61
+	ASSIGN	j	t61
+	goto	.L152
+
+.L154:
+	load	i	t62
+	ASSIGN	t63	#1
+	add	t62	t63	t64
+	ASSIGN	i	t64
+	goto	.L146
+
+.L148:
+	ASSIGN	t65	#0
+	ASSIGN	i	t65
+	ASSIGN	t66	#1
+	exp_arroff	t67,	[cns, t66]
+	ASSIGN	t68	#2
+	exp_arroff	t69,	[cns, t68]
+	ASSIGN	t70	#3
+	exp_arroff	t71,	[cns, t70]
+	ASSIGN	t72	#4
+	exp_arroff	t73,	[cns, t72]
+	ASSIGN	t74	#5
+	exp_arroff	t75,	[cns, t74]
+	ASSIGN	t76	#0
+	arg	t67
+	arg	t69
+	arg	t71
+	arg	t73
+	arg	t75
+	arg	t76
+	CALL	dfs	t77
+	alloca	#4	ans
+	ASSIGN	ans	t77
+	load	ans	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	r0	t78
 	goto	.L145
 
 .L145:

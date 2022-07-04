@@ -58,3 +58,1023 @@ main:
 
 .L1:
 	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	alloca	#4	c
+	alloca	#4	d
+	alloca	#4	result
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	ASSIGN	t1	#5
+	ASSIGN	b	t1
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	ASSIGN	t3	#-2
+	ASSIGN	d	t3
+	load	d	t4
+	ASSIGN	t5	#1
+	mul	t4	t5	t6
+	ASSIGN	t7	#2
+	div	t6	t7	t8
+	load	a	t9
+	load	b	t10
+	sub	t9	t10	t11
+	add	t8	t11	t12
+	load	c	t13
+	ASSIGN	t14	#3
+	add	t13	t14	t15
+	ASSIGN	t16	#2
+	mod	t15	t16	t17
+	uminus	t17	t18
+	sub	t12	t18	t19
+	ASSIGN	result	t19
+	load	result	t20
+	arg	t20
+	call_void	putint
+	ASSIGN	t21	#2
+	mod	t4	t21	t22
+	ASSIGN	t23	#67
+	add	t22	t23	t24
+	sub	t9	t10	t25
+	uminus	t25	t26
+	add	t24	t26	t27
+	ASSIGN	t28	#2
+	add	t13	t28	t29
+	ASSIGN	t30	#2
+	mod	t29	t30	t31
+	uminus	t31	t32
+	sub	t27	t32	t33
+	ASSIGN	result	t33
+	ASSIGN	t34	#3
+	add	t33	t34	t35
+	ASSIGN	result	t35
+	arg	t35
+	call_void	putint
+	ASSIGN	t36	#0
+	ASSIGN	r0	t36
+	goto	.L1
+
+.L1:
+	func_end:	main

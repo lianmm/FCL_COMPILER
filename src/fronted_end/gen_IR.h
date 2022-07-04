@@ -41,6 +41,7 @@ enum IR_op
   IR_ARROFF_EXP,
   IR_ARROFF_EXPi,
   IR_ARROFF_EXPie,
+  IR_EXP_ARROFFa,
 
   IR_GOTO_NOT,
   IR_CALL,
@@ -90,24 +91,24 @@ struct T_symbol
 struct T_symtable
 {
   int top;
-  struct T_symbol Tsyms[500];
+  struct T_symbol Tsyms[MAXLENGTH];
 };
 
 struct func_symtable
 {
   int top;
-  struct T_symtable st[500];
+  struct T_symtable st[100];
 };
 
 //在if或while内的赋值时记录赋值的变量的索引，出语句块时清空临时变量分配；
 struct if_while_sym
 {
-  int sym_indexs[1000];
+  int sym_indexs[MAXLENGTH];
   int top;
 };
 struct if_whi_top
 {
-  int sym_top[1000];
+  int sym_top[500];
   int top;
 };
 extern struct func_symtable fsT;
@@ -141,7 +142,7 @@ extern int no_lab;
 
 void DisplayIR(struct codenode *C);
 
-void display_fsT();
+void display_fsT(int index);
 
 void copyOpn(struct opn *dopn, struct opn sopn);
 

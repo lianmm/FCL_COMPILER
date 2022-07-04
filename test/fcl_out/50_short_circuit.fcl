@@ -171,3 +171,2598 @@ main:
 
 .L8:
 	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main
+	alloca	#4	g
+	ASSIGN	t0	#0
+	ASSIGN	g	t0
+
+func:
+	param	n
+	alloca	#4	n
+	load	g	t0
+	load	n	t1
+	add	t0	t1	t2
+	ASSIGN	g	t2
+	load	g	t3
+	arg	t3
+	call_void	putint
+	ASSIGN	r0	t3
+	goto	.L1
+
+.L1:
+	func_end:	func
+
+main:
+	alloca	#4	i
+	CALL	getint	t0
+	ASSIGN	i	t0
+	load	i	t1
+	ASSIGN	t2	#10
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L16
+	goto	.L15
+
+.L16:
+	arg	t1
+	CALL	func	t4
+	neq	t4	#0	t5
+
+.L17:
+
+.L15:
+	goto_eq	t3	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t6	#1
+	ASSIGN	i	t6
+	goto	.L14
+
+.L13:
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+
+.L14:
+	CALL	getint	t8
+	ASSIGN	i	t8
+	load	i	t9
+	ASSIGN	t10	#11
+	jgt	t9	t10	t11
+	goto_eq	t11	#1	.L34
+	goto	.L33
+
+.L34:
+	arg	t9
+	CALL	func	t12
+	neq	t12	#0	t13
+
+.L35:
+
+.L33:
+	goto_eq	t11	#1	.L30
+	goto	.L31
+
+.L30:
+	ASSIGN	t14	#1
+	ASSIGN	i	t14
+	goto	.L32
+
+.L31:
+	ASSIGN	t15	#0
+	ASSIGN	i	t15
+
+.L32:
+	CALL	getint	t16
+	ASSIGN	i	t16
+	load	i	t17
+	ASSIGN	t18	#99
+	jle	t17	t18	t19
+	goto_eq	t19	#1	.L51
+	goto	.L52
+
+.L52:
+	arg	t17
+	CALL	func	t20
+	neq	t20	#0	t21
+
+.L53:
+
+.L51:
+	goto_eq	t19	#1	.L48
+	goto	.L49
+
+.L48:
+	ASSIGN	t22	#1
+	ASSIGN	i	t22
+	goto	.L50
+
+.L49:
+	ASSIGN	t23	#0
+	ASSIGN	i	t23
+
+.L50:
+	CALL	getint	t24
+	ASSIGN	i	t24
+	load	i	t25
+	ASSIGN	t26	#100
+	jle	t25	t26	t27
+	goto_eq	t27	#1	.L69
+	goto	.L70
+
+.L70:
+	arg	t25
+	CALL	func	t28
+	neq	t28	#0	t29
+
+.L71:
+
+.L69:
+	goto_eq	t27	#1	.L66
+	goto	.L67
+
+.L66:
+	ASSIGN	t30	#1
+	ASSIGN	i	t30
+	goto	.L68
+
+.L67:
+	ASSIGN	t31	#0
+	ASSIGN	i	t31
+
+.L68:
+	ASSIGN	t32	#99
+	arg	t32
+	CALL	func	t33
+	not	t33	t34
+	goto_eq	t34	#1	.L85
+	goto	.L84
+
+.L85:
+	ASSIGN	t35	#100
+	arg	t35
+	CALL	func	t36
+	neq	t36	#0	t37
+
+.L86:
+
+.L84:
+	goto_eq	t34	#1	.L81
+	goto	.L82
+
+.L81:
+	ASSIGN	t38	#1
+	ASSIGN	i	t38
+	goto	.L83
+
+.L82:
+	ASSIGN	t39	#0
+	ASSIGN	i	t39
+
+.L83:
+	ASSIGN	t40	#0
+	ASSIGN	r0	t40
+	goto	.L8
+
+.L8:
+	func_end:	main

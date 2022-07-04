@@ -207,3 +207,3138 @@ main:
 
 .L173:
 	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main
+	alloca	#4	g
+	alloca	#4	h
+	alloca	#4	f
+	alloca	#4	e
+
+EightWhile:
+	alloca	#4	a
+	ASSIGN	t0	#5
+	ASSIGN	a	t0
+	alloca	#4	b
+	alloca	#4	c
+	ASSIGN	t1	#6
+	ASSIGN	b	t1
+	ASSIGN	t2	#7
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#10
+	ASSIGN	d	t3
+
+.L14:
+	load	a	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L15
+	goto	.L16
+
+.L15:
+	load	a	t7
+	ASSIGN	t8	#3
+	add	t7	t8	t9
+	ASSIGN	a	t9
+
+.L26:
+	load	b	t10
+	ASSIGN	t11	#10
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L27
+	goto	.L28
+
+.L27:
+	load	b	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	b	t15
+
+.L38:
+	load	c	t16
+	ASSIGN	t17	#7
+	eq	t16	t17	t18
+	goto_eq	t18	#1	.L39
+	goto	.L40
+
+.L39:
+	load	c	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	c	t21
+
+.L50:
+	load	d	t22
+	ASSIGN	t23	#20
+	jlt	t22	t23	t24
+	goto_eq	t24	#1	.L51
+	goto	.L52
+
+.L51:
+	load	d	t25
+	ASSIGN	t26	#3
+	add	t25	t26	t27
+	ASSIGN	d	t27
+
+.L62:
+	load	e	t28
+	ASSIGN	t29	#1
+	jgt	t28	t29	t30
+	goto_eq	t30	#1	.L63
+	goto	.L64
+
+.L63:
+	load	e	t31
+	ASSIGN	t32	#1
+	sub	t31	t32	t33
+	ASSIGN	e	t33
+
+.L74:
+	load	f	t34
+	ASSIGN	t35	#2
+	jgt	t34	t35	t36
+	goto_eq	t36	#1	.L75
+	goto	.L76
+
+.L75:
+	load	f	t37
+	ASSIGN	t38	#2
+	sub	t37	t38	t39
+	ASSIGN	f	t39
+
+.L86:
+	load	g	t40
+	ASSIGN	t41	#3
+	jlt	t40	t41	t42
+	goto_eq	t42	#1	.L87
+	goto	.L88
+
+.L87:
+	load	g	t43
+	ASSIGN	t44	#10
+	add	t43	t44	t45
+	ASSIGN	g	t45
+
+.L98:
+	load	h	t46
+	ASSIGN	t47	#10
+	jlt	t46	t47	t48
+	goto_eq	t48	#1	.L99
+	goto	.L100
+
+.L99:
+	load	h	t49
+	ASSIGN	t50	#8
+	add	t49	t50	t51
+	ASSIGN	h	t51
+	goto	.L98
+
+.L100:
+	load	h	t52
+	ASSIGN	t53	#1
+	sub	t52	t53	t54
+	ASSIGN	h	t54
+	goto	.L86
+
+.L88:
+	load	g	t55
+	ASSIGN	t56	#8
+	sub	t55	t56	t57
+	ASSIGN	g	t57
+	goto	.L74
+
+.L76:
+	load	f	t58
+	ASSIGN	t59	#1
+	add	t58	t59	t60
+	ASSIGN	f	t60
+	goto	.L62
+
+.L64:
+	load	e	t61
+	ASSIGN	t62	#1
+	add	t61	t62	t63
+	ASSIGN	e	t63
+	goto	.L50
+
+.L52:
+	load	d	t64
+	ASSIGN	t65	#1
+	sub	t64	t65	t66
+	ASSIGN	d	t66
+	goto	.L38
+
+.L40:
+	load	c	t67
+	ASSIGN	t68	#1
+	add	t67	t68	t69
+	ASSIGN	c	t69
+	goto	.L26
+
+.L28:
+	load	b	t70
+	ASSIGN	t71	#2
+	sub	t70	t71	t72
+	ASSIGN	b	t72
+	goto	.L14
+
+.L16:
+	load	a	t76
+	load	b	t73
+	load	d	t74
+	add	t73	t74	t75
+	add	t76	t75	t77
+	load	c	t78
+	add	t77	t78	t79
+	load	e	t80
+	add	t80	t74	t81
+	load	g	t82
+	sub	t81	t82	t83
+	load	h	t84
+	add	t83	t84	t85
+	sub	t79	t85	t86
+	ASSIGN	r0	t86
+	goto	.L1
+
+.L1:
+	func_end:	EightWhile
+
+main:
+	ASSIGN	t0	#1
+	ASSIGN	g	t0
+	ASSIGN	t1	#2
+	ASSIGN	h	t1
+	ASSIGN	t2	#4
+	ASSIGN	e	t2
+	ASSIGN	t3	#6
+	ASSIGN	f	t3
+	CALL	EightWhile	t4
+	ASSIGN	r0	t4
+	goto	.L173
+
+.L173:
+	func_end:	main

@@ -18,3 +18,343 @@ main:
 
 .L1:
 	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main
+
+main:
+	alloca	#4	a
+	alloca	#4	b
+	ASSIGN	t0	#10
+	ASSIGN	a	t0
+	ASSIGN	t1	#30
+	ASSIGN	b	t1
+	load	a	t2
+	ASSIGN	t3	#-5
+	sub	t2	t3	t4
+	load	b	t5
+	add	t4	t5	t6
+	ASSIGN	t7	#-5
+	add	t6	t7	t8
+	ASSIGN	r0	t8
+	goto	.L1
+
+.L1:
+	func_end:	main

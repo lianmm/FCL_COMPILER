@@ -95,7 +95,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 28 "fronted_end/sysy.y"
+#line 30 "fronted_end/sysy.y"
 
   int    type_int;
   float  type_float;

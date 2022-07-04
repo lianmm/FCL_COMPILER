@@ -8,7 +8,7 @@ echo -e $i ":\n"
 rm  ../test/fcl_arm_out/test.fcl.s ../test/out/test.fcl.out  
 ./fcl_parser  $file   2>>test_out.txt  >>test_out.txt
 
-arm-linux-gcc  -march=armv7-a -mtune=cortex-a9 -static ../sysy_lib/lib.a ../test/fcl_arm_out/test.fcl.s -o ../test/out/test.fcl.out  
+arm-linux-gcc  -march=armv7-a -mtune=cortex-a9 -mxgot -static ../sysy_lib/lib.a ../test/fcl_arm_out/test.fcl.s -o ../test/out/test.fcl.out  
 
 
 echo -e "\nthe ans from fcl_parser：" >>test_out.txt
@@ -25,9 +25,11 @@ case $i in
     ;;
     64) qemu-arm ../test/out/test.fcl.out<${file/.c/.in} >>test_out.txt 2>>test_out.txt
     ;;
+    65) qemu-arm ../test/out/test.fcl.out<${file/.c/.in} >>test_out.txt 2>>test_out.txt
+    ;;    
     67) qemu-arm ../test/out/test.fcl.out<${file/.c/.in} >>test_out.txt 2>>test_out.txt
     ;;
-    68) echo -e "68 is can't run"
+    68) qemu-arm ../test/out/test.fcl.out<${file/.c/.in} >>test_out.txt 2>>test_out.txt
     ;;
     69) qemu-arm ../test/out/test.fcl.out<${file/.c/.in} >>test_out.txt 2>>test_out.txt
     ;;

@@ -69,3 +69,1210 @@ main:
 
 .L1:
 	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#0
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#1
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#2
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#4
+	ASSIGN	e	t4
+
+main:
+	alloca	#4	flag
+	ASSIGN	t0	#0
+	ASSIGN	flag	t0
+	load	a	t1
+	load	b	t2
+	mul	t1	t2	t3
+	load	c	t4
+	div	t3	t4	t5
+	load	e	t6
+	load	d	t7
+	add	t6	t7	t8
+	eq	t5	t8	t9
+	goto_eq	t9	#1	.L8
+	goto	.L7
+
+.L8:
+	add	t1	t2	t10
+	mul	t1	t10	t11
+	add	t11	t4	t12
+	add	t7	t6	t13
+	jle	t12	t13	t14
+
+.L9:
+
+.L7:
+	goto_eq	t9	#1	.L4
+	goto	.L5
+
+.L5:
+	mul	t2	t4	t16
+	sub	t1	t16	t17
+	div	t1	t4	t18
+	sub	t7	t18	t19
+	eq	t17	t19	t20
+
+.L6:
+
+.L4:
+	goto_eq	t9	#1	.L2
+	goto	.L3
+
+.L2:
+	ASSIGN	t22	#1
+	ASSIGN	flag	t22
+
+.L3:
+	load	flag	t23
+	arg	t23
+	call_void	putint
+	ASSIGN	r0	t23
+	goto	.L1
+
+.L1:
+	func_end:	main

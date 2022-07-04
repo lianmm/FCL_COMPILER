@@ -283,3 +283,3708 @@ main:
 
 .L50:
 	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
+
+foo:
+	alloca	#64	arr
+	ASSIGN	t0	#0
+	arroff_expi	arr	#0	t0
+	ASSIGN	t1	#1
+	arroff_expi	arr	#4	t1
+	ASSIGN	t2	#2
+	arroff_expi	arr	#8	t2
+	ASSIGN	t3	#3
+	arroff_expi	arr	#12	t3
+	ASSIGN	t4	#0
+	arroff_expi	arr	#16	t4
+	ASSIGN	t5	#1
+	arroff_expi	arr	#20	t5
+	ASSIGN	t6	#2
+	arroff_expi	arr	#24	t6
+	ASSIGN	t7	#3
+	arroff_expi	arr	#28	t7
+	ASSIGN	t8	#0
+	arroff_expi	arr	#32	t8
+	ASSIGN	t9	#1
+	arroff_expi	arr	#36	t9
+	ASSIGN	t10	#2
+	arroff_expi	arr	#40	t10
+	ASSIGN	t11	#3
+	arroff_expi	arr	#44	t11
+	ASSIGN	t12	#0
+	arroff_expi	arr	#48	t12
+	ASSIGN	t13	#1
+	arroff_expi	arr	#52	t13
+	ASSIGN	t14	#2
+	arroff_expi	arr	#56	t14
+	ASSIGN	t15	#3
+	arroff_expi	arr	#60	t15
+	alloca	#4	a
+	ASSIGN	t16	#3
+	ASSIGN	a	t16
+	alloca	#4	b
+	ASSIGN	t17	#7
+	ASSIGN	b	t17
+	alloca	#4	c
+	ASSIGN	t18	#5
+	ASSIGN	c	t18
+	alloca	#4	d
+	ASSIGN	t19	#6
+	ASSIGN	d	t19
+	alloca	#4	e
+	ASSIGN	t20	#1
+	ASSIGN	e	t20
+	alloca	#4	f
+	ASSIGN	t21	#0
+	ASSIGN	f	t21
+	alloca	#4	g
+	ASSIGN	t22	#3
+	ASSIGN	g	t22
+	alloca	#4	h
+	ASSIGN	t23	#5
+	ASSIGN	h	t23
+	alloca	#4	i
+	ASSIGN	t24	#4
+	ASSIGN	i	t24
+	alloca	#4	j
+	ASSIGN	t25	#2
+	ASSIGN	j	t25
+	alloca	#4	k
+	ASSIGN	t26	#7
+	ASSIGN	k	t26
+	alloca	#4	l
+	ASSIGN	t27	#9
+	ASSIGN	l	t27
+	alloca	#4	m
+	ASSIGN	t28	#8
+	ASSIGN	m	t28
+	alloca	#4	n
+	ASSIGN	t29	#1
+	ASSIGN	n	t29
+	alloca	#4	o
+	ASSIGN	t30	#4
+	ASSIGN	o	t30
+	alloca	#4	p
+	ASSIGN	t31	#6
+	ASSIGN	p	t31
+	load	a	t32
+	load	b	t33
+	add	t32	t33	t34
+	load	c	t35
+	add	t34	t35	t36
+	load	d	t37
+	add	t36	t37	t38
+	load	e	t39
+	add	t38	t39	t40
+	load	f	t41
+	add	t40	t41	t42
+	load	g	t43
+	add	t42	t43	t44
+	load	h	t45
+	add	t44	t45	t46
+	alloca	#4	sum1
+	ASSIGN	sum1	t46
+	load	i	t47
+	load	j	t48
+	add	t47	t48	t49
+	load	k	t50
+	add	t49	t50	t51
+	load	l	t52
+	add	t51	t52	t53
+	load	m	t54
+	add	t53	t54	t55
+	load	n	t56
+	add	t55	t56	t57
+	load	o	t58
+	add	t57	t58	t59
+	load	p	t60
+	add	t59	t60	t61
+	alloca	#4	sum2
+	ASSIGN	sum2	t61
+	load	sum1	t62
+	load	sum2	t63
+	add	t62	t63	t64
+	exp_arroff	t65,	[arr, t32]
+	add	t64	t65	t66
+	ASSIGN	r0	t66
+	goto	.L1
+
+.L1:
+	func_end:	foo
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#3
+	ASSIGN	a	t0
+	alloca	#4	b
+	ASSIGN	t1	#7
+	ASSIGN	b	t1
+	alloca	#4	c
+	ASSIGN	t2	#5
+	ASSIGN	c	t2
+	alloca	#4	d
+	ASSIGN	t3	#6
+	ASSIGN	d	t3
+	alloca	#4	e
+	ASSIGN	t4	#1
+	ASSIGN	e	t4
+	alloca	#4	f
+	ASSIGN	t5	#0
+	ASSIGN	f	t5
+	alloca	#4	g
+	ASSIGN	t6	#3
+	ASSIGN	g	t6
+	alloca	#4	h
+	ASSIGN	t7	#5
+	ASSIGN	h	t7
+	alloca	#4	i
+	ASSIGN	t8	#4
+	ASSIGN	i	t8
+	alloca	#4	j
+	ASSIGN	t9	#2
+	ASSIGN	j	t9
+	alloca	#4	k
+	ASSIGN	t10	#7
+	ASSIGN	k	t10
+	alloca	#4	l
+	ASSIGN	t11	#9
+	ASSIGN	l	t11
+	alloca	#4	m
+	ASSIGN	t12	#8
+	ASSIGN	m	t12
+	alloca	#4	n
+	ASSIGN	t13	#1
+	ASSIGN	n	t13
+	alloca	#4	o
+	ASSIGN	t14	#4
+	ASSIGN	o	t14
+	alloca	#4	p
+	ASSIGN	t15	#6
+	ASSIGN	p	t15
+	load	a	t16
+	load	b	t17
+	add	t16	t17	t18
+	load	c	t19
+	add	t18	t19	t20
+	load	d	t21
+	add	t20	t21	t22
+	load	e	t23
+	add	t22	t23	t24
+	load	f	t25
+	add	t24	t25	t26
+	load	g	t27
+	add	t26	t27	t28
+	load	h	t29
+	add	t28	t29	t30
+	alloca	#4	sum1
+	ASSIGN	sum1	t30
+	load	i	t31
+	load	j	t32
+	add	t31	t32	t33
+	load	k	t34
+	add	t33	t34	t35
+	load	l	t36
+	add	t35	t36	t37
+	load	m	t38
+	add	t37	t38	t39
+	load	n	t40
+	add	t39	t40	t41
+	load	o	t42
+	add	t41	t42	t43
+	load	p	t44
+	add	t43	t44	t45
+	alloca	#4	sum2
+	ASSIGN	sum2	t45
+	load	sum1	t47
+	CALL	foo	t46
+	add	t47	t46	t48
+	ASSIGN	sum1	t48
+	alloca	#4	q
+	ASSIGN	t49	#4
+	ASSIGN	q	t49
+	alloca	#4	r
+	ASSIGN	t50	#7
+	ASSIGN	r	t50
+	alloca	#4	s
+	ASSIGN	t51	#2
+	ASSIGN	s	t51
+	alloca	#4	t
+	ASSIGN	t52	#5
+	ASSIGN	t	t52
+	alloca	#4	u
+	ASSIGN	t53	#8
+	ASSIGN	u	t53
+	alloca	#4	v
+	ASSIGN	t54	#0
+	ASSIGN	v	t54
+	alloca	#4	w
+	ASSIGN	t55	#6
+	ASSIGN	w	t55
+	alloca	#4	x
+	ASSIGN	t56	#3
+	ASSIGN	x	t56
+	load	sum2	t58
+	CALL	foo	t57
+	add	t58	t57	t59
+	ASSIGN	sum2	t59
+	ASSIGN	a	t31
+	ASSIGN	b	t32
+	ASSIGN	c	t34
+	ASSIGN	d	t36
+	ASSIGN	e	t38
+	ASSIGN	f	t40
+	ASSIGN	g	t42
+	ASSIGN	h	t44
+	load	q	t60
+	load	r	t61
+	add	t60	t61	t62
+	load	s	t63
+	add	t62	t63	t64
+	load	t	t65
+	add	t64	t65	t66
+	load	u	t67
+	add	t66	t67	t68
+	load	v	t69
+	add	t68	t69	t70
+	load	w	t71
+	add	t70	t71	t72
+	load	x	t73
+	add	t72	t73	t74
+	alloca	#4	sum3
+	ASSIGN	sum3	t74
+	add	t48	t59	t75
+	load	sum3	t76
+	add	t75	t76	t77
+	alloca	#4	sum
+	ASSIGN	sum	t77
+	load	sum	t78
+	arg	t78
+	call_void	putint
+	ASSIGN	t79	#10
+	arg	t79
+	call_void	putch
+	ASSIGN	t80	#0
+	ASSIGN	r0	t80
+	goto	.L50
+
+.L50:
+	func_end:	main
