@@ -10,7 +10,7 @@ fcl编译器 v1.0版。
 
 此版本目标是作为无优化初版跑通全部功能测试用例。
 
-已完成：73/100。TODO
+已完成：78/100。TODO
 
 ### 依赖：
 
@@ -62,19 +62,19 @@ cd ./src
 compiler_fcl
 ├── ref
 │   └── compiler2022
-|	|	└──......
+|		└──......
 ├── src
 │   ├── fronted_end #编译器前端：词法，语法，ast生成，符号表，语义检查，IR生成
-|	|	├──ast.cpp
-|	|	├──ast.h
-|	|	├──gen_IR.cpp
-|	|	├──gen_IR.h
-|	|	├──semantic.cpp
-|	|	├──semantic.h
-|	|	├──symtable.cpp
-|	|	├──symtable.h
-|	|	├──sysy.l
-|	|	└──sysy.y
+|		├──ast.cpp
+|		├──ast.h
+|		├──gen_IR.cpp
+|		├──gen_IR.h
+|		├──semantic.cpp
+|		├──semantic.h
+|		├──symtable.cpp
+|		├──symtable.h
+|		├──sysy.l
+|		└──sysy.y
 │   ├── fcl_parser* #编译器可执行文件；
 │   ├── gen_arm.cpp #编译器后端生成汇编代码；
 │   ├── gen_arm.h
