@@ -5,13 +5,13 @@
 using namespace std;
 /*--------------------------------------------相关全局变量-------------------------------------*/
 //临时变量分配数组。
-int tmp_allot[500];
+int tmp_allot[MAXLENGTH];
 int tmp_sp;
 // arm语句打印支持;
 char arm_op_strs[50][12] = {
     "store", "ext_alloca", "",
 
-    "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "cmp", "neq", "and", "orr", "blt", "ble", "bgt", "bge", "beq", "bne", "GOTO_AND", "GOTO_OR", "ldr", "str", "str", "AEIE", "add",
+    "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "cmp", "neq", "and", "orr", "blt", "ble", "bgt", "bge", "beq", "bne", "GOTO_AND", "GOTO_OR", "ldr", "str", "str", "AEIE", "add", "str",
 
     "bne ", "bl", "not", "UMINUS", "load", "alloca",
 
@@ -48,11 +48,12 @@ void printris(set<int, greater<int>> *ris_pq)
 
 void printmap(map<int, int, greater<int>> *tmp_map)
 {
-    printf("tmp_map:");
-    for (map<int, int, greater<int>>::iterator it = tmp_map->begin(); it != tmp_map->end(); it++)
-    {
-        printf("\t[%d]:%d ", it->first, it->second);
-    }
+    // printf("tmp_map $%d:", tmp_map->size());
+    if (tmp_map->size() != 0)
+        for (map<int, int, greater<int>>::iterator it = tmp_map->begin(); it != tmp_map->end(); it++)
+        {
+            printf("\t[%d]:%d ", it->first, it->second);
+        }
 
     printf("\n");
 }
@@ -80,8 +81,10 @@ void printOpn_arm1(struct opn topn)
         }
         else if (topn.kind == 'T')
         {
+            if (strcpy(topn.id, "fp") == 0)
+                fprintf(fp, "fp");
             // fprintf(fp, "%s %d %d %d", topn.id, topn.status, topn.no_ris, topn.address);
-            if (topn.status == 2)
+            else if (topn.status == 2)
                 fprintf(fp, "r%d", topn.no_ris);
             else if (topn.status < 2)
                 fprintf(fp, "%s出错", topn.id);
@@ -118,8 +121,10 @@ void printOpn_arm2(struct opn topn)
         }
         else if (topn.kind == 'T')
         {
-            // fprintf(fp, "\t%s %d %d %d", topn.id, topn.status, topn.no_ris, topn.address);
-            if (topn.status == 2)
+            if (strcpy(topn.id, "fp") == 0)
+                fprintf(fp, "\tfp");
+            // fprintf(fp, "%s %d %d %d", topn.id, topn.status, topn.no_ris, topn.address);
+            else if (topn.status == 2)
                 fprintf(fp, "\tr%d", topn.no_ris);
             else if (topn.status < 2)
                 fprintf(fp, "\t%s出错", topn.id);
@@ -206,7 +211,15 @@ void print_arm_IR(codenode *h)
             fprintf(fp, "\tstr"), printOpn_arm2(h->opn2), fprintf(fp, ", [r10, #0]");
         }
         else if (h->opn1.type == 'v' && (h->opn1.kind == 'V' || h->opn1.kind == 'P'))
-            fprintf(fp, "\tstr\t"), printOpn_arm1(h->opn2), fprintf(fp, ", [fp, #%d", -h->opn1.address), fprintf(fp, "]");
+        {
+            if (h->opn1.address < 4096)
+                fprintf(fp, "\tstr\t"), printOpn_arm1(h->opn2), fprintf(fp, ", [fp, #%d", -h->opn1.address), fprintf(fp, "]");
+            else
+            {
+                fprintf(fp, "\tldr\tr10, =%d\n", -h->opn1.address);
+                fprintf(fp, "\tstr\t"), printOpn_arm1(h->opn2), fprintf(fp, ", [fp, r10"), fprintf(fp, "]");
+            }
+        }
         else if (h->opn1.type == 'v' && (h->opn1.kind == 'R')) // R表示实参；
             fprintf(fp, "\tstr\t"), printOpn_arm1(h->opn2), fprintf(fp, ", [sp, #%d", -h->opn1.address), fprintf(fp, "]");
     }
@@ -229,7 +242,13 @@ void print_arm_IR(codenode *h)
     }
     else if (h->op == IR_LOAD)
     {
-        fprintf(fp, "\tldr\t"), printOpn_arm1(h->result), fprintf(fp, ", [fp, #%d", -h->opn1.address), fprintf(fp, "]");
+        if (h->opn1.address < 4096)
+            fprintf(fp, "\tldr\t"), printOpn_arm1(h->result), fprintf(fp, ", [fp, #%d", -h->opn1.address), fprintf(fp, "]");
+        else
+        {
+            fprintf(fp, "\tldr\tr10, =%d\n", -h->opn1.address);
+            fprintf(fp, "\tldr\t"), printOpn_arm1(h->result), fprintf(fp, ", [fp, r10"), fprintf(fp, "]");
+        }
     }
     else if (h->op == IR_MINUS)
     {
@@ -292,14 +311,17 @@ void print_arm_IR(codenode *h)
         }
         else
         {
-            if (h->prior->op == IR_LOAD && h->prior->opn1.kind == 'A')
+            if (h->prior->op == IR_LOAD && h->prior->opn1.kind == 'A') //形参数组，偏移量需要先load出来
             {
                 fprintf(fp, "\t%s", arm_op_strs[h->op]);
                 printOpn_arm2(h->result), fprintf(fp, ",\t[r%d, ", h->prior->result.no_ris), printOpn_arm1(h->opn2), fprintf(fp, ",LSL#2]\n");
                 return;
             }
             else
+            {
                 fprintf(fp, "\tldr\tr10, =%d\n", -h->opn1.address);
+                fprintf(fp, "\tadd\tr10, r10, fp\n");
+            }
         }
         fprintf(fp, "\t%s", arm_op_strs[h->op]);
         printOpn_arm2(h->result), fprintf(fp, ",\t[r10, "), printOpn_arm1(h->opn2), fprintf(fp, ",LSL#2]");
@@ -328,12 +350,27 @@ void print_arm_IR(codenode *h)
     else if (h->op == IR_ARROFF_EXPi)
     {
         fprintf(fp, "\tldr\tr10, =%d\n", -h->opn1.address);
+        fprintf(fp, "\tadd\tr10, r10, fp\n");
         fprintf(fp, "\t%s", arm_op_strs[h->op]);
         printOpn_arm2(h->result), fprintf(fp, ",\t[r10, "), printOpn_arm1(h->opn2), fprintf(fp, "]");
     }
     else if (h->op == IR_ARROFF_EXPie)
     {
         fprintf(fp, "%s\t%d", h->opn1.id, h->result.const_int);
+    }
+    else if (h->op == IR_ARROFF_EXPi0)
+    {
+        int inde = h->result.const_int;
+        for (; inde < h->opn2.const_int; inde += 4)
+        {
+            if (inde == h->result.const_int)
+            {
+                fprintf(fp, "\tldr\tr10, =%d\n", -h->opn1.address);
+                fprintf(fp, "\tadd\tr10, r10, fp\n");
+                fprintf(fp, "\tmov\tr12, #0\n");
+            }
+            fprintf(fp, "\tstr\tr12, [r10, #%d]\n", inde);
+        }
     }
     else
     {
@@ -622,8 +659,14 @@ void cal_alive_num(struct opn *O, int &ans)
 
 void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_begin, struct codenode *head, set<int, greater<int>> *ris_pq, int eind)
 {
-    // printf("%s: %s,:%s : 当前应分配的寄存器：%d,nextuse:%d\n", begin->opn1.id, arm_op_strs[head->op], O->id, *ris_pq->begin(), O->next_use);
-    // printris(ris_pq);
+
+    int dlt;
+    // if (1)
+    // {
+    //     printf("%s: %s,:%s $%d: 当前应分配的寄存器：%d,nextuse:%d\n", begin->opn1.id, arm_op_strs[head->op], O->id, eind, *ris_pq->begin(), O->next_use);
+    //     printris(ris_pq);
+    // }
+
     int st_index = begin->opn1.offset;
     //该临时变量第一次出现，应该分配寄存器或栈空间存储；
     if (tmp_allot[a2i(O->id)] == 0)
@@ -632,12 +675,10 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         {
 
             // printf("特分配%d号寄存器\n", 12);
-            tmp_map[O->next_use] = a2i(O->id);
             fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 2;
             fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = 12;
             O->status = 2;
             O->no_ris = 12;
-            return;
         }
         else if (ris_pq->empty()) //寄存器已满，分配内存区；
         {
@@ -655,7 +696,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.no_ris = 12;
                 split(glo_begin, next_code), merge(3, glo_begin, mkIR(IR_ASSIGN), next_code);
                 //分配空间并维护函数空间大小；
-                tmp_map.erase(tmp_map.begin()->first);
+                dlt = tmp_map.begin()->first;
+                tmp_map.erase(dlt);
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 1;
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address = tmp_sp + 4;
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = 12;
@@ -675,7 +717,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t].status = 1;
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t].address = tmp_sp + 4;
                 //将这个临时变量的寄存器分配给新临时变量；改符号表；
-                tmp_map.erase(tmp_map.begin()->first);
+                dlt = tmp_map.begin()->first;
+                tmp_map.erase(dlt);
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 2;
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = tmp_ris;
                 ris3_status[tmp_ris] = a2i(O->id);
@@ -687,7 +730,10 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         else //寄存器有空，分配寄存器；
         {
             // printf("分配%d号寄存器\n", *ris_pq->begin());
-            tmp_map[O->next_use] = a2i(O->id);
+            int a2ians = a2i(O->id);
+
+            tmp_map.insert(std::map<int, int>::value_type(O->next_use, a2ians));
+
             fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 2;
             fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = *ris_pq->begin();
             ris3_status[fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris] = a2i(O->id);
@@ -707,6 +753,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         {
             // printf("调用%d号寄存器的值；\n", tmp_Tsym->no_ris);
             O->status = 2, O->no_ris = tmp_Tsym->no_ris;
+            tmp_map[O->next_use] = a2i(O->id);
         }
         //当前临时变量分配到了栈空间里；
         else if (tmp_Tsym->status == 1)
@@ -725,7 +772,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 strcpy(glo_opn1.id, O->id);
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
                 tmp_Tsym->status = 1;
-                tmp_map.erase(tmp_map.begin()->first);
+                dlt = tmp_map.begin()->first;
+                tmp_map.erase(dlt);
                 // FST中分配方式是1，而O中分配方式是2，即从本条命令从寄存器12中取用，下一次调用语句仍然访问栈空间；
                 O->status = 2, O->address = tmp_Tsym->address, O->no_ris = 12;
             }
@@ -752,8 +800,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 //改符号表项；
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 2, fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = tmp_ris1;
                 fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t1].status = 1, fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t1].address = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address;
-                tmp_map.erase(tmp_map.begin()->first);
-                tmp_map[O->next_use] = a2i(O->id);
+                dlt = tmp_map.begin()->first;
+                tmp_map.erase(dlt);
                 //改下一条语句变量项；
                 O->status = 2, O->no_ris = tmp_ris1;
                 ris3_status[fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris] = a2i(O->id);
@@ -774,6 +822,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             tmp_Tsym1->status = 1;
             // FST中分配方式是1，而O中分配方式是2，即从本条命令从寄存器10中取用，下一次调用语句仍然访问栈空间；
             O->status = 2, O->address = tmp_Tsym1->address, O->no_ris = 12;
+            tmp_map.erase(O->next_use);
             //载入语句;
         }
         //只存在寄存器里；不再使用此变量，还要调用一次，但是不需要载入操作。
@@ -783,11 +832,13 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             O->status = 2, O->no_ris = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris;
             ris_pq->insert(fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris);
             // printf("当前最小号寄存器号数%d\n", ris_pq->top());
-
+            tmp_map.erase(O->next_use);
             fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].status = 2;
             // fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].no_ris = 0;
         }
     }
+    tmp_map.erase(eind);
+    // printmap(&tmp_map);
 }
 
 int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, struct codenode *glo_begin)
@@ -851,21 +902,21 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
     tmp_sp = pre_func_size;
     // printf("临时变量数：%d\n", tmp_num);
     memset(tmp_allot, 0, (tmp_num + 2) * 4); //清空数组中的值，复用此数组；
-
+    tmp_map.clear();
     //正向循环完成寄存器分配；并在寄存器不足时插入合适的访存语句；同时维护寄存器号最大值；
     for (i = 0; cur_C != end; cur_C = cur_C->next, i++)
     {
-        if (cur_C->opn1.type == 'v' && cur_C->opn1.kind == 'T')
+        if (cur_C->opn1.type == 'v' && cur_C->opn1.kind == 'T' && a2i(cur_C->opn1.id) > -1)
         {
-            tmp_ris_allot(&cur_C->opn1, begin, glo_begin, cur_C, &ris_pq, 3 * (end_index - i));
+            tmp_ris_allot(&cur_C->opn1, begin, glo_begin, cur_C, &ris_pq, 3 * (begin_index + i));
         }
-        if (cur_C->opn2.type == 'v' && cur_C->opn2.kind == 'T')
+        if (cur_C->opn2.type == 'v' && cur_C->opn2.kind == 'T' && a2i(cur_C->opn2.id) > -1)
         {
-            tmp_ris_allot(&cur_C->opn2, begin, glo_begin, cur_C, &ris_pq, 3 * (end_index - i) + 1);
+            tmp_ris_allot(&cur_C->opn2, begin, glo_begin, cur_C, &ris_pq, 3 * (begin_index + i) + 1);
         }
-        if (cur_C->result.type == 'v' && cur_C->result.kind == 'T')
+        if (cur_C->result.type == 'v' && cur_C->result.kind == 'T' && a2i(cur_C->result.id) > -1)
         {
-            tmp_ris_allot(&cur_C->result, begin, glo_begin, cur_C, &ris_pq, 3 * (end_index - i) + 2);
+            tmp_ris_allot(&cur_C->result, begin, glo_begin, cur_C, &ris_pq, 3 * (begin_index + i) + 2);
         }
         if (cur_C->op == IR_ARG)
         {
@@ -928,7 +979,7 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
 //全局寄存器分配；
 void glo_ris_allot()
 {
-    printf("glo_ris_alloting\n");
+    // printf("glo_ris_alloting\n");
     struct codenode *hC, *now_C;
     hC = out_IR;
     now_C = hC;
@@ -1079,7 +1130,6 @@ void glo_ris_allot()
         else if (now_C->op == IR_FUNC_END)
         {
             now_end = now_C, now_end_index = i;
-            tmp_map.clear();
             int add_size = func_ris_allot(now_begin, now_end, now_end_index, hC);
             sT.symbols[now_begin->opn1.offset].size.const_int += add_size;
             if (add_size < 41)
@@ -1129,7 +1179,7 @@ extern "C" void gen_arm(int type)
     {
 
         DisplayIR(out_IR);
-        printf("IR_gened...\n");
+        // printf("IR_gened...\n");
 
         break;
     }
@@ -1137,7 +1187,7 @@ extern "C" void gen_arm(int type)
     //生成并打印无优化的目标代码；
     case 1:
     {
-        printf("arm_gening...\n");
+        // printf("arm_gening...\n");
         translation();
         DisplayARM();
         break;

@@ -1,0 +1,9 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/chui/桌面/compiler_fcl/src'
+flex fronted_end/sysy.l 
+gcc -c lex.yy.c -g
+bison -d fronted_end/sysy.y
+gcc -c sysy.tab.c  -g
+g++  -o  fcl_parser gen_arm.cpp optimization.cpp fronted_end/ast.cpp fronted_end/gen_IR.cpp fronted_end/semantic.cpp fronted_end/symtable.cpp lex.yy.o sysy.tab.o -g
+make: Leaving directory '/home/chui/桌面/compiler_fcl/src'
+ 

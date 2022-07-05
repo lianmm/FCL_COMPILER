@@ -225,6 +225,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
 
     sT->symbols[sT->index].offset.const_int = offset.const_int;
     sT->index++;
+    // printf("\t%d\n", sT->index);
 }
 
 //显示当前数组内情向量表中的内容。

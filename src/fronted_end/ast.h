@@ -7,7 +7,7 @@
 
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
-#define MAXLENGTH 2000     //定义符号表的大小
+#define MAXLENGTH 4000     //定义符号表的大小
 extern char filename[50];  //输入文件名；
 extern int lev;            //???
 
@@ -95,7 +95,7 @@ struct node
     };
     struct node *ptr[3];                                 //子树指针，由kind确定有多少棵子树
     int level;                                           //层号
-    int place;                                           //表示结点对应的变量或运算结果临时变量在符号表的位置序号
+    int place;                                           //表示结点对应的变量或运算结果临时变量在符号表的位置序号；place用于存放函数调用中函数在符号表中的位置；回传ED结点表示的范围；
     char Etrue[15], Efalse[15];                          //对布尔表达式的翻译时，真假转移目标的标号
     char Snext[15];                                      //该结点对应语句执行后的下一条语句位置标号
     char while_head[15], while_tail[15], while_true[15]; //控制while内部的跳转位置。

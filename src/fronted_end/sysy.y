@@ -67,7 +67,6 @@ program: ExtDefList  {
       //printf("CompUnit:\n"); display_ast($1,3); 
 //使用命令行参数选择是否打印AST，并选择生成中间代码的输出方式（打印 或 新建文件生成）。TODO
       gen_IR($1);
-      //display_ast($1,0);
       gen_arm(0);
       gen_arm(1);
       }
@@ -102,7 +101,6 @@ ConstDecList: ConstVarDec  {$$=mknode(CONST_DEC_LIST,$1,NULL,NULL,yylineno);}
 VarDec: Term {$$=$1;}
       | ID ASSIGN Exp  {$$=mknode(VAR_DEC,$3,NULL,NULL,yylineno);strcpy($$->type_id,$1);}
       | Term ASSIGN ExpDes {$$=mknode(VAR_DEC,$3,$1,NULL,yylineno);}
-      | Term ASSIGN LC RC {$$=$1;}
       ;
 
 ConstVarDec:  ConstTerm ASSIGN ExpDes {$$=mknode(CONST_VAR_DEC,$3,$1,NULL,yylineno);}
@@ -193,6 +191,8 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
 %%
 
 int main(int argc, char *argv[]) {
+      char file[36];
+      strcpy(file,"../test/test_in/test.c");
   yyin = fopen(argv[1],"r");
   if (!yyin) return 0;
   yylineno = 1;
@@ -200,7 +200,6 @@ int main(int argc, char *argv[]) {
   yyparse();
   return 0;
 }
-
 #include<stdarg.h>
 
 void yyerror(const char* fmt, ...)

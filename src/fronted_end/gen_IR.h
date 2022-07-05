@@ -42,6 +42,7 @@ enum IR_op
   IR_ARROFF_EXPi,
   IR_ARROFF_EXPie,
   IR_EXP_ARROFFa,
+  IR_ARROFF_EXPi0,
 
   IR_GOTO_NOT,
   IR_CALL,
