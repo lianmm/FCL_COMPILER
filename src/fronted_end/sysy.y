@@ -68,7 +68,7 @@ program: ExtDefList  {
 //使用命令行参数选择是否打印AST，并选择生成中间代码的输出方式（打印 或 新建文件生成）。TODO
       gen_IR($1);
       gen_arm(0);
-      gen_arm(1);
+     gen_arm(1);
       }
          ;
 
@@ -172,8 +172,6 @@ Exp: Exp ASSIGN Exp  {$$=mknode(ASSIGN,$1,$3,NULL,yylineno);strcpy($$->type_id,"
    | Exp MUL Exp     {$$=mknode(MUL,$1,$3,NULL,yylineno);strcpy($$->type_id,"MUL");}
    | Exp DIV Exp     {$$=mknode(DIV,$1,$3,NULL,yylineno);strcpy($$->type_id,"DIV");}
    | Exp MOD Exp     {$$=mknode(MOD,$1,$3,NULL,yylineno);strcpy($$->type_id,"MOD");}
-   | Term SELF_ADD   {$$=mknode(SELF_ADD_EXP,$1,NULL,NULL,yylineno);}
-   | Term SELF_MINUS {$$=mknode(SELF_MINUS_EXP,$1,NULL,NULL,yylineno);}
    | LP Exp RP       {$$=$2;}
    | NOT Exp         {$$=mknode(NOT,$2,NULL,NULL,yylineno);strcpy($$->type_id,"NOT");}
    | ID LP Args RP   {$$=mknode(FUNC_CALL,$3,NULL,NULL,yylineno);strcpy($$->type_id,$1);}
@@ -192,7 +190,7 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
 
 int main(int argc, char *argv[]) {
       char file[36];
-      strcpy(file,"../test/test_in/test.c");
+      strcpy(file,"./test/test_in/test.c");
   yyin = fopen(argv[1],"r");
   if (!yyin) return 0;
   yylineno = 1;

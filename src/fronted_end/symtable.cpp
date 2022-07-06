@@ -10,7 +10,7 @@ struct func_table fT;
 struct arr_val_table avT;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
-char glo_name[33], glo_alias[10] = "", glo_flag;
+char glo_name[MAXNAME], glo_alias[10] = "", glo_flag;
 struct opn glo_offset;
 char glo_type[36];
 int glo_int_val = 0;
@@ -55,7 +55,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
 
     sT->symbols[sT->index].address = 0;
     sT->symbols[sT->index].flagca = ' ';
-    sT->symbols[sT->index].flage = ' ';
+    sT->symbols[sT->index].flage = '0';
     sT->symbols[sT->index].init_sym = 0;
     sT->symbols[sT->index].level = 0;
     sT->symbols[sT->index].no_ris = 0;

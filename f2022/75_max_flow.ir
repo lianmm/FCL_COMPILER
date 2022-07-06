@@ -1,0 +1,400 @@
+	alloca	#40	size
+	alloca	#400	to
+	alloca	#400	cap
+	alloca	#400	rev
+	alloca	#40	used
+
+my_memset:
+	param	arr
+	alloca	#4	arr
+	param	val
+	alloca	#4	val
+	param	n
+	alloca	#4	n
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L2:
+	load	i	t1
+	load	n	t2
+	jlt	t1	t2	t3
+	goto_eq	t3	#1	.L3
+	goto	.L4
+
+.L3:
+	load	val	t5
+	load	i	t4
+	load	arr	t6
+	arroff_exp	t5,	[t6, t4]
+	load	i	t7
+	ASSIGN	t8	#1
+	add	t7	t8	t9
+	ASSIGN	i	t9
+	goto	.L2
+
+.L4:
+
+.L1:
+	func_end:	my_memset
+
+add_node:
+	param	u
+	alloca	#4	u
+	param	v
+	alloca	#4	v
+	param	c
+	alloca	#4	c
+	load	v	t5
+	load	u	t0
+	exp_arroff	t1,	[size, t0]
+	ASSIGN	t2	#10
+	mul	t2	t0	t3
+	add	t1	t3	t4
+	arroff_exp	t5,	[to, t4]
+	load	c	t10
+	exp_arroff	t6,	[size, t0]
+	ASSIGN	t7	#10
+	mul	t7	t0	t8
+	add	t6	t8	t9
+	arroff_exp	t10,	[cap, t9]
+	exp_arroff	t11,	[size, t5]
+	exp_arroff	t12,	[size, t0]
+	ASSIGN	t13	#10
+	mul	t13	t0	t14
+	add	t12	t14	t15
+	arroff_exp	t11,	[rev, t15]
+	exp_arroff	t16,	[size, t5]
+	ASSIGN	t17	#10
+	mul	t17	t5	t18
+	add	t16	t18	t19
+	arroff_exp	t0,	[to, t19]
+	ASSIGN	t24	#0
+	exp_arroff	t20,	[size, t5]
+	ASSIGN	t21	#10
+	mul	t21	t5	t22
+	add	t20	t22	t23
+	arroff_exp	t24,	[cap, t23]
+	exp_arroff	t25,	[size, t0]
+	exp_arroff	t26,	[size, t5]
+	ASSIGN	t27	#10
+	mul	t27	t5	t28
+	add	t26	t28	t29
+	arroff_exp	t25,	[rev, t29]
+	exp_arroff	t30,	[size, t0]
+	ASSIGN	t31	#1
+	add	t30	t31	t32
+	arroff_exp	t32,	[size, t0]
+	exp_arroff	t33,	[size, t5]
+	ASSIGN	t34	#1
+	add	t33	t34	t35
+	arroff_exp	t35,	[size, t5]
+
+.L17:
+	func_end:	add_node
+
+dfs:
+	param	s
+	alloca	#4	s
+	param	t
+	alloca	#4	t
+	param	f
+	alloca	#4	f
+	load	s	t0
+	load	t	t1
+	eq	t0	t1	t2
+	goto_eq	t2	#1	.L49
+	goto	.L50
+
+.L49:
+	load	f	t3
+	ASSIGN	r0	t3
+	goto	.L48
+
+.L50:
+	ASSIGN	t5	#1
+	load	s	t4
+	arroff_exp	t5,	[used, t4]
+	alloca	#4	i
+	ASSIGN	t6	#0
+	ASSIGN	i	t6
+
+.L57:
+	load	i	t9
+	load	s	t7
+	exp_arroff	t8,	[size, t7]
+	jlt	t9	t8	t10
+	goto_eq	t10	#1	.L58
+	goto	.L59
+
+.L58:
+	load	s	t11
+	load	i	t12
+	ASSIGN	t13	#10
+	mul	t13	t11	t14
+	add	t12	t14	t15
+	exp_arroff	t16,	[to, t15]
+	exp_arroff	t17,	[used, t16]
+	neq	t17	#0	t17
+	goto_eq	t17	#1	.L63
+	goto	.L64
+
+.L63:
+	load	i	t18
+	ASSIGN	t19	#1
+	add	t18	t19	t20
+	ASSIGN	i	t20
+	goto	.L57
+
+.L64:
+	load	s	t21
+	load	i	t22
+	ASSIGN	t23	#10
+	mul	t23	t21	t24
+	add	t22	t24	t25
+	exp_arroff	t26,	[cap, t25]
+	ASSIGN	t27	#0
+	jle	t26	t27	t28
+	goto_eq	t28	#1	.L71
+	goto	.L72
+
+.L71:
+	load	i	t29
+	ASSIGN	t30	#1
+	add	t29	t30	t31
+	ASSIGN	i	t31
+	goto	.L57
+
+.L72:
+	alloca	#4	min_f
+	load	f	t38
+	load	s	t32
+	load	i	t33
+	ASSIGN	t34	#10
+	mul	t34	t32	t35
+	add	t33	t35	t36
+	exp_arroff	t37,	[cap, t36]
+	jlt	t38	t37	t39
+	goto_eq	t39	#1	.L82
+	goto	.L83
+
+.L82:
+	load	f	t40
+	ASSIGN	min_f	t40
+	goto	.L84
+
+.L83:
+	load	s	t41
+	load	i	t42
+	ASSIGN	t43	#10
+	mul	t43	t41	t44
+	add	t42	t44	t45
+	exp_arroff	t46,	[cap, t45]
+	ASSIGN	min_f	t46
+
+.L84:
+	load	s	t47
+	load	i	t48
+	ASSIGN	t49	#10
+	mul	t49	t47	t50
+	add	t48	t50	t51
+	exp_arroff	t52,	[to, t51]
+	load	t	t53
+	load	min_f	t54
+	arg	t52
+	arg	t53
+	arg	t54
+	CALL	dfs	t55
+	alloca	#4	d
+	ASSIGN	d	t55
+	load	d	t56
+	ASSIGN	t57	#0
+	jgt	t56	t57	t58
+	goto_eq	t58	#1	.L94
+	goto	.L95
+
+.L94:
+	load	s	t59
+	load	i	t60
+	ASSIGN	t61	#10
+	mul	t61	t59	t62
+	add	t60	t62	t63
+	exp_arroff	t64,	[cap, t63]
+	load	d	t65
+	sub	t64	t65	t66
+	load	s	t67
+	load	i	t68
+	ASSIGN	t69	#10
+	mul	t69	t67	t70
+	add	t68	t70	t71
+	arroff_exp	t66,	[cap, t71]
+	load	s	t72
+	load	i	t73
+	ASSIGN	t74	#10
+	mul	t74	t72	t75
+	add	t73	t75	t76
+	exp_arroff	t77,	[to, t76]
+	load	s	t78
+	load	i	t79
+	ASSIGN	t80	#10
+	mul	t80	t78	t81
+	add	t79	t81	t82
+	exp_arroff	t83,	[rev, t82]
+	ASSIGN	t84	#10
+	mul	t84	t77	t85
+	add	t83	t85	t86
+	exp_arroff	t87,	[cap, t86]
+	load	d	t88
+	add	t87	t88	t89
+	load	s	t90
+	load	i	t91
+	ASSIGN	t92	#10
+	mul	t92	t90	t93
+	add	t91	t93	t94
+	exp_arroff	t95,	[to, t94]
+	load	s	t96
+	load	i	t97
+	ASSIGN	t98	#10
+	mul	t98	t96	t99
+	add	t97	t99	t100
+	exp_arroff	t101,	[rev, t100]
+	ASSIGN	t102	#10
+	mul	t102	t95	t103
+	add	t101	t103	t104
+	arroff_exp	t89,	[cap, t104]
+	load	d	t105
+	ASSIGN	r0	t105
+	goto	.L48
+
+.L95:
+	load	i	t106
+	ASSIGN	t107	#1
+	add	t106	t107	t108
+	ASSIGN	i	t108
+	goto	.L57
+
+.L59:
+	ASSIGN	t109	#0
+	ASSIGN	r0	t109
+	goto	.L48
+
+.L48:
+	func_end:	dfs
+
+max_flow:
+	param	s
+	alloca	#4	s
+	param	t
+	alloca	#4	t
+	alloca	#4	flow
+	ASSIGN	t0	#0
+	ASSIGN	flow	t0
+
+.L118:
+	ASSIGN	t1	#1
+	neq	t1	#0	flow
+	goto_eq	t1	#1	.L119
+	goto	.L120
+
+.L119:
+	ASSIGN	t2	#-1280
+	ASSIGN	t3	#0
+	ASSIGN	t4	#10
+	arg	used
+	arg	t3
+	arg	t4
+	call_void	my_memset
+	load	s	t5
+	load	t	t6
+	ASSIGN	t7	#1879048192
+	arg	t5
+	arg	t6
+	arg	t7
+	CALL	dfs	t8
+	alloca	#4	f
+	ASSIGN	f	t8
+	load	f	t9
+	ASSIGN	t10	#0
+	eq	t9	t10	t11
+	goto_eq	t11	#1	.L121
+	goto	.L122
+
+.L121:
+	load	flow	t12
+	ASSIGN	r0	t12
+	goto	.L117
+
+.L122:
+	load	flow	t13
+	load	f	t14
+	add	t13	t14	t15
+	ASSIGN	flow	t15
+	goto	.L118
+
+.L120:
+
+.L117:
+	func_end:	max_flow
+
+main:
+	alloca	#4	V
+	alloca	#4	E
+	CALL	getint	t0
+	ASSIGN	V	t0
+	CALL	getint	t1
+	ASSIGN	E	t1
+	ASSIGN	t2	#-40
+	ASSIGN	t3	#0
+	ASSIGN	t4	#10
+	arg	size
+	arg	t3
+	arg	t4
+	call_void	my_memset
+
+.L139:
+	load	E	t5
+	ASSIGN	t6	#0
+	jgt	t5	t6	t7
+	goto_eq	t7	#1	.L140
+	goto	.L141
+
+.L140:
+	alloca	#4	u
+	alloca	#4	v
+	CALL	getint	t8
+	ASSIGN	u	t8
+	CALL	getint	t9
+	ASSIGN	v	t9
+	CALL	getint	t10
+	alloca	#4	c
+	ASSIGN	c	t10
+	load	u	t11
+	load	v	t12
+	load	c	t13
+	arg	t11
+	arg	t12
+	arg	t13
+	call_void	add_node
+	load	E	t14
+	ASSIGN	t15	#1
+	sub	t14	t15	t16
+	ASSIGN	E	t16
+	goto	.L139
+
+.L141:
+	ASSIGN	t17	#1
+	load	V	t18
+	arg	t17
+	arg	t18
+	CALL	max_flow	t19
+	arg	t19
+	call_void	putint
+	ASSIGN	t20	#10
+	arg	t20
+	call_void	putch
+	ASSIGN	t21	#0
+	ASSIGN	r0	t21
+	goto	.L132
+
+.L132:
+	func_end:	main

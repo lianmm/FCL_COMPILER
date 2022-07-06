@@ -1,4 +1,4 @@
-fcl_parser:  *.cpp ./fronted_end/ast.cpp ./fronted_end/gen_IR.cpp ./fronted_end/semantic.cpp ./fronted_end/symtable.cpp lex.yy.o sysy.tab.o 
+compiler:  *.cpp ./fronted_end/ast.cpp ./fronted_end/gen_IR.cpp ./fronted_end/semantic.cpp ./fronted_end/symtable.cpp lex.yy.o sysy.tab.o 
 	g++  -o  $@ $^ -g
 lex.yy.o: lex.yy.c
 	gcc -c lex.yy.c -g
@@ -12,5 +12,5 @@ lex.yy.c: fronted_end/sysy.l
 
 .PHONY: clean
 clean:
-	rm sysy.tab.c lex.yy.c  *.o fcl_parser
+	rm sysy.tab.c lex.yy.c  *.o compiler
 

@@ -1,0 +1,247 @@
+
+get_next:
+	param	str
+	alloca	#4	str
+	param	next
+	alloca	#4	next
+	ASSIGN	t1	#-1
+	ASSIGN	t0	#0
+	load	next	t2
+	arroff_exp	t1,	[t2, t0]
+	alloca	#4	i
+	ASSIGN	t3	#0
+	ASSIGN	i	t3
+	alloca	#4	j
+	ASSIGN	t4	#-1
+	ASSIGN	j	t4
+
+.L5:
+	load	i	t5
+	load	str	t6
+	exp_arroff	t7,	[t6, t5]
+	neq	t7	#0	t7
+	goto_eq	t7	#1	.L6
+	goto	.L7
+
+.L6:
+	load	j	t8
+	ASSIGN	t9	#-1
+	eq	t8	t9	t10
+	goto_eq	t10	#1	.L11
+	goto	.L12
+
+.L12:
+	load	i	t11
+	load	str	t12
+	exp_arroff	t13,	[t12, t11]
+	load	j	t14
+	load	str	t15
+	exp_arroff	t16,	[t15, t14]
+	eq	t13	t16	t17
+
+.L13:
+
+.L11:
+	goto_eq	t10	#1	.L8
+	goto	.L9
+
+.L8:
+	load	j	t19
+	ASSIGN	t20	#1
+	add	t19	t20	t21
+	ASSIGN	j	t21
+	load	i	t22
+	ASSIGN	t23	#1
+	add	t22	t23	t24
+	ASSIGN	i	t24
+	load	j	t26
+	load	i	t25
+	load	next	t27
+	arroff_exp	t26,	[t27, t25]
+	goto	.L10
+
+.L9:
+	load	j	t28
+	load	next	t29
+	exp_arroff	t30,	[t29, t28]
+	ASSIGN	j	t30
+
+.L10:
+	goto	.L5
+
+.L7:
+
+.L1:
+	func_end:	get_next
+
+KMP:
+	param	dst
+	alloca	#4	dst
+	param	src
+	alloca	#4	src
+	alloca	#16384	next
+	load	dst	t0
+	ASSIGN	t1	#-16404
+	add	t1	fp	t2
+	arg	t0
+	arg	t2
+	call_void	get_next
+	alloca	#4	i
+	ASSIGN	t3	#0
+	ASSIGN	i	t3
+	alloca	#4	j
+	ASSIGN	t4	#0
+	ASSIGN	j	t4
+
+.L39:
+	load	j	t5
+	load	src	t6
+	exp_arroff	t7,	[t6, t5]
+	neq	t7	#0	t7
+	goto_eq	t7	#1	.L40
+	goto	.L41
+
+.L40:
+	load	i	t8
+	load	dst	t9
+	exp_arroff	t10,	[t9, t8]
+	load	j	t11
+	load	src	t12
+	exp_arroff	t13,	[t12, t11]
+	eq	t10	t13	t14
+	goto_eq	t14	#1	.L42
+	goto	.L43
+
+.L42:
+	load	i	t15
+	ASSIGN	t16	#1
+	add	t15	t16	t17
+	ASSIGN	i	t17
+	load	j	t18
+	ASSIGN	t19	#1
+	add	t18	t19	t20
+	ASSIGN	j	t20
+	load	i	t21
+	load	dst	t22
+	exp_arroff	t23,	[t22, t21]
+	not	t23	t24
+	goto_eq	t24	#1	.L60
+	goto	.L61
+
+.L60:
+	load	j	t25
+	ASSIGN	r0	t25
+	goto	.L38
+
+.L61:
+	goto	.L44
+
+.L43:
+	load	i	t26
+	exp_arroff	t27,	[next, t26]
+	ASSIGN	i	t27
+	load	i	t28
+	ASSIGN	t29	#-1
+	eq	t28	t29	t30
+	goto_eq	t30	#1	.L65
+	goto	.L66
+
+.L65:
+	load	i	t31
+	ASSIGN	t32	#1
+	add	t31	t32	t33
+	ASSIGN	i	t33
+	load	j	t34
+	ASSIGN	t35	#1
+	add	t34	t35	t36
+	ASSIGN	j	t36
+
+.L66:
+
+.L44:
+	goto	.L39
+
+.L41:
+	ASSIGN	t37	#-1
+	ASSIGN	r0	t37
+	goto	.L38
+
+.L38:
+	func_end:	KMP
+
+read_str:
+	param	buf
+	alloca	#4	buf
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L83:
+	ASSIGN	t1	#1
+	neq	t1	#0	i
+	goto_eq	t1	#1	.L84
+	goto	.L85
+
+.L84:
+	CALL	getch	t2
+	load	i	t3
+	load	buf	t4
+	arroff_exp	t2,	[t4, t3]
+	load	i	t5
+	load	buf	t6
+	exp_arroff	t7,	[t6, t5]
+	ASSIGN	t8	#10
+	eq	t7	t8	t9
+	goto_eq	t9	#1	.L89
+	goto	.L90
+
+.L89:
+	goto	.L85
+
+.L90:
+	load	i	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	i	t12
+	goto	.L83
+
+.L85:
+	ASSIGN	t14	#0
+	load	i	t13
+	load	buf	t15
+	arroff_exp	t14,	[t15, t13]
+	ASSIGN	r0	t13
+	goto	.L82
+
+.L82:
+	func_end:	read_str
+
+main:
+	alloca	#16384	dst
+	alloca	#16384	src
+	ASSIGN	t0	#-16396
+	add	t0	fp	t1
+	arg	t1
+	CALL	read_str	t2
+	ASSIGN	t3	#-32780
+	add	t3	fp	t4
+	arg	t4
+	CALL	read_str	t5
+	ASSIGN	t6	#-16396
+	add	t6	fp	t7
+	ASSIGN	t8	#-32780
+	add	t8	fp	t9
+	arg	t7
+	arg	t9
+	CALL	KMP	t10
+	arg	t10
+	call_void	putint
+	ASSIGN	t11	#10
+	arg	t11
+	call_void	putch
+	ASSIGN	t12	#0
+	ASSIGN	r0	t12
+	goto	.L103
+
+.L103:
+	func_end:	main

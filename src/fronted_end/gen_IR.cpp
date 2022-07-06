@@ -80,6 +80,16 @@ int a2i(char *in)
 //     return tmp_name;
 // }
 
+//预处理结点id防止超出字符串静态分配范围；
+void split_id(struct node *T)
+{
+    char tmp_id[36];
+    if (sizeof(T->type_id) > 500)
+        for (int i = 0; i < 10; i++)
+            tmp_id[i] = T->type_id[i];
+    tmp_id[10] = '\0', strcpy(T->type_id, tmp_id);
+}
+
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
 //初始化变量结点；
 void initOpn(struct opn *tmp_opn)
@@ -251,6 +261,14 @@ void display_iwT()
     }
     printf("------------------------------------------------------------\n");
 }
+void displayiT()
+{
+    int i;
+    printf("\tiT数组维度偏移表：\n-----------------------------------------------------------------------\n");
+    for (i = 0; i < iT.top; i++)
+        printOpn(iT.indexs[i]);
+    printf("\n------------------------------------------------------------\n");
+}
 
 /*----------------------------------打印最终代码相关函数实现区----------------------------*/
 void printOpn1(struct opn topn)
@@ -351,9 +369,9 @@ void DisplayIR(struct codenode *C)
 {
 
     strcpy(tmp_name, strtok(filename, "."));
-    char tmp_name2[] = "../test/fcl_out/";
+    char tmp_name2[] = "./f2022/";
     char tmp_name3[36];
-    strcpy(tmp_name3, strcat(tmp_name, ".fcl"));
+    strcpy(tmp_name3, strcat(tmp_name, ".ir"));
     strcpy(out_file, strcat(tmp_name2, tmp_name3));
     fp = fopen(out_file, "w");
     int i = 0;
@@ -633,12 +651,15 @@ void add_alloca_IR(int type, struct node *T, char *a, struct opn *O)
     glo_res.type = 'v', strcpy(glo_res.id, a), glo_res.offset = sT.index - 1, glo_res.level = glo_level;
     glo_res.address = sT.symbols[glo_res.offset].offset.const_int;
     glo_res.kind = sT.symbols[glo_res.offset].flag;
-
+    if (glo_level == 0 && sT.symbols[find(a)].flage == 'E')
+        glo_res.flage = 'E';
     if (type == 0)
-        glo_opn1.type = 'i', glo_opn1.const_int = 4, glo_opn1.offset = -1, glo_opn1.level = glo_level;
+        glo_opn1.type = 'i',
+        glo_opn1.const_int = 4, glo_opn1.offset = -1, glo_opn1.level = glo_level;
     else
         copyOpn(&glo_opn1, *O);
     T->code = merge(2, T->code, mkIR(IR_ALLOCA));
+    glo_res.flage = '0';
 }
 
 //语法树结点上生成数组初始化相关代码（只能ExpDes型结点可调用生成，其他不能调用）；
@@ -651,8 +672,23 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
         case EXP_DES:
         {
             if (in_T->ptr[0])
+            {
                 add_initarr_IR(out_T, in_T->ptr[0]);
-            else
+                struct node *tmp_el = in_T->ptr[0];
+                while (tmp_el->ptr[1] != NULL)
+                    tmp_el = tmp_el->ptr[1];
+                if (tmp_el->length.const_int < in_T->length.const_int + in_T->place - 4 && glo_level > 0)
+                {
+                    strcpy(glo_opn1.id, out_T->ptr[0]->ptr[1]->type_id), glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
+                    glo_opn1.address = sT.symbols[glo_opn1.offset].offset.const_int + sT.symbols[glo_opn1.offset].size.const_int - 4;
+                    glo_opn1.kind = 'A';
+                    glo_res.type = 'i', glo_res.const_int = tmp_el->length.const_int * 4 + 4;
+                    glo_opn2.type = 'i', glo_opn2.const_int = (in_T->length.const_int + in_T->place) * 4;
+                    out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi0));
+                }
+            }
+
+            else if (glo_level > 0)
             {
                 strcpy(glo_opn1.id, out_T->ptr[0]->ptr[1]->type_id), glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
                 glo_opn1.address = sT.symbols[glo_opn1.offset].offset.const_int + sT.symbols[glo_opn1.offset].size.const_int - 4;
@@ -661,6 +697,7 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 glo_opn2.type = 'i', glo_opn2.const_int = (in_T->length.const_int + in_T->place) * 4;
                 out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi0));
             } //零初始化;
+
             break;
         }
         case EXP_LIST:
@@ -677,7 +714,7 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 tmp_code = tmp_code->prior;
             if (tmp_code->op == IR_ARROFF_EXPi)
             {
-                if (tmp_code->opn2.const_int < in_T->length.const_int * 4 - 4)
+                if (tmp_code->opn2.const_int < in_T->length.const_int * 4 - 4 && glo_level > 0)
                 {
                     strcpy(glo_opn1.id, out_T->ptr[0]->ptr[1]->type_id), glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
                     glo_opn1.address = sT.symbols[glo_opn1.offset].offset.const_int + sT.symbols[glo_opn1.offset].size.const_int - 4;
@@ -856,10 +893,12 @@ void display_fsT(int index)
 //遍历语法树流程控制符号表维护，生成IR。
 void gen_IR(struct node *T)
 {
+
     int i = 1;
     struct node *T0;
     if (T)
     {
+        split_id(T); //预处理ID；
         T->code = &null_ir;
         switch ((int)T->kind)
         {
@@ -1039,6 +1078,8 @@ void gen_IR(struct node *T)
         case DIV:
         case MOD:
         {
+            if ((int)T->kind == (int)EQOP || (int)T->kind == (int)RELOP || (int)T->kind == (int)AND || (int)T->kind == (int)OR)
+                T->place = 2; //关系型表达式标识；
             int lint = 0, rint = 0;
             char next_label[36], last_label[36], tmp_label[36];
             strcpy(next_label, newLabel()), strcpy(last_label, newLabel()), strcpy(tmp_label, newLabel());
@@ -1138,7 +1179,7 @@ void gen_IR(struct node *T)
                 check_load(T, &T->ptr[1]->out, 0);
                 if ((int)T->kind == (int)OR)
                 {
-                    if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL)
+                    if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
                     {
                         copyOpn(&glo_opn1, T->ptr[0]->out);
                         glo_opn2.type = 'i', glo_opn2.const_int = 0;
@@ -1150,7 +1191,7 @@ void gen_IR(struct node *T)
                 }
                 else if ((int)T->kind == (int)AND)
                 {
-                    if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL)
+                    if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
                     {
 
                         check_load(T, &T->ptr[0]->out, 0);
@@ -1259,7 +1300,7 @@ void gen_IR(struct node *T)
 
             if ((int)T->kind == (int)OR || (int)T->kind == (int)AND)
             {
-                if (T->ptr[1]->kind == TERM || T->ptr[1]->kind == FUNC_CALL)
+                if (T->ptr[1]->kind == TERM || T->ptr[1]->kind == FUNC_CALL || T->ptr[1]->place != 2)
                 {
 
                     check_load(T, &T->ptr[1]->out, 0);
@@ -1275,6 +1316,8 @@ void gen_IR(struct node *T)
         }
         case NOT:
         {
+            T->place = 2; //关系型表达式标识；
+
             // printf("%s\n", T->type_id);
             if (T->ptr[0] && check_process(2, T, *T))
             {
@@ -1312,6 +1355,8 @@ void gen_IR(struct node *T)
         }
         case UMINUS:
         {
+            T->place = 2; //关系型表达式标识；
+
             // printf("%s\n", T->type_id);
             if (T->ptr[0] && check_process(2, T, *T))
             {
@@ -1547,12 +1592,7 @@ void gen_IR(struct node *T)
                     if (glo_level == 0)
                         sT.symbols[sT.index - 1].flage = 'E';
                     sT.symbols[sT.index - 1].status = 0, sT.symbols[sT.index - 1].no_ris = 0;
-                    if (glo_flag == 'A')
-                    {
-
-                        add_alloca_IR(0, T, glo_name, NULL);
-                    }
-                    else if (glo_flag != 'F' && glo_flag != 'T')
+                    if (glo_flag != 'F' && glo_flag != 'T')
                     {
                         add_alloca_IR(0, T, glo_name, NULL);
                     }
@@ -1613,6 +1653,7 @@ void gen_IR(struct node *T)
                 //数组调用时生成代码；
                 if (tmp_assign_sym != 0)
                 {
+                    // printf("\t%s:\n", T->type_id), displayiT();
                     struct opn tmp_opn2;
                     check_process(4, NULL, *T);                      //使用流程检查检查数组下标超限问题；
                     aTindex = sT.symbols[find(T->type_id)].paramnum; //参数个数复用为数组的内情表索引；
@@ -1633,7 +1674,8 @@ void gen_IR(struct node *T)
                         check_load(T, &iT.indexs[iT.top - 1], 0);
                         copyOpn(&glo_opn1, iT.indexs[iT.top - 1]);
                     }
-
+                    // printf("(iT.indexs[iT.top - 1]):%c %c %s %d\n", iT.indexs[iT.top - 1].type, iT.indexs[iT.top - 1].kind, iT.indexs[iT.top - 1].id, iT.indexs[iT.top - 1].const_int);
+                    iT.top--;
                     copyOpn(&tmp_out, glo_opn1);
                     copyOpn(&tmp_size, aT.arrs[aTindex].lim[glo_D - 1]);
                     if (glo_D == 1)
@@ -1643,18 +1685,17 @@ void gen_IR(struct node *T)
                         {
                             add_cal_IR(1, T, NULL, &tmp_size, -1);
                             copyOpn(&tmp_opn2, glo_opn1);
-                            check_load(T, &(iT.indexs[i]), 0);
+                            check_load(T, &(iT.indexs[iT.top - 1]), 0);
                             copyOpn(&glo_opn1, tmp_opn2);
-                            add_cal_IR(3, T, NULL, &(iT.indexs[i]), 0);
+                            add_cal_IR(3, T, NULL, &(iT.indexs[iT.top - 1]), 0);
 
                             add_cal_IR(4, T, &tmp_out, &glo_res, 0);
                             copyOpn(&tmp_out, glo_res);
                             if (i > 0)
                                 glo_res.const_int = tmp_size.const_int * aT.arrs[aTindex].lim[i].const_int, glo_res.type = 'i';
                             copyOpn(&tmp_size, glo_res);
+                            iT.top--;
                         }
-
-                    iT.top = 0;
                 }
 
                 //数组定义时生成代码；
@@ -1733,9 +1774,9 @@ void gen_IR(struct node *T)
                         //插入临时变量。
                         mksymt();
                         initOpn(&glo_res);
-                        strcpy(glo_res.id, glo_name), glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
+                        strcpy(glo_res.id, sT.symbols[sT.index - 1].name), glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
                         glo_res.address = sT.symbols[glo_res.offset].offset.const_int;
-                        glo_res.kind = sT.symbols[glo_res.offset].flag;
+                        glo_res.kind = 'T';
 
                         //构造结果变量代码结点。
                     }
@@ -1815,12 +1856,12 @@ void gen_IR(struct node *T)
 
                 if (T0->ptr[0]->kind == (int)INT || T0->ptr[0]->kind == (int)FLOAT)
                 {
-                    copyOpn(&glo_arr_lim[i - 2], T->ptr[0]->out);
+                    copyOpn(&glo_arr_lim[i - 2], T0->ptr[0]->out);
                     strcpy(index_type, T0->ptr[0]->kind == (int)INT ? "int" : "float");
                 }
                 else
                 {
-                    copyOpn(&glo_arr_lim[i - 2], T->ptr[0]->out);
+                    copyOpn(&glo_arr_lim[i - 2], T0->ptr[0]->out);
                     if (find(T0->ptr[0]->out.id) > -1)
                     {
                         strcpy(index_type, sT.symbols[find(T0->ptr[0]->out.id)].type);
@@ -2354,7 +2395,7 @@ void gen_IR(struct node *T)
 
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL)
+            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
             {
                 check_load(T, &T->ptr[0]->out, 0);
 
@@ -2415,113 +2456,6 @@ void gen_IR(struct node *T)
             iwtT.top--;
             break;
         }
-        case FOR_STMT:
-        {
-            int old_comp_stm_type = comp_stm_type;
-
-            // printf("for 循环语句: \n");
-            strcpy(T->while_head, newLabel()), strcpy(T->while_true, newLabel()), strcpy(T->while_tail, newLabel());
-
-            gen_IR(T->ptr[0]);
-            if (T->ptr[0]->ptr[0])
-                T->code = merge(2, T->code, T->ptr[0]->ptr[0]->code);
-            //前置句。
-
-            //打循环判断前标签。
-            add_label_IR(T->while_head, &(*T));
-
-            if (T->ptr[0]->ptr[1])
-                T->code = merge(2, T->code, T->ptr[0]->ptr[1]->code);
-            //判断句。
-            if (T->ptr[0]->ptr[1]->kind == TERM || T->ptr[0]->ptr[1]->kind == FUNC_CALL)
-            {
-                check_load(T, &T->ptr[0]->ptr[1]->out, 0);
-
-                glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
-                copyOpn(&glo_opn1, T->ptr[0]->ptr[1]->out);
-                T->code = merge(2, T->code, mkIR(IR_NEQ));
-            }
-            add_goto_IR(T->while_true, T, &(T->ptr[0]->ptr[1]->out), 1);
-
-            add_goto_IR(T->while_tail, T, NULL, 0);
-            //跳转句。
-
-            // printf("循环体: \n");
-
-            //打循环进入标签。
-            add_label_IR(T->while_true, &(*T));
-
-            loop_sym = 1;
-
-            if (T->ptr[1])
-            {
-                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
-            }
-            if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
-            if (T->ptr[1]->kind == COMP_STM)
-                comp_stm_type = 0;
-            if (T->ptr[1])
-            {
-                strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_tail, T->while_tail), strcpy(T->ptr[1]->while_true, T->while_true);
-            }
-            if (T->ptr[0]->ptr[2])
-            {
-                strcpy(T->ptr[0]->ptr[2]->Etrue, T->Etrue), strcpy(T->ptr[0]->ptr[2]->Efalse, T->Efalse), strcpy(T->ptr[0]->ptr[2]->Snext, T->Snext);
-                strcpy(T->ptr[0]->ptr[2]->while_head, T->while_head), strcpy(T->ptr[0]->ptr[2]->while_tail, T->while_tail), strcpy(T->ptr[0]->ptr[2]->while_true, T->while_true);
-            }
-            gen_IR(T->ptr[1]);
-            comp_stm_type = old_comp_stm_type;
-
-            if (T->ptr[1])
-                T->code = merge(2, T->code, T->ptr[1]->code);
-
-            if (T->ptr[0]->ptr[2])
-                T->code = merge(2, T->code, T->ptr[0]->ptr[2]->code);
-
-            //循环跳转语句
-            add_goto_IR(T->while_head, T, NULL, 0);
-
-            //打循环结束标签
-            add_label_IR(T->while_tail, &(*T));
-
-            loop_sym = 0;
-
-            break;
-        }
-        case FOR_ARGS:
-        {
-            // printf("for 循环起始表达式: \n");
-            if (T->ptr[0])
-            {
-                gen_IR(T->ptr[0]);
-            }
-            else
-            {
-                // printf("无\n");
-            }
-            // printf("for 循环条件表达式: \n");
-            if (T->ptr[1])
-            {
-                assign_sym = 1;
-                gen_IR(T->ptr[1]);
-            }
-            else
-            {
-                // printf("无\n");
-            }
-            // printf("for 循环第三表达式: \n");
-            if (T->ptr[2])
-            {
-                gen_IR(T->ptr[2]);
-            }
-            else
-            {
-                // printf("无\n");
-            }
-            break;
-        }
         case IF_THEN:
         {
             int old_comp_stm_type = comp_stm_type;
@@ -2540,7 +2474,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
 
-            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL)
+            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
             {
 
                 check_load(T, &T->ptr[0]->out, 0);
@@ -2619,7 +2553,7 @@ void gen_IR(struct node *T)
 
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL)
+            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
             {
                 check_load(T, &T->ptr[0]->out, 0);
                 glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
@@ -3111,18 +3045,22 @@ void gen_IR(struct node *T)
                             copyOpn(&T0->out, glo_res);
                         }
                     }
+                    // DisplaySymbolTable(sT);
                     if (sT.symbols[hT->place].paras[num_in_para - 1] > 2)
                     {
                         // DisplayIR(T0->code);
                         if (T0->code != &null_ir)
+                        {
+
                             if (T0->code->prior->prior->op == IR_EXP_ARROFF)
                             {
                                 T0->code->prior->prior->op = IR_EXP_ARROFFa;
                             }
-                            else if (T0->code->prior->op == IR_EXP_ARROFF)
+                            if (T0->code->prior->op == IR_EXP_ARROFF)
                             {
                                 T0->code->prior->op = IR_EXP_ARROFFa;
                             }
+                        }
                     }
                     // printf("aaaaaaaaaaaaaaaa :%d\n", num_in_para);
                 }
@@ -3143,6 +3081,99 @@ void gen_IR(struct node *T)
             }
             break;
         }
+
+            //已弃用的结点；
+            //  case FOR_STMT:
+            // {
+            //     int old_comp_stm_type = comp_stm_type;
+            //     // printf("for 循环语句: \n");
+            //     strcpy(T->while_head, newLabel()), strcpy(T->while_true, newLabel()), strcpy(T->while_tail, newLabel());
+            //     gen_IR(T->ptr[0]);
+            //     if (T->ptr[0]->ptr[0])
+            //         T->code = merge(2, T->code, T->ptr[0]->ptr[0]->code);
+            //     //前置句。
+            //     //打循环判断前标签。
+            //     add_label_IR(T->while_head, &(*T));
+            //     if (T->ptr[0]->ptr[1])
+            //         T->code = merge(2, T->code, T->ptr[0]->ptr[1]->code);
+            //     //判断句。
+            //     if (T->ptr[0]->ptr[1]->kind == TERM || T->ptr[0]->ptr[1]->kind == FUNC_CALL)
+            //     {
+            //         check_load(T, &T->ptr[0]->ptr[1]->out, 0);
+            //         glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
+            //         copyOpn(&glo_opn1, T->ptr[0]->ptr[1]->out);
+            //         T->code = merge(2, T->code, mkIR(IR_NEQ));
+            //     }
+            //     add_goto_IR(T->while_true, T, &(T->ptr[0]->ptr[1]->out), 1);
+            //     add_goto_IR(T->while_tail, T, NULL, 0);
+            //     //跳转句。
+            //     // printf("循环体: \n");
+            //     //打循环进入标签。
+            //     add_label_IR(T->while_true, &(*T));
+            //     loop_sym = 1;
+            //     if (T->ptr[1])
+            //     {
+            //         strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
+            //     }
+            //     if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
+            //         strcpy(T->ptr[1]->fun_end, T->fun_end);
+            //     if (T->ptr[1]->kind == COMP_STM)
+            //         comp_stm_type = 0;
+            //     if (T->ptr[1])
+            //     {
+            //         strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
+            //         strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_tail, T->while_tail), strcpy(T->ptr[1]->while_true, T->while_true);
+            //     }
+            //     if (T->ptr[0]->ptr[2])
+            //     {
+            //         strcpy(T->ptr[0]->ptr[2]->Etrue, T->Etrue), strcpy(T->ptr[0]->ptr[2]->Efalse, T->Efalse), strcpy(T->ptr[0]->ptr[2]->Snext, T->Snext);
+            //         strcpy(T->ptr[0]->ptr[2]->while_head, T->while_head), strcpy(T->ptr[0]->ptr[2]->while_tail, T->while_tail), strcpy(T->ptr[0]->ptr[2]->while_true, T->while_true);
+            //     }
+            //     gen_IR(T->ptr[1]);
+            //     comp_stm_type = old_comp_stm_type;
+            //     if (T->ptr[1])
+            //         T->code = merge(2, T->code, T->ptr[1]->code);
+            //     if (T->ptr[0]->ptr[2])
+            //         T->code = merge(2, T->code, T->ptr[0]->ptr[2]->code);
+            //     //循环跳转语句
+            //     add_goto_IR(T->while_head, T, NULL, 0);
+            //     //打循环结束标签
+            //     add_label_IR(T->while_tail, &(*T));
+            //     loop_sym = 0;
+            //     break;
+            // }
+            // case FOR_ARGS:
+            // {
+            //     // printf("for 循环起始表达式: \n");
+            //     if (T->ptr[0])
+            //     {
+            //         gen_IR(T->ptr[0]);
+            //     }
+            //     else
+            //     {
+            //         // printf("无\n");
+            //     }
+            //     // printf("for 循环条件表达式: \n");
+            //     if (T->ptr[1])
+            //     {
+            //         assign_sym = 1;
+            //         gen_IR(T->ptr[1]);
+            //     }
+            //     else
+            //     {
+            //         // printf("无\n");
+            //     }
+            //     // printf("for 循环第三表达式: \n");
+            //     if (T->ptr[2])
+            //     {
+            //         gen_IR(T->ptr[2]);
+            //     }
+            //     else
+            //     {
+            //         // printf("无\n");
+            //     }
+            //     break;
+            // }
         }
     }
 }

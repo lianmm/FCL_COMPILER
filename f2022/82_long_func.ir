@@ -1,0 +1,6173 @@
+	alloca	#64	SHIFT_TABL
+	ASSIGN	t0	#1
+	arroff_expi	SHIFT_TABL	#0	t0
+	ASSIGN	t1	#2
+	arroff_expi	SHIFT_TABL	#4	t1
+	ASSIGN	t2	#4
+	arroff_expi	SHIFT_TABL	#8	t2
+	ASSIGN	t3	#8
+	arroff_expi	SHIFT_TABL	#12	t3
+	ASSIGN	t4	#16
+	arroff_expi	SHIFT_TABL	#16	t4
+	ASSIGN	t5	#32
+	arroff_expi	SHIFT_TABL	#20	t5
+	ASSIGN	t6	#64
+	arroff_expi	SHIFT_TABL	#24	t6
+	ASSIGN	t7	#128
+	arroff_expi	SHIFT_TABL	#28	t7
+	ASSIGN	t8	#256
+	arroff_expi	SHIFT_TABL	#32	t8
+	ASSIGN	t9	#512
+	arroff_expi	SHIFT_TABL	#36	t9
+	ASSIGN	t10	#1024
+	arroff_expi	SHIFT_TABL	#40	t10
+	ASSIGN	t11	#2048
+	arroff_expi	SHIFT_TABL	#44	t11
+	ASSIGN	t12	#4096
+	arroff_expi	SHIFT_TABL	#48	t12
+	ASSIGN	t13	#8192
+	arroff_expi	SHIFT_TABL	#52	t13
+	ASSIGN	t14	#16384
+	arroff_expi	SHIFT_TABL	#56	t14
+	ASSIGN	t15	#32768
+	arroff_expi	SHIFT_TABL	#60	t15
+
+long_func:
+	alloca	#4	ans
+	alloca	#4	i
+	alloca	#4	x
+	alloca	#4	y
+	alloca	#4	cur
+	alloca	#4	pl
+	ASSIGN	t0	#2
+	ASSIGN	pl	t0
+	alloca	#4	pr
+	ASSIGN	t1	#0
+	ASSIGN	pr	t1
+	alloca	#4	pres
+	ASSIGN	t2	#1
+	ASSIGN	pres	t2
+
+.L2:
+	load	pr	t3
+	ASSIGN	t4	#0
+	jgt	t3	t4	t5
+	goto_eq	t5	#1	.L3
+	goto	.L4
+
+.L3:
+	ASSIGN	t6	#0
+	ASSIGN	ans	t6
+	ASSIGN	t7	#0
+	ASSIGN	i	t7
+	load	pr	t8
+	ASSIGN	x	t8
+	ASSIGN	t9	#1
+	ASSIGN	y	t9
+
+.L20:
+	load	i	t10
+	ASSIGN	t11	#16
+	jlt	t10	t11	t12
+	goto_eq	t12	#1	.L21
+	goto	.L22
+
+.L21:
+	load	x	t13
+	ASSIGN	t14	#2
+	mod	t13	t14	t15
+	neq	t15	#0	t18
+	goto_eq	t15	#1	.L29
+	goto	.L28
+
+.L29:
+	load	y	t16
+	ASSIGN	t17	#2
+	mod	t16	t17	t18
+	neq	t18	#0	t19
+
+.L30:
+
+.L28:
+	goto_eq	t15	#1	.L26
+	goto	.L27
+
+.L26:
+	load	ans	t24
+	ASSIGN	t22	#1
+	load	i	t20
+	exp_arroff	t21,	[SHIFT_TABL, t20]
+	mul	t22	t21	t23
+	add	t24	t23	t25
+	ASSIGN	ans	t25
+
+.L27:
+	load	x	t26
+	ASSIGN	t27	#2
+	div	t26	t27	t28
+	ASSIGN	x	t28
+	load	y	t29
+	ASSIGN	t30	#2
+	div	t29	t30	t31
+	ASSIGN	y	t31
+	load	i	t32
+	ASSIGN	t33	#1
+	add	t32	t33	t34
+	ASSIGN	i	t34
+	goto	.L20
+
+.L22:
+	load	ans	t35
+	neq	t35	#0	t35
+	goto_eq	t35	#1	.L64
+	goto	.L65
+
+.L64:
+	alloca	#4	ml
+	load	pres	t36
+	ASSIGN	ml	t36
+	alloca	#4	mr
+	load	pl	t37
+	ASSIGN	mr	t37
+	alloca	#4	mres
+	ASSIGN	t38	#0
+	ASSIGN	mres	t38
+
+.L66:
+	load	mr	t39
+	neq	t39	#0	t39
+	goto_eq	t39	#1	.L67
+	goto	.L68
+
+.L67:
+	ASSIGN	t40	#0
+	ASSIGN	ans	t40
+	ASSIGN	t41	#0
+	ASSIGN	i	t41
+	load	mr	t42
+	ASSIGN	x	t42
+	ASSIGN	t43	#1
+	ASSIGN	y	t43
+
+.L81:
+	load	i	t44
+	ASSIGN	t45	#16
+	jlt	t44	t45	t46
+	goto_eq	t46	#1	.L82
+	goto	.L83
+
+.L82:
+	load	x	t47
+	ASSIGN	t48	#2
+	mod	t47	t48	t49
+	neq	t49	#0	t52
+	goto_eq	t49	#1	.L90
+	goto	.L89
+
+.L90:
+	load	y	t50
+	ASSIGN	t51	#2
+	mod	t50	t51	t52
+	neq	t52	#0	t53
+
+.L91:
+
+.L89:
+	goto_eq	t49	#1	.L87
+	goto	.L88
+
+.L87:
+	load	ans	t58
+	ASSIGN	t56	#1
+	load	i	t54
+	exp_arroff	t55,	[SHIFT_TABL, t54]
+	mul	t56	t55	t57
+	add	t58	t57	t59
+	ASSIGN	ans	t59
+
+.L88:
+	load	x	t60
+	ASSIGN	t61	#2
+	div	t60	t61	t62
+	ASSIGN	x	t62
+	load	y	t63
+	ASSIGN	t64	#2
+	div	t63	t64	t65
+	ASSIGN	y	t65
+	load	i	t66
+	ASSIGN	t67	#1
+	add	t66	t67	t68
+	ASSIGN	i	t68
+	goto	.L81
+
+.L83:
+	load	ans	t69
+	neq	t69	#0	t69
+	goto_eq	t69	#1	.L125
+	goto	.L126
+
+.L125:
+	alloca	#4	al
+	load	mres	t70
+	ASSIGN	al	t70
+	alloca	#4	c
+	load	ml	t71
+	ASSIGN	c	t71
+	alloca	#4	sum
+
+.L127:
+	load	c	t72
+	neq	t72	#0	t72
+	goto_eq	t72	#1	.L128
+	goto	.L129
+
+.L128:
+	ASSIGN	t73	#0
+	ASSIGN	ans	t73
+	ASSIGN	t74	#0
+	ASSIGN	i	t74
+	load	al	t75
+	ASSIGN	x	t75
+	load	c	t76
+	ASSIGN	y	t76
+
+.L142:
+	load	i	t77
+	ASSIGN	t78	#16
+	jlt	t77	t78	t79
+	goto_eq	t79	#1	.L143
+	goto	.L144
+
+.L143:
+	load	x	t80
+	ASSIGN	t81	#2
+	mod	t80	t81	t82
+	neq	t82	#0	t82
+	goto_eq	t82	#1	.L148
+	goto	.L149
+
+.L148:
+	load	y	t83
+	ASSIGN	t84	#2
+	mod	t83	t84	t85
+	ASSIGN	t86	#0
+	eq	t85	t86	t87
+	goto_eq	t87	#1	.L154
+	goto	.L155
+
+.L154:
+	load	ans	t92
+	ASSIGN	t90	#1
+	load	i	t88
+	exp_arroff	t89,	[SHIFT_TABL, t88]
+	mul	t90	t89	t91
+	add	t92	t91	t93
+	ASSIGN	ans	t93
+
+.L155:
+	goto	.L150
+
+.L149:
+	load	y	t94
+	ASSIGN	t95	#2
+	mod	t94	t95	t96
+	neq	t96	#0	t96
+	goto_eq	t96	#1	.L171
+	goto	.L172
+
+.L171:
+	load	ans	t101
+	ASSIGN	t99	#1
+	load	i	t97
+	exp_arroff	t98,	[SHIFT_TABL, t97]
+	mul	t99	t98	t100
+	add	t101	t100	t102
+	ASSIGN	ans	t102
+
+.L172:
+
+.L150:
+	load	x	t103
+	ASSIGN	t104	#2
+	div	t103	t104	t105
+	ASSIGN	x	t105
+	load	y	t106
+	ASSIGN	t107	#2
+	div	t106	t107	t108
+	ASSIGN	y	t108
+	load	i	t109
+	ASSIGN	t110	#1
+	add	t109	t110	t111
+	ASSIGN	i	t111
+	goto	.L142
+
+.L144:
+	load	ans	t112
+	ASSIGN	sum	t112
+	ASSIGN	t113	#0
+	ASSIGN	ans	t113
+	ASSIGN	t114	#0
+	ASSIGN	i	t114
+	load	al	t115
+	ASSIGN	x	t115
+	load	c	t116
+	ASSIGN	y	t116
+
+.L218:
+	load	i	t117
+	ASSIGN	t118	#16
+	jlt	t117	t118	t119
+	goto_eq	t119	#1	.L219
+	goto	.L220
+
+.L219:
+	load	x	t120
+	ASSIGN	t121	#2
+	mod	t120	t121	t122
+	neq	t122	#0	t125
+	goto_eq	t122	#1	.L227
+	goto	.L226
+
+.L227:
+	load	y	t123
+	ASSIGN	t124	#2
+	mod	t123	t124	t125
+	neq	t125	#0	t126
+
+.L228:
+
+.L226:
+	goto_eq	t122	#1	.L224
+	goto	.L225
+
+.L224:
+	load	ans	t131
+	ASSIGN	t129	#1
+	load	i	t127
+	exp_arroff	t128,	[SHIFT_TABL, t127]
+	mul	t129	t128	t130
+	add	t131	t130	t132
+	ASSIGN	ans	t132
+
+.L225:
+	load	x	t133
+	ASSIGN	t134	#2
+	div	t133	t134	t135
+	ASSIGN	x	t135
+	load	y	t136
+	ASSIGN	t137	#2
+	div	t136	t137	t138
+	ASSIGN	y	t138
+	load	i	t139
+	ASSIGN	t140	#1
+	add	t139	t140	t141
+	ASSIGN	i	t141
+	goto	.L218
+
+.L220:
+	load	ans	t142
+	ASSIGN	c	t142
+	ASSIGN	t143	#0
+	eq	t143	#1	t142
+	goto_eq	t143	#1	.L265
+	goto	.L266
+
+.L265:
+	ASSIGN	t144	#0
+	ASSIGN	ans	t144
+	goto	.L267
+
+.L266:
+	ASSIGN	t145	#0
+	ASSIGN	ans	t145
+	ASSIGN	t146	#0
+	ASSIGN	i	t146
+	load	c	t149
+	ASSIGN	t147	#1
+	exp_arroff	t148,	[SHIFT_TABL, t147]
+	mul	t149	t148	t150
+	ASSIGN	x	t150
+	ASSIGN	t151	#65535
+	ASSIGN	y	t151
+
+.L289:
+	load	i	t152
+	ASSIGN	t153	#16
+	jlt	t152	t153	t154
+	goto_eq	t154	#1	.L290
+	goto	.L291
+
+.L290:
+	load	x	t155
+	ASSIGN	t156	#2
+	mod	t155	t156	t157
+	neq	t157	#0	t160
+	goto_eq	t157	#1	.L298
+	goto	.L297
+
+.L298:
+	load	y	t158
+	ASSIGN	t159	#2
+	mod	t158	t159	t160
+	neq	t160	#0	t161
+
+.L299:
+
+.L297:
+	goto_eq	t157	#1	.L295
+	goto	.L296
+
+.L295:
+	load	ans	t166
+	ASSIGN	t164	#1
+	load	i	t162
+	exp_arroff	t163,	[SHIFT_TABL, t162]
+	mul	t164	t163	t165
+	add	t166	t165	t167
+	ASSIGN	ans	t167
+
+.L296:
+	load	x	t168
+	ASSIGN	t169	#2
+	div	t168	t169	t170
+	ASSIGN	x	t170
+	load	y	t171
+	ASSIGN	t172	#2
+	div	t171	t172	t173
+	ASSIGN	y	t173
+	load	i	t174
+	ASSIGN	t175	#1
+	add	t174	t175	t176
+	ASSIGN	i	t176
+	goto	.L289
+
+.L291:
+
+.L267:
+	load	ans	t177
+	ASSIGN	c	t177
+	load	sum	t178
+	ASSIGN	al	t178
+	goto	.L127
+
+.L129:
+	load	al	t179
+	ASSIGN	ans	t179
+	load	ans	t180
+	ASSIGN	mres	t180
+
+.L126:
+	alloca	#4	al
+	load	ml	t181
+	ASSIGN	al	t181
+	alloca	#4	c
+	load	ml	t182
+	ASSIGN	c	t182
+	alloca	#4	sum
+
+.L345:
+	load	c	t183
+	neq	t183	#0	t183
+	goto_eq	t183	#1	.L346
+	goto	.L347
+
+.L346:
+	ASSIGN	t184	#0
+	ASSIGN	ans	t184
+	ASSIGN	t185	#0
+	ASSIGN	i	t185
+	load	al	t186
+	ASSIGN	x	t186
+	load	c	t187
+	ASSIGN	y	t187
+
+.L360:
+	load	i	t188
+	ASSIGN	t189	#16
+	jlt	t188	t189	t190
+	goto_eq	t190	#1	.L361
+	goto	.L362
+
+.L361:
+	load	x	t191
+	ASSIGN	t192	#2
+	mod	t191	t192	t193
+	neq	t193	#0	t193
+	goto_eq	t193	#1	.L366
+	goto	.L367
+
+.L366:
+	load	y	t194
+	ASSIGN	t195	#2
+	mod	t194	t195	t196
+	ASSIGN	t197	#0
+	eq	t196	t197	t198
+	goto_eq	t198	#1	.L372
+	goto	.L373
+
+.L372:
+	load	ans	t203
+	ASSIGN	t201	#1
+	load	i	t199
+	exp_arroff	t200,	[SHIFT_TABL, t199]
+	mul	t201	t200	t202
+	add	t203	t202	t204
+	ASSIGN	ans	t204
+
+.L373:
+	goto	.L368
+
+.L367:
+	load	y	t205
+	ASSIGN	t206	#2
+	mod	t205	t206	t207
+	neq	t207	#0	t207
+	goto_eq	t207	#1	.L389
+	goto	.L390
+
+.L389:
+	load	ans	t212
+	ASSIGN	t210	#1
+	load	i	t208
+	exp_arroff	t209,	[SHIFT_TABL, t208]
+	mul	t210	t209	t211
+	add	t212	t211	t213
+	ASSIGN	ans	t213
+
+.L390:
+
+.L368:
+	load	x	t214
+	ASSIGN	t215	#2
+	div	t214	t215	t216
+	ASSIGN	x	t216
+	load	y	t217
+	ASSIGN	t218	#2
+	div	t217	t218	t219
+	ASSIGN	y	t219
+	load	i	t220
+	ASSIGN	t221	#1
+	add	t220	t221	t222
+	ASSIGN	i	t222
+	goto	.L360
+
+.L362:
+	load	ans	t223
+	ASSIGN	sum	t223
+	ASSIGN	t224	#0
+	ASSIGN	ans	t224
+	ASSIGN	t225	#0
+	ASSIGN	i	t225
+	load	al	t226
+	ASSIGN	x	t226
+	load	c	t227
+	ASSIGN	y	t227
+
+.L436:
+	load	i	t228
+	ASSIGN	t229	#16
+	jlt	t228	t229	t230
+	goto_eq	t230	#1	.L437
+	goto	.L438
+
+.L437:
+	load	x	t231
+	ASSIGN	t232	#2
+	mod	t231	t232	t233
+	neq	t233	#0	t236
+	goto_eq	t233	#1	.L445
+	goto	.L444
+
+.L445:
+	load	y	t234
+	ASSIGN	t235	#2
+	mod	t234	t235	t236
+	neq	t236	#0	t237
+
+.L446:
+
+.L444:
+	goto_eq	t233	#1	.L442
+	goto	.L443
+
+.L442:
+	load	ans	t242
+	ASSIGN	t240	#1
+	load	i	t238
+	exp_arroff	t239,	[SHIFT_TABL, t238]
+	mul	t240	t239	t241
+	add	t242	t241	t243
+	ASSIGN	ans	t243
+
+.L443:
+	load	x	t244
+	ASSIGN	t245	#2
+	div	t244	t245	t246
+	ASSIGN	x	t246
+	load	y	t247
+	ASSIGN	t248	#2
+	div	t247	t248	t249
+	ASSIGN	y	t249
+	load	i	t250
+	ASSIGN	t251	#1
+	add	t250	t251	t252
+	ASSIGN	i	t252
+	goto	.L436
+
+.L438:
+	load	ans	t253
+	ASSIGN	c	t253
+	ASSIGN	t254	#0
+	eq	t254	#1	t253
+	goto_eq	t254	#1	.L483
+	goto	.L484
+
+.L483:
+	ASSIGN	t255	#0
+	ASSIGN	ans	t255
+	goto	.L485
+
+.L484:
+	ASSIGN	t256	#0
+	ASSIGN	ans	t256
+	ASSIGN	t257	#0
+	ASSIGN	i	t257
+	load	c	t260
+	ASSIGN	t258	#1
+	exp_arroff	t259,	[SHIFT_TABL, t258]
+	mul	t260	t259	t261
+	ASSIGN	x	t261
+	ASSIGN	t262	#65535
+	ASSIGN	y	t262
+
+.L507:
+	load	i	t263
+	ASSIGN	t264	#16
+	jlt	t263	t264	t265
+	goto_eq	t265	#1	.L508
+	goto	.L509
+
+.L508:
+	load	x	t266
+	ASSIGN	t267	#2
+	mod	t266	t267	t268
+	neq	t268	#0	t271
+	goto_eq	t268	#1	.L516
+	goto	.L515
+
+.L516:
+	load	y	t269
+	ASSIGN	t270	#2
+	mod	t269	t270	t271
+	neq	t271	#0	t272
+
+.L517:
+
+.L515:
+	goto_eq	t268	#1	.L513
+	goto	.L514
+
+.L513:
+	load	ans	t277
+	ASSIGN	t275	#1
+	load	i	t273
+	exp_arroff	t274,	[SHIFT_TABL, t273]
+	mul	t275	t274	t276
+	add	t277	t276	t278
+	ASSIGN	ans	t278
+
+.L514:
+	load	x	t279
+	ASSIGN	t280	#2
+	div	t279	t280	t281
+	ASSIGN	x	t281
+	load	y	t282
+	ASSIGN	t283	#2
+	div	t282	t283	t284
+	ASSIGN	y	t284
+	load	i	t285
+	ASSIGN	t286	#1
+	add	t285	t286	t287
+	ASSIGN	i	t287
+	goto	.L507
+
+.L509:
+
+.L485:
+	load	ans	t288
+	ASSIGN	c	t288
+	load	sum	t289
+	ASSIGN	al	t289
+	goto	.L345
+
+.L347:
+	load	al	t290
+	ASSIGN	ans	t290
+	load	ans	t291
+	ASSIGN	ml	t291
+	load	mr	t292
+	ASSIGN	x	t292
+	ASSIGN	t293	#1
+	ASSIGN	y	t293
+	load	y	t294
+	ASSIGN	t295	#15
+	jge	t294	t295	t296
+	goto_eq	t296	#1	.L569
+	goto	.L570
+
+.L569:
+	load	x	t297
+	ASSIGN	t298	#0
+	jlt	t297	t298	t299
+	goto_eq	t299	#1	.L575
+	goto	.L576
+
+.L575:
+	ASSIGN	t300	#65535
+	ASSIGN	ans	t300
+	goto	.L577
+
+.L576:
+	ASSIGN	t301	#0
+	ASSIGN	ans	t301
+
+.L577:
+	goto	.L571
+
+.L570:
+	load	y	t302
+	ASSIGN	t303	#0
+	jgt	t302	t303	t304
+	goto_eq	t304	#1	.L587
+	goto	.L588
+
+.L587:
+	load	x	t305
+	ASSIGN	t306	#32767
+	jgt	t305	t306	t307
+	goto_eq	t307	#1	.L593
+	goto	.L594
+
+.L593:
+	load	x	t310
+	load	y	t308
+	exp_arroff	t309,	[SHIFT_TABL, t308]
+	div	t310	t309	t311
+	ASSIGN	x	t311
+	load	x	t312
+	ASSIGN	t313	#65536
+	add	t312	t313	t314
+	ASSIGN	t315	#15
+	load	y	t316
+	sub	t315	t316	t317
+	ASSIGN	t318	#1
+	add	t317	t318	t319
+	exp_arroff	t320,	[SHIFT_TABL, t319]
+	sub	t314	t320	t321
+	ASSIGN	ans	t321
+	goto	.L595
+
+.L594:
+	load	x	t324
+	load	y	t322
+	exp_arroff	t323,	[SHIFT_TABL, t322]
+	div	t324	t323	t325
+	ASSIGN	ans	t325
+
+.L595:
+	goto	.L589
+
+.L588:
+	load	x	t326
+	ASSIGN	ans	t326
+
+.L589:
+
+.L571:
+	load	ans	t327
+	ASSIGN	mr	t327
+	goto	.L66
+
+.L68:
+	load	mres	t328
+	ASSIGN	ans	t328
+	load	ans	t329
+	ASSIGN	pres	t329
+
+.L65:
+	alloca	#4	ml
+	load	pl	t330
+	ASSIGN	ml	t330
+	alloca	#4	mr
+	load	pl	t331
+	ASSIGN	mr	t331
+	alloca	#4	mres
+	ASSIGN	t332	#0
+	ASSIGN	mres	t332
+
+.L638:
+	load	mr	t333
+	neq	t333	#0	t333
+	goto_eq	t333	#1	.L639
+	goto	.L640
+
+.L639:
+	ASSIGN	t334	#0
+	ASSIGN	ans	t334
+	ASSIGN	t335	#0
+	ASSIGN	i	t335
+	load	mr	t336
+	ASSIGN	x	t336
+	ASSIGN	t337	#1
+	ASSIGN	y	t337
+
+.L653:
+	load	i	t338
+	ASSIGN	t339	#16
+	jlt	t338	t339	t340
+	goto_eq	t340	#1	.L654
+	goto	.L655
+
+.L654:
+	load	x	t341
+	ASSIGN	t342	#2
+	mod	t341	t342	t343
+	neq	t343	#0	t346
+	goto_eq	t343	#1	.L662
+	goto	.L661
+
+.L662:
+	load	y	t344
+	ASSIGN	t345	#2
+	mod	t344	t345	t346
+	neq	t346	#0	t347
+
+.L663:
+
+.L661:
+	goto_eq	t343	#1	.L659
+	goto	.L660
+
+.L659:
+	load	ans	t352
+	ASSIGN	t350	#1
+	load	i	t348
+	exp_arroff	t349,	[SHIFT_TABL, t348]
+	mul	t350	t349	t351
+	add	t352	t351	t353
+	ASSIGN	ans	t353
+
+.L660:
+	load	x	t354
+	ASSIGN	t355	#2
+	div	t354	t355	t356
+	ASSIGN	x	t356
+	load	y	t357
+	ASSIGN	t358	#2
+	div	t357	t358	t359
+	ASSIGN	y	t359
+	load	i	t360
+	ASSIGN	t361	#1
+	add	t360	t361	t362
+	ASSIGN	i	t362
+	goto	.L653
+
+.L655:
+	load	ans	t363
+	neq	t363	#0	t363
+	goto_eq	t363	#1	.L697
+	goto	.L698
+
+.L697:
+	alloca	#4	al
+	load	mres	t364
+	ASSIGN	al	t364
+	alloca	#4	c
+	load	ml	t365
+	ASSIGN	c	t365
+	alloca	#4	sum
+
+.L699:
+	load	c	t366
+	neq	t366	#0	t366
+	goto_eq	t366	#1	.L700
+	goto	.L701
+
+.L700:
+	ASSIGN	t367	#0
+	ASSIGN	ans	t367
+	ASSIGN	t368	#0
+	ASSIGN	i	t368
+	load	al	t369
+	ASSIGN	x	t369
+	load	c	t370
+	ASSIGN	y	t370
+
+.L714:
+	load	i	t371
+	ASSIGN	t372	#16
+	jlt	t371	t372	t373
+	goto_eq	t373	#1	.L715
+	goto	.L716
+
+.L715:
+	load	x	t374
+	ASSIGN	t375	#2
+	mod	t374	t375	t376
+	neq	t376	#0	t376
+	goto_eq	t376	#1	.L720
+	goto	.L721
+
+.L720:
+	load	y	t377
+	ASSIGN	t378	#2
+	mod	t377	t378	t379
+	ASSIGN	t380	#0
+	eq	t379	t380	t381
+	goto_eq	t381	#1	.L726
+	goto	.L727
+
+.L726:
+	load	ans	t386
+	ASSIGN	t384	#1
+	load	i	t382
+	exp_arroff	t383,	[SHIFT_TABL, t382]
+	mul	t384	t383	t385
+	add	t386	t385	t387
+	ASSIGN	ans	t387
+
+.L727:
+	goto	.L722
+
+.L721:
+	load	y	t388
+	ASSIGN	t389	#2
+	mod	t388	t389	t390
+	neq	t390	#0	t390
+	goto_eq	t390	#1	.L743
+	goto	.L744
+
+.L743:
+	load	ans	t395
+	ASSIGN	t393	#1
+	load	i	t391
+	exp_arroff	t392,	[SHIFT_TABL, t391]
+	mul	t393	t392	t394
+	add	t395	t394	t396
+	ASSIGN	ans	t396
+
+.L744:
+
+.L722:
+	load	x	t397
+	ASSIGN	t398	#2
+	div	t397	t398	t399
+	ASSIGN	x	t399
+	load	y	t400
+	ASSIGN	t401	#2
+	div	t400	t401	t402
+	ASSIGN	y	t402
+	load	i	t403
+	ASSIGN	t404	#1
+	add	t403	t404	t405
+	ASSIGN	i	t405
+	goto	.L714
+
+.L716:
+	load	ans	t406
+	ASSIGN	sum	t406
+	ASSIGN	t407	#0
+	ASSIGN	ans	t407
+	ASSIGN	t408	#0
+	ASSIGN	i	t408
+	load	al	t409
+	ASSIGN	x	t409
+	load	c	t410
+	ASSIGN	y	t410
+
+.L790:
+	load	i	t411
+	ASSIGN	t412	#16
+	jlt	t411	t412	t413
+	goto_eq	t413	#1	.L791
+	goto	.L792
+
+.L791:
+	load	x	t414
+	ASSIGN	t415	#2
+	mod	t414	t415	t416
+	neq	t416	#0	t419
+	goto_eq	t416	#1	.L799
+	goto	.L798
+
+.L799:
+	load	y	t417
+	ASSIGN	t418	#2
+	mod	t417	t418	t419
+	neq	t419	#0	t420
+
+.L800:
+
+.L798:
+	goto_eq	t416	#1	.L796
+	goto	.L797
+
+.L796:
+	load	ans	t425
+	ASSIGN	t423	#1
+	load	i	t421
+	exp_arroff	t422,	[SHIFT_TABL, t421]
+	mul	t423	t422	t424
+	add	t425	t424	t426
+	ASSIGN	ans	t426
+
+.L797:
+	load	x	t427
+	ASSIGN	t428	#2
+	div	t427	t428	t429
+	ASSIGN	x	t429
+	load	y	t430
+	ASSIGN	t431	#2
+	div	t430	t431	t432
+	ASSIGN	y	t432
+	load	i	t433
+	ASSIGN	t434	#1
+	add	t433	t434	t435
+	ASSIGN	i	t435
+	goto	.L790
+
+.L792:
+	load	ans	t436
+	ASSIGN	c	t436
+	ASSIGN	t437	#0
+	eq	t437	#1	t436
+	goto_eq	t437	#1	.L837
+	goto	.L838
+
+.L837:
+	ASSIGN	t438	#0
+	ASSIGN	ans	t438
+	goto	.L839
+
+.L838:
+	ASSIGN	t439	#0
+	ASSIGN	ans	t439
+	ASSIGN	t440	#0
+	ASSIGN	i	t440
+	load	c	t443
+	ASSIGN	t441	#1
+	exp_arroff	t442,	[SHIFT_TABL, t441]
+	mul	t443	t442	t444
+	ASSIGN	x	t444
+	ASSIGN	t445	#65535
+	ASSIGN	y	t445
+
+.L861:
+	load	i	t446
+	ASSIGN	t447	#16
+	jlt	t446	t447	t448
+	goto_eq	t448	#1	.L862
+	goto	.L863
+
+.L862:
+	load	x	t449
+	ASSIGN	t450	#2
+	mod	t449	t450	t451
+	neq	t451	#0	t454
+	goto_eq	t451	#1	.L870
+	goto	.L869
+
+.L870:
+	load	y	t452
+	ASSIGN	t453	#2
+	mod	t452	t453	t454
+	neq	t454	#0	t455
+
+.L871:
+
+.L869:
+	goto_eq	t451	#1	.L867
+	goto	.L868
+
+.L867:
+	load	ans	t460
+	ASSIGN	t458	#1
+	load	i	t456
+	exp_arroff	t457,	[SHIFT_TABL, t456]
+	mul	t458	t457	t459
+	add	t460	t459	t461
+	ASSIGN	ans	t461
+
+.L868:
+	load	x	t462
+	ASSIGN	t463	#2
+	div	t462	t463	t464
+	ASSIGN	x	t464
+	load	y	t465
+	ASSIGN	t466	#2
+	div	t465	t466	t467
+	ASSIGN	y	t467
+	load	i	t468
+	ASSIGN	t469	#1
+	add	t468	t469	t470
+	ASSIGN	i	t470
+	goto	.L861
+
+.L863:
+
+.L839:
+	load	ans	t471
+	ASSIGN	c	t471
+	load	sum	t472
+	ASSIGN	al	t472
+	goto	.L699
+
+.L701:
+	load	al	t473
+	ASSIGN	ans	t473
+	load	ans	t474
+	ASSIGN	mres	t474
+
+.L698:
+	alloca	#4	al
+	load	ml	t475
+	ASSIGN	al	t475
+	alloca	#4	c
+	load	ml	t476
+	ASSIGN	c	t476
+	alloca	#4	sum
+
+.L917:
+	load	c	t477
+	neq	t477	#0	t477
+	goto_eq	t477	#1	.L918
+	goto	.L919
+
+.L918:
+	ASSIGN	t478	#0
+	ASSIGN	ans	t478
+	ASSIGN	t479	#0
+	ASSIGN	i	t479
+	load	al	t480
+	ASSIGN	x	t480
+	load	c	t481
+	ASSIGN	y	t481
+
+.L932:
+	load	i	t482
+	ASSIGN	t483	#16
+	jlt	t482	t483	t484
+	goto_eq	t484	#1	.L933
+	goto	.L934
+
+.L933:
+	load	x	t485
+	ASSIGN	t486	#2
+	mod	t485	t486	t487
+	neq	t487	#0	t487
+	goto_eq	t487	#1	.L938
+	goto	.L939
+
+.L938:
+	load	y	t488
+	ASSIGN	t489	#2
+	mod	t488	t489	t490
+	ASSIGN	t491	#0
+	eq	t490	t491	t492
+	goto_eq	t492	#1	.L944
+	goto	.L945
+
+.L944:
+	load	ans	t497
+	ASSIGN	t495	#1
+	load	i	t493
+	exp_arroff	t494,	[SHIFT_TABL, t493]
+	mul	t495	t494	t496
+	add	t497	t496	t498
+	ASSIGN	ans	t498
+
+.L945:
+	goto	.L940
+
+.L939:
+	load	y	t499
+	ASSIGN	t500	#2
+	mod	t499	t500	t501
+	neq	t501	#0	t501
+	goto_eq	t501	#1	.L961
+	goto	.L962
+
+.L961:
+	load	ans	t506
+	ASSIGN	t504	#1
+	load	i	t502
+	exp_arroff	t503,	[SHIFT_TABL, t502]
+	mul	t504	t503	t505
+	add	t506	t505	t507
+	ASSIGN	ans	t507
+
+.L962:
+
+.L940:
+	load	x	t508
+	ASSIGN	t509	#2
+	div	t508	t509	t510
+	ASSIGN	x	t510
+	load	y	t511
+	ASSIGN	t512	#2
+	div	t511	t512	t513
+	ASSIGN	y	t513
+	load	i	t514
+	ASSIGN	t515	#1
+	add	t514	t515	t516
+	ASSIGN	i	t516
+	goto	.L932
+
+.L934:
+	load	ans	t517
+	ASSIGN	sum	t517
+	ASSIGN	t518	#0
+	ASSIGN	ans	t518
+	ASSIGN	t519	#0
+	ASSIGN	i	t519
+	load	al	t520
+	ASSIGN	x	t520
+	load	c	t521
+	ASSIGN	y	t521
+
+.L1008:
+	load	i	t522
+	ASSIGN	t523	#16
+	jlt	t522	t523	t524
+	goto_eq	t524	#1	.L1009
+	goto	.L1010
+
+.L1009:
+	load	x	t525
+	ASSIGN	t526	#2
+	mod	t525	t526	t527
+	neq	t527	#0	t530
+	goto_eq	t527	#1	.L1017
+	goto	.L1016
+
+.L1017:
+	load	y	t528
+	ASSIGN	t529	#2
+	mod	t528	t529	t530
+	neq	t530	#0	t531
+
+.L1018:
+
+.L1016:
+	goto_eq	t527	#1	.L1014
+	goto	.L1015
+
+.L1014:
+	load	ans	t536
+	ASSIGN	t534	#1
+	load	i	t532
+	exp_arroff	t533,	[SHIFT_TABL, t532]
+	mul	t534	t533	t535
+	add	t536	t535	t537
+	ASSIGN	ans	t537
+
+.L1015:
+	load	x	t538
+	ASSIGN	t539	#2
+	div	t538	t539	t540
+	ASSIGN	x	t540
+	load	y	t541
+	ASSIGN	t542	#2
+	div	t541	t542	t543
+	ASSIGN	y	t543
+	load	i	t544
+	ASSIGN	t545	#1
+	add	t544	t545	t546
+	ASSIGN	i	t546
+	goto	.L1008
+
+.L1010:
+	load	ans	t547
+	ASSIGN	c	t547
+	ASSIGN	t548	#0
+	eq	t548	#1	t547
+	goto_eq	t548	#1	.L1055
+	goto	.L1056
+
+.L1055:
+	ASSIGN	t549	#0
+	ASSIGN	ans	t549
+	goto	.L1057
+
+.L1056:
+	ASSIGN	t550	#0
+	ASSIGN	ans	t550
+	ASSIGN	t551	#0
+	ASSIGN	i	t551
+	load	c	t554
+	ASSIGN	t552	#1
+	exp_arroff	t553,	[SHIFT_TABL, t552]
+	mul	t554	t553	t555
+	ASSIGN	x	t555
+	ASSIGN	t556	#65535
+	ASSIGN	y	t556
+
+.L1079:
+	load	i	t557
+	ASSIGN	t558	#16
+	jlt	t557	t558	t559
+	goto_eq	t559	#1	.L1080
+	goto	.L1081
+
+.L1080:
+	load	x	t560
+	ASSIGN	t561	#2
+	mod	t560	t561	t562
+	neq	t562	#0	t565
+	goto_eq	t562	#1	.L1088
+	goto	.L1087
+
+.L1088:
+	load	y	t563
+	ASSIGN	t564	#2
+	mod	t563	t564	t565
+	neq	t565	#0	t566
+
+.L1089:
+
+.L1087:
+	goto_eq	t562	#1	.L1085
+	goto	.L1086
+
+.L1085:
+	load	ans	t571
+	ASSIGN	t569	#1
+	load	i	t567
+	exp_arroff	t568,	[SHIFT_TABL, t567]
+	mul	t569	t568	t570
+	add	t571	t570	t572
+	ASSIGN	ans	t572
+
+.L1086:
+	load	x	t573
+	ASSIGN	t574	#2
+	div	t573	t574	t575
+	ASSIGN	x	t575
+	load	y	t576
+	ASSIGN	t577	#2
+	div	t576	t577	t578
+	ASSIGN	y	t578
+	load	i	t579
+	ASSIGN	t580	#1
+	add	t579	t580	t581
+	ASSIGN	i	t581
+	goto	.L1079
+
+.L1081:
+
+.L1057:
+	load	ans	t582
+	ASSIGN	c	t582
+	load	sum	t583
+	ASSIGN	al	t583
+	goto	.L917
+
+.L919:
+	load	al	t584
+	ASSIGN	ans	t584
+	load	ans	t585
+	ASSIGN	ml	t585
+	load	mr	t586
+	ASSIGN	x	t586
+	ASSIGN	t587	#1
+	ASSIGN	y	t587
+	load	y	t588
+	ASSIGN	t589	#15
+	jge	t588	t589	t590
+	goto_eq	t590	#1	.L1141
+	goto	.L1142
+
+.L1141:
+	load	x	t591
+	ASSIGN	t592	#0
+	jlt	t591	t592	t593
+	goto_eq	t593	#1	.L1147
+	goto	.L1148
+
+.L1147:
+	ASSIGN	t594	#65535
+	ASSIGN	ans	t594
+	goto	.L1149
+
+.L1148:
+	ASSIGN	t595	#0
+	ASSIGN	ans	t595
+
+.L1149:
+	goto	.L1143
+
+.L1142:
+	load	y	t596
+	ASSIGN	t597	#0
+	jgt	t596	t597	t598
+	goto_eq	t598	#1	.L1159
+	goto	.L1160
+
+.L1159:
+	load	x	t599
+	ASSIGN	t600	#32767
+	jgt	t599	t600	t601
+	goto_eq	t601	#1	.L1165
+	goto	.L1166
+
+.L1165:
+	load	x	t604
+	load	y	t602
+	exp_arroff	t603,	[SHIFT_TABL, t602]
+	div	t604	t603	t605
+	ASSIGN	x	t605
+	load	x	t606
+	ASSIGN	t607	#65536
+	add	t606	t607	t608
+	ASSIGN	t609	#15
+	load	y	t610
+	sub	t609	t610	t611
+	ASSIGN	t612	#1
+	add	t611	t612	t613
+	exp_arroff	t614,	[SHIFT_TABL, t613]
+	sub	t608	t614	t615
+	ASSIGN	ans	t615
+	goto	.L1167
+
+.L1166:
+	load	x	t618
+	load	y	t616
+	exp_arroff	t617,	[SHIFT_TABL, t616]
+	div	t618	t617	t619
+	ASSIGN	ans	t619
+
+.L1167:
+	goto	.L1161
+
+.L1160:
+	load	x	t620
+	ASSIGN	ans	t620
+
+.L1161:
+
+.L1143:
+	load	ans	t621
+	ASSIGN	mr	t621
+	goto	.L638
+
+.L640:
+	load	mres	t622
+	ASSIGN	ans	t622
+	load	ans	t623
+	ASSIGN	pl	t623
+	load	pr	t624
+	ASSIGN	x	t624
+	ASSIGN	t625	#1
+	ASSIGN	y	t625
+	load	y	t626
+	ASSIGN	t627	#15
+	jge	t626	t627	t628
+	goto_eq	t628	#1	.L1216
+	goto	.L1217
+
+.L1216:
+	load	x	t629
+	ASSIGN	t630	#0
+	jlt	t629	t630	t631
+	goto_eq	t631	#1	.L1222
+	goto	.L1223
+
+.L1222:
+	ASSIGN	t632	#65535
+	ASSIGN	ans	t632
+	goto	.L1224
+
+.L1223:
+	ASSIGN	t633	#0
+	ASSIGN	ans	t633
+
+.L1224:
+	goto	.L1218
+
+.L1217:
+	load	y	t634
+	ASSIGN	t635	#0
+	jgt	t634	t635	t636
+	goto_eq	t636	#1	.L1234
+	goto	.L1235
+
+.L1234:
+	load	x	t637
+	ASSIGN	t638	#32767
+	jgt	t637	t638	t639
+	goto_eq	t639	#1	.L1240
+	goto	.L1241
+
+.L1240:
+	load	x	t642
+	load	y	t640
+	exp_arroff	t641,	[SHIFT_TABL, t640]
+	div	t642	t641	t643
+	ASSIGN	x	t643
+	load	x	t644
+	ASSIGN	t645	#65536
+	add	t644	t645	t646
+	ASSIGN	t647	#15
+	load	y	t648
+	sub	t647	t648	t649
+	ASSIGN	t650	#1
+	add	t649	t650	t651
+	exp_arroff	t652,	[SHIFT_TABL, t651]
+	sub	t646	t652	t653
+	ASSIGN	ans	t653
+	goto	.L1242
+
+.L1241:
+	load	x	t656
+	load	y	t654
+	exp_arroff	t655,	[SHIFT_TABL, t654]
+	div	t656	t655	t657
+	ASSIGN	ans	t657
+
+.L1242:
+	goto	.L1236
+
+.L1235:
+	load	x	t658
+	ASSIGN	ans	t658
+
+.L1236:
+
+.L1218:
+	load	ans	t659
+	ASSIGN	pr	t659
+	goto	.L2
+
+.L4:
+	load	pres	t660
+	ASSIGN	ans	t660
+	load	ans	t661
+	arg	t661
+	call_void	putint
+	ASSIGN	t662	#10
+	arg	t662
+	call_void	putch
+	alloca	#4	pl
+	ASSIGN	t663	#2
+	ASSIGN	pl	t663
+	alloca	#4	pr
+	ASSIGN	t664	#1
+	ASSIGN	pr	t664
+	alloca	#4	pres
+	ASSIGN	t665	#1
+	ASSIGN	pres	t665
+
+.L1282:
+	load	pr	t666
+	ASSIGN	t667	#0
+	jgt	t666	t667	t668
+	goto_eq	t668	#1	.L1283
+	goto	.L1284
+
+.L1283:
+	ASSIGN	t669	#0
+	ASSIGN	ans	t669
+	ASSIGN	t670	#0
+	ASSIGN	i	t670
+	load	pr	t671
+	ASSIGN	x	t671
+	ASSIGN	t672	#1
+	ASSIGN	y	t672
+
+.L1300:
+	load	i	t673
+	ASSIGN	t674	#16
+	jlt	t673	t674	t675
+	goto_eq	t675	#1	.L1301
+	goto	.L1302
+
+.L1301:
+	load	x	t676
+	ASSIGN	t677	#2
+	mod	t676	t677	t678
+	neq	t678	#0	t681
+	goto_eq	t678	#1	.L1309
+	goto	.L1308
+
+.L1309:
+	load	y	t679
+	ASSIGN	t680	#2
+	mod	t679	t680	t681
+	neq	t681	#0	t682
+
+.L1310:
+
+.L1308:
+	goto_eq	t678	#1	.L1306
+	goto	.L1307
+
+.L1306:
+	load	ans	t687
+	ASSIGN	t685	#1
+	load	i	t683
+	exp_arroff	t684,	[SHIFT_TABL, t683]
+	mul	t685	t684	t686
+	add	t687	t686	t688
+	ASSIGN	ans	t688
+
+.L1307:
+	load	x	t689
+	ASSIGN	t690	#2
+	div	t689	t690	t691
+	ASSIGN	x	t691
+	load	y	t692
+	ASSIGN	t693	#2
+	div	t692	t693	t694
+	ASSIGN	y	t694
+	load	i	t695
+	ASSIGN	t696	#1
+	add	t695	t696	t697
+	ASSIGN	i	t697
+	goto	.L1300
+
+.L1302:
+	load	ans	t698
+	neq	t698	#0	t698
+	goto_eq	t698	#1	.L1344
+	goto	.L1345
+
+.L1344:
+	alloca	#4	ml
+	load	pres	t699
+	ASSIGN	ml	t699
+	alloca	#4	mr
+	load	pl	t700
+	ASSIGN	mr	t700
+	alloca	#4	mres
+	ASSIGN	t701	#0
+	ASSIGN	mres	t701
+
+.L1346:
+	load	mr	t702
+	neq	t702	#0	t702
+	goto_eq	t702	#1	.L1347
+	goto	.L1348
+
+.L1347:
+	ASSIGN	t703	#0
+	ASSIGN	ans	t703
+	ASSIGN	t704	#0
+	ASSIGN	i	t704
+	load	mr	t705
+	ASSIGN	x	t705
+	ASSIGN	t706	#1
+	ASSIGN	y	t706
+
+.L1361:
+	load	i	t707
+	ASSIGN	t708	#16
+	jlt	t707	t708	t709
+	goto_eq	t709	#1	.L1362
+	goto	.L1363
+
+.L1362:
+	load	x	t710
+	ASSIGN	t711	#2
+	mod	t710	t711	t712
+	neq	t712	#0	t715
+	goto_eq	t712	#1	.L1370
+	goto	.L1369
+
+.L1370:
+	load	y	t713
+	ASSIGN	t714	#2
+	mod	t713	t714	t715
+	neq	t715	#0	t716
+
+.L1371:
+
+.L1369:
+	goto_eq	t712	#1	.L1367
+	goto	.L1368
+
+.L1367:
+	load	ans	t721
+	ASSIGN	t719	#1
+	load	i	t717
+	exp_arroff	t718,	[SHIFT_TABL, t717]
+	mul	t719	t718	t720
+	add	t721	t720	t722
+	ASSIGN	ans	t722
+
+.L1368:
+	load	x	t723
+	ASSIGN	t724	#2
+	div	t723	t724	t725
+	ASSIGN	x	t725
+	load	y	t726
+	ASSIGN	t727	#2
+	div	t726	t727	t728
+	ASSIGN	y	t728
+	load	i	t729
+	ASSIGN	t730	#1
+	add	t729	t730	t731
+	ASSIGN	i	t731
+	goto	.L1361
+
+.L1363:
+	load	ans	t732
+	neq	t732	#0	t732
+	goto_eq	t732	#1	.L1405
+	goto	.L1406
+
+.L1405:
+	alloca	#4	al
+	load	mres	t733
+	ASSIGN	al	t733
+	alloca	#4	c
+	load	ml	t734
+	ASSIGN	c	t734
+	alloca	#4	sum
+
+.L1407:
+	load	c	t735
+	neq	t735	#0	t735
+	goto_eq	t735	#1	.L1408
+	goto	.L1409
+
+.L1408:
+	ASSIGN	t736	#0
+	ASSIGN	ans	t736
+	ASSIGN	t737	#0
+	ASSIGN	i	t737
+	load	al	t738
+	ASSIGN	x	t738
+	load	c	t739
+	ASSIGN	y	t739
+
+.L1422:
+	load	i	t740
+	ASSIGN	t741	#16
+	jlt	t740	t741	t742
+	goto_eq	t742	#1	.L1423
+	goto	.L1424
+
+.L1423:
+	load	x	t743
+	ASSIGN	t744	#2
+	mod	t743	t744	t745
+	neq	t745	#0	t745
+	goto_eq	t745	#1	.L1428
+	goto	.L1429
+
+.L1428:
+	load	y	t746
+	ASSIGN	t747	#2
+	mod	t746	t747	t748
+	ASSIGN	t749	#0
+	eq	t748	t749	t750
+	goto_eq	t750	#1	.L1434
+	goto	.L1435
+
+.L1434:
+	load	ans	t755
+	ASSIGN	t753	#1
+	load	i	t751
+	exp_arroff	t752,	[SHIFT_TABL, t751]
+	mul	t753	t752	t754
+	add	t755	t754	t756
+	ASSIGN	ans	t756
+
+.L1435:
+	goto	.L1430
+
+.L1429:
+	load	y	t757
+	ASSIGN	t758	#2
+	mod	t757	t758	t759
+	neq	t759	#0	t759
+	goto_eq	t759	#1	.L1451
+	goto	.L1452
+
+.L1451:
+	load	ans	t764
+	ASSIGN	t762	#1
+	load	i	t760
+	exp_arroff	t761,	[SHIFT_TABL, t760]
+	mul	t762	t761	t763
+	add	t764	t763	t765
+	ASSIGN	ans	t765
+
+.L1452:
+
+.L1430:
+	load	x	t766
+	ASSIGN	t767	#2
+	div	t766	t767	t768
+	ASSIGN	x	t768
+	load	y	t769
+	ASSIGN	t770	#2
+	div	t769	t770	t771
+	ASSIGN	y	t771
+	load	i	t772
+	ASSIGN	t773	#1
+	add	t772	t773	t774
+	ASSIGN	i	t774
+	goto	.L1422
+
+.L1424:
+	load	ans	t775
+	ASSIGN	sum	t775
+	ASSIGN	t776	#0
+	ASSIGN	ans	t776
+	ASSIGN	t777	#0
+	ASSIGN	i	t777
+	load	al	t778
+	ASSIGN	x	t778
+	load	c	t779
+	ASSIGN	y	t779
+
+.L1498:
+	load	i	t780
+	ASSIGN	t781	#16
+	jlt	t780	t781	t782
+	goto_eq	t782	#1	.L1499
+	goto	.L1500
+
+.L1499:
+	load	x	t783
+	ASSIGN	t784	#2
+	mod	t783	t784	t785
+	neq	t785	#0	t788
+	goto_eq	t785	#1	.L1507
+	goto	.L1506
+
+.L1507:
+	load	y	t786
+	ASSIGN	t787	#2
+	mod	t786	t787	t788
+	neq	t788	#0	t789
+
+.L1508:
+
+.L1506:
+	goto_eq	t785	#1	.L1504
+	goto	.L1505
+
+.L1504:
+	load	ans	t794
+	ASSIGN	t792	#1
+	load	i	t790
+	exp_arroff	t791,	[SHIFT_TABL, t790]
+	mul	t792	t791	t793
+	add	t794	t793	t795
+	ASSIGN	ans	t795
+
+.L1505:
+	load	x	t796
+	ASSIGN	t797	#2
+	div	t796	t797	t798
+	ASSIGN	x	t798
+	load	y	t799
+	ASSIGN	t800	#2
+	div	t799	t800	t801
+	ASSIGN	y	t801
+	load	i	t802
+	ASSIGN	t803	#1
+	add	t802	t803	t804
+	ASSIGN	i	t804
+	goto	.L1498
+
+.L1500:
+	load	ans	t805
+	ASSIGN	c	t805
+	ASSIGN	t806	#0
+	eq	t806	#1	t805
+	goto_eq	t806	#1	.L1545
+	goto	.L1546
+
+.L1545:
+	ASSIGN	t807	#0
+	ASSIGN	ans	t807
+	goto	.L1547
+
+.L1546:
+	ASSIGN	t808	#0
+	ASSIGN	ans	t808
+	ASSIGN	t809	#0
+	ASSIGN	i	t809
+	load	c	t812
+	ASSIGN	t810	#1
+	exp_arroff	t811,	[SHIFT_TABL, t810]
+	mul	t812	t811	t813
+	ASSIGN	x	t813
+	ASSIGN	t814	#65535
+	ASSIGN	y	t814
+
+.L1569:
+	load	i	t815
+	ASSIGN	t816	#16
+	jlt	t815	t816	t817
+	goto_eq	t817	#1	.L1570
+	goto	.L1571
+
+.L1570:
+	load	x	t818
+	ASSIGN	t819	#2
+	mod	t818	t819	t820
+	neq	t820	#0	t823
+	goto_eq	t820	#1	.L1578
+	goto	.L1577
+
+.L1578:
+	load	y	t821
+	ASSIGN	t822	#2
+	mod	t821	t822	t823
+	neq	t823	#0	t824
+
+.L1579:
+
+.L1577:
+	goto_eq	t820	#1	.L1575
+	goto	.L1576
+
+.L1575:
+	load	ans	t829
+	ASSIGN	t827	#1
+	load	i	t825
+	exp_arroff	t826,	[SHIFT_TABL, t825]
+	mul	t827	t826	t828
+	add	t829	t828	t830
+	ASSIGN	ans	t830
+
+.L1576:
+	load	x	t831
+	ASSIGN	t832	#2
+	div	t831	t832	t833
+	ASSIGN	x	t833
+	load	y	t834
+	ASSIGN	t835	#2
+	div	t834	t835	t836
+	ASSIGN	y	t836
+	load	i	t837
+	ASSIGN	t838	#1
+	add	t837	t838	t839
+	ASSIGN	i	t839
+	goto	.L1569
+
+.L1571:
+
+.L1547:
+	load	ans	t840
+	ASSIGN	c	t840
+	load	sum	t841
+	ASSIGN	al	t841
+	goto	.L1407
+
+.L1409:
+	load	al	t842
+	ASSIGN	ans	t842
+	load	ans	t843
+	ASSIGN	mres	t843
+
+.L1406:
+	alloca	#4	al
+	load	ml	t844
+	ASSIGN	al	t844
+	alloca	#4	c
+	load	ml	t845
+	ASSIGN	c	t845
+	alloca	#4	sum
+
+.L1625:
+	load	c	t846
+	neq	t846	#0	t846
+	goto_eq	t846	#1	.L1626
+	goto	.L1627
+
+.L1626:
+	ASSIGN	t847	#0
+	ASSIGN	ans	t847
+	ASSIGN	t848	#0
+	ASSIGN	i	t848
+	load	al	t849
+	ASSIGN	x	t849
+	load	c	t850
+	ASSIGN	y	t850
+
+.L1640:
+	load	i	t851
+	ASSIGN	t852	#16
+	jlt	t851	t852	t853
+	goto_eq	t853	#1	.L1641
+	goto	.L1642
+
+.L1641:
+	load	x	t854
+	ASSIGN	t855	#2
+	mod	t854	t855	t856
+	neq	t856	#0	t856
+	goto_eq	t856	#1	.L1646
+	goto	.L1647
+
+.L1646:
+	load	y	t857
+	ASSIGN	t858	#2
+	mod	t857	t858	t859
+	ASSIGN	t860	#0
+	eq	t859	t860	t861
+	goto_eq	t861	#1	.L1652
+	goto	.L1653
+
+.L1652:
+	load	ans	t866
+	ASSIGN	t864	#1
+	load	i	t862
+	exp_arroff	t863,	[SHIFT_TABL, t862]
+	mul	t864	t863	t865
+	add	t866	t865	t867
+	ASSIGN	ans	t867
+
+.L1653:
+	goto	.L1648
+
+.L1647:
+	load	y	t868
+	ASSIGN	t869	#2
+	mod	t868	t869	t870
+	neq	t870	#0	t870
+	goto_eq	t870	#1	.L1669
+	goto	.L1670
+
+.L1669:
+	load	ans	t875
+	ASSIGN	t873	#1
+	load	i	t871
+	exp_arroff	t872,	[SHIFT_TABL, t871]
+	mul	t873	t872	t874
+	add	t875	t874	t876
+	ASSIGN	ans	t876
+
+.L1670:
+
+.L1648:
+	load	x	t877
+	ASSIGN	t878	#2
+	div	t877	t878	t879
+	ASSIGN	x	t879
+	load	y	t880
+	ASSIGN	t881	#2
+	div	t880	t881	t882
+	ASSIGN	y	t882
+	load	i	t883
+	ASSIGN	t884	#1
+	add	t883	t884	t885
+	ASSIGN	i	t885
+	goto	.L1640
+
+.L1642:
+	load	ans	t886
+	ASSIGN	sum	t886
+	ASSIGN	t887	#0
+	ASSIGN	ans	t887
+	ASSIGN	t888	#0
+	ASSIGN	i	t888
+	load	al	t889
+	ASSIGN	x	t889
+	load	c	t890
+	ASSIGN	y	t890
+
+.L1716:
+	load	i	t891
+	ASSIGN	t892	#16
+	jlt	t891	t892	t893
+	goto_eq	t893	#1	.L1717
+	goto	.L1718
+
+.L1717:
+	load	x	t894
+	ASSIGN	t895	#2
+	mod	t894	t895	t896
+	neq	t896	#0	t899
+	goto_eq	t896	#1	.L1725
+	goto	.L1724
+
+.L1725:
+	load	y	t897
+	ASSIGN	t898	#2
+	mod	t897	t898	t899
+	neq	t899	#0	t900
+
+.L1726:
+
+.L1724:
+	goto_eq	t896	#1	.L1722
+	goto	.L1723
+
+.L1722:
+	load	ans	t905
+	ASSIGN	t903	#1
+	load	i	t901
+	exp_arroff	t902,	[SHIFT_TABL, t901]
+	mul	t903	t902	t904
+	add	t905	t904	t906
+	ASSIGN	ans	t906
+
+.L1723:
+	load	x	t907
+	ASSIGN	t908	#2
+	div	t907	t908	t909
+	ASSIGN	x	t909
+	load	y	t910
+	ASSIGN	t911	#2
+	div	t910	t911	t912
+	ASSIGN	y	t912
+	load	i	t913
+	ASSIGN	t914	#1
+	add	t913	t914	t915
+	ASSIGN	i	t915
+	goto	.L1716
+
+.L1718:
+	load	ans	t916
+	ASSIGN	c	t916
+	ASSIGN	t917	#0
+	eq	t917	#1	t916
+	goto_eq	t917	#1	.L1763
+	goto	.L1764
+
+.L1763:
+	ASSIGN	t918	#0
+	ASSIGN	ans	t918
+	goto	.L1765
+
+.L1764:
+	ASSIGN	t919	#0
+	ASSIGN	ans	t919
+	ASSIGN	t920	#0
+	ASSIGN	i	t920
+	load	c	t923
+	ASSIGN	t921	#1
+	exp_arroff	t922,	[SHIFT_TABL, t921]
+	mul	t923	t922	t924
+	ASSIGN	x	t924
+	ASSIGN	t925	#65535
+	ASSIGN	y	t925
+
+.L1787:
+	load	i	t926
+	ASSIGN	t927	#16
+	jlt	t926	t927	t928
+	goto_eq	t928	#1	.L1788
+	goto	.L1789
+
+.L1788:
+	load	x	t929
+	ASSIGN	t930	#2
+	mod	t929	t930	t931
+	neq	t931	#0	t934
+	goto_eq	t931	#1	.L1796
+	goto	.L1795
+
+.L1796:
+	load	y	t932
+	ASSIGN	t933	#2
+	mod	t932	t933	t934
+	neq	t934	#0	t935
+
+.L1797:
+
+.L1795:
+	goto_eq	t931	#1	.L1793
+	goto	.L1794
+
+.L1793:
+	load	ans	t940
+	ASSIGN	t938	#1
+	load	i	t936
+	exp_arroff	t937,	[SHIFT_TABL, t936]
+	mul	t938	t937	t939
+	add	t940	t939	t941
+	ASSIGN	ans	t941
+
+.L1794:
+	load	x	t942
+	ASSIGN	t943	#2
+	div	t942	t943	t944
+	ASSIGN	x	t944
+	load	y	t945
+	ASSIGN	t946	#2
+	div	t945	t946	t947
+	ASSIGN	y	t947
+	load	i	t948
+	ASSIGN	t949	#1
+	add	t948	t949	t950
+	ASSIGN	i	t950
+	goto	.L1787
+
+.L1789:
+
+.L1765:
+	load	ans	t951
+	ASSIGN	c	t951
+	load	sum	t952
+	ASSIGN	al	t952
+	goto	.L1625
+
+.L1627:
+	load	al	t953
+	ASSIGN	ans	t953
+	load	ans	t954
+	ASSIGN	ml	t954
+	load	mr	t955
+	ASSIGN	x	t955
+	ASSIGN	t956	#1
+	ASSIGN	y	t956
+	load	y	t957
+	ASSIGN	t958	#15
+	jge	t957	t958	t959
+	goto_eq	t959	#1	.L1849
+	goto	.L1850
+
+.L1849:
+	load	x	t960
+	ASSIGN	t961	#0
+	jlt	t960	t961	t962
+	goto_eq	t962	#1	.L1855
+	goto	.L1856
+
+.L1855:
+	ASSIGN	t963	#65535
+	ASSIGN	ans	t963
+	goto	.L1857
+
+.L1856:
+	ASSIGN	t964	#0
+	ASSIGN	ans	t964
+
+.L1857:
+	goto	.L1851
+
+.L1850:
+	load	y	t965
+	ASSIGN	t966	#0
+	jgt	t965	t966	t967
+	goto_eq	t967	#1	.L1867
+	goto	.L1868
+
+.L1867:
+	load	x	t968
+	ASSIGN	t969	#32767
+	jgt	t968	t969	t970
+	goto_eq	t970	#1	.L1873
+	goto	.L1874
+
+.L1873:
+	load	x	t973
+	load	y	t971
+	exp_arroff	t972,	[SHIFT_TABL, t971]
+	div	t973	t972	t974
+	ASSIGN	x	t974
+	load	x	t975
+	ASSIGN	t976	#65536
+	add	t975	t976	t977
+	ASSIGN	t978	#15
+	load	y	t979
+	sub	t978	t979	t980
+	ASSIGN	t981	#1
+	add	t980	t981	t982
+	exp_arroff	t983,	[SHIFT_TABL, t982]
+	sub	t977	t983	t984
+	ASSIGN	ans	t984
+	goto	.L1875
+
+.L1874:
+	load	x	t987
+	load	y	t985
+	exp_arroff	t986,	[SHIFT_TABL, t985]
+	div	t987	t986	t988
+	ASSIGN	ans	t988
+
+.L1875:
+	goto	.L1869
+
+.L1868:
+	load	x	t989
+	ASSIGN	ans	t989
+
+.L1869:
+
+.L1851:
+	load	ans	t990
+	ASSIGN	mr	t990
+	goto	.L1346
+
+.L1348:
+	load	mres	t991
+	ASSIGN	ans	t991
+	load	ans	t992
+	ASSIGN	pres	t992
+
+.L1345:
+	alloca	#4	ml
+	load	pl	t993
+	ASSIGN	ml	t993
+	alloca	#4	mr
+	load	pl	t994
+	ASSIGN	mr	t994
+	alloca	#4	mres
+	ASSIGN	t995	#0
+	ASSIGN	mres	t995
+
+.L1918:
+	load	mr	t996
+	neq	t996	#0	t996
+	goto_eq	t996	#1	.L1919
+	goto	.L1920
+
+.L1919:
+	ASSIGN	t997	#0
+	ASSIGN	ans	t997
+	ASSIGN	t998	#0
+	ASSIGN	i	t998
+	load	mr	t999
+	ASSIGN	x	t999
+	ASSIGN	t1000	#1
+	ASSIGN	y	t1000
+
+.L1933:
+	load	i	t1001
+	ASSIGN	t1002	#16
+	jlt	t1001	t1002	t1003
+	goto_eq	t1003	#1	.L1934
+	goto	.L1935
+
+.L1934:
+	load	x	t1004
+	ASSIGN	t1005	#2
+	mod	t1004	t1005	t1006
+	neq	t1006	#0	t1009
+	goto_eq	t1006	#1	.L1942
+	goto	.L1941
+
+.L1942:
+	load	y	t1007
+	ASSIGN	t1008	#2
+	mod	t1007	t1008	t1009
+	neq	t1009	#0	t1010
+
+.L1943:
+
+.L1941:
+	goto_eq	t1006	#1	.L1939
+	goto	.L1940
+
+.L1939:
+	load	ans	t1015
+	ASSIGN	t1013	#1
+	load	i	t1011
+	exp_arroff	t1012,	[SHIFT_TABL, t1011]
+	mul	t1013	t1012	t1014
+	add	t1015	t1014	t1016
+	ASSIGN	ans	t1016
+
+.L1940:
+	load	x	t1017
+	ASSIGN	t1018	#2
+	div	t1017	t1018	t1019
+	ASSIGN	x	t1019
+	load	y	t1020
+	ASSIGN	t1021	#2
+	div	t1020	t1021	t1022
+	ASSIGN	y	t1022
+	load	i	t1023
+	ASSIGN	t1024	#1
+	add	t1023	t1024	t1025
+	ASSIGN	i	t1025
+	goto	.L1933
+
+.L1935:
+	load	ans	t1026
+	neq	t1026	#0	t1026
+	goto_eq	t1026	#1	.L1977
+	goto	.L1978
+
+.L1977:
+	alloca	#4	al
+	load	mres	t1027
+	ASSIGN	al	t1027
+	alloca	#4	c
+	load	ml	t1028
+	ASSIGN	c	t1028
+	alloca	#4	sum
+
+.L1979:
+	load	c	t1029
+	neq	t1029	#0	t1029
+	goto_eq	t1029	#1	.L1980
+	goto	.L1981
+
+.L1980:
+	ASSIGN	t1030	#0
+	ASSIGN	ans	t1030
+	ASSIGN	t1031	#0
+	ASSIGN	i	t1031
+	load	al	t1032
+	ASSIGN	x	t1032
+	load	c	t1033
+	ASSIGN	y	t1033
+
+.L1994:
+	load	i	t1034
+	ASSIGN	t1035	#16
+	jlt	t1034	t1035	t1036
+	goto_eq	t1036	#1	.L1995
+	goto	.L1996
+
+.L1995:
+	load	x	t1037
+	ASSIGN	t1038	#2
+	mod	t1037	t1038	t1039
+	neq	t1039	#0	t1039
+	goto_eq	t1039	#1	.L2000
+	goto	.L2001
+
+.L2000:
+	load	y	t1040
+	ASSIGN	t1041	#2
+	mod	t1040	t1041	t1042
+	ASSIGN	t1043	#0
+	eq	t1042	t1043	t1044
+	goto_eq	t1044	#1	.L2006
+	goto	.L2007
+
+.L2006:
+	load	ans	t1049
+	ASSIGN	t1047	#1
+	load	i	t1045
+	exp_arroff	t1046,	[SHIFT_TABL, t1045]
+	mul	t1047	t1046	t1048
+	add	t1049	t1048	t1050
+	ASSIGN	ans	t1050
+
+.L2007:
+	goto	.L2002
+
+.L2001:
+	load	y	t1051
+	ASSIGN	t1052	#2
+	mod	t1051	t1052	t1053
+	neq	t1053	#0	t1053
+	goto_eq	t1053	#1	.L2023
+	goto	.L2024
+
+.L2023:
+	load	ans	t1058
+	ASSIGN	t1056	#1
+	load	i	t1054
+	exp_arroff	t1055,	[SHIFT_TABL, t1054]
+	mul	t1056	t1055	t1057
+	add	t1058	t1057	t1059
+	ASSIGN	ans	t1059
+
+.L2024:
+
+.L2002:
+	load	x	t1060
+	ASSIGN	t1061	#2
+	div	t1060	t1061	t1062
+	ASSIGN	x	t1062
+	load	y	t1063
+	ASSIGN	t1064	#2
+	div	t1063	t1064	t1065
+	ASSIGN	y	t1065
+	load	i	t1066
+	ASSIGN	t1067	#1
+	add	t1066	t1067	t1068
+	ASSIGN	i	t1068
+	goto	.L1994
+
+.L1996:
+	load	ans	t1069
+	ASSIGN	sum	t1069
+	ASSIGN	t1070	#0
+	ASSIGN	ans	t1070
+	ASSIGN	t1071	#0
+	ASSIGN	i	t1071
+	load	al	t1072
+	ASSIGN	x	t1072
+	load	c	t1073
+	ASSIGN	y	t1073
+
+.L2070:
+	load	i	t1074
+	ASSIGN	t1075	#16
+	jlt	t1074	t1075	t1076
+	goto_eq	t1076	#1	.L2071
+	goto	.L2072
+
+.L2071:
+	load	x	t1077
+	ASSIGN	t1078	#2
+	mod	t1077	t1078	t1079
+	neq	t1079	#0	t1082
+	goto_eq	t1079	#1	.L2079
+	goto	.L2078
+
+.L2079:
+	load	y	t1080
+	ASSIGN	t1081	#2
+	mod	t1080	t1081	t1082
+	neq	t1082	#0	t1083
+
+.L2080:
+
+.L2078:
+	goto_eq	t1079	#1	.L2076
+	goto	.L2077
+
+.L2076:
+	load	ans	t1088
+	ASSIGN	t1086	#1
+	load	i	t1084
+	exp_arroff	t1085,	[SHIFT_TABL, t1084]
+	mul	t1086	t1085	t1087
+	add	t1088	t1087	t1089
+	ASSIGN	ans	t1089
+
+.L2077:
+	load	x	t1090
+	ASSIGN	t1091	#2
+	div	t1090	t1091	t1092
+	ASSIGN	x	t1092
+	load	y	t1093
+	ASSIGN	t1094	#2
+	div	t1093	t1094	t1095
+	ASSIGN	y	t1095
+	load	i	t1096
+	ASSIGN	t1097	#1
+	add	t1096	t1097	t1098
+	ASSIGN	i	t1098
+	goto	.L2070
+
+.L2072:
+	load	ans	t1099
+	ASSIGN	c	t1099
+	ASSIGN	t1100	#0
+	eq	t1100	#1	t1099
+	goto_eq	t1100	#1	.L2117
+	goto	.L2118
+
+.L2117:
+	ASSIGN	t1101	#0
+	ASSIGN	ans	t1101
+	goto	.L2119
+
+.L2118:
+	ASSIGN	t1102	#0
+	ASSIGN	ans	t1102
+	ASSIGN	t1103	#0
+	ASSIGN	i	t1103
+	load	c	t1106
+	ASSIGN	t1104	#1
+	exp_arroff	t1105,	[SHIFT_TABL, t1104]
+	mul	t1106	t1105	t1107
+	ASSIGN	x	t1107
+	ASSIGN	t1108	#65535
+	ASSIGN	y	t1108
+
+.L2141:
+	load	i	t1109
+	ASSIGN	t1110	#16
+	jlt	t1109	t1110	t1111
+	goto_eq	t1111	#1	.L2142
+	goto	.L2143
+
+.L2142:
+	load	x	t1112
+	ASSIGN	t1113	#2
+	mod	t1112	t1113	t1114
+	neq	t1114	#0	t1117
+	goto_eq	t1114	#1	.L2150
+	goto	.L2149
+
+.L2150:
+	load	y	t1115
+	ASSIGN	t1116	#2
+	mod	t1115	t1116	t1117
+	neq	t1117	#0	t1118
+
+.L2151:
+
+.L2149:
+	goto_eq	t1114	#1	.L2147
+	goto	.L2148
+
+.L2147:
+	load	ans	t1123
+	ASSIGN	t1121	#1
+	load	i	t1119
+	exp_arroff	t1120,	[SHIFT_TABL, t1119]
+	mul	t1121	t1120	t1122
+	add	t1123	t1122	t1124
+	ASSIGN	ans	t1124
+
+.L2148:
+	load	x	t1125
+	ASSIGN	t1126	#2
+	div	t1125	t1126	t1127
+	ASSIGN	x	t1127
+	load	y	t1128
+	ASSIGN	t1129	#2
+	div	t1128	t1129	t1130
+	ASSIGN	y	t1130
+	load	i	t1131
+	ASSIGN	t1132	#1
+	add	t1131	t1132	t1133
+	ASSIGN	i	t1133
+	goto	.L2141
+
+.L2143:
+
+.L2119:
+	load	ans	t1134
+	ASSIGN	c	t1134
+	load	sum	t1135
+	ASSIGN	al	t1135
+	goto	.L1979
+
+.L1981:
+	load	al	t1136
+	ASSIGN	ans	t1136
+	load	ans	t1137
+	ASSIGN	mres	t1137
+
+.L1978:
+	alloca	#4	al
+	load	ml	t1138
+	ASSIGN	al	t1138
+	alloca	#4	c
+	load	ml	t1139
+	ASSIGN	c	t1139
+	alloca	#4	sum
+
+.L2197:
+	load	c	t1140
+	neq	t1140	#0	t1140
+	goto_eq	t1140	#1	.L2198
+	goto	.L2199
+
+.L2198:
+	ASSIGN	t1141	#0
+	ASSIGN	ans	t1141
+	ASSIGN	t1142	#0
+	ASSIGN	i	t1142
+	load	al	t1143
+	ASSIGN	x	t1143
+	load	c	t1144
+	ASSIGN	y	t1144
+
+.L2212:
+	load	i	t1145
+	ASSIGN	t1146	#16
+	jlt	t1145	t1146	t1147
+	goto_eq	t1147	#1	.L2213
+	goto	.L2214
+
+.L2213:
+	load	x	t1148
+	ASSIGN	t1149	#2
+	mod	t1148	t1149	t1150
+	neq	t1150	#0	t1150
+	goto_eq	t1150	#1	.L2218
+	goto	.L2219
+
+.L2218:
+	load	y	t1151
+	ASSIGN	t1152	#2
+	mod	t1151	t1152	t1153
+	ASSIGN	t1154	#0
+	eq	t1153	t1154	t1155
+	goto_eq	t1155	#1	.L2224
+	goto	.L2225
+
+.L2224:
+	load	ans	t1160
+	ASSIGN	t1158	#1
+	load	i	t1156
+	exp_arroff	t1157,	[SHIFT_TABL, t1156]
+	mul	t1158	t1157	t1159
+	add	t1160	t1159	t1161
+	ASSIGN	ans	t1161
+
+.L2225:
+	goto	.L2220
+
+.L2219:
+	load	y	t1162
+	ASSIGN	t1163	#2
+	mod	t1162	t1163	t1164
+	neq	t1164	#0	t1164
+	goto_eq	t1164	#1	.L2241
+	goto	.L2242
+
+.L2241:
+	load	ans	t1169
+	ASSIGN	t1167	#1
+	load	i	t1165
+	exp_arroff	t1166,	[SHIFT_TABL, t1165]
+	mul	t1167	t1166	t1168
+	add	t1169	t1168	t1170
+	ASSIGN	ans	t1170
+
+.L2242:
+
+.L2220:
+	load	x	t1171
+	ASSIGN	t1172	#2
+	div	t1171	t1172	t1173
+	ASSIGN	x	t1173
+	load	y	t1174
+	ASSIGN	t1175	#2
+	div	t1174	t1175	t1176
+	ASSIGN	y	t1176
+	load	i	t1177
+	ASSIGN	t1178	#1
+	add	t1177	t1178	t1179
+	ASSIGN	i	t1179
+	goto	.L2212
+
+.L2214:
+	load	ans	t1180
+	ASSIGN	sum	t1180
+	ASSIGN	t1181	#0
+	ASSIGN	ans	t1181
+	ASSIGN	t1182	#0
+	ASSIGN	i	t1182
+	load	al	t1183
+	ASSIGN	x	t1183
+	load	c	t1184
+	ASSIGN	y	t1184
+
+.L2288:
+	load	i	t1185
+	ASSIGN	t1186	#16
+	jlt	t1185	t1186	t1187
+	goto_eq	t1187	#1	.L2289
+	goto	.L2290
+
+.L2289:
+	load	x	t1188
+	ASSIGN	t1189	#2
+	mod	t1188	t1189	t1190
+	neq	t1190	#0	t1193
+	goto_eq	t1190	#1	.L2297
+	goto	.L2296
+
+.L2297:
+	load	y	t1191
+	ASSIGN	t1192	#2
+	mod	t1191	t1192	t1193
+	neq	t1193	#0	t1194
+
+.L2298:
+
+.L2296:
+	goto_eq	t1190	#1	.L2294
+	goto	.L2295
+
+.L2294:
+	load	ans	t1199
+	ASSIGN	t1197	#1
+	load	i	t1195
+	exp_arroff	t1196,	[SHIFT_TABL, t1195]
+	mul	t1197	t1196	t1198
+	add	t1199	t1198	t1200
+	ASSIGN	ans	t1200
+
+.L2295:
+	load	x	t1201
+	ASSIGN	t1202	#2
+	div	t1201	t1202	t1203
+	ASSIGN	x	t1203
+	load	y	t1204
+	ASSIGN	t1205	#2
+	div	t1204	t1205	t1206
+	ASSIGN	y	t1206
+	load	i	t1207
+	ASSIGN	t1208	#1
+	add	t1207	t1208	t1209
+	ASSIGN	i	t1209
+	goto	.L2288
+
+.L2290:
+	load	ans	t1210
+	ASSIGN	c	t1210
+	ASSIGN	t1211	#0
+	eq	t1211	#1	t1210
+	goto_eq	t1211	#1	.L2335
+	goto	.L2336
+
+.L2335:
+	ASSIGN	t1212	#0
+	ASSIGN	ans	t1212
+	goto	.L2337
+
+.L2336:
+	ASSIGN	t1213	#0
+	ASSIGN	ans	t1213
+	ASSIGN	t1214	#0
+	ASSIGN	i	t1214
+	load	c	t1217
+	ASSIGN	t1215	#1
+	exp_arroff	t1216,	[SHIFT_TABL, t1215]
+	mul	t1217	t1216	t1218
+	ASSIGN	x	t1218
+	ASSIGN	t1219	#65535
+	ASSIGN	y	t1219
+
+.L2359:
+	load	i	t1220
+	ASSIGN	t1221	#16
+	jlt	t1220	t1221	t1222
+	goto_eq	t1222	#1	.L2360
+	goto	.L2361
+
+.L2360:
+	load	x	t1223
+	ASSIGN	t1224	#2
+	mod	t1223	t1224	t1225
+	neq	t1225	#0	t1228
+	goto_eq	t1225	#1	.L2368
+	goto	.L2367
+
+.L2368:
+	load	y	t1226
+	ASSIGN	t1227	#2
+	mod	t1226	t1227	t1228
+	neq	t1228	#0	t1229
+
+.L2369:
+
+.L2367:
+	goto_eq	t1225	#1	.L2365
+	goto	.L2366
+
+.L2365:
+	load	ans	t1234
+	ASSIGN	t1232	#1
+	load	i	t1230
+	exp_arroff	t1231,	[SHIFT_TABL, t1230]
+	mul	t1232	t1231	t1233
+	add	t1234	t1233	t1235
+	ASSIGN	ans	t1235
+
+.L2366:
+	load	x	t1236
+	ASSIGN	t1237	#2
+	div	t1236	t1237	t1238
+	ASSIGN	x	t1238
+	load	y	t1239
+	ASSIGN	t1240	#2
+	div	t1239	t1240	t1241
+	ASSIGN	y	t1241
+	load	i	t1242
+	ASSIGN	t1243	#1
+	add	t1242	t1243	t1244
+	ASSIGN	i	t1244
+	goto	.L2359
+
+.L2361:
+
+.L2337:
+	load	ans	t1245
+	ASSIGN	c	t1245
+	load	sum	t1246
+	ASSIGN	al	t1246
+	goto	.L2197
+
+.L2199:
+	load	al	t1247
+	ASSIGN	ans	t1247
+	load	ans	t1248
+	ASSIGN	ml	t1248
+	load	mr	t1249
+	ASSIGN	x	t1249
+	ASSIGN	t1250	#1
+	ASSIGN	y	t1250
+	load	y	t1251
+	ASSIGN	t1252	#15
+	jge	t1251	t1252	t1253
+	goto_eq	t1253	#1	.L2421
+	goto	.L2422
+
+.L2421:
+	load	x	t1254
+	ASSIGN	t1255	#0
+	jlt	t1254	t1255	t1256
+	goto_eq	t1256	#1	.L2427
+	goto	.L2428
+
+.L2427:
+	ASSIGN	t1257	#65535
+	ASSIGN	ans	t1257
+	goto	.L2429
+
+.L2428:
+	ASSIGN	t1258	#0
+	ASSIGN	ans	t1258
+
+.L2429:
+	goto	.L2423
+
+.L2422:
+	load	y	t1259
+	ASSIGN	t1260	#0
+	jgt	t1259	t1260	t1261
+	goto_eq	t1261	#1	.L2439
+	goto	.L2440
+
+.L2439:
+	load	x	t1262
+	ASSIGN	t1263	#32767
+	jgt	t1262	t1263	t1264
+	goto_eq	t1264	#1	.L2445
+	goto	.L2446
+
+.L2445:
+	load	x	t1267
+	load	y	t1265
+	exp_arroff	t1266,	[SHIFT_TABL, t1265]
+	div	t1267	t1266	t1268
+	ASSIGN	x	t1268
+	load	x	t1269
+	ASSIGN	t1270	#65536
+	add	t1269	t1270	t1271
+	ASSIGN	t1272	#15
+	load	y	t1273
+	sub	t1272	t1273	t1274
+	ASSIGN	t1275	#1
+	add	t1274	t1275	t1276
+	exp_arroff	t1277,	[SHIFT_TABL, t1276]
+	sub	t1271	t1277	t1278
+	ASSIGN	ans	t1278
+	goto	.L2447
+
+.L2446:
+	load	x	t1281
+	load	y	t1279
+	exp_arroff	t1280,	[SHIFT_TABL, t1279]
+	div	t1281	t1280	t1282
+	ASSIGN	ans	t1282
+
+.L2447:
+	goto	.L2441
+
+.L2440:
+	load	x	t1283
+	ASSIGN	ans	t1283
+
+.L2441:
+
+.L2423:
+	load	ans	t1284
+	ASSIGN	mr	t1284
+	goto	.L1918
+
+.L1920:
+	load	mres	t1285
+	ASSIGN	ans	t1285
+	load	ans	t1286
+	ASSIGN	pl	t1286
+	load	pr	t1287
+	ASSIGN	x	t1287
+	ASSIGN	t1288	#1
+	ASSIGN	y	t1288
+	load	y	t1289
+	ASSIGN	t1290	#15
+	jge	t1289	t1290	t1291
+	goto_eq	t1291	#1	.L2496
+	goto	.L2497
+
+.L2496:
+	load	x	t1292
+	ASSIGN	t1293	#0
+	jlt	t1292	t1293	t1294
+	goto_eq	t1294	#1	.L2502
+	goto	.L2503
+
+.L2502:
+	ASSIGN	t1295	#65535
+	ASSIGN	ans	t1295
+	goto	.L2504
+
+.L2503:
+	ASSIGN	t1296	#0
+	ASSIGN	ans	t1296
+
+.L2504:
+	goto	.L2498
+
+.L2497:
+	load	y	t1297
+	ASSIGN	t1298	#0
+	jgt	t1297	t1298	t1299
+	goto_eq	t1299	#1	.L2514
+	goto	.L2515
+
+.L2514:
+	load	x	t1300
+	ASSIGN	t1301	#32767
+	jgt	t1300	t1301	t1302
+	goto_eq	t1302	#1	.L2520
+	goto	.L2521
+
+.L2520:
+	load	x	t1305
+	load	y	t1303
+	exp_arroff	t1304,	[SHIFT_TABL, t1303]
+	div	t1305	t1304	t1306
+	ASSIGN	x	t1306
+	load	x	t1307
+	ASSIGN	t1308	#65536
+	add	t1307	t1308	t1309
+	ASSIGN	t1310	#15
+	load	y	t1311
+	sub	t1310	t1311	t1312
+	ASSIGN	t1313	#1
+	add	t1312	t1313	t1314
+	exp_arroff	t1315,	[SHIFT_TABL, t1314]
+	sub	t1309	t1315	t1316
+	ASSIGN	ans	t1316
+	goto	.L2522
+
+.L2521:
+	load	x	t1319
+	load	y	t1317
+	exp_arroff	t1318,	[SHIFT_TABL, t1317]
+	div	t1319	t1318	t1320
+	ASSIGN	ans	t1320
+
+.L2522:
+	goto	.L2516
+
+.L2515:
+	load	x	t1321
+	ASSIGN	ans	t1321
+
+.L2516:
+
+.L2498:
+	load	ans	t1322
+	ASSIGN	pr	t1322
+	goto	.L1282
+
+.L1284:
+	load	pres	t1323
+	ASSIGN	ans	t1323
+	load	ans	t1324
+	arg	t1324
+	call_void	putint
+	ASSIGN	t1325	#10
+	arg	t1325
+	call_void	putch
+	ASSIGN	t1326	#2
+	ASSIGN	cur	t1326
+
+.L2565:
+	load	cur	t1327
+	ASSIGN	t1328	#16
+	jlt	t1327	t1328	t1329
+	goto_eq	t1329	#1	.L2566
+	goto	.L2567
+
+.L2566:
+	alloca	#4	pl
+	ASSIGN	t1330	#2
+	ASSIGN	pl	t1330
+	alloca	#4	pr
+	load	cur	t1331
+	ASSIGN	pr	t1331
+	alloca	#4	pres
+	ASSIGN	t1332	#1
+	ASSIGN	pres	t1332
+
+.L2571:
+	load	pr	t1333
+	ASSIGN	t1334	#0
+	jgt	t1333	t1334	t1335
+	goto_eq	t1335	#1	.L2572
+	goto	.L2573
+
+.L2572:
+	ASSIGN	t1336	#0
+	ASSIGN	ans	t1336
+	ASSIGN	t1337	#0
+	ASSIGN	i	t1337
+	load	pr	t1338
+	ASSIGN	x	t1338
+	ASSIGN	t1339	#1
+	ASSIGN	y	t1339
+
+.L2589:
+	load	i	t1340
+	ASSIGN	t1341	#16
+	jlt	t1340	t1341	t1342
+	goto_eq	t1342	#1	.L2590
+	goto	.L2591
+
+.L2590:
+	load	x	t1343
+	ASSIGN	t1344	#2
+	mod	t1343	t1344	t1345
+	neq	t1345	#0	t1348
+	goto_eq	t1345	#1	.L2598
+	goto	.L2597
+
+.L2598:
+	load	y	t1346
+	ASSIGN	t1347	#2
+	mod	t1346	t1347	t1348
+	neq	t1348	#0	t1349
+
+.L2599:
+
+.L2597:
+	goto_eq	t1345	#1	.L2595
+	goto	.L2596
+
+.L2595:
+	load	ans	t1354
+	ASSIGN	t1352	#1
+	load	i	t1350
+	exp_arroff	t1351,	[SHIFT_TABL, t1350]
+	mul	t1352	t1351	t1353
+	add	t1354	t1353	t1355
+	ASSIGN	ans	t1355
+
+.L2596:
+	load	x	t1356
+	ASSIGN	t1357	#2
+	div	t1356	t1357	t1358
+	ASSIGN	x	t1358
+	load	y	t1359
+	ASSIGN	t1360	#2
+	div	t1359	t1360	t1361
+	ASSIGN	y	t1361
+	load	i	t1362
+	ASSIGN	t1363	#1
+	add	t1362	t1363	t1364
+	ASSIGN	i	t1364
+	goto	.L2589
+
+.L2591:
+	load	ans	t1365
+	neq	t1365	#0	t1365
+	goto_eq	t1365	#1	.L2633
+	goto	.L2634
+
+.L2633:
+	alloca	#4	ml
+	load	pres	t1366
+	ASSIGN	ml	t1366
+	alloca	#4	mr
+	load	pl	t1367
+	ASSIGN	mr	t1367
+	alloca	#4	mres
+	ASSIGN	t1368	#0
+	ASSIGN	mres	t1368
+
+.L2635:
+	load	mr	t1369
+	neq	t1369	#0	t1369
+	goto_eq	t1369	#1	.L2636
+	goto	.L2637
+
+.L2636:
+	ASSIGN	t1370	#0
+	ASSIGN	ans	t1370
+	ASSIGN	t1371	#0
+	ASSIGN	i	t1371
+	load	mr	t1372
+	ASSIGN	x	t1372
+	ASSIGN	t1373	#1
+	ASSIGN	y	t1373
+
+.L2650:
+	load	i	t1374
+	ASSIGN	t1375	#16
+	jlt	t1374	t1375	t1376
+	goto_eq	t1376	#1	.L2651
+	goto	.L2652
+
+.L2651:
+	load	x	t1377
+	ASSIGN	t1378	#2
+	mod	t1377	t1378	t1379
+	neq	t1379	#0	t1382
+	goto_eq	t1379	#1	.L2659
+	goto	.L2658
+
+.L2659:
+	load	y	t1380
+	ASSIGN	t1381	#2
+	mod	t1380	t1381	t1382
+	neq	t1382	#0	t1383
+
+.L2660:
+
+.L2658:
+	goto_eq	t1379	#1	.L2656
+	goto	.L2657
+
+.L2656:
+	load	ans	t1388
+	ASSIGN	t1386	#1
+	load	i	t1384
+	exp_arroff	t1385,	[SHIFT_TABL, t1384]
+	mul	t1386	t1385	t1387
+	add	t1388	t1387	t1389
+	ASSIGN	ans	t1389
+
+.L2657:
+	load	x	t1390
+	ASSIGN	t1391	#2
+	div	t1390	t1391	t1392
+	ASSIGN	x	t1392
+	load	y	t1393
+	ASSIGN	t1394	#2
+	div	t1393	t1394	t1395
+	ASSIGN	y	t1395
+	load	i	t1396
+	ASSIGN	t1397	#1
+	add	t1396	t1397	t1398
+	ASSIGN	i	t1398
+	goto	.L2650
+
+.L2652:
+	load	ans	t1399
+	neq	t1399	#0	t1399
+	goto_eq	t1399	#1	.L2694
+	goto	.L2695
+
+.L2694:
+	alloca	#4	al
+	load	mres	t1400
+	ASSIGN	al	t1400
+	alloca	#4	c
+	load	ml	t1401
+	ASSIGN	c	t1401
+	alloca	#4	sum
+
+.L2696:
+	load	c	t1402
+	neq	t1402	#0	t1402
+	goto_eq	t1402	#1	.L2697
+	goto	.L2698
+
+.L2697:
+	ASSIGN	t1403	#0
+	ASSIGN	ans	t1403
+	ASSIGN	t1404	#0
+	ASSIGN	i	t1404
+	load	al	t1405
+	ASSIGN	x	t1405
+	load	c	t1406
+	ASSIGN	y	t1406
+
+.L2711:
+	load	i	t1407
+	ASSIGN	t1408	#16
+	jlt	t1407	t1408	t1409
+	goto_eq	t1409	#1	.L2712
+	goto	.L2713
+
+.L2712:
+	load	x	t1410
+	ASSIGN	t1411	#2
+	mod	t1410	t1411	t1412
+	neq	t1412	#0	t1412
+	goto_eq	t1412	#1	.L2717
+	goto	.L2718
+
+.L2717:
+	load	y	t1413
+	ASSIGN	t1414	#2
+	mod	t1413	t1414	t1415
+	ASSIGN	t1416	#0
+	eq	t1415	t1416	t1417
+	goto_eq	t1417	#1	.L2723
+	goto	.L2724
+
+.L2723:
+	load	ans	t1422
+	ASSIGN	t1420	#1
+	load	i	t1418
+	exp_arroff	t1419,	[SHIFT_TABL, t1418]
+	mul	t1420	t1419	t1421
+	add	t1422	t1421	t1423
+	ASSIGN	ans	t1423
+
+.L2724:
+	goto	.L2719
+
+.L2718:
+	load	y	t1424
+	ASSIGN	t1425	#2
+	mod	t1424	t1425	t1426
+	neq	t1426	#0	t1426
+	goto_eq	t1426	#1	.L2740
+	goto	.L2741
+
+.L2740:
+	load	ans	t1431
+	ASSIGN	t1429	#1
+	load	i	t1427
+	exp_arroff	t1428,	[SHIFT_TABL, t1427]
+	mul	t1429	t1428	t1430
+	add	t1431	t1430	t1432
+	ASSIGN	ans	t1432
+
+.L2741:
+
+.L2719:
+	load	x	t1433
+	ASSIGN	t1434	#2
+	div	t1433	t1434	t1435
+	ASSIGN	x	t1435
+	load	y	t1436
+	ASSIGN	t1437	#2
+	div	t1436	t1437	t1438
+	ASSIGN	y	t1438
+	load	i	t1439
+	ASSIGN	t1440	#1
+	add	t1439	t1440	t1441
+	ASSIGN	i	t1441
+	goto	.L2711
+
+.L2713:
+	load	ans	t1442
+	ASSIGN	sum	t1442
+	ASSIGN	t1443	#0
+	ASSIGN	ans	t1443
+	ASSIGN	t1444	#0
+	ASSIGN	i	t1444
+	load	al	t1445
+	ASSIGN	x	t1445
+	load	c	t1446
+	ASSIGN	y	t1446
+
+.L2787:
+	load	i	t1447
+	ASSIGN	t1448	#16
+	jlt	t1447	t1448	t1449
+	goto_eq	t1449	#1	.L2788
+	goto	.L2789
+
+.L2788:
+	load	x	t1450
+	ASSIGN	t1451	#2
+	mod	t1450	t1451	t1452
+	neq	t1452	#0	t1455
+	goto_eq	t1452	#1	.L2796
+	goto	.L2795
+
+.L2796:
+	load	y	t1453
+	ASSIGN	t1454	#2
+	mod	t1453	t1454	t1455
+	neq	t1455	#0	t1456
+
+.L2797:
+
+.L2795:
+	goto_eq	t1452	#1	.L2793
+	goto	.L2794
+
+.L2793:
+	load	ans	t1461
+	ASSIGN	t1459	#1
+	load	i	t1457
+	exp_arroff	t1458,	[SHIFT_TABL, t1457]
+	mul	t1459	t1458	t1460
+	add	t1461	t1460	t1462
+	ASSIGN	ans	t1462
+
+.L2794:
+	load	x	t1463
+	ASSIGN	t1464	#2
+	div	t1463	t1464	t1465
+	ASSIGN	x	t1465
+	load	y	t1466
+	ASSIGN	t1467	#2
+	div	t1466	t1467	t1468
+	ASSIGN	y	t1468
+	load	i	t1469
+	ASSIGN	t1470	#1
+	add	t1469	t1470	t1471
+	ASSIGN	i	t1471
+	goto	.L2787
+
+.L2789:
+	load	ans	t1472
+	ASSIGN	c	t1472
+	ASSIGN	t1473	#0
+	eq	t1473	#1	t1472
+	goto_eq	t1473	#1	.L2834
+	goto	.L2835
+
+.L2834:
+	ASSIGN	t1474	#0
+	ASSIGN	ans	t1474
+	goto	.L2836
+
+.L2835:
+	ASSIGN	t1475	#0
+	ASSIGN	ans	t1475
+	ASSIGN	t1476	#0
+	ASSIGN	i	t1476
+	load	c	t1479
+	ASSIGN	t1477	#1
+	exp_arroff	t1478,	[SHIFT_TABL, t1477]
+	mul	t1479	t1478	t1480
+	ASSIGN	x	t1480
+	ASSIGN	t1481	#65535
+	ASSIGN	y	t1481
+
+.L2858:
+	load	i	t1482
+	ASSIGN	t1483	#16
+	jlt	t1482	t1483	t1484
+	goto_eq	t1484	#1	.L2859
+	goto	.L2860
+
+.L2859:
+	load	x	t1485
+	ASSIGN	t1486	#2
+	mod	t1485	t1486	t1487
+	neq	t1487	#0	t1490
+	goto_eq	t1487	#1	.L2867
+	goto	.L2866
+
+.L2867:
+	load	y	t1488
+	ASSIGN	t1489	#2
+	mod	t1488	t1489	t1490
+	neq	t1490	#0	t1491
+
+.L2868:
+
+.L2866:
+	goto_eq	t1487	#1	.L2864
+	goto	.L2865
+
+.L2864:
+	load	ans	t1496
+	ASSIGN	t1494	#1
+	load	i	t1492
+	exp_arroff	t1493,	[SHIFT_TABL, t1492]
+	mul	t1494	t1493	t1495
+	add	t1496	t1495	t1497
+	ASSIGN	ans	t1497
+
+.L2865:
+	load	x	t1498
+	ASSIGN	t1499	#2
+	div	t1498	t1499	t1500
+	ASSIGN	x	t1500
+	load	y	t1501
+	ASSIGN	t1502	#2
+	div	t1501	t1502	t1503
+	ASSIGN	y	t1503
+	load	i	t1504
+	ASSIGN	t1505	#1
+	add	t1504	t1505	t1506
+	ASSIGN	i	t1506
+	goto	.L2858
+
+.L2860:
+
+.L2836:
+	load	ans	t1507
+	ASSIGN	c	t1507
+	load	sum	t1508
+	ASSIGN	al	t1508
+	goto	.L2696
+
+.L2698:
+	load	al	t1509
+	ASSIGN	ans	t1509
+	load	ans	t1510
+	ASSIGN	mres	t1510
+
+.L2695:
+	alloca	#4	al
+	load	ml	t1511
+	ASSIGN	al	t1511
+	alloca	#4	c
+	load	ml	t1512
+	ASSIGN	c	t1512
+	alloca	#4	sum
+
+.L2914:
+	load	c	t1513
+	neq	t1513	#0	t1513
+	goto_eq	t1513	#1	.L2915
+	goto	.L2916
+
+.L2915:
+	ASSIGN	t1514	#0
+	ASSIGN	ans	t1514
+	ASSIGN	t1515	#0
+	ASSIGN	i	t1515
+	load	al	t1516
+	ASSIGN	x	t1516
+	load	c	t1517
+	ASSIGN	y	t1517
+
+.L2929:
+	load	i	t1518
+	ASSIGN	t1519	#16
+	jlt	t1518	t1519	t1520
+	goto_eq	t1520	#1	.L2930
+	goto	.L2931
+
+.L2930:
+	load	x	t1521
+	ASSIGN	t1522	#2
+	mod	t1521	t1522	t1523
+	neq	t1523	#0	t1523
+	goto_eq	t1523	#1	.L2935
+	goto	.L2936
+
+.L2935:
+	load	y	t1524
+	ASSIGN	t1525	#2
+	mod	t1524	t1525	t1526
+	ASSIGN	t1527	#0
+	eq	t1526	t1527	t1528
+	goto_eq	t1528	#1	.L2941
+	goto	.L2942
+
+.L2941:
+	load	ans	t1533
+	ASSIGN	t1531	#1
+	load	i	t1529
+	exp_arroff	t1530,	[SHIFT_TABL, t1529]
+	mul	t1531	t1530	t1532
+	add	t1533	t1532	t1534
+	ASSIGN	ans	t1534
+
+.L2942:
+	goto	.L2937
+
+.L2936:
+	load	y	t1535
+	ASSIGN	t1536	#2
+	mod	t1535	t1536	t1537
+	neq	t1537	#0	t1537
+	goto_eq	t1537	#1	.L2958
+	goto	.L2959
+
+.L2958:
+	load	ans	t1542
+	ASSIGN	t1540	#1
+	load	i	t1538
+	exp_arroff	t1539,	[SHIFT_TABL, t1538]
+	mul	t1540	t1539	t1541
+	add	t1542	t1541	t1543
+	ASSIGN	ans	t1543
+
+.L2959:
+
+.L2937:
+	load	x	t1544
+	ASSIGN	t1545	#2
+	div	t1544	t1545	t1546
+	ASSIGN	x	t1546
+	load	y	t1547
+	ASSIGN	t1548	#2
+	div	t1547	t1548	t1549
+	ASSIGN	y	t1549
+	load	i	t1550
+	ASSIGN	t1551	#1
+	add	t1550	t1551	t1552
+	ASSIGN	i	t1552
+	goto	.L2929
+
+.L2931:
+	load	ans	t1553
+	ASSIGN	sum	t1553
+	ASSIGN	t1554	#0
+	ASSIGN	ans	t1554
+	ASSIGN	t1555	#0
+	ASSIGN	i	t1555
+	load	al	t1556
+	ASSIGN	x	t1556
+	load	c	t1557
+	ASSIGN	y	t1557
+
+.L3005:
+	load	i	t1558
+	ASSIGN	t1559	#16
+	jlt	t1558	t1559	t1560
+	goto_eq	t1560	#1	.L3006
+	goto	.L3007
+
+.L3006:
+	load	x	t1561
+	ASSIGN	t1562	#2
+	mod	t1561	t1562	t1563
+	neq	t1563	#0	t1566
+	goto_eq	t1563	#1	.L3014
+	goto	.L3013
+
+.L3014:
+	load	y	t1564
+	ASSIGN	t1565	#2
+	mod	t1564	t1565	t1566
+	neq	t1566	#0	t1567
+
+.L3015:
+
+.L3013:
+	goto_eq	t1563	#1	.L3011
+	goto	.L3012
+
+.L3011:
+	load	ans	t1572
+	ASSIGN	t1570	#1
+	load	i	t1568
+	exp_arroff	t1569,	[SHIFT_TABL, t1568]
+	mul	t1570	t1569	t1571
+	add	t1572	t1571	t1573
+	ASSIGN	ans	t1573
+
+.L3012:
+	load	x	t1574
+	ASSIGN	t1575	#2
+	div	t1574	t1575	t1576
+	ASSIGN	x	t1576
+	load	y	t1577
+	ASSIGN	t1578	#2
+	div	t1577	t1578	t1579
+	ASSIGN	y	t1579
+	load	i	t1580
+	ASSIGN	t1581	#1
+	add	t1580	t1581	t1582
+	ASSIGN	i	t1582
+	goto	.L3005
+
+.L3007:
+	load	ans	t1583
+	ASSIGN	c	t1583
+	ASSIGN	t1584	#0
+	eq	t1584	#1	t1583
+	goto_eq	t1584	#1	.L3052
+	goto	.L3053
+
+.L3052:
+	ASSIGN	t1585	#0
+	ASSIGN	ans	t1585
+	goto	.L3054
+
+.L3053:
+	ASSIGN	t1586	#0
+	ASSIGN	ans	t1586
+	ASSIGN	t1587	#0
+	ASSIGN	i	t1587
+	load	c	t1590
+	ASSIGN	t1588	#1
+	exp_arroff	t1589,	[SHIFT_TABL, t1588]
+	mul	t1590	t1589	t1591
+	ASSIGN	x	t1591
+	ASSIGN	t1592	#65535
+	ASSIGN	y	t1592
+
+.L3076:
+	load	i	t1593
+	ASSIGN	t1594	#16
+	jlt	t1593	t1594	t1595
+	goto_eq	t1595	#1	.L3077
+	goto	.L3078
+
+.L3077:
+	load	x	t1596
+	ASSIGN	t1597	#2
+	mod	t1596	t1597	t1598
+	neq	t1598	#0	t1601
+	goto_eq	t1598	#1	.L3085
+	goto	.L3084
+
+.L3085:
+	load	y	t1599
+	ASSIGN	t1600	#2
+	mod	t1599	t1600	t1601
+	neq	t1601	#0	t1602
+
+.L3086:
+
+.L3084:
+	goto_eq	t1598	#1	.L3082
+	goto	.L3083
+
+.L3082:
+	load	ans	t1607
+	ASSIGN	t1605	#1
+	load	i	t1603
+	exp_arroff	t1604,	[SHIFT_TABL, t1603]
+	mul	t1605	t1604	t1606
+	add	t1607	t1606	t1608
+	ASSIGN	ans	t1608
+
+.L3083:
+	load	x	t1609
+	ASSIGN	t1610	#2
+	div	t1609	t1610	t1611
+	ASSIGN	x	t1611
+	load	y	t1612
+	ASSIGN	t1613	#2
+	div	t1612	t1613	t1614
+	ASSIGN	y	t1614
+	load	i	t1615
+	ASSIGN	t1616	#1
+	add	t1615	t1616	t1617
+	ASSIGN	i	t1617
+	goto	.L3076
+
+.L3078:
+
+.L3054:
+	load	ans	t1618
+	ASSIGN	c	t1618
+	load	sum	t1619
+	ASSIGN	al	t1619
+	goto	.L2914
+
+.L2916:
+	load	al	t1620
+	ASSIGN	ans	t1620
+	load	ans	t1621
+	ASSIGN	ml	t1621
+	load	mr	t1622
+	ASSIGN	x	t1622
+	ASSIGN	t1623	#1
+	ASSIGN	y	t1623
+	load	y	t1624
+	ASSIGN	t1625	#15
+	jge	t1624	t1625	t1626
+	goto_eq	t1626	#1	.L3138
+	goto	.L3139
+
+.L3138:
+	load	x	t1627
+	ASSIGN	t1628	#0
+	jlt	t1627	t1628	t1629
+	goto_eq	t1629	#1	.L3144
+	goto	.L3145
+
+.L3144:
+	ASSIGN	t1630	#65535
+	ASSIGN	ans	t1630
+	goto	.L3146
+
+.L3145:
+	ASSIGN	t1631	#0
+	ASSIGN	ans	t1631
+
+.L3146:
+	goto	.L3140
+
+.L3139:
+	load	y	t1632
+	ASSIGN	t1633	#0
+	jgt	t1632	t1633	t1634
+	goto_eq	t1634	#1	.L3156
+	goto	.L3157
+
+.L3156:
+	load	x	t1635
+	ASSIGN	t1636	#32767
+	jgt	t1635	t1636	t1637
+	goto_eq	t1637	#1	.L3162
+	goto	.L3163
+
+.L3162:
+	load	x	t1640
+	load	y	t1638
+	exp_arroff	t1639,	[SHIFT_TABL, t1638]
+	div	t1640	t1639	t1641
+	ASSIGN	x	t1641
+	load	x	t1642
+	ASSIGN	t1643	#65536
+	add	t1642	t1643	t1644
+	ASSIGN	t1645	#15
+	load	y	t1646
+	sub	t1645	t1646	t1647
+	ASSIGN	t1648	#1
+	add	t1647	t1648	t1649
+	exp_arroff	t1650,	[SHIFT_TABL, t1649]
+	sub	t1644	t1650	t1651
+	ASSIGN	ans	t1651
+	goto	.L3164
+
+.L3163:
+	load	x	t1654
+	load	y	t1652
+	exp_arroff	t1653,	[SHIFT_TABL, t1652]
+	div	t1654	t1653	t1655
+	ASSIGN	ans	t1655
+
+.L3164:
+	goto	.L3158
+
+.L3157:
+	load	x	t1656
+	ASSIGN	ans	t1656
+
+.L3158:
+
+.L3140:
+	load	ans	t1657
+	ASSIGN	mr	t1657
+	goto	.L2635
+
+.L2637:
+	load	mres	t1658
+	ASSIGN	ans	t1658
+	load	ans	t1659
+	ASSIGN	pres	t1659
+
+.L2634:
+	alloca	#4	ml
+	load	pl	t1660
+	ASSIGN	ml	t1660
+	alloca	#4	mr
+	load	pl	t1661
+	ASSIGN	mr	t1661
+	alloca	#4	mres
+	ASSIGN	t1662	#0
+	ASSIGN	mres	t1662
+
+.L3207:
+	load	mr	t1663
+	neq	t1663	#0	t1663
+	goto_eq	t1663	#1	.L3208
+	goto	.L3209
+
+.L3208:
+	ASSIGN	t1664	#0
+	ASSIGN	ans	t1664
+	ASSIGN	t1665	#0
+	ASSIGN	i	t1665
+	load	mr	t1666
+	ASSIGN	x	t1666
+	ASSIGN	t1667	#1
+	ASSIGN	y	t1667
+
+.L3222:
+	load	i	t1668
+	ASSIGN	t1669	#16
+	jlt	t1668	t1669	t1670
+	goto_eq	t1670	#1	.L3223
+	goto	.L3224
+
+.L3223:
+	load	x	t1671
+	ASSIGN	t1672	#2
+	mod	t1671	t1672	t1673
+	neq	t1673	#0	t1676
+	goto_eq	t1673	#1	.L3231
+	goto	.L3230
+
+.L3231:
+	load	y	t1674
+	ASSIGN	t1675	#2
+	mod	t1674	t1675	t1676
+	neq	t1676	#0	t1677
+
+.L3232:
+
+.L3230:
+	goto_eq	t1673	#1	.L3228
+	goto	.L3229
+
+.L3228:
+	load	ans	t1682
+	ASSIGN	t1680	#1
+	load	i	t1678
+	exp_arroff	t1679,	[SHIFT_TABL, t1678]
+	mul	t1680	t1679	t1681
+	add	t1682	t1681	t1683
+	ASSIGN	ans	t1683
+
+.L3229:
+	load	x	t1684
+	ASSIGN	t1685	#2
+	div	t1684	t1685	t1686
+	ASSIGN	x	t1686
+	load	y	t1687
+	ASSIGN	t1688	#2
+	div	t1687	t1688	t1689
+	ASSIGN	y	t1689
+	load	i	t1690
+	ASSIGN	t1691	#1
+	add	t1690	t1691	t1692
+	ASSIGN	i	t1692
+	goto	.L3222
+
+.L3224:
+	load	ans	t1693
+	neq	t1693	#0	t1693
+	goto_eq	t1693	#1	.L3266
+	goto	.L3267
+
+.L3266:
+	alloca	#4	al
+	load	mres	t1694
+	ASSIGN	al	t1694
+	alloca	#4	c
+	load	ml	t1695
+	ASSIGN	c	t1695
+	alloca	#4	sum
+
+.L3268:
+	load	c	t1696
+	neq	t1696	#0	t1696
+	goto_eq	t1696	#1	.L3269
+	goto	.L3270
+
+.L3269:
+	ASSIGN	t1697	#0
+	ASSIGN	ans	t1697
+	ASSIGN	t1698	#0
+	ASSIGN	i	t1698
+	load	al	t1699
+	ASSIGN	x	t1699
+	load	c	t1700
+	ASSIGN	y	t1700
+
+.L3283:
+	load	i	t1701
+	ASSIGN	t1702	#16
+	jlt	t1701	t1702	t1703
+	goto_eq	t1703	#1	.L3284
+	goto	.L3285
+
+.L3284:
+	load	x	t1704
+	ASSIGN	t1705	#2
+	mod	t1704	t1705	t1706
+	neq	t1706	#0	t1706
+	goto_eq	t1706	#1	.L3289
+	goto	.L3290
+
+.L3289:
+	load	y	t1707
+	ASSIGN	t1708	#2
+	mod	t1707	t1708	t1709
+	ASSIGN	t1710	#0
+	eq	t1709	t1710	t1711
+	goto_eq	t1711	#1	.L3295
+	goto	.L3296
+
+.L3295:
+	load	ans	t1716
+	ASSIGN	t1714	#1
+	load	i	t1712
+	exp_arroff	t1713,	[SHIFT_TABL, t1712]
+	mul	t1714	t1713	t1715
+	add	t1716	t1715	t1717
+	ASSIGN	ans	t1717
+
+.L3296:
+	goto	.L3291
+
+.L3290:
+	load	y	t1718
+	ASSIGN	t1719	#2
+	mod	t1718	t1719	t1720
+	neq	t1720	#0	t1720
+	goto_eq	t1720	#1	.L3312
+	goto	.L3313
+
+.L3312:
+	load	ans	t1725
+	ASSIGN	t1723	#1
+	load	i	t1721
+	exp_arroff	t1722,	[SHIFT_TABL, t1721]
+	mul	t1723	t1722	t1724
+	add	t1725	t1724	t1726
+	ASSIGN	ans	t1726
+
+.L3313:
+
+.L3291:
+	load	x	t1727
+	ASSIGN	t1728	#2
+	div	t1727	t1728	t1729
+	ASSIGN	x	t1729
+	load	y	t1730
+	ASSIGN	t1731	#2
+	div	t1730	t1731	t1732
+	ASSIGN	y	t1732
+	load	i	t1733
+	ASSIGN	t1734	#1
+	add	t1733	t1734	t1735
+	ASSIGN	i	t1735
+	goto	.L3283
+
+.L3285:
+	load	ans	t1736
+	ASSIGN	sum	t1736
+	ASSIGN	t1737	#0
+	ASSIGN	ans	t1737
+	ASSIGN	t1738	#0
+	ASSIGN	i	t1738
+	load	al	t1739
+	ASSIGN	x	t1739
+	load	c	t1740
+	ASSIGN	y	t1740
+
+.L3359:
+	load	i	t1741
+	ASSIGN	t1742	#16
+	jlt	t1741	t1742	t1743
+	goto_eq	t1743	#1	.L3360
+	goto	.L3361
+
+.L3360:
+	load	x	t1744
+	ASSIGN	t1745	#2
+	mod	t1744	t1745	t1746
+	neq	t1746	#0	t1749
+	goto_eq	t1746	#1	.L3368
+	goto	.L3367
+
+.L3368:
+	load	y	t1747
+	ASSIGN	t1748	#2
+	mod	t1747	t1748	t1749
+	neq	t1749	#0	t1750
+
+.L3369:
+
+.L3367:
+	goto_eq	t1746	#1	.L3365
+	goto	.L3366
+
+.L3365:
+	load	ans	t1755
+	ASSIGN	t1753	#1
+	load	i	t1751
+	exp_arroff	t1752,	[SHIFT_TABL, t1751]
+	mul	t1753	t1752	t1754
+	add	t1755	t1754	t1756
+	ASSIGN	ans	t1756
+
+.L3366:
+	load	x	t1757
+	ASSIGN	t1758	#2
+	div	t1757	t1758	t1759
+	ASSIGN	x	t1759
+	load	y	t1760
+	ASSIGN	t1761	#2
+	div	t1760	t1761	t1762
+	ASSIGN	y	t1762
+	load	i	t1763
+	ASSIGN	t1764	#1
+	add	t1763	t1764	t1765
+	ASSIGN	i	t1765
+	goto	.L3359
+
+.L3361:
+	load	ans	t1766
+	ASSIGN	c	t1766
+	ASSIGN	t1767	#0
+	eq	t1767	#1	t1766
+	goto_eq	t1767	#1	.L3406
+	goto	.L3407
+
+.L3406:
+	ASSIGN	t1768	#0
+	ASSIGN	ans	t1768
+	goto	.L3408
+
+.L3407:
+	ASSIGN	t1769	#0
+	ASSIGN	ans	t1769
+	ASSIGN	t1770	#0
+	ASSIGN	i	t1770
+	load	c	t1773
+	ASSIGN	t1771	#1
+	exp_arroff	t1772,	[SHIFT_TABL, t1771]
+	mul	t1773	t1772	t1774
+	ASSIGN	x	t1774
+	ASSIGN	t1775	#65535
+	ASSIGN	y	t1775
+
+.L3430:
+	load	i	t1776
+	ASSIGN	t1777	#16
+	jlt	t1776	t1777	t1778
+	goto_eq	t1778	#1	.L3431
+	goto	.L3432
+
+.L3431:
+	load	x	t1779
+	ASSIGN	t1780	#2
+	mod	t1779	t1780	t1781
+	neq	t1781	#0	t1784
+	goto_eq	t1781	#1	.L3439
+	goto	.L3438
+
+.L3439:
+	load	y	t1782
+	ASSIGN	t1783	#2
+	mod	t1782	t1783	t1784
+	neq	t1784	#0	t1785
+
+.L3440:
+
+.L3438:
+	goto_eq	t1781	#1	.L3436
+	goto	.L3437
+
+.L3436:
+	load	ans	t1790
+	ASSIGN	t1788	#1
+	load	i	t1786
+	exp_arroff	t1787,	[SHIFT_TABL, t1786]
+	mul	t1788	t1787	t1789
+	add	t1790	t1789	t1791
+	ASSIGN	ans	t1791
+
+.L3437:
+	load	x	t1792
+	ASSIGN	t1793	#2
+	div	t1792	t1793	t1794
+	ASSIGN	x	t1794
+	load	y	t1795
+	ASSIGN	t1796	#2
+	div	t1795	t1796	t1797
+	ASSIGN	y	t1797
+	load	i	t1798
+	ASSIGN	t1799	#1
+	add	t1798	t1799	t1800
+	ASSIGN	i	t1800
+	goto	.L3430
+
+.L3432:
+
+.L3408:
+	load	ans	t1801
+	ASSIGN	c	t1801
+	load	sum	t1802
+	ASSIGN	al	t1802
+	goto	.L3268
+
+.L3270:
+	load	al	t1803
+	ASSIGN	ans	t1803
+	load	ans	t1804
+	ASSIGN	mres	t1804
+
+.L3267:
+	alloca	#4	al
+	load	ml	t1805
+	ASSIGN	al	t1805
+	alloca	#4	c
+	load	ml	t1806
+	ASSIGN	c	t1806
+	alloca	#4	sum
+
+.L3486:
+	load	c	t1807
+	neq	t1807	#0	t1807
+	goto_eq	t1807	#1	.L3487
+	goto	.L3488
+
+.L3487:
+	ASSIGN	t1808	#0
+	ASSIGN	ans	t1808
+	ASSIGN	t1809	#0
+	ASSIGN	i	t1809
+	load	al	t1810
+	ASSIGN	x	t1810
+	load	c	t1811
+	ASSIGN	y	t1811
+
+.L3501:
+	load	i	t1812
+	ASSIGN	t1813	#16
+	jlt	t1812	t1813	t1814
+	goto_eq	t1814	#1	.L3502
+	goto	.L3503
+
+.L3502:
+	load	x	t1815
+	ASSIGN	t1816	#2
+	mod	t1815	t1816	t1817
+	neq	t1817	#0	t1817
+	goto_eq	t1817	#1	.L3507
+	goto	.L3508
+
+.L3507:
+	load	y	t1818
+	ASSIGN	t1819	#2
+	mod	t1818	t1819	t1820
+	ASSIGN	t1821	#0
+	eq	t1820	t1821	t1822
+	goto_eq	t1822	#1	.L3513
+	goto	.L3514
+
+.L3513:
+	load	ans	t1827
+	ASSIGN	t1825	#1
+	load	i	t1823
+	exp_arroff	t1824,	[SHIFT_TABL, t1823]
+	mul	t1825	t1824	t1826
+	add	t1827	t1826	t1828
+	ASSIGN	ans	t1828
+
+.L3514:
+	goto	.L3509
+
+.L3508:
+	load	y	t1829
+	ASSIGN	t1830	#2
+	mod	t1829	t1830	t1831
+	neq	t1831	#0	t1831
+	goto_eq	t1831	#1	.L3530
+	goto	.L3531
+
+.L3530:
+	load	ans	t1836
+	ASSIGN	t1834	#1
+	load	i	t1832
+	exp_arroff	t1833,	[SHIFT_TABL, t1832]
+	mul	t1834	t1833	t1835
+	add	t1836	t1835	t1837
+	ASSIGN	ans	t1837
+
+.L3531:
+
+.L3509:
+	load	x	t1838
+	ASSIGN	t1839	#2
+	div	t1838	t1839	t1840
+	ASSIGN	x	t1840
+	load	y	t1841
+	ASSIGN	t1842	#2
+	div	t1841	t1842	t1843
+	ASSIGN	y	t1843
+	load	i	t1844
+	ASSIGN	t1845	#1
+	add	t1844	t1845	t1846
+	ASSIGN	i	t1846
+	goto	.L3501
+
+.L3503:
+	load	ans	t1847
+	ASSIGN	sum	t1847
+	ASSIGN	t1848	#0
+	ASSIGN	ans	t1848
+	ASSIGN	t1849	#0
+	ASSIGN	i	t1849
+	load	al	t1850
+	ASSIGN	x	t1850
+	load	c	t1851
+	ASSIGN	y	t1851
+
+.L3577:
+	load	i	t1852
+	ASSIGN	t1853	#16
+	jlt	t1852	t1853	t1854
+	goto_eq	t1854	#1	.L3578
+	goto	.L3579
+
+.L3578:
+	load	x	t1855
+	ASSIGN	t1856	#2
+	mod	t1855	t1856	t1857
+	neq	t1857	#0	t1860
+	goto_eq	t1857	#1	.L3586
+	goto	.L3585
+
+.L3586:
+	load	y	t1858
+	ASSIGN	t1859	#2
+	mod	t1858	t1859	t1860
+	neq	t1860	#0	t1861
+
+.L3587:
+
+.L3585:
+	goto_eq	t1857	#1	.L3583
+	goto	.L3584
+
+.L3583:
+	load	ans	t1866
+	ASSIGN	t1864	#1
+	load	i	t1862
+	exp_arroff	t1863,	[SHIFT_TABL, t1862]
+	mul	t1864	t1863	t1865
+	add	t1866	t1865	t1867
+	ASSIGN	ans	t1867
+
+.L3584:
+	load	x	t1868
+	ASSIGN	t1869	#2
+	div	t1868	t1869	t1870
+	ASSIGN	x	t1870
+	load	y	t1871
+	ASSIGN	t1872	#2
+	div	t1871	t1872	t1873
+	ASSIGN	y	t1873
+	load	i	t1874
+	ASSIGN	t1875	#1
+	add	t1874	t1875	t1876
+	ASSIGN	i	t1876
+	goto	.L3577
+
+.L3579:
+	load	ans	t1877
+	ASSIGN	c	t1877
+	ASSIGN	t1878	#0
+	eq	t1878	#1	t1877
+	goto_eq	t1878	#1	.L3624
+	goto	.L3625
+
+.L3624:
+	ASSIGN	t1879	#0
+	ASSIGN	ans	t1879
+	goto	.L3626
+
+.L3625:
+	ASSIGN	t1880	#0
+	ASSIGN	ans	t1880
+	ASSIGN	t1881	#0
+	ASSIGN	i	t1881
+	load	c	t1884
+	ASSIGN	t1882	#1
+	exp_arroff	t1883,	[SHIFT_TABL, t1882]
+	mul	t1884	t1883	t1885
+	ASSIGN	x	t1885
+	ASSIGN	t1886	#65535
+	ASSIGN	y	t1886
+
+.L3648:
+	load	i	t1887
+	ASSIGN	t1888	#16
+	jlt	t1887	t1888	t1889
+	goto_eq	t1889	#1	.L3649
+	goto	.L3650
+
+.L3649:
+	load	x	t1890
+	ASSIGN	t1891	#2
+	mod	t1890	t1891	t1892
+	neq	t1892	#0	t1895
+	goto_eq	t1892	#1	.L3657
+	goto	.L3656
+
+.L3657:
+	load	y	t1893
+	ASSIGN	t1894	#2
+	mod	t1893	t1894	t1895
+	neq	t1895	#0	t1896
+
+.L3658:
+
+.L3656:
+	goto_eq	t1892	#1	.L3654
+	goto	.L3655
+
+.L3654:
+	load	ans	t1901
+	ASSIGN	t1899	#1
+	load	i	t1897
+	exp_arroff	t1898,	[SHIFT_TABL, t1897]
+	mul	t1899	t1898	t1900
+	add	t1901	t1900	t1902
+	ASSIGN	ans	t1902
+
+.L3655:
+	load	x	t1903
+	ASSIGN	t1904	#2
+	div	t1903	t1904	t1905
+	ASSIGN	x	t1905
+	load	y	t1906
+	ASSIGN	t1907	#2
+	div	t1906	t1907	t1908
+	ASSIGN	y	t1908
+	load	i	t1909
+	ASSIGN	t1910	#1
+	add	t1909	t1910	t1911
+	ASSIGN	i	t1911
+	goto	.L3648
+
+.L3650:
+
+.L3626:
+	load	ans	t1912
+	ASSIGN	c	t1912
+	load	sum	t1913
+	ASSIGN	al	t1913
+	goto	.L3486
+
+.L3488:
+	load	al	t1914
+	ASSIGN	ans	t1914
+	load	ans	t1915
+	ASSIGN	ml	t1915
+	load	mr	t1916
+	ASSIGN	x	t1916
+	ASSIGN	t1917	#1
+	ASSIGN	y	t1917
+	load	y	t1918
+	ASSIGN	t1919	#15
+	jge	t1918	t1919	t1920
+	goto_eq	t1920	#1	.L3710
+	goto	.L3711
+
+.L3710:
+	load	x	t1921
+	ASSIGN	t1922	#0
+	jlt	t1921	t1922	t1923
+	goto_eq	t1923	#1	.L3716
+	goto	.L3717
+
+.L3716:
+	ASSIGN	t1924	#65535
+	ASSIGN	ans	t1924
+	goto	.L3718
+
+.L3717:
+	ASSIGN	t1925	#0
+	ASSIGN	ans	t1925
+
+.L3718:
+	goto	.L3712
+
+.L3711:
+	load	y	t1926
+	ASSIGN	t1927	#0
+	jgt	t1926	t1927	t1928
+	goto_eq	t1928	#1	.L3728
+	goto	.L3729
+
+.L3728:
+	load	x	t1929
+	ASSIGN	t1930	#32767
+	jgt	t1929	t1930	t1931
+	goto_eq	t1931	#1	.L3734
+	goto	.L3735
+
+.L3734:
+	load	x	t1934
+	load	y	t1932
+	exp_arroff	t1933,	[SHIFT_TABL, t1932]
+	div	t1934	t1933	t1935
+	ASSIGN	x	t1935
+	load	x	t1936
+	ASSIGN	t1937	#65536
+	add	t1936	t1937	t1938
+	ASSIGN	t1939	#15
+	load	y	t1940
+	sub	t1939	t1940	t1941
+	ASSIGN	t1942	#1
+	add	t1941	t1942	t1943
+	exp_arroff	t1944,	[SHIFT_TABL, t1943]
+	sub	t1938	t1944	t1945
+	ASSIGN	ans	t1945
+	goto	.L3736
+
+.L3735:
+	load	x	t1948
+	load	y	t1946
+	exp_arroff	t1947,	[SHIFT_TABL, t1946]
+	div	t1948	t1947	t1949
+	ASSIGN	ans	t1949
+
+.L3736:
+	goto	.L3730
+
+.L3729:
+	load	x	t1950
+	ASSIGN	ans	t1950
+
+.L3730:
+
+.L3712:
+	load	ans	t1951
+	ASSIGN	mr	t1951
+	goto	.L3207
+
+.L3209:
+	load	mres	t1952
+	ASSIGN	ans	t1952
+	load	ans	t1953
+	ASSIGN	pl	t1953
+	load	pr	t1954
+	ASSIGN	x	t1954
+	ASSIGN	t1955	#1
+	ASSIGN	y	t1955
+	load	y	t1956
+	ASSIGN	t1957	#15
+	jge	t1956	t1957	t1958
+	goto_eq	t1958	#1	.L3785
+	goto	.L3786
+
+.L3785:
+	load	x	t1959
+	ASSIGN	t1960	#0
+	jlt	t1959	t1960	t1961
+	goto_eq	t1961	#1	.L3791
+	goto	.L3792
+
+.L3791:
+	ASSIGN	t1962	#65535
+	ASSIGN	ans	t1962
+	goto	.L3793
+
+.L3792:
+	ASSIGN	t1963	#0
+	ASSIGN	ans	t1963
+
+.L3793:
+	goto	.L3787
+
+.L3786:
+	load	y	t1964
+	ASSIGN	t1965	#0
+	jgt	t1964	t1965	t1966
+	goto_eq	t1966	#1	.L3803
+	goto	.L3804
+
+.L3803:
+	load	x	t1967
+	ASSIGN	t1968	#32767
+	jgt	t1967	t1968	t1969
+	goto_eq	t1969	#1	.L3809
+	goto	.L3810
+
+.L3809:
+	load	x	t1972
+	load	y	t1970
+	exp_arroff	t1971,	[SHIFT_TABL, t1970]
+	div	t1972	t1971	t1973
+	ASSIGN	x	t1973
+	load	x	t1974
+	ASSIGN	t1975	#65536
+	add	t1974	t1975	t1976
+	ASSIGN	t1977	#15
+	load	y	t1978
+	sub	t1977	t1978	t1979
+	ASSIGN	t1980	#1
+	add	t1979	t1980	t1981
+	exp_arroff	t1982,	[SHIFT_TABL, t1981]
+	sub	t1976	t1982	t1983
+	ASSIGN	ans	t1983
+	goto	.L3811
+
+.L3810:
+	load	x	t1986
+	load	y	t1984
+	exp_arroff	t1985,	[SHIFT_TABL, t1984]
+	div	t1986	t1985	t1987
+	ASSIGN	ans	t1987
+
+.L3811:
+	goto	.L3805
+
+.L3804:
+	load	x	t1988
+	ASSIGN	ans	t1988
+
+.L3805:
+
+.L3787:
+	load	ans	t1989
+	ASSIGN	pr	t1989
+	goto	.L2571
+
+.L2573:
+	load	pres	t1990
+	ASSIGN	ans	t1990
+	load	ans	t1991
+	arg	t1991
+	call_void	putint
+	ASSIGN	t1992	#10
+	arg	t1992
+	call_void	putch
+	load	cur	t1993
+	ASSIGN	t1994	#1
+	add	t1993	t1994	t1995
+	ASSIGN	cur	t1995
+	goto	.L2565
+
+.L2567:
+	ASSIGN	t1996	#0
+	ASSIGN	cur	t1996
+
+.L3860:
+	load	cur	t1997
+	ASSIGN	t1998	#16
+	jlt	t1997	t1998	t1999
+	goto_eq	t1999	#1	.L3861
+	goto	.L3862
+
+.L3861:
+	alloca	#4	pl
+	ASSIGN	t2000	#2
+	ASSIGN	pl	t2000
+	alloca	#4	pr
+	load	cur	t2001
+	ASSIGN	pr	t2001
+	alloca	#4	pres
+	ASSIGN	t2002	#1
+	ASSIGN	pres	t2002
+
+.L3866:
+	load	pr	t2003
+	ASSIGN	t2004	#0
+	jgt	t2003	t2004	t2005
+	goto_eq	t2005	#1	.L3867
+	goto	.L3868
+
+.L3867:
+	ASSIGN	t2006	#0
+	ASSIGN	ans	t2006
+	ASSIGN	t2007	#0
+	ASSIGN	i	t2007
+	load	pr	t2008
+	ASSIGN	x	t2008
+	ASSIGN	t2009	#1
+	ASSIGN	y	t2009
+
+.L3884:
+	load	i	t2010
+	ASSIGN	t2011	#16
+	jlt	t2010	t2011	t2012
+	goto_eq	t2012	#1	.L3885
+	goto	.L3886
+
+.L3885:
+	load	x	t2013
+	ASSIGN	t2014	#2
+	mod	t2013	t2014	t2015
+	neq	t2015	#0	t2018
+	goto_eq	t2015	#1	.L3893
+	goto	.L3892
+
+.L3893:
+	load	y	t2016
+	ASSIGN	t2017	#2
+	mod	t2016	t2017	t2018
+	neq	t2018	#0	t2019
+
+.L3894:
+
+.L3892:
+	goto_eq	t2015	#1	.L3890
+	goto	.L3891
+
+.L3890:
+	load	ans	t2024
+	ASSIGN	t2022	#1
+	load	i	t2020
+	exp_arroff	t2021,	[SHIFT_TABL, t2020]
+	mul	t2022	t2021	t2023
+	add	t2024	t2023	t2025
+	ASSIGN	ans	t2025
+
+.L3891:
+	load	x	t2026
+	ASSIGN	t2027	#2
+	div	t2026	t2027	t2028
+	ASSIGN	x	t2028
+	load	y	t2029
+	ASSIGN	t2030	#2
+	div	t2029	t2030	t2031
+	ASSIGN	y	t2031
+	load	i	t2032
+	ASSIGN	t2033	#1
+	add	t2032	t2033	t2034
+	ASSIGN	i	t2034
+	goto	.L3884
+
+.L3886:
+	load	ans	t2035
+	neq	t2035	#0	t2035
+	goto_eq	t2035	#1	.L3928
+	goto	.L3929
+
+.L3928:
+	alloca	#4	ml
+	load	pres	t2036
+	ASSIGN	ml	t2036
+	alloca	#4	mr
+	load	pl	t2037
+	ASSIGN	mr	t2037
+	alloca	#4	mres
+	ASSIGN	t2038	#0
+	ASSIGN	mres	t2038
+
+.L3930:
+	load	mr	t2039
+	neq	t2039	#0	t2039
+	goto_eq	t2039	#1	.L3931
+	goto	.L3932
+
+.L3931:
+	ASSIGN	t2040	#0
+	ASSIGN	ans	t2040
+	ASSIGN	t2041	#0
+	ASSIGN	i	t2041
+	load	mr	t2042
+	ASSIGN	x	t2042
+	ASSIGN	t2043	#1
+	ASSIGN	y	t2043
+
+.L3945:
+	load	i	t2044
+	ASSIGN	t2045	#16
+	jlt	t2044	t2045	t2046
+	goto_eq	t2046	#1	.L3946
+	goto	.L3947
+
+.L3946:
+	load	x	t2047
+	ASSIGN	t2048	#2
+	mod	t2047	t2048	t2049
+	neq	t2049	#0	t2052
+	goto_eq	t2049	#1	.L3954
+	goto	.L3953
+
+.L3954:
+	load	y	t2050
+	ASSIGN	t2051	#2
+	mod	t2050	t2051	t2052
+	neq	t2052	#0	t2053
+
+.L3955:
+
+.L3953:
+	goto_eq	t2049	#1	.L3951
+	goto	.L3952
+
+.L3951:
+	load	ans	t2058
+	ASSIGN	t2056	#1
+	load	i	t2054
+	exp_arroff	t2055,	[SHIFT_TABL, t2054]
+	mul	t2056	t2055	t2057
+	add	t2058	t2057	t2059
+	ASSIGN	ans	t2059
+
+.L3952:
+	load	x	t2060
+	ASSIGN	t2061	#2
+	div	t2060	t2061	t2062
+	ASSIGN	x	t2062
+	load	y	t2063
+	ASSIGN	t2064	#2
+	div	t2063	t2064	t2065
+	ASSIGN	y	t2065
+	load	i	t2066
+	ASSIGN	t2067	#1
+	add	t2066	t2067	t2068
+	ASSIGN	i	t2068
+	goto	.L3945
+
+.L3947:
+	load	ans	t2069
+	neq	t2069	#0	t2069
+	goto_eq	t2069	#1	.L3989
+	goto	.L3990
+
+.L3989:
+	alloca	#4	al
+	load	mres	t2070
+	ASSIGN	al	t2070
+	alloca	#4	c
+	load	ml	t2071
+	ASSIGN	c	t2071
+	alloca	#4	sum
+
+.L3991:
+	load	c	t2072
+	neq	t2072	#0	t2072
+	goto_eq	t2072	#1	.L3992
+	goto	.L3993
+
+.L3992:
+	ASSIGN	t2073	#0
+	ASSIGN	ans	t2073
+	ASSIGN	t2074	#0
+	ASSIGN	i	t2074
+	load	al	t2075
+	ASSIGN	x	t2075
+	load	c	t2076
+	ASSIGN	y	t2076
+
+.L4006:
+	load	i	t2077
+	ASSIGN	t2078	#16
+	jlt	t2077	t2078	t2079
+	goto_eq	t2079	#1	.L4007
+	goto	.L4008
+
+.L4007:
+	load	x	t2080
+	ASSIGN	t2081	#2
+	mod	t2080	t2081	t2082
+	neq	t2082	#0	t2082
+	goto_eq	t2082	#1	.L4012
+	goto	.L4013
+
+.L4012:
+	load	y	t2083
+	ASSIGN	t2084	#2
+	mod	t2083	t2084	t2085
+	ASSIGN	t2086	#0
+	eq	t2085	t2086	t2087
+	goto_eq	t2087	#1	.L4018
+	goto	.L4019
+
+.L4018:
+	load	ans	t2092
+	ASSIGN	t2090	#1
+	load	i	t2088
+	exp_arroff	t2089,	[SHIFT_TABL, t2088]
+	mul	t2090	t2089	t2091
+	add	t2092	t2091	t2093
+	ASSIGN	ans	t2093
+
+.L4019:
+	goto	.L4014
+
+.L4013:
+	load	y	t2094
+	ASSIGN	t2095	#2
+	mod	t2094	t2095	t2096
+	neq	t2096	#0	t2096
+	goto_eq	t2096	#1	.L4035
+	goto	.L4036
+
+.L4035:
+	load	ans	t2101
+	ASSIGN	t2099	#1
+	load	i	t2097
+	exp_arroff	t2098,	[SHIFT_TABL, t2097]
+	mul	t2099	t2098	t2100
+	add	t2101	t2100	t2102
+	ASSIGN	ans	t2102
+
+.L4036:
+
+.L4014:
+	load	x	t2103
+	ASSIGN	t2104	#2
+	div	t2103	t2104	t2105
+	ASSIGN	x	t2105
+	load	y	t2106
+	ASSIGN	t2107	#2
+	div	t2106	t2107	t2108
+	ASSIGN	y	t2108
+	load	i	t2109
+	ASSIGN	t2110	#1
+	add	t2109	t2110	t2111
+	ASSIGN	i	t2111
+	goto	.L4006
+
+.L4008:
+	load	ans	t2112
+	ASSIGN	sum	t2112
+	ASSIGN	t2113	#0
+	ASSIGN	ans	t2113
+	ASSIGN	t2114	#0
+	ASSIGN	i	t2114
+	load	al	t2115
+	ASSIGN	x	t2115
+	load	c	t2116
+	ASSIGN	y	t2116
+
+.L4082:
+	load	i	t2117
+	ASSIGN	t2118	#16
+	jlt	t2117	t2118	t2119
+	goto_eq	t2119	#1	.L4083
+	goto	.L4084
+
+.L4083:
+	load	x	t2120
+	ASSIGN	t2121	#2
+	mod	t2120	t2121	t2122
+	neq	t2122	#0	t2125
+	goto_eq	t2122	#1	.L4091
+	goto	.L4090
+
+.L4091:
+	load	y	t2123
+	ASSIGN	t2124	#2
+	mod	t2123	t2124	t2125
+	neq	t2125	#0	t2126
+
+.L4092:
+
+.L4090:
+	goto_eq	t2122	#1	.L4088
+	goto	.L4089
+
+.L4088:
+	load	ans	t2131
+	ASSIGN	t2129	#1
+	load	i	t2127
+	exp_arroff	t2128,	[SHIFT_TABL, t2127]
+	mul	t2129	t2128	t2130
+	add	t2131	t2130	t2132
+	ASSIGN	ans	t2132
+
+.L4089:
+	load	x	t2133
+	ASSIGN	t2134	#2
+	div	t2133	t2134	t2135
+	ASSIGN	x	t2135
+	load	y	t2136
+	ASSIGN	t2137	#2
+	div	t2136	t2137	t2138
+	ASSIGN	y	t2138
+	load	i	t2139
+	ASSIGN	t2140	#1
+	add	t2139	t2140	t2141
+	ASSIGN	i	t2141
+	goto	.L4082
+
+.L4084:
+	load	ans	t2142
+	ASSIGN	c	t2142
+	ASSIGN	t2143	#0
+	eq	t2143	#1	t2142
+	goto_eq	t2143	#1	.L4129
+	goto	.L4130
+
+.L4129:
+	ASSIGN	t2144	#0
+	ASSIGN	ans	t2144
+	goto	.L4131
+
+.L4130:
+	ASSIGN	t2145	#0
+	ASSIGN	ans	t2145
+	ASSIGN	t2146	#0
+	ASSIGN	i	t2146
+	load	c	t2149
+	ASSIGN	t2147	#1
+	exp_arroff	t2148,	[SHIFT_TABL, t2147]
+	mul	t2149	t2148	t2150
+	ASSIGN	x	t2150
+	ASSIGN	t2151	#65535
+	ASSIGN	y	t2151
+
+.L4153:
+	load	i	t2152
+	ASSIGN	t2153	#16
+	jlt	t2152	t2153	t2154
+	goto_eq	t2154	#1	.L4154
+	goto	.L4155
+
+.L4154:
+	load	x	t2155
+	ASSIGN	t2156	#2
+	mod	t2155	t2156	t2157
+	neq	t2157	#0	t2160
+	goto_eq	t2157	#1	.L4162
+	goto	.L4161
+
+.L4162:
+	load	y	t2158
+	ASSIGN	t2159	#2
+	mod	t2158	t2159	t2160
+	neq	t2160	#0	t2161
+
+.L4163:
+
+.L4161:
+	goto_eq	t2157	#1	.L4159
+	goto	.L4160
+
+.L4159:
+	load	ans	t2166
+	ASSIGN	t2164	#1
+	load	i	t2162
+	exp_arroff	t2163,	[SHIFT_TABL, t2162]
+	mul	t2164	t2163	t2165
+	add	t2166	t2165	t2167
+	ASSIGN	ans	t2167
+
+.L4160:
+	load	x	t2168
+	ASSIGN	t2169	#2
+	div	t2168	t2169	t2170
+	ASSIGN	x	t2170
+	load	y	t2171
+	ASSIGN	t2172	#2
+	div	t2171	t2172	t2173
+	ASSIGN	y	t2173
+	load	i	t2174
+	ASSIGN	t2175	#1
+	add	t2174	t2175	t2176
+	ASSIGN	i	t2176
+	goto	.L4153
+
+.L4155:
+
+.L4131:
+	load	ans	t2177
+	ASSIGN	c	t2177
+	load	sum	t2178
+	ASSIGN	al	t2178
+	goto	.L3991
+
+.L3993:
+	load	al	t2179
+	ASSIGN	ans	t2179
+	load	ans	t2180
+	ASSIGN	mres	t2180
+
+.L3990:
+	alloca	#4	al
+	load	ml	t2181
+	ASSIGN	al	t2181
+	alloca	#4	c
+	load	ml	t2182
+	ASSIGN	c	t2182
+	alloca	#4	sum
+
+.L4209:
+	load	c	t2183
+	neq	t2183	#0	t2183
+	goto_eq	t2183	#1	.L4210
+	goto	.L4211
+
+.L4210:
+	ASSIGN	t2184	#0
+	ASSIGN	ans	t2184
+	ASSIGN	t2185	#0
+	ASSIGN	i	t2185
+	load	al	t2186
+	ASSIGN	x	t2186
+	load	c	t2187
+	ASSIGN	y	t2187
+
+.L4224:
+	load	i	t2188
+	ASSIGN	t2189	#16
+	jlt	t2188	t2189	t2190
+	goto_eq	t2190	#1	.L4225
+	goto	.L4226
+
+.L4225:
+	load	x	t2191
+	ASSIGN	t2192	#2
+	mod	t2191	t2192	t2193
+	neq	t2193	#0	t2193
+	goto_eq	t2193	#1	.L4230
+	goto	.L4231
+
+.L4230:
+	load	y	t2194
+	ASSIGN	t2195	#2
+	mod	t2194	t2195	t2196
+	ASSIGN	t2197	#0
+	eq	t2196	t2197	t2198
+	goto_eq	t2198	#1	.L4236
+	goto	.L4237
+
+.L4236:
+	load	ans	t2203
+	ASSIGN	t2201	#1
+	load	i	t2199
+	exp_arroff	t2200,	[SHIFT_TABL, t2199]
+	mul	t2201	t2200	t2202
+	add	t2203	t2202	t2204
+	ASSIGN	ans	t2204
+
+.L4237:
+	goto	.L4232
+
+.L4231:
+	load	y	t2205
+	ASSIGN	t2206	#2
+	mod	t2205	t2206	t2207
+	neq	t2207	#0	t2207
+	goto_eq	t2207	#1	.L4253
+	goto	.L4254
+
+.L4253:
+	load	ans	t2212
+	ASSIGN	t2210	#1
+	load	i	t2208
+	exp_arroff	t2209,	[SHIFT_TABL, t2208]
+	mul	t2210	t2209	t2211
+	add	t2212	t2211	t2213
+	ASSIGN	ans	t2213
+
+.L4254:
+
+.L4232:
+	load	x	t2214
+	ASSIGN	t2215	#2
+	div	t2214	t2215	t2216
+	ASSIGN	x	t2216
+	load	y	t2217
+	ASSIGN	t2218	#2
+	div	t2217	t2218	t2219
+	ASSIGN	y	t2219
+	load	i	t2220
+	ASSIGN	t2221	#1
+	add	t2220	t2221	t2222
+	ASSIGN	i	t2222
+	goto	.L4224
+
+.L4226:
+	load	ans	t2223
+	ASSIGN	sum	t2223
+	ASSIGN	t2224	#0
+	ASSIGN	ans	t2224
+	ASSIGN	t2225	#0
+	ASSIGN	i	t2225
+	load	al	t2226
+	ASSIGN	x	t2226
+	load	c	t2227
+	ASSIGN	y	t2227
+
+.L4300:
+	load	i	t2228
+	ASSIGN	t2229	#16
+	jlt	t2228	t2229	t2230
+	goto_eq	t2230	#1	.L4301
+	goto	.L4302
+
+.L4301:
+	load	x	t2231
+	ASSIGN	t2232	#2
+	mod	t2231	t2232	t2233
+	neq	t2233	#0	t2236
+	goto_eq	t2233	#1	.L4309
+	goto	.L4308
+
+.L4309:
+	load	y	t2234
+	ASSIGN	t2235	#2
+	mod	t2234	t2235	t2236
+	neq	t2236	#0	t2237
+
+.L4310:
+
+.L4308:
+	goto_eq	t2233	#1	.L4306
+	goto	.L4307
+
+.L4306:
+	load	ans	t2242
+	ASSIGN	t2240	#1
+	load	i	t2238
+	exp_arroff	t2239,	[SHIFT_TABL, t2238]
+	mul	t2240	t2239	t2241
+	add	t2242	t2241	t2243
+	ASSIGN	ans	t2243
+
+.L4307:
+	load	x	t2244
+	ASSIGN	t2245	#2
+	div	t2244	t2245	t2246
+	ASSIGN	x	t2246
+	load	y	t2247
+	ASSIGN	t2248	#2
+	div	t2247	t2248	t2249
+	ASSIGN	y	t2249
+	load	i	t2250
+	ASSIGN	t2251	#1
+	add	t2250	t2251	t2252
+	ASSIGN	i	t2252
+	goto	.L4300
+
+.L4302:
+	load	ans	t2253
+	ASSIGN	c	t2253
+	ASSIGN	t2254	#0
+	eq	t2254	#1	t2253
+	goto_eq	t2254	#1	.L4347
+	goto	.L4348
+
+.L4347:
+	ASSIGN	t2255	#0
+	ASSIGN	ans	t2255
+	goto	.L4349
+
+.L4348:
+	ASSIGN	t2256	#0
+	ASSIGN	ans	t2256
+	ASSIGN	t2257	#0
+	ASSIGN	i	t2257
+	load	c	t2260
+	ASSIGN	t2258	#1
+	exp_arroff	t2259,	[SHIFT_TABL, t2258]
+	mul	t2260	t2259	t2261
+	ASSIGN	x	t2261
+	ASSIGN	t2262	#65535
+	ASSIGN	y	t2262
+
+.L4371:
+	load	i	t2263
+	ASSIGN	t2264	#16
+	jlt	t2263	t2264	t2265
+	goto_eq	t2265	#1	.L4372
+	goto	.L4373
+
+.L4372:
+	load	x	t2266
+	ASSIGN	t2267	#2
+	mod	t2266	t2267	t2268
+	neq	t2268	#0	t2271
+	goto_eq	t2268	#1	.L4380
+	goto	.L4379
+
+.L4380:
+	load	y	t2269
+	ASSIGN	t2270	#2
+	mod	t2269	t2270	t2271
+	neq	t2271	#0	t2272
+
+.L4381:
+
+.L4379:
+	goto_eq	t2268	#1	.L4377
+	goto	.L4378
+
+.L4377:
+	load	ans	t2277
+	ASSIGN	t2275	#1
+	load	i	t2273
+	exp_arroff	t2274,	[SHIFT_TABL, t2273]
+	mul	t2275	t2274	t2276
+	add	t2277	t2276	t2278
+	ASSIGN	ans	t2278
+
+.L4378:
+	load	x	t2279
+	ASSIGN	t2280	#2
+	div	t2279	t2280	t2281
+	ASSIGN	x	t2281
+	load	y	t2282
+	ASSIGN	t2283	#2
+	div	t2282	t2283	t2284
+	ASSIGN	y	t2284
+	load	i	t2285
+	ASSIGN	t2286	#1
+	add	t2285	t2286	t2287
+	ASSIGN	i	t2287
+	goto	.L4371
+
+.L4373:
+
+.L4349:
+	load	ans	t2288
+	ASSIGN	c	t2288
+	load	sum	t2289
+	ASSIGN	al	t2289
+	goto	.L4209
+
+.L4211:
+	load	al	t2290
+	ASSIGN	ans	t2290
+	load	ans	t2291
+	ASSIGN	ml	t2291
+	load	mr	t2292
+	ASSIGN	x	t2292
+	ASSIGN	t2293	#1
+	ASSIGN	y	t2293
+	load	y	t2294
+	ASSIGN	t2295	#15
+	jge	t2294	t2295	t2296
+	goto_eq	t2296	#1	.L4433
+	goto	.L4434
+
+.L4433:
+	load	x	t2297
+	ASSIGN	t2298	#0
+	jlt	t2297	t2298	t2299
+	goto_eq	t2299	#1	.L4439
+	goto	.L4440
+
+.L4439:
+	ASSIGN	t2300	#65535
+	ASSIGN	ans	t2300
+	goto	.L4441
+
+.L4440:
+	ASSIGN	t2301	#0
+	ASSIGN	ans	t2301
+
+.L4441:
+	goto	.L4435
+
+.L4434:
+	load	y	t2302
+	ASSIGN	t2303	#0
+	jgt	t2302	t2303	t2304
+	goto_eq	t2304	#1	.L4451
+	goto	.L4452
+
+.L4451:
+	load	x	t2305
+	ASSIGN	t2306	#32767
+	jgt	t2305	t2306	t2307
+	goto_eq	t2307	#1	.L4457
+	goto	.L4458
+
+.L4457:
+	load	x	t2310
+	load	y	t2308
+	exp_arroff	t2309,	[SHIFT_TABL, t2308]
+	div	t2310	t2309	t2311
+	ASSIGN	x	t2311
+	load	x	t2312
+	ASSIGN	t2313	#65536
+	add	t2312	t2313	t2314
+	ASSIGN	t2315	#15
+	load	y	t2316
+	sub	t2315	t2316	t2317
+	ASSIGN	t2318	#1
+	add	t2317	t2318	t2319
+	exp_arroff	t2320,	[SHIFT_TABL, t2319]
+	sub	t2314	t2320	t2321
+	ASSIGN	ans	t2321
+	goto	.L4459
+
+.L4458:
+	load	x	t2324
+	load	y	t2322
+	exp_arroff	t2323,	[SHIFT_TABL, t2322]
+	div	t2324	t2323	t2325
+	ASSIGN	ans	t2325
+
+.L4459:
+	goto	.L4453
+
+.L4452:
+	load	x	t2326
+	ASSIGN	ans	t2326
+
+.L4453:
+
+.L4435:
+	load	ans	t2327
+	ASSIGN	mr	t2327
+	goto	.L3930
+
+.L3932:
+	load	mres	t2328
+	ASSIGN	ans	t2328
+	load	ans	t2329
+	ASSIGN	pres	t2329
+
+.L3929:
+	alloca	#4	ml
+	load	pl	t2330
+	ASSIGN	ml	t2330
+	alloca	#4	mr
+	load	pl	t2331
+	ASSIGN	mr	t2331
+	alloca	#4	mres
+	ASSIGN	t2332	#0
+	ASSIGN	mres	t2332
+
+.L4502:
+	load	mr	t2333
+	neq	t2333	#0	t2333
+	goto_eq	t2333	#1	.L4503
+	goto	.L4504
+
+.L4503:
+	ASSIGN	t2334	#0
+	ASSIGN	ans	t2334
+	ASSIGN	t2335	#0
+	ASSIGN	i	t2335
+	load	mr	t2336
+	ASSIGN	x	t2336
+	ASSIGN	t2337	#1
+	ASSIGN	y	t2337
+
+.L4517:
+	load	i	t2338
+	ASSIGN	t2339	#16
+	jlt	t2338	t2339	t2340
+	goto_eq	t2340	#1	.L4518
+	goto	.L4519
+
+.L4518:
+	load	x	t2341
+	ASSIGN	t2342	#2
+	mod	t2341	t2342	t2343
+	neq	t2343	#0	t2346
+	goto_eq	t2343	#1	.L4526
+	goto	.L4525
+
+.L4526:
+	load	y	t2344
+	ASSIGN	t2345	#2
+	mod	t2344	t2345	t2346
+	neq	t2346	#0	t2347
+
+.L4527:
+
+.L4525:
+	goto_eq	t2343	#1	.L4523
+	goto	.L4524
+
+.L4523:
+	load	ans	t2352
+	ASSIGN	t2350	#1
+	load	i	t2348
+	exp_arroff	t2349,	[SHIFT_TABL, t2348]
+	mul	t2350	t2349	t2351
+	add	t2352	t2351	t2353
+	ASSIGN	ans	t2353
+
+.L4524:
+	load	x	t2354
+	ASSIGN	t2355	#2
+	div	t2354	t2355	t2356
+	ASSIGN	x	t2356
+	load	y	t2357
+	ASSIGN	t2358	#2
+	div	t2357	t2358	t2359
+	ASSIGN	y	t2359
+	load	i	t2360
+	ASSIGN	t2361	#1
+	add	t2360	t2361	t2362
+	ASSIGN	i	t2362
+	goto	.L4517
+
+.L4519:
+	load	ans	t2363
+	neq	t2363	#0	t2363
+	goto_eq	t2363	#1	.L4561
+	goto	.L4562
+
+.L4561:
+	alloca	#4	al
+	load	mres	t2364
+	ASSIGN	al	t2364
+	alloca	#4	c
+	load	ml	t2365
+	ASSIGN	c	t2365
+	alloca	#4	sum
+
+.L4563:
+	load	c	t2366
+	neq	t2366	#0	t2366
+	goto_eq	t2366	#1	.L4564
+	goto	.L4565
+
+.L4564:
+	ASSIGN	t2367	#0
+	ASSIGN	ans	t2367
+	ASSIGN	t2368	#0
+	ASSIGN	i	t2368
+	load	al	t2369
+	ASSIGN	x	t2369
+	load	c	t2370
+	ASSIGN	y	t2370
+
+.L4578:
+	load	i	t2371
+	ASSIGN	t2372	#16
+	jlt	t2371	t2372	t2373
+	goto_eq	t2373	#1	.L4579
+	goto	.L4580
+
+.L4579:
+	load	x	t2374
+	ASSIGN	t2375	#2
+	mod	t2374	t2375	t2376
+	neq	t2376	#0	t2376
+	goto_eq	t2376	#1	.L4584
+	goto	.L4585
+
+.L4584:
+	load	y	t2377
+	ASSIGN	t2378	#2
+	mod	t2377	t2378	t2379
+	ASSIGN	t2380	#0
+	eq	t2379	t2380	t2381
+	goto_eq	t2381	#1	.L4590
+	goto	.L4591
+
+.L4590:
+	load	ans	t2386
+	ASSIGN	t2384	#1
+	load	i	t2382
+	exp_arroff	t2383,	[SHIFT_TABL, t2382]
+	mul	t2384	t2383	t2385
+	add	t2386	t2385	t2387
+	ASSIGN	ans	t2387
+
+.L4591:
+	goto	.L4586
+
+.L4585:
+	load	y	t2388
+	ASSIGN	t2389	#2
+	mod	t2388	t2389	t2390
+	neq	t2390	#0	t2390
+	goto_eq	t2390	#1	.L4607
+	goto	.L4608
+
+.L4607:
+	load	ans	t2395
+	ASSIGN	t2393	#1
+	load	i	t2391
+	exp_arroff	t2392,	[SHIFT_TABL, t2391]
+	mul	t2393	t2392	t2394
+	add	t2395	t2394	t2396
+	ASSIGN	ans	t2396
+
+.L4608:
+
+.L4586:
+	load	x	t2397
+	ASSIGN	t2398	#2
+	div	t2397	t2398	t2399
+	ASSIGN	x	t2399
+	load	y	t2400
+	ASSIGN	t2401	#2
+	div	t2400	t2401	t2402
+	ASSIGN	y	t2402
+	load	i	t2403
+	ASSIGN	t2404	#1
+	add	t2403	t2404	t2405
+	ASSIGN	i	t2405
+	goto	.L4578
+
+.L4580:
+	load	ans	t2406
+	ASSIGN	sum	t2406
+	ASSIGN	t2407	#0
+	ASSIGN	ans	t2407
+	ASSIGN	t2408	#0
+	ASSIGN	i	t2408
+	load	al	t2409
+	ASSIGN	x	t2409
+	load	c	t2410
+	ASSIGN	y	t2410
+
+.L4654:
+	load	i	t2411
+	ASSIGN	t2412	#16
+	jlt	t2411	t2412	t2413
+	goto_eq	t2413	#1	.L4655
+	goto	.L4656
+
+.L4655:
+	load	x	t2414
+	ASSIGN	t2415	#2
+	mod	t2414	t2415	t2416
+	neq	t2416	#0	t2419
+	goto_eq	t2416	#1	.L4663
+	goto	.L4662
+
+.L4663:
+	load	y	t2417
+	ASSIGN	t2418	#2
+	mod	t2417	t2418	t2419
+	neq	t2419	#0	t2420
+
+.L4664:
+
+.L4662:
+	goto_eq	t2416	#1	.L4660
+	goto	.L4661
+
+.L4660:
+	load	ans	t2425
+	ASSIGN	t2423	#1
+	load	i	t2421
+	exp_arroff	t2422,	[SHIFT_TABL, t2421]
+	mul	t2423	t2422	t2424
+	add	t2425	t2424	t2426
+	ASSIGN	ans	t2426
+
+.L4661:
+	load	x	t2427
+	ASSIGN	t2428	#2
+	div	t2427	t2428	t2429
+	ASSIGN	x	t2429
+	load	y	t2430
+	ASSIGN	t2431	#2
+	div	t2430	t2431	t2432
+	ASSIGN	y	t2432
+	load	i	t2433
+	ASSIGN	t2434	#1
+	add	t2433	t2434	t2435
+	ASSIGN	i	t2435
+	goto	.L4654
+
+.L4656:
+	load	ans	t2436
+	ASSIGN	c	t2436
+	ASSIGN	t2437	#0
+	eq	t2437	#1	t2436
+	goto_eq	t2437	#1	.L4701
+	goto	.L4702
+
+.L4701:
+	ASSIGN	t2438	#0
+	ASSIGN	ans	t2438
+	goto	.L4703
+
+.L4702:
+	ASSIGN	t2439	#0
+	ASSIGN	ans	t2439
+	ASSIGN	t2440	#0
+	ASSIGN	i	t2440
+	load	c	t2443
+	ASSIGN	t2441	#1
+	exp_arroff	t2442,	[SHIFT_TABL, t2441]
+	mul	t2443	t2442	t2444
+	ASSIGN	x	t2444
+	ASSIGN	t2445	#65535
+	ASSIGN	y	t2445
+
+.L4725:
+	load	i	t2446
+	ASSIGN	t2447	#16
+	jlt	t2446	t2447	t2448
+	goto_eq	t2448	#1	.L4726
+	goto	.L4727
+
+.L4726:
+	load	x	t2449
+	ASSIGN	t2450	#2
+	mod	t2449	t2450	t2451
+	neq	t2451	#0	t2454
+	goto_eq	t2451	#1	.L4734
+	goto	.L4733
+
+.L4734:
+	load	y	t2452
+	ASSIGN	t2453	#2
+	mod	t2452	t2453	t2454
+	neq	t2454	#0	t2455
+
+.L4735:
+
+.L4733:
+	goto_eq	t2451	#1	.L4731
+	goto	.L4732
+
+.L4731:
+	load	ans	t2460
+	ASSIGN	t2458	#1
+	load	i	t2456
+	exp_arroff	t2457,	[SHIFT_TABL, t2456]
+	mul	t2458	t2457	t2459
+	add	t2460	t2459	t2461
+	ASSIGN	ans	t2461
+
+.L4732:
+	load	x	t2462
+	ASSIGN	t2463	#2
+	div	t2462	t2463	t2464
+	ASSIGN	x	t2464
+	load	y	t2465
+	ASSIGN	t2466	#2
+	div	t2465	t2466	t2467
+	ASSIGN	y	t2467
+	load	i	t2468
+	ASSIGN	t2469	#1
+	add	t2468	t2469	t2470
+	ASSIGN	i	t2470
+	goto	.L4725
+
+.L4727:
+
+.L4703:
+	load	ans	t2471
+	ASSIGN	c	t2471
+	load	sum	t2472
+	ASSIGN	al	t2472
+	goto	.L4563
+
+.L4565:
+	load	al	t2473
+	ASSIGN	ans	t2473
+	load	ans	t2474
+	ASSIGN	mres	t2474
+
+.L4562:
+	alloca	#4	al
+	load	ml	t2475
+	ASSIGN	al	t2475
+	alloca	#4	c
+	load	ml	t2476
+	ASSIGN	c	t2476
+	alloca	#4	sum
+
+.L4781:
+	load	c	t2477
+	neq	t2477	#0	t2477
+	goto_eq	t2477	#1	.L4782
+	goto	.L4783
+
+.L4782:
+	ASSIGN	t2478	#0
+	ASSIGN	ans	t2478
+	ASSIGN	t2479	#0
+	ASSIGN	i	t2479
+	load	al	t2480
+	ASSIGN	x	t2480
+	load	c	t2481
+	ASSIGN	y	t2481
+
+.L4796:
+	load	i	t2482
+	ASSIGN	t2483	#16
+	jlt	t2482	t2483	t2484
+	goto_eq	t2484	#1	.L4797
+	goto	.L4798
+
+.L4797:
+	load	x	t2485
+	ASSIGN	t2486	#2
+	mod	t2485	t2486	t2487
+	neq	t2487	#0	t2487
+	goto_eq	t2487	#1	.L4802
+	goto	.L4803
+
+.L4802:
+	load	y	t2488
+	ASSIGN	t2489	#2
+	mod	t2488	t2489	t2490
+	ASSIGN	t2491	#0
+	eq	t2490	t2491	t2492
+	goto_eq	t2492	#1	.L4808
+	goto	.L4809
+
+.L4808:
+	load	ans	t2497
+	ASSIGN	t2495	#1
+	load	i	t2493
+	exp_arroff	t2494,	[SHIFT_TABL, t2493]
+	mul	t2495	t2494	t2496
+	add	t2497	t2496	t2498
+	ASSIGN	ans	t2498
+
+.L4809:
+	goto	.L4804
+
+.L4803:
+	load	y	t2499
+	ASSIGN	t2500	#2
+	mod	t2499	t2500	t2501
+	neq	t2501	#0	t2501
+	goto_eq	t2501	#1	.L4825
+	goto	.L4826
+
+.L4825:
+	load	ans	t2506
+	ASSIGN	t2504	#1
+	load	i	t2502
+	exp_arroff	t2503,	[SHIFT_TABL, t2502]
+	mul	t2504	t2503	t2505
+	add	t2506	t2505	t2507
+	ASSIGN	ans	t2507
+
+.L4826:
+
+.L4804:
+	load	x	t2508
+	ASSIGN	t2509	#2
+	div	t2508	t2509	t2510
+	ASSIGN	x	t2510
+	load	y	t2511
+	ASSIGN	t2512	#2
+	div	t2511	t2512	t2513
+	ASSIGN	y	t2513
+	load	i	t2514
+	ASSIGN	t2515	#1
+	add	t2514	t2515	t2516
+	ASSIGN	i	t2516
+	goto	.L4796
+
+.L4798:
+	load	ans	t2517
+	ASSIGN	sum	t2517
+	ASSIGN	t2518	#0
+	ASSIGN	ans	t2518
+	ASSIGN	t2519	#0
+	ASSIGN	i	t2519
+	load	al	t2520
+	ASSIGN	x	t2520
+	load	c	t2521
+	ASSIGN	y	t2521
+
+.L4872:
+	load	i	t2522
+	ASSIGN	t2523	#16
+	jlt	t2522	t2523	t2524
+	goto_eq	t2524	#1	.L4873
+	goto	.L4874
+
+.L4873:
+	load	x	t2525
+	ASSIGN	t2526	#2
+	mod	t2525	t2526	t2527
+	neq	t2527	#0	t2530
+	goto_eq	t2527	#1	.L4881
+	goto	.L4880
+
+.L4881:
+	load	y	t2528
+	ASSIGN	t2529	#2
+	mod	t2528	t2529	t2530
+	neq	t2530	#0	t2531
+
+.L4882:
+
+.L4880:
+	goto_eq	t2527	#1	.L4878
+	goto	.L4879
+
+.L4878:
+	load	ans	t2536
+	ASSIGN	t2534	#1
+	load	i	t2532
+	exp_arroff	t2533,	[SHIFT_TABL, t2532]
+	mul	t2534	t2533	t2535
+	add	t2536	t2535	t2537
+	ASSIGN	ans	t2537
+
+.L4879:
+	load	x	t2538
+	ASSIGN	t2539	#2
+	div	t2538	t2539	t2540
+	ASSIGN	x	t2540
+	load	y	t2541
+	ASSIGN	t2542	#2
+	div	t2541	t2542	t2543
+	ASSIGN	y	t2543
+	load	i	t2544
+	ASSIGN	t2545	#1
+	add	t2544	t2545	t2546
+	ASSIGN	i	t2546
+	goto	.L4872
+
+.L4874:
+	load	ans	t2547
+	ASSIGN	c	t2547
+	ASSIGN	t2548	#0
+	eq	t2548	#1	t2547
+	goto_eq	t2548	#1	.L4919
+	goto	.L4920
+
+.L4919:
+	ASSIGN	t2549	#0
+	ASSIGN	ans	t2549
+	goto	.L4921
+
+.L4920:
+	ASSIGN	t2550	#0
+	ASSIGN	ans	t2550
+	ASSIGN	t2551	#0
+	ASSIGN	i	t2551
+	load	c	t2554
+	ASSIGN	t2552	#1
+	exp_arroff	t2553,	[SHIFT_TABL, t2552]
+	mul	t2554	t2553	t2555
+	ASSIGN	x	t2555
+	ASSIGN	t2556	#65535
+	ASSIGN	y	t2556
+
+.L4943:
+	load	i	t2557
+	ASSIGN	t2558	#16
+	jlt	t2557	t2558	t2559
+	goto_eq	t2559	#1	.L4944
+	goto	.L4945
+
+.L4944:
+	load	x	t2560
+	ASSIGN	t2561	#2
+	mod	t2560	t2561	t2562
+	neq	t2562	#0	t2565
+	goto_eq	t2562	#1	.L4952
+	goto	.L4951
+
+.L4952:
+	load	y	t2563
+	ASSIGN	t2564	#2
+	mod	t2563	t2564	t2565
+	neq	t2565	#0	t2566
+
+.L4953:
+
+.L4951:
+	goto_eq	t2562	#1	.L4949
+	goto	.L4950
+
+.L4949:
+	load	ans	t2571
+	ASSIGN	t2569	#1
+	load	i	t2567
+	exp_arroff	t2568,	[SHIFT_TABL, t2567]
+	mul	t2569	t2568	t2570
+	add	t2571	t2570	t2572
+	ASSIGN	ans	t2572
+
+.L4950:
+	load	x	t2573
+	ASSIGN	t2574	#2
+	div	t2573	t2574	t2575
+	ASSIGN	x	t2575
+	load	y	t2576
+	ASSIGN	t2577	#2
+	div	t2576	t2577	t2578
+	ASSIGN	y	t2578
+	load	i	t2579
+	ASSIGN	t2580	#1
+	add	t2579	t2580	t2581
+	ASSIGN	i	t2581
+	goto	.L4943
+
+.L4945:
+
+.L4921:
+	load	ans	t2582
+	ASSIGN	c	t2582
+	load	sum	t2583
+	ASSIGN	al	t2583
+	goto	.L4781
+
+.L4783:
+	load	al	t2584
+	ASSIGN	ans	t2584
+	load	ans	t2585
+	ASSIGN	ml	t2585
+	load	mr	t2586
+	ASSIGN	x	t2586
+	ASSIGN	t2587	#1
+	ASSIGN	y	t2587
+	load	y	t2588
+	ASSIGN	t2589	#15
+	jge	t2588	t2589	t2590
+	goto_eq	t2590	#1	.L5005
+	goto	.L5006
+
+.L5005:
+	load	x	t2591
+	ASSIGN	t2592	#0
+	jlt	t2591	t2592	t2593
+	goto_eq	t2593	#1	.L5011
+	goto	.L5012
+
+.L5011:
+	ASSIGN	t2594	#65535
+	ASSIGN	ans	t2594
+	goto	.L5013
+
+.L5012:
+	ASSIGN	t2595	#0
+	ASSIGN	ans	t2595
+
+.L5013:
+	goto	.L5007
+
+.L5006:
+	load	y	t2596
+	ASSIGN	t2597	#0
+	jgt	t2596	t2597	t2598
+	goto_eq	t2598	#1	.L5023
+	goto	.L5024
+
+.L5023:
+	load	x	t2599
+	ASSIGN	t2600	#32767
+	jgt	t2599	t2600	t2601
+	goto_eq	t2601	#1	.L5029
+	goto	.L5030
+
+.L5029:
+	load	x	t2604
+	load	y	t2602
+	exp_arroff	t2603,	[SHIFT_TABL, t2602]
+	div	t2604	t2603	t2605
+	ASSIGN	x	t2605
+	load	x	t2606
+	ASSIGN	t2607	#65536
+	add	t2606	t2607	t2608
+	ASSIGN	t2609	#15
+	load	y	t2610
+	sub	t2609	t2610	t2611
+	ASSIGN	t2612	#1
+	add	t2611	t2612	t2613
+	exp_arroff	t2614,	[SHIFT_TABL, t2613]
+	sub	t2608	t2614	t2615
+	ASSIGN	ans	t2615
+	goto	.L5031
+
+.L5030:
+	load	x	t2618
+	load	y	t2616
+	exp_arroff	t2617,	[SHIFT_TABL, t2616]
+	div	t2618	t2617	t2619
+	ASSIGN	ans	t2619
+
+.L5031:
+	goto	.L5025
+
+.L5024:
+	load	x	t2620
+	ASSIGN	ans	t2620
+
+.L5025:
+
+.L5007:
+	load	ans	t2621
+	ASSIGN	mr	t2621
+	goto	.L4502
+
+.L4504:
+	load	mres	t2622
+	ASSIGN	ans	t2622
+	load	ans	t2623
+	ASSIGN	pl	t2623
+	load	pr	t2624
+	ASSIGN	x	t2624
+	ASSIGN	t2625	#1
+	ASSIGN	y	t2625
+	load	y	t2626
+	ASSIGN	t2627	#15
+	jge	t2626	t2627	t2628
+	goto_eq	t2628	#1	.L5080
+	goto	.L5081
+
+.L5080:
+	load	x	t2629
+	ASSIGN	t2630	#0
+	jlt	t2629	t2630	t2631
+	goto_eq	t2631	#1	.L5086
+	goto	.L5087
+
+.L5086:
+	ASSIGN	t2632	#65535
+	ASSIGN	ans	t2632
+	goto	.L5088
+
+.L5087:
+	ASSIGN	t2633	#0
+	ASSIGN	ans	t2633
+
+.L5088:
+	goto	.L5082
+
+.L5081:
+	load	y	t2634
+	ASSIGN	t2635	#0
+	jgt	t2634	t2635	t2636
+	goto_eq	t2636	#1	.L5098
+	goto	.L5099
+
+.L5098:
+	load	x	t2637
+	ASSIGN	t2638	#32767
+	jgt	t2637	t2638	t2639
+	goto_eq	t2639	#1	.L5104
+	goto	.L5105
+
+.L5104:
+	load	x	t2642
+	load	y	t2640
+	exp_arroff	t2641,	[SHIFT_TABL, t2640]
+	div	t2642	t2641	t2643
+	ASSIGN	x	t2643
+	load	x	t2644
+	ASSIGN	t2645	#65536
+	add	t2644	t2645	t2646
+	ASSIGN	t2647	#15
+	load	y	t2648
+	sub	t2647	t2648	t2649
+	ASSIGN	t2650	#1
+	add	t2649	t2650	t2651
+	exp_arroff	t2652,	[SHIFT_TABL, t2651]
+	sub	t2646	t2652	t2653
+	ASSIGN	ans	t2653
+	goto	.L5106
+
+.L5105:
+	load	x	t2656
+	load	y	t2654
+	exp_arroff	t2655,	[SHIFT_TABL, t2654]
+	div	t2656	t2655	t2657
+	ASSIGN	ans	t2657
+
+.L5106:
+	goto	.L5100
+
+.L5099:
+	load	x	t2658
+	ASSIGN	ans	t2658
+
+.L5100:
+
+.L5082:
+	load	ans	t2659
+	ASSIGN	pr	t2659
+	goto	.L3866
+
+.L3868:
+	load	pres	t2660
+	ASSIGN	ans	t2660
+	load	cur	t2661
+	exp_arroff	t2662,	[SHIFT_TABL, t2661]
+	load	ans	t2663
+	neq	t2662	t2663	t2664
+	goto_eq	t2664	#1	.L5146
+	goto	.L5147
+
+.L5146:
+	ASSIGN	t2665	#1
+	ASSIGN	r0	t2665
+	goto	.L1
+
+.L5147:
+	load	cur	t2666
+	ASSIGN	t2667	#1
+	add	t2666	t2667	t2668
+	ASSIGN	cur	t2668
+	goto	.L3860
+
+.L3862:
+	ASSIGN	t2669	#0
+	ASSIGN	r0	t2669
+	goto	.L1
+
+.L1:
+	func_end:	long_func
+
+main:
+	CALL	long_func	t0
+	ASSIGN	r0	t0
+	goto	.L5157
+
+.L5157:
+	func_end:	main

@@ -10,7 +10,11 @@ fcl编译器 v1.0版。
 
 此版本目标是作为无优化初版跑通全部功能测试用例。
 
-已完成：80/100。TODO
+已完成：84/100。TODO
+
+代码覆盖率测试TODO；
+
+反编译
 
 ### 依赖：
 
@@ -61,46 +65,46 @@ cd ./src
 ```shell
 compiler_fcl
 ├── ref
-|   └── compiler2022
-|   |   └──......
+│   └── compiler2022
+|	│	└──......
 ├── src
-|   ├── fronted_end #编译器前端：词法，语法，ast生成，符号表，语义检查，IR生成
-|   |   ├──ast.cpp
-|   |   ├──ast.h
-|   |   ├──gen_IR.cpp
-|   |   ├──gen_IR.h
-|   |   ├──semantic.cpp
-|   |   ├──semantic.h
-|   |   ├──symtable.cpp
-|   |   ├──symtable.h
-|   |   ├──sysy.l
-|   |   └──sysy.y
-|   ├── fcl_parser* #编译器可执行文件；
-|   ├── gen_arm.cpp #编译器后端生成汇编代码；
-|   ├── gen_arm.h
-|   ├── lex.yy.c*
-|   ├── lex.yy.o*
-|   ├── Makefile
-|   ├── optimization.cpp #编译器中后端优化；TODO
-|   ├── optimization.h
-|   ├── sysy.tab.c*
-|   ├── sysy.tab.h*
-|   ├── sysy.tab.o*
-|   ├── test_all.sh
-|   ├── test_out.txt*
-|   └── test.sh
+│   ├── fronted_end #编译器前端：词法，语法，ast生成，符号表，语义检查，IR生成
+|	│	├──ast.cpp
+|	│	├──ast.h
+|	│	├──gen_IR.cpp
+|	│	├──gen_IR.h
+|	│	├──semantic.cpp
+|	│	├──semantic.h
+|	│	├──symtable.cpp
+|	│	├──symtable.h
+|	│	├──sysy.l
+|	│	└──sysy.y
+│   ├── fcl_parser* #编译器可执行文件；
+│   ├── gen_arm.cpp #编译器后端生成汇编代码；
+│   ├── gen_arm.h
+│   ├── lex.yy.c*
+│   ├── lex.yy.o*
+│   ├── Makefile
+│   ├── optimization.cpp #编译器中后端优化；TODO
+│   ├── optimization.h
+│   ├── sysy.tab.c*
+│   ├── sysy.tab.h*
+│   ├── sysy.tab.o*
+│   ├── test_all.sh
+│   ├── test_out.txt*
+│   └── test.sh
 ├── sysy_lib #sysy运行时库支持，已预编译为lib.a静态库文件；
-|   ├── lib.a
-|   ├── sylib.c
-|   └── sylib.h
+│   ├── lib.a
+│   ├── sylib.c
+│   └── sylib.h
 ├── test #测试文件和测试生成文件；
-|   ├── arm_out
-|   ├── fcl_arm_out
-|   ├── fcl_out
-|   ├── func_test
-|   ├── llvm_out
-|   ├── out
-|   └── test_in
+│   ├── arm_out
+│   ├── fcl_arm_out
+│   ├── fcl_out
+│   ├── func_test
+│   ├── llvm_out
+│   ├── out
+│   └── test_in
 ├── 已完成&未完成.docx
 ├── IR_op表.docx
 ├── readme.md

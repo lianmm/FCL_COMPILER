@@ -164,8 +164,8 @@ bool check_func_id(char *id, int level, int pos, char *type, int paramnum)
 
         if (index == -1)
         {
-            printf("%s:%d ", filename, pos);
-            printf("‘%s’ is not declared.\n", id);
+            // printf("%s:%d ", filename, pos);
+            // printf("‘%s’ is not declared.\n", id);
             ans = 0;
         }
         //函数未声明检查。
@@ -239,8 +239,8 @@ bool check_array_id(char *id, int level, int pos, char *type, char *index_type)
         }
         else if (index == -1)
         {
-            printf("%s:%d ", filename, pos);
-            printf("'%s' is not declared.\n", id);
+            // printf("%s:%d ", filename, pos);
+            // printf("'%s' is not declared.\n", id);
             ans = 0;
         }
         else if (sT.symbols[index].flag != 'A')
@@ -265,8 +265,8 @@ bool check_array_id(char *id, int level, int pos, char *type, char *index_type)
         }
         else if (index == -1)
         {
-            printf("%s:%d ", filename, pos);
-            printf("'%s' is not declared.\n", id);
+            // printf("%s:%d ", filename, pos);
+            // printf("'%s' is not declared.\n", id);
             ans = 0;
         }
         else if (sT.symbols[index].flag != 'A')

@@ -1,0 +1,172 @@
+	alloca	#4	b
+	ASSIGN	t0	#5
+	ASSIGN	b	t0
+	alloca	#16	c
+	ASSIGN	t1	#6
+	arroff_expi	c	#0	t1
+	ASSIGN	t2	#7
+	arroff_expi	c	#4	t2
+	ASSIGN	t3	#8
+	arroff_expi	c	#8	t3
+	ASSIGN	t4	#9
+	arroff_expi	c	#12	t4
+
+main:
+	alloca	#4	a
+	ASSIGN	t0	#1
+	ASSIGN	a	t0
+	alloca	#4	a
+	ASSIGN	t1	#2
+	ASSIGN	a	t1
+	ASSIGN	t2	#3
+	ASSIGN	a	t2
+	load	a	t3
+	arg	t3
+	call_void	putint
+	arg	t3
+	call_void	putint
+	load	a	t4
+	arg	t4
+	call_void	putint
+	ASSIGN	t5	#10
+	arg	t5
+	call_void	putch
+
+.L11:
+	load	a	t6
+	ASSIGN	t7	#5
+	jlt	t6	t7	t8
+	goto_eq	t8	#1	.L12
+	goto	.L13
+
+.L12:
+	alloca	#4	a
+	ASSIGN	t9	#0
+	ASSIGN	a	t9
+	load	a	t10
+	ASSIGN	t11	#1
+	add	t10	t11	t12
+	ASSIGN	a	t12
+	load	a	t13
+	neq	t13	#0	t13
+	goto_eq	t13	#1	.L23
+	goto	.L24
+
+.L23:
+	goto	.L13
+
+.L24:
+	goto	.L11
+
+.L13:
+	load	a	t14
+	arg	t14
+	call_void	putint
+	ASSIGN	t15	#10
+	arg	t15
+	call_void	putch
+	ASSIGN	t17	#1
+	ASSIGN	t16	#2
+	arroff_exp	t17,	[c, t16]
+	alloca	#64	c
+	ASSIGN	t18	#0
+	arroff_expi	c	#0	t18
+	ASSIGN	t19	#9
+	arroff_expi	c	#4	t19
+	arroff_expi0	c	#32	#8
+	ASSIGN	t20	#8
+	arroff_expi	c	#32	t20
+	ASSIGN	t21	#3
+	arroff_expi	c	#36	t21
+	arroff_expi0	c	#64	#40
+	alloca	#4	b
+	ASSIGN	t22	#2
+	ASSIGN	b	t22
+	ASSIGN	t23	#2
+	exp_arroff	t24,	[c, t23]
+	neq	t24	#0	t24
+	goto_eq	t24	#1	.L28
+	goto	.L29
+
+.L28:
+	alloca	#140	c
+	arroff_expi0	c	#20	#0
+	arroff_expi0	c	#40	#20
+	ASSIGN	t25	#2
+	arroff_expi	c	#40	t25
+	ASSIGN	t26	#1
+	arroff_expi	c	#44	t26
+	ASSIGN	t27	#8
+	arroff_expi	c	#48	t27
+	arroff_expi0	c	#60	#60
+	arroff_expi0	c	#140	#64
+	load	b	t28
+	ASSIGN	t29	#0
+	ASSIGN	t30	#5
+	ASSIGN	t31	#0
+	mul	t30	t31	t32
+	add	t29	t32	t33
+	ASSIGN	t34	#5
+	mul	t34	t28	t35
+	add	t33	t35	t36
+	exp_arroff	t37,	[c, t36]
+	arg	t37
+	call_void	putint
+	ASSIGN	t38	#1
+	ASSIGN	t39	#5
+	ASSIGN	t40	#0
+	mul	t39	t40	t41
+	add	t38	t41	t42
+	ASSIGN	t43	#5
+	mul	t43	t28	t44
+	add	t42	t44	t45
+	exp_arroff	t46,	[c, t45]
+	arg	t46
+	call_void	putint
+	ASSIGN	t47	#2
+	ASSIGN	t48	#5
+	ASSIGN	t49	#0
+	mul	t48	t49	t50
+	add	t47	t50	t51
+	ASSIGN	t52	#5
+	mul	t52	t28	t53
+	add	t51	t53	t54
+	exp_arroff	t55,	[c, t54]
+	arg	t55
+	call_void	putint
+
+.L29:
+	ASSIGN	t56	#10
+	arg	t56
+	call_void	putch
+	load	b	t57
+	arg	t57
+	call_void	putint
+	ASSIGN	t58	#10
+	arg	t58
+	call_void	putch
+	ASSIGN	t59	#0
+	exp_arroff	t60,	[c, t59]
+	arg	t60
+	call_void	putint
+	ASSIGN	t61	#1
+	exp_arroff	t62,	[c, t61]
+	arg	t62
+	call_void	putint
+	ASSIGN	t63	#2
+	exp_arroff	t64,	[c, t63]
+	arg	t64
+	call_void	putint
+	ASSIGN	t65	#3
+	exp_arroff	t66,	[c, t65]
+	arg	t66
+	call_void	putint
+	ASSIGN	t67	#10
+	arg	t67
+	call_void	putch
+	ASSIGN	t68	#0
+	ASSIGN	r0	t68
+	goto	.L1
+
+.L1:
+	func_end:	main

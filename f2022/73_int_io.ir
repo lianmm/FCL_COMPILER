@@ -1,0 +1,193 @@
+
+my_getint:
+	alloca	#4	sum
+	ASSIGN	t0	#0
+	ASSIGN	sum	t0
+	alloca	#4	c
+
+.L2:
+	ASSIGN	t1	#1
+	neq	t1	#0	c
+	goto_eq	t1	#1	.L3
+	goto	.L4
+
+.L3:
+	CALL	getch	t2
+	ASSIGN	t3	#48
+	sub	t2	t3	t4
+	ASSIGN	c	t4
+	load	c	t5
+	ASSIGN	t6	#0
+	jlt	t5	t6	t7
+	goto_eq	t7	#1	.L14
+	goto	.L15
+
+.L15:
+	load	c	t8
+	ASSIGN	t9	#9
+	jgt	t8	t9	t10
+
+.L16:
+
+.L14:
+	goto_eq	t7	#1	.L11
+	goto	.L12
+
+.L11:
+	goto	.L2
+	goto	.L13
+
+.L12:
+	goto	.L4
+
+.L13:
+	goto	.L2
+
+.L4:
+	load	c	t12
+	ASSIGN	sum	t12
+
+.L26:
+	ASSIGN	t13	#1
+	neq	t13	#0	t12
+	goto_eq	t13	#1	.L27
+	goto	.L28
+
+.L27:
+	CALL	getch	t14
+	ASSIGN	t15	#48
+	sub	t14	t15	t16
+	ASSIGN	c	t16
+	load	c	t17
+	ASSIGN	t18	#0
+	jge	t17	t18	t19
+	goto_eq	t19	#1	.L39
+	goto	.L38
+
+.L39:
+	load	c	t20
+	ASSIGN	t21	#9
+	jle	t20	t21	t22
+
+.L40:
+
+.L38:
+	goto_eq	t19	#1	.L35
+	goto	.L36
+
+.L35:
+	load	sum	t24
+	ASSIGN	t25	#10
+	mul	t24	t25	t26
+	load	c	t27
+	add	t26	t27	t28
+	ASSIGN	sum	t28
+	goto	.L37
+
+.L36:
+	goto	.L28
+
+.L37:
+	goto	.L26
+
+.L28:
+	load	sum	t29
+	ASSIGN	r0	t29
+	goto	.L1
+
+.L1:
+	func_end:	my_getint
+
+my_putint:
+	param	a
+	alloca	#4	a
+	alloca	#64	b
+	alloca	#4	i
+	ASSIGN	t0	#0
+	ASSIGN	i	t0
+
+.L57:
+	load	a	t1
+	ASSIGN	t2	#0
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L58
+	goto	.L59
+
+.L58:
+	load	a	t4
+	ASSIGN	t5	#10
+	mod	t4	t5	t6
+	ASSIGN	t7	#48
+	add	t6	t7	t8
+	load	i	t9
+	arroff_exp	t8,	[b, t9]
+	load	a	t10
+	ASSIGN	t11	#10
+	div	t10	t11	t12
+	ASSIGN	a	t12
+	load	i	t13
+	ASSIGN	t14	#1
+	add	t13	t14	t15
+	ASSIGN	i	t15
+	goto	.L57
+
+.L59:
+
+.L84:
+	load	i	t16
+	ASSIGN	t17	#0
+	jgt	t16	t17	t18
+	goto_eq	t18	#1	.L85
+	goto	.L86
+
+.L85:
+	load	i	t19
+	ASSIGN	t20	#1
+	sub	t19	t20	t21
+	ASSIGN	i	t21
+	load	i	t22
+	exp_arroff	t23,	[b, t22]
+	arg	t23
+	call_void	putch
+	goto	.L84
+
+.L86:
+
+.L56:
+	func_end:	my_putint
+
+main:
+	CALL	my_getint	t0
+	alloca	#4	n
+	ASSIGN	n	t0
+
+.L97:
+	load	n	t1
+	ASSIGN	t2	#0
+	jgt	t1	t2	t3
+	goto_eq	t3	#1	.L98
+	goto	.L99
+
+.L98:
+	CALL	my_getint	t4
+	alloca	#4	m
+	ASSIGN	m	t4
+	load	m	t5
+	arg	t5
+	call_void	my_putint
+	ASSIGN	t6	#10
+	arg	t6
+	call_void	putch
+	load	n	t7
+	ASSIGN	t8	#1
+	sub	t7	t8	t9
+	ASSIGN	n	t9
+	goto	.L97
+
+.L99:
+	ASSIGN	t10	#0
+	ASSIGN	r0	t10
+	goto	.L96
+
+.L96:
+	func_end:	main

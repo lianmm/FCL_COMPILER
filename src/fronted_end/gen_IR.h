@@ -86,7 +86,7 @@ struct T_symbol
   int status;
   int address;
   int no_ris;
-  char name[36];
+  char name[MAXNAME];
   char type;
 };
 struct T_symtable

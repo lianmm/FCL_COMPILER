@@ -6,13 +6,14 @@ arm-linux-gcc  -march=armv7-a -mtune=cortex-a9 -mxgot -static ../sysy_lib/lib.a 
 arm-linux-gcc  -march=armv7-a -mtune=cortex-a9 -mxgot  -static ../sysy_lib/lib.a ../test/fcl_arm_out/test.fcl.s -o ../test/out/test.fcl.out
 echo -e "\nthe ans from arm-linux-gcc： \c"
 echo -e "out:\t"
-qemu-arm ../test/out/test.out <../test/func_test/69_expr_eval.in >>test_out.txt 
+qemu-arm ../test/out/test.out  >>test_out.txt 
 RET_VALUE1=$?
 
 
 echo -e "\nthe ans from fcl_parser： \c"
 echo -e "out:\t"
-qemu-arm ../test/out/test.fcl.out <../test/func_test/69_expr_eval.in >>test_out.txt
+qemu-arm ../test/out/test.fcl.out  >>test_out.txt
+#<../test/func_test/75_max_flow.in
 RET_VALUE2=$?
 echo -e "\nreturn from arm-linux-gcc:\t\c"
 echo $RET_VALUE1

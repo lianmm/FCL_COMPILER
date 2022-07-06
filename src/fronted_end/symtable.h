@@ -4,7 +4,7 @@
 
 struct symbol
 {                   //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
-    char name[33];  //变量或函数名
+    char name[MAXNAME];  //变量或函数名
     int level;      //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
     char type[36];  //变量类型或函数返回值类型
     int paramnum;   //形式参数个数;数组的向量内情表索引;
@@ -94,7 +94,7 @@ extern struct array_table aT;
 extern struct symbol_scope_begin symbol_scope_TX;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
-extern char glo_name[33], glo_alias[10], glo_flag;
+extern char glo_name[MAXNAME], glo_alias[10], glo_flag;
 extern struct opn glo_offset;
 extern char glo_type[36];
 extern int glo_int_val;

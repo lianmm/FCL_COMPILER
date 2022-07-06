@@ -404,10 +404,10 @@ void print_arm_IR(codenode *h)
 void DisplayARM()
 {
     strcpy(tmp_name, strtok(filename, "."));
-    char tmp_name2[] = "../test/fcl_arm_out/";
+    char tmp_name2[] = "./f2022/";
     char tmp_name3[36];
-    strcpy(tmp_name, "test");
-    strcpy(tmp_name3, strcat(tmp_name, ".fcl.s"));
+    // strcpy(tmp_name, "test");
+    strcpy(tmp_name3, strcat(tmp_name, ".s"));
     strcpy(out_file, strcat(tmp_name2, tmp_name3));
     fp = fopen(out_file, "w");
     int i = 0;
@@ -1059,7 +1059,8 @@ void glo_ris_allot()
     for (i = 1; now_C != hC; now_C = now_C->next, i++)
     {
         //全局变量翻译；
-        if (now_C->op == IR_ALLOCA && sT.symbols[now_C->result.offset].flage == 'E' && strcmp(sT.symbols[now_C->result.offset].name, now_C->result.id) == 0)
+        // printf("now_C->result.flage：%c\n", now_C->result.flage);
+        if (now_C->op == IR_ALLOCA && (now_C->result.kind != 'P') && strcmp(sT.symbols[now_C->result.offset].name, now_C->result.id) == 0 && now_C->result.offset < sT.index)
         {
             struct codenode *nnext = now_C->next, *nnext2 = nnext->next;
 

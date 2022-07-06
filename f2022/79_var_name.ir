@@ -1,0 +1,62 @@
+
+main:
+	alloca	#4	xU4UVdo6fP
+	ASSIGN	t0	#2
+	ASSIGN	xU4UVdo6fP	t0
+	alloca	#80	VLDTJUr0eY
+	ASSIGN	t1	#1
+	arroff_expi	VLDTJUr0eY	#0	t1
+	ASSIGN	t2	#2
+	arroff_expi	VLDTJUr0eY	#4	t2
+	arroff_expi0	VLDTJUr0eY	#80	#8
+	alloca	#4	V62vtYqjKr
+	ASSIGN	t3	#0
+	ASSIGN	V62vtYqjKr	t3
+
+.L2:
+	load	xU4UVdo6fP	t4
+	ASSIGN	t5	#20
+	jlt	t4	t5	t6
+	goto_eq	t6	#1	.L3
+	goto	.L4
+
+.L3:
+	load	xU4UVdo6fP	t7
+	exp_arroff	t8,	[VLDTJUr0eY, t7]
+	load	xU4UVdo6fP	t9
+	ASSIGN	t10	#1
+	sub	t9	t10	t11
+	exp_arroff	t12,	[VLDTJUr0eY, t11]
+	add	t8	t12	t13
+	load	xU4UVdo6fP	t14
+	ASSIGN	t15	#2
+	sub	t14	t15	t16
+	exp_arroff	t17,	[VLDTJUr0eY, t16]
+	add	t13	t17	t18
+	load	xU4UVdo6fP	t19
+	arroff_exp	t18,	[VLDTJUr0eY, t19]
+	load	V62vtYqjKr	t22
+	load	xU4UVdo6fP	t20
+	exp_arroff	t21,	[VLDTJUr0eY, t20]
+	add	t22	t21	t23
+	ASSIGN	V62vtYqjKr	t23
+	load	xU4UVdo6fP	t24
+	exp_arroff	t25,	[VLDTJUr0eY, t24]
+	arg	t25
+	call_void	putint
+	ASSIGN	t26	#10
+	arg	t26
+	call_void	putch
+	load	xU4UVdo6fP	t27
+	ASSIGN	t28	#1
+	add	t27	t28	t29
+	ASSIGN	xU4UVdo6fP	t29
+	goto	.L2
+
+.L4:
+	load	V62vtYqjKr	t30
+	ASSIGN	r0	t30
+	goto	.L1
+
+.L1:
+	func_end:	main

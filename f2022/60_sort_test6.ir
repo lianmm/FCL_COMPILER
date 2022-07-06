@@ -1,0 +1,225 @@
+	alloca	#4	n
+
+counting_s:
+	param	ini_arr
+	alloca	#4	ini_arr
+	param	sorted_arr
+	alloca	#4	sorted_arr
+	param	n
+	alloca	#4	n
+	alloca	#40	count_arr
+	alloca	#4	i
+	alloca	#4	j
+	alloca	#4	k
+	ASSIGN	t0	#0
+	ASSIGN	k	t0
+	ASSIGN	t1	#0
+	ASSIGN	i	t1
+	ASSIGN	t2	#0
+	ASSIGN	j	t2
+
+.L11:
+	load	k	t3
+	ASSIGN	t4	#10
+	jlt	t3	t4	t5
+	goto_eq	t5	#1	.L12
+	goto	.L13
+
+.L12:
+	ASSIGN	t7	#0
+	load	k	t6
+	arroff_exp	t7,	[count_arr, t6]
+	load	k	t8
+	ASSIGN	t9	#1
+	add	t8	t9	t10
+	ASSIGN	k	t10
+	goto	.L11
+
+.L13:
+
+.L26:
+	load	i	t11
+	load	n	t12
+	jlt	t11	t12	t13
+	goto_eq	t13	#1	.L27
+	goto	.L28
+
+.L27:
+	load	i	t14
+	load	ini_arr	t15
+	exp_arroff	t16,	[t15, t14]
+	exp_arroff	t17,	[count_arr, t16]
+	ASSIGN	t18	#1
+	add	t17	t18	t19
+	load	i	t20
+	load	ini_arr	t21
+	exp_arroff	t22,	[t21, t20]
+	arroff_exp	t19,	[count_arr, t22]
+	load	i	t23
+	ASSIGN	t24	#1
+	add	t23	t24	t25
+	ASSIGN	i	t25
+	goto	.L26
+
+.L28:
+	ASSIGN	t26	#1
+	ASSIGN	k	t26
+
+.L47:
+	load	k	t27
+	ASSIGN	t28	#10
+	jlt	t27	t28	t29
+	goto_eq	t29	#1	.L48
+	goto	.L49
+
+.L48:
+	load	k	t30
+	exp_arroff	t31,	[count_arr, t30]
+	load	k	t32
+	ASSIGN	t33	#1
+	sub	t32	t33	t34
+	exp_arroff	t35,	[count_arr, t34]
+	add	t31	t35	t36
+	load	k	t37
+	arroff_exp	t36,	[count_arr, t37]
+	load	k	t38
+	ASSIGN	t39	#1
+	add	t38	t39	t40
+	ASSIGN	k	t40
+	goto	.L47
+
+.L49:
+	load	n	t41
+	ASSIGN	j	t41
+
+.L71:
+	load	j	t42
+	ASSIGN	t43	#0
+	jgt	t42	t43	t44
+	goto_eq	t44	#1	.L72
+	goto	.L73
+
+.L72:
+	load	j	t45
+	ASSIGN	t46	#1
+	sub	t45	t46	t47
+	load	ini_arr	t48
+	exp_arroff	t49,	[t48, t47]
+	exp_arroff	t50,	[count_arr, t49]
+	ASSIGN	t51	#1
+	sub	t50	t51	t52
+	load	j	t53
+	ASSIGN	t54	#1
+	sub	t53	t54	t55
+	load	ini_arr	t56
+	exp_arroff	t57,	[t56, t55]
+	arroff_exp	t52,	[count_arr, t57]
+	load	j	t58
+	ASSIGN	t59	#1
+	sub	t58	t59	t60
+	load	ini_arr	t61
+	exp_arroff	t62,	[t61, t60]
+	load	j	t63
+	ASSIGN	t64	#1
+	sub	t63	t64	t65
+	load	ini_arr	t66
+	exp_arroff	t67,	[t66, t65]
+	exp_arroff	t68,	[count_arr, t67]
+	load	sorted_arr	t69
+	arroff_exp	t62,	[t69, t68]
+	load	j	t70
+	ASSIGN	t71	#1
+	sub	t70	t71	t72
+	ASSIGN	j	t72
+	goto	.L71
+
+.L73:
+	ASSIGN	t73	#0
+	ASSIGN	r0	t73
+	goto	.L1
+
+.L1:
+	func_end:	counting_s
+
+main:
+	ASSIGN	t0	#10
+	ASSIGN	n	t0
+	alloca	#40	a
+	ASSIGN	t2	#4
+	ASSIGN	t1	#0
+	arroff_exp	t2,	[a, t1]
+	ASSIGN	t4	#3
+	ASSIGN	t3	#1
+	arroff_exp	t4,	[a, t3]
+	ASSIGN	t6	#9
+	ASSIGN	t5	#2
+	arroff_exp	t6,	[a, t5]
+	ASSIGN	t8	#2
+	ASSIGN	t7	#3
+	arroff_exp	t8,	[a, t7]
+	ASSIGN	t10	#0
+	ASSIGN	t9	#4
+	arroff_exp	t10,	[a, t9]
+	ASSIGN	t12	#1
+	ASSIGN	t11	#5
+	arroff_exp	t12,	[a, t11]
+	ASSIGN	t14	#6
+	ASSIGN	t13	#6
+	arroff_exp	t14,	[a, t13]
+	ASSIGN	t16	#5
+	ASSIGN	t15	#7
+	arroff_exp	t16,	[a, t15]
+	ASSIGN	t18	#7
+	ASSIGN	t17	#8
+	arroff_exp	t18,	[a, t17]
+	ASSIGN	t20	#8
+	ASSIGN	t19	#9
+	arroff_exp	t20,	[a, t19]
+	alloca	#4	i
+	ASSIGN	t21	#0
+	ASSIGN	i	t21
+	alloca	#40	b
+	ASSIGN	t22	#-52
+	add	t22	fp	t23
+	ASSIGN	t24	#-96
+	add	t24	fp	t25
+	load	n	t26
+	arg	t23
+	arg	t25
+	arg	t26
+	CALL	counting_s	t27
+	ASSIGN	i	t27
+
+.L144:
+	load	i	t28
+	load	n	t29
+	jlt	t28	t29	t30
+	goto_eq	t30	#1	.L145
+	goto	.L146
+
+.L145:
+	alloca	#4	tmp
+	load	i	t31
+	exp_arroff	t32,	[b, t31]
+	ASSIGN	tmp	t32
+	load	tmp	t33
+	arg	t33
+	call_void	putint
+	ASSIGN	t34	#10
+	ASSIGN	tmp	t34
+	load	tmp	t35
+	arg	t35
+	call_void	putch
+	load	i	t36
+	ASSIGN	t37	#1
+	add	t36	t37	t38
+	ASSIGN	i	t38
+	goto	.L144
+
+.L146:
+	ASSIGN	t39	#0
+	ASSIGN	r0	t39
+	goto	.L104
+
+.L104:
+	func_end:	main
