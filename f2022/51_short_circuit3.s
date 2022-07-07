@@ -117,12 +117,12 @@ set_d:
 	.global	main
 	.type	main, %function
 main:
-	@ args = 0, pretend = 0, frame = 52
+	@ args = 0, pretend = 0, frame = 56
 	@ frame_needed = 1, uses_anonymous_args = 0
 	@ link register save eliminated.
 	stmfd	sp!, {r4-r10,fp, lr}
 	add	fp, sp, #0
-	sub	sp, sp, #56
+	sub	sp, sp, #60
 	ldr	r9, =2
 	movw	r10, #:lower16:a
 	movt	r10, #:upper16:a
@@ -258,21 +258,30 @@ main:
 	movt	r10, #:upper16:d
 	str	r9, [r10, #0]
 	ldr	r9, =1
-	beq	.L42
+	cmp	r9, #0
+	bne	.L186
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L41
+
+.L186:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L42
 	b	.L41
 
 .L42:
-	ldr	r8, =3
-	mov	r0, r8
+	ldr	r7, =3
+	mov	r0, r7
 	bl	set_d
 	mov	r8, r0
 	cmp	r8, #0
-	bne	.L186
+	bne	.L187
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L43
 
-.L186:
+.L187:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L43
@@ -295,21 +304,30 @@ main:
 	mov	r0, r8
 	bl	putch
 	ldr	r8, =1
-	beq	.L49
+	cmp	r8, #0
+	bne	.L188
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L50
+
+.L188:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L49
 	b	.L50
 
 .L50:
-	ldr	r7, =4
-	mov	r0, r7
+	ldr	r6, =4
+	mov	r0, r6
 	bl	set_d
 	mov	r7, r0
 	cmp	r7, #0
-	bne	.L187
+	bne	.L189
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L51
 
-.L187:
+.L189:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L51
@@ -329,8 +347,16 @@ main:
 	mov	r0, r9
 	bl	putch
 	ldr	r9, =1
-	cmp	r9, #1
-	beq	.L55
+	cmp	r9, #0
+	bne	.L190
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L56
+
+.L190:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L55
 	b	.L56
 
 .L55:
@@ -340,8 +366,16 @@ main:
 
 .L56:
 	ldr	r9, =0
-	cmp	r9, #1
-	beq	.L66
+	cmp	r9, #0
+	bne	.L191
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L67
+
+.L191:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L66
 	b	.L67
 
 .L66:
@@ -351,8 +385,16 @@ main:
 
 .L67:
 	ldr	r9, =0
-	cmp	r9, #1
-	beq	.L80
+	cmp	r9, #0
+	bne	.L192
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L81
+
+.L192:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L80
 	b	.L81
 
 .L80:
@@ -362,8 +404,16 @@ main:
 
 .L81:
 	ldr	r9, =1
-	cmp	r9, #1
-	beq	.L91
+	cmp	r9, #0
+	bne	.L193
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L92
+
+.L193:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L91
 	b	.L92
 
 .L91:
@@ -373,8 +423,16 @@ main:
 
 .L92:
 	ldr	r9, =0
-	cmp	r9, #1
-	beq	.L99
+	cmp	r9, #0
+	bne	.L194
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L100
+
+.L194:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L99
 	b	.L100
 
 .L99:
@@ -384,8 +442,16 @@ main:
 
 .L100:
 	ldr	r9, =1
-	cmp	r9, #1
-	beq	.L107
+	cmp	r9, #0
+	bne	.L195
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L108
+
+.L195:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L107
 	b	.L108
 
 .L107:
@@ -412,12 +478,12 @@ main:
 	ldr	r9, [fp, #-20]
 	ldr	r8, [fp, #-24]
 	cmp	r9, #0
-	bne	.L188
+	bne	.L196
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L118
 
-.L188:
+.L196:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L119
@@ -425,12 +491,12 @@ main:
 
 .L119:
 	cmp	r8, #0
-	bne	.L189
+	bne	.L197
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L120
 
-.L189:
+.L197:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L120
@@ -451,12 +517,12 @@ main:
 	ldr	r9, [fp, #-20]
 	ldr	r8, [fp, #-24]
 	cmp	r9, #0
-	bne	.L190
+	bne	.L198
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L124
 
-.L190:
+.L198:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L123
@@ -464,12 +530,12 @@ main:
 
 .L124:
 	cmp	r8, #0
-	bne	.L191
+	bne	.L199
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L125
 
-.L191:
+.L199:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L125
@@ -489,12 +555,12 @@ main:
 	ldr	r9, [fp, #-20]
 	ldr	r8, [fp, #-24]
 	cmp	r9, r8
-	bge	.L192
+	bge	.L200
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L129
 
-.L192:
+.L200:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L128
@@ -502,12 +568,12 @@ main:
 
 .L129:
 	cmp	r8, r9
-	ble	.L193
+	ble	.L201
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L130
 
-.L193:
+.L201:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L130
@@ -527,12 +593,12 @@ main:
 	ldr	r9, [fp, #-28]
 	ldr	r8, [fp, #-24]
 	cmp	r9, r8
-	bge	.L194
+	bge	.L202
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L139
 
-.L194:
+.L202:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L140
@@ -542,12 +608,12 @@ main:
 	ldr	r8, [fp, #-36]
 	ldr	r7, [fp, #-32]
 	cmp	r8, r7
-	bne	.L195
+	bne	.L203
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L141
 
-.L195:
+.L203:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L141
@@ -576,12 +642,12 @@ main:
 .L154:
 	ldr	r8, [fp, #-32]
 	cmp	r8, r8
-	blt	.L196
+	blt	.L204
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L155
 
-.L196:
+.L204:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L155
@@ -595,12 +661,12 @@ main:
 .L151:
 	ldr	r8, [fp, #-36]
 	cmp	r8, r8
-	bge	.L197
+	bge	.L205
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L152
 
-.L197:
+.L205:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L152
@@ -629,12 +695,12 @@ main:
 .L168:
 	ldr	r8, [fp, #-32]
 	cmp	r8, r8
-	blt	.L198
+	blt	.L206
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L173
 
-.L198:
+.L206:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L174
@@ -643,12 +709,12 @@ main:
 .L174:
 	ldr	r8, [fp, #-36]
 	cmp	r8, r8
-	bge	.L199
+	bge	.L207
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L175
 
-.L199:
+.L207:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L175

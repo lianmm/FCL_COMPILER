@@ -354,8 +354,16 @@ main:
 .L77:
 	cmp	#0.000000, #1
 	ldr	r9, =0.000000
-	cmp	r9, #1
-	beq	.L78
+	cmp	r9, #0
+	bne	.L122
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L79
+
+.L122:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L78
 	b	.L79
 
 .L78:
@@ -364,8 +372,16 @@ main:
 .L79:
 	cmp	#1.000000, #1
 	ldr	r9, =1.000000
-	cmp	r9, #1
-	beq	.L83
+	cmp	r9, #0
+	bne	.L123
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L84
+
+.L123:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L83
 	b	.L84
 
 .L83:
@@ -407,12 +423,12 @@ main:
 	ldr	r9, [fp, #-16]
 	ldr	r8, =0
 	cmp	r9, r8
-	blt	.L122
+	blt	.L124
 	ldr	r10, =1
 	cmp	r10, #0
 	b	.L90
 
-.L122:
+.L124:
 	ldr	r10, =0
 	cmp	r10, #0
 	b	.L89

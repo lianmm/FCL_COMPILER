@@ -33,51 +33,60 @@ main:
 	alloca	#16384	b
 	arroff_expi0	b	#4096	#0
 	ASSIGN	t0	#1
-	arroff_expi	b	#4096	t0
+	ASSIGN	t1	#4096
+	arroff_expi	b	t1	t0
 	arroff_expi0	b	#8192	#4100
-	ASSIGN	t1	#2
-	arroff_expi	b	#8192	t1
-	ASSIGN	t2	#3
-	arroff_expi	b	#8196	t2
+	ASSIGN	t2	#2
+	ASSIGN	t3	#8192
+	arroff_expi	b	t3	t2
+	arroff_expi0	b	#8196	#4
+	ASSIGN	t4	#3
+	ASSIGN	t5	#8196
+	arroff_expi	b	t5	t4
 	arroff_expi0	b	#12288	#8200
-	ASSIGN	t3	#4
-	arroff_expi	b	#12288	t3
-	ASSIGN	t4	#5
-	arroff_expi	b	#12292	t4
-	ASSIGN	t5	#6
-	arroff_expi	b	#12296	t5
+	ASSIGN	t6	#4
+	ASSIGN	t7	#12288
+	arroff_expi	b	t7	t6
+	arroff_expi0	b	#12292	#4
+	ASSIGN	t8	#5
+	ASSIGN	t9	#12292
+	arroff_expi	b	t9	t8
+	arroff_expi0	b	#12296	#4
+	ASSIGN	t10	#6
+	ASSIGN	t11	#12296
+	arroff_expi	b	t11	t10
 	arroff_expi0	b	#16384	#12292
 	alloca	#16384	c
-	ASSIGN	t6	#1
-	arroff_expi	c	#0	t6
-	ASSIGN	t7	#2
-	arroff_expi	c	#4	t7
+	ASSIGN	t12	#1
+	arroff_expi	c	#0	t12
+	ASSIGN	t13	#2
+	arroff_expi	c	#4	t13
 	arroff_expi0	c	#16	#8
-	ASSIGN	t8	#3
-	arroff_expi	c	#16	t8
-	ASSIGN	t9	#4
-	arroff_expi	c	#20	t9
+	ASSIGN	t14	#3
+	arroff_expi	c	#16	t14
+	ASSIGN	t15	#4
+	arroff_expi	c	#20	t15
 	arroff_expi0	c	#16384	#20
-	ASSIGN	t10	#0
-	ASSIGN	t11	#4
-	ASSIGN	t12	#0
-	mul	t11	t12	t13
-	add	t10	t13	t14
-	exp_arroff	t15,	[c, t14]
-	arg	t15
-	CALL	f1	t16
-	arg	t16
-	call_void	putint
-	ASSIGN	t17	#10
-	arg	t17
-	call_void	putch
+	ASSIGN	t16	#0
+	ASSIGN	t17	#4
 	ASSIGN	t18	#0
-	ASSIGN	t19	#4
-	ASSIGN	t20	#2
-	mul	t19	t20	t21
-	add	t18	t21	t22
-	exp_arroff	t23,	[c, t22]
-	ASSIGN	r0	t23
+	mul	t17	t18	t19
+	add	t16	t19	t20
+	exp_arroff	t21,	[c, t20]
+	arg	t21
+	CALL	f1	t22
+	arg	t22
+	call_void	putint
+	ASSIGN	t23	#10
+	arg	t23
+	call_void	putch
+	ASSIGN	t24	#0
+	ASSIGN	t25	#4
+	ASSIGN	t26	#2
+	mul	t25	t26	t27
+	add	t24	t27	t28
+	exp_arroff	t29,	[c, t28]
+	ASSIGN	r0	t29
 	goto	.L17
 
 .L17:

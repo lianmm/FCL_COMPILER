@@ -45,7 +45,7 @@ deepWhileB:
 	mul	t16	t17	t18
 	ASSIGN	e	t18
 	ASSIGN	t19	#1
-	eq	t19	#1	e
+	neq	t19	#0	e
 	goto_eq	t19	#1	.L39
 	goto	.L40
 

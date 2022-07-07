@@ -76,8 +76,16 @@ deepWhileB:
 	mul	r9, r8, r9
 	str	r9, [fp, #-32]
 	ldr	r9, =1
-	cmp	r9, #1
-	beq	.L39
+	cmp	r9, #0
+	bne	.L57
+	ldr	r10, =1
+	cmp	r10, #0
+	b	.L40
+
+.L57:
+	ldr	r10, =0
+	cmp	r10, #0
+	b	.L39
 	b	.L40
 
 .L39:

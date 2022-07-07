@@ -118,6 +118,7 @@ main:
 	ASSIGN	t22	#2
 	ASSIGN	d	t22
 	ASSIGN	t25	#1
+	neq	t25	#0	t24
 	goto_eq	t25	#1	.L42
 	goto	.L41
 
@@ -143,6 +144,7 @@ main:
 	arg	t28
 	call_void	putch
 	ASSIGN	t31	#1
+	neq	t31	#0	t30
 	goto_eq	t31	#1	.L49
 	goto	.L50
 
@@ -167,7 +169,7 @@ main:
 	arg	t33
 	call_void	putch
 	ASSIGN	t34	#1
-	eq	t34	#1	putch
+	neq	t34	#0	putch
 	goto_eq	t34	#1	.L55
 	goto	.L56
 
@@ -178,7 +180,7 @@ main:
 
 .L56:
 	ASSIGN	t36	#0
-	eq	t36	#1	putch
+	neq	t36	#0	putch
 	goto_eq	t36	#1	.L66
 	goto	.L67
 
@@ -189,7 +191,7 @@ main:
 
 .L67:
 	ASSIGN	t38	#0
-	eq	t38	#1	putch
+	neq	t38	#0	putch
 	goto_eq	t38	#1	.L80
 	goto	.L81
 
@@ -200,7 +202,7 @@ main:
 
 .L81:
 	ASSIGN	t40	#1
-	eq	t40	#1	putch
+	neq	t40	#0	putch
 	goto_eq	t40	#1	.L91
 	goto	.L92
 
@@ -211,7 +213,7 @@ main:
 
 .L92:
 	ASSIGN	t42	#0
-	eq	t42	#1	putch
+	neq	t42	#0	putch
 	goto_eq	t42	#1	.L99
 	goto	.L100
 
@@ -222,7 +224,7 @@ main:
 
 .L100:
 	ASSIGN	t44	#1
-	eq	t44	#1	putch
+	neq	t44	#0	putch
 	goto_eq	t44	#1	.L107
 	goto	.L108
 
