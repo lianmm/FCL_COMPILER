@@ -6,7 +6,7 @@ struct symbol
 {                       //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
     char name[MAXNAME]; //变量或函数名
     int level;          //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
-    char type[36];      //变量类型或函数返回值类型
+    char type[MAXTYPE];      //变量类型或函数返回值类型
     int paramnum;       //形式参数个数;数组的向量内情表索引;
     char alias[10];     //别名，为解决嵌套层次使用，使得每一个数据名称唯一
     char flag;          //符号标记，函数：'F'  变量：'V'   参数：'P'  临时变量：'T'
@@ -105,7 +105,7 @@ extern struct symbol_scope_begin symbol_scope_TX;
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 extern char glo_name[MAXNAME], glo_alias[10], glo_flag;
 extern struct opn glo_offset;
-extern char glo_type[36];
+extern char glo_type[MAXTYPE];
 extern int glo_int_val;
 extern float glo_float_val;
 extern int glo_level, glo_paramnum;

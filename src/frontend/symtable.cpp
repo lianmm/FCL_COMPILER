@@ -12,7 +12,7 @@ struct arr_val_table avT;
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 char glo_name[MAXNAME], glo_alias[10] = "", glo_flag;
 struct opn glo_offset;
-char glo_type[36];
+char glo_type[MAXTYPE];
 int glo_int_val = 0;
 float glo_float_val = 0;
 int glo_level, glo_paramnum;
@@ -52,10 +52,14 @@ void display_fT()
 //构造新的符号并插入sT。
 void mksym(struct symboltable *sT, char *name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size)
 {
-    // DisplaySymbolTable(*sT);
+
+    // if (sT->index > 15 && (flag == 'P'||flag == 'F'))
+    // printf("\tsT.top:%d; sT_Ttop:%s\n", sT->index, sT->symbols[sT->index - 1].name);
 
     sT->symbols[sT->index].address = 0;
-    sT->symbols[sT->index].flagca = ' ';
+    if (sT->symbols[sT->index].flag != 'F')
+        sT->symbols[sT->index].flag = '0';
+    sT->symbols[sT->index].flagca = '0';
     sT->symbols[sT->index].flage = '0';
     sT->symbols[sT->index].init_sym = 0;
     sT->symbols[sT->index].level = 0;
@@ -66,8 +70,6 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     sT->symbols[sT->index].status = 0;
     sT->symbols[sT->index].size.const_int = 0;
     sT->symbols[sT->index].paramnum = 0;
-    sT->symbols[sT->index].paras[0] = 0;
-    sT->symbols[sT->index].paras[1] = 0;
     strcpy(sT->symbols[sT->index].name, name);
     sT->symbols[sT->index].level = level;
     strcpy(sT->symbols[sT->index].type, type);
@@ -227,6 +229,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     sT->symbols[sT->index].offset.const_int = offset.const_int;
     sT->index++;
     // printf("\t%d\n", sT->index);
+    // DisplaySymbolTable(*sT);
 }
 
 //显示当前数组内情向量表中的内容。

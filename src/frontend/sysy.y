@@ -191,6 +191,7 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
 
 int main(int argc, char *argv[]) {
        char file[36];strcpy(file,"../../test/test.c");
+       char putfile[36]="../../test/test.s";
   yyin = fopen(argv[4],"r");
   if (!yyin) return 0;
   yylineno = 1;

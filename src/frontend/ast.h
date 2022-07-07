@@ -9,6 +9,7 @@
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
 #define MAXLENGTH 4000     //定义符号表的大小
 #define MAXNAME 2199
+#define MAXTYPE 200
 extern char filename[50]; //输入文件名；
 extern char out_file[50]; //输出文件名；
 extern int lev;           //???

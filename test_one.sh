@@ -1,6 +1,6 @@
 
 rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./test/test.in 2>>junk.txt
-
+rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
 
 #读取测试用例           
 cd /home/chui/桌面/compiler_fcl/f2022/
@@ -43,7 +43,7 @@ i=`find . -name "$in_fi[_A-Za-b0-9]*.sy"`
 
     if [ ! -f $target ];
     then
-        echo "$i:"  >>../test/test_out.txt
+        echo "$i:"  >>../test_out.txt
        echo "Assembling failed: $i"  >>../test_out.txt
        
     else
