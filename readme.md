@@ -45,7 +45,7 @@ fcl编译器 v1.0版。
  # {infile} 替换为输入文件路径及名称；{outfile} 替换为输出文件路径及名称；
  # infile 如果是路径可能会有段错误？ TODO；
  
-3.	链接运行...
+3.链接运行...
 可使用arm-linux-gnueabihf-gcc，qemu-arm工具链在ubuntu上模拟运行；
 或
 上开发板运行；
