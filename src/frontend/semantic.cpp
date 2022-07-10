@@ -335,7 +335,7 @@ bool check_process(int pro_err_type, struct node *lval_node, struct node T)
         int aTindex = sT.symbols[find(T.type_id)].paramnum;
         if (glo_D != aT.arrs[aTindex].D)
         {
-            printf("'%s' 数组索引维度与定义不一致。\n", T.type_id);
+            // printf("'%s' 数组索引维度与定义不一致。\n", T.type_id);
             ans = 0;
             glo_err = glo_err && ans;
 

@@ -590,14 +590,14 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    66,    66,    76,    77,    80,    81,    82,    83,    84,
-      87,    90,    92,    93,    95,    96,    98,    99,   102,   103,
-     104,   107,   108,   109,   111,   113,   116,   117,   118,   120,
-     121,   123,   124,   125,   126,   129,   130,   132,   133,   135,
-     139,   141,   142,   143,   145,   146,   147,   148,   149,   150,
-     151,   152,   153,   154,   155,   157,   160,   161,   165,   166,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,   176,
-     177,   178,   179,   180,   181,   182,   183,   186,   187
+       0,    66,    66,    78,    79,    82,    83,    84,    85,    86,
+      89,    92,    94,    95,    97,    98,   100,   101,   104,   105,
+     106,   109,   110,   111,   113,   115,   118,   119,   120,   122,
+     123,   125,   126,   127,   128,   131,   132,   134,   135,   137,
+     141,   143,   144,   145,   147,   148,   149,   150,   151,   152,
+     153,   154,   155,   156,   157,   159,   162,   163,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,   176,   177,   178,
+     179,   180,   181,   182,   183,   184,   185,   188,   189
 };
 #endif
 
@@ -1649,468 +1649,470 @@ yyreduce:
       if(ir_sym==1)
             gen_arm(0);
       gen_arm(1);
+          clear_ast((yyvsp[0].ptr));
+
       }
-#line 1654 "sysy.tab.c"
+#line 1656 "sysy.tab.c"
     break;
 
   case 3:
-#line 76 "sysy.y"
+#line 78 "sysy.y"
             {(yyval.ptr)=NULL;}
-#line 1660 "sysy.tab.c"
+#line 1662 "sysy.tab.c"
     break;
 
   case 4:
-#line 77 "sysy.y"
+#line 79 "sysy.y"
                                {(yyval.ptr)=mknode(EXT_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1666 "sysy.tab.c"
+#line 1668 "sysy.tab.c"
     break;
 
   case 5:
-#line 80 "sysy.y"
+#line 82 "sysy.y"
                                      {(yyval.ptr)=mknode(VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1672 "sysy.tab.c"
+#line 1674 "sysy.tab.c"
     break;
 
   case 6:
-#line 81 "sysy.y"
+#line 83 "sysy.y"
                                                 {(yyval.ptr)=mknode(CONST_VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1678 "sysy.tab.c"
+#line 1680 "sysy.tab.c"
     break;
 
   case 7:
-#line 82 "sysy.y"
+#line 84 "sysy.y"
                                   {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),(yyvsp[0].ptr),yylineno);}
-#line 1684 "sysy.tab.c"
+#line 1686 "sysy.tab.c"
     break;
 
   case 8:
-#line 83 "sysy.y"
+#line 85 "sysy.y"
                                  {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),(yyvsp[0].ptr),yylineno);}
-#line 1690 "sysy.tab.c"
+#line 1692 "sysy.tab.c"
     break;
 
   case 9:
-#line 84 "sysy.y"
+#line 86 "sysy.y"
                          {(yyval.ptr)=NULL; }
-#line 1696 "sysy.tab.c"
+#line 1698 "sysy.tab.c"
     break;
 
   case 10:
-#line 87 "sysy.y"
+#line 89 "sysy.y"
                  {(yyval.ptr)=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));(yyval.ptr)->type=!strcmp((yyvsp[0].type_id),"int")?INT:FLOAT;}
-#line 1702 "sysy.tab.c"
+#line 1704 "sysy.tab.c"
     break;
 
   case 11:
-#line 90 "sysy.y"
+#line 92 "sysy.y"
                {(yyval.ptr)=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));(yyval.ptr)->type=VOID;}
-#line 1708 "sysy.tab.c"
+#line 1710 "sysy.tab.c"
     break;
 
   case 12:
-#line 92 "sysy.y"
+#line 94 "sysy.y"
                                  {(yyval.ptr)=mknode(VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1714 "sysy.tab.c"
+#line 1716 "sysy.tab.c"
     break;
 
   case 13:
-#line 93 "sysy.y"
+#line 95 "sysy.y"
                                                {(yyval.ptr)=mknode(CONST_VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1720 "sysy.tab.c"
+#line 1722 "sysy.tab.c"
     break;
 
   case 14:
-#line 95 "sysy.y"
+#line 97 "sysy.y"
                  {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1726 "sysy.tab.c"
+#line 1728 "sysy.tab.c"
     break;
 
   case 15:
-#line 96 "sysy.y"
+#line 98 "sysy.y"
                                {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1732 "sysy.tab.c"
+#line 1734 "sysy.tab.c"
     break;
 
   case 16:
-#line 98 "sysy.y"
+#line 100 "sysy.y"
                            {(yyval.ptr)=mknode(CONST_DEC_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1738 "sysy.tab.c"
+#line 1740 "sysy.tab.c"
     break;
 
   case 17:
-#line 99 "sysy.y"
+#line 101 "sysy.y"
                                          {(yyval.ptr)=mknode(CONST_DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1744 "sysy.tab.c"
+#line 1746 "sysy.tab.c"
     break;
 
   case 18:
-#line 102 "sysy.y"
+#line 104 "sysy.y"
              {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1750 "sysy.tab.c"
+#line 1752 "sysy.tab.c"
     break;
 
   case 19:
-#line 103 "sysy.y"
+#line 105 "sysy.y"
                        {(yyval.ptr)=mknode(VAR_DEC,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 1756 "sysy.tab.c"
+#line 1758 "sysy.tab.c"
     break;
 
   case 20:
-#line 104 "sysy.y"
+#line 106 "sysy.y"
                            {(yyval.ptr)=mknode(VAR_DEC,(yyvsp[0].ptr),(yyvsp[-2].ptr),NULL,yylineno);}
-#line 1762 "sysy.tab.c"
+#line 1764 "sysy.tab.c"
     break;
 
   case 21:
-#line 107 "sysy.y"
+#line 109 "sysy.y"
                                       {(yyval.ptr)=mknode(CONST_VAR_DEC,(yyvsp[0].ptr),(yyvsp[-2].ptr),NULL,yylineno);}
-#line 1768 "sysy.tab.c"
+#line 1770 "sysy.tab.c"
     break;
 
   case 22:
-#line 108 "sysy.y"
+#line 110 "sysy.y"
                                {(yyval.ptr)=(yyvsp[-3].ptr);}
-#line 1774 "sysy.tab.c"
+#line 1776 "sysy.tab.c"
     break;
 
   case 23:
-#line 109 "sysy.y"
+#line 111 "sysy.y"
                      {(yyval.ptr)=mknode(CONST_VAR_DEC,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 1780 "sysy.tab.c"
+#line 1782 "sysy.tab.c"
     break;
 
   case 24:
-#line 111 "sysy.y"
+#line 113 "sysy.y"
                 {(yyval.ptr)=mknode(TERM,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
-#line 1786 "sysy.tab.c"
+#line 1788 "sysy.tab.c"
     break;
 
   case 25:
-#line 113 "sysy.y"
+#line 115 "sysy.y"
                        {(yyval.ptr)=mknode(CONST_TERM,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
-#line 1792 "sysy.tab.c"
+#line 1794 "sysy.tab.c"
     break;
 
   case 26:
-#line 116 "sysy.y"
+#line 118 "sysy.y"
         {(yyval.ptr)=NULL;}
-#line 1798 "sysy.tab.c"
+#line 1800 "sysy.tab.c"
     break;
 
   case 27:
-#line 117 "sysy.y"
+#line 119 "sysy.y"
                          {(yyval.ptr)=mknode(ARRAYS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1804 "sysy.tab.c"
+#line 1806 "sysy.tab.c"
     break;
 
   case 28:
-#line 118 "sysy.y"
+#line 120 "sysy.y"
                      {(yyval.ptr)=mknode(ARRAYS,NULL,(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"para");}
-#line 1810 "sysy.tab.c"
+#line 1812 "sysy.tab.c"
     break;
 
   case 29:
-#line 120 "sysy.y"
+#line 122 "sysy.y"
                       {(yyval.ptr)=mknode(EXP_DES,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1816 "sysy.tab.c"
+#line 1818 "sysy.tab.c"
     break;
 
   case 30:
-#line 121 "sysy.y"
+#line 123 "sysy.y"
              {(yyval.ptr)=mknode(EXP_DES,NULL,NULL,NULL,yylineno);}
-#line 1822 "sysy.tab.c"
+#line 1824 "sysy.tab.c"
     break;
 
   case 31:
-#line 123 "sysy.y"
+#line 125 "sysy.y"
                           {(yyval.ptr)=mknode(EXP_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1828 "sysy.tab.c"
+#line 1830 "sysy.tab.c"
     break;
 
   case 32:
-#line 124 "sysy.y"
+#line 126 "sysy.y"
             {(yyval.ptr)=mknode(EXP_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1834 "sysy.tab.c"
+#line 1836 "sysy.tab.c"
     break;
 
   case 33:
-#line 125 "sysy.y"
+#line 127 "sysy.y"
                {(yyval.ptr)=mknode(EXP_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1840 "sysy.tab.c"
+#line 1842 "sysy.tab.c"
     break;
 
   case 34:
-#line 126 "sysy.y"
+#line 128 "sysy.y"
                             {(yyval.ptr)=mknode(EXP_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1846 "sysy.tab.c"
+#line 1848 "sysy.tab.c"
     break;
 
   case 35:
-#line 129 "sysy.y"
+#line 131 "sysy.y"
                            {(yyval.ptr)=mknode(FUNC_DEC,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
-#line 1852 "sysy.tab.c"
+#line 1854 "sysy.tab.c"
     break;
 
   case 36:
-#line 130 "sysy.y"
+#line 132 "sysy.y"
                    {(yyval.ptr)=mknode(FUNC_DEC,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 1858 "sysy.tab.c"
+#line 1860 "sysy.tab.c"
     break;
 
   case 37:
-#line 132 "sysy.y"
+#line 134 "sysy.y"
                    {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1864 "sysy.tab.c"
+#line 1866 "sysy.tab.c"
     break;
 
   case 38:
-#line 133 "sysy.y"
+#line 135 "sysy.y"
                                  {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1870 "sysy.tab.c"
+#line 1872 "sysy.tab.c"
     break;
 
   case 39:
-#line 135 "sysy.y"
+#line 137 "sysy.y"
                           {(yyval.ptr)=mknode(PARAM_DEC,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1876 "sysy.tab.c"
+#line 1878 "sysy.tab.c"
     break;
 
   case 40:
-#line 139 "sysy.y"
+#line 141 "sysy.y"
                           {(yyval.ptr)=mknode(COMP_STM,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1882 "sysy.tab.c"
+#line 1884 "sysy.tab.c"
     break;
 
   case 41:
-#line 141 "sysy.y"
+#line 143 "sysy.y"
             {(yyval.ptr)=NULL; }
-#line 1888 "sysy.tab.c"
+#line 1890 "sysy.tab.c"
     break;
 
   case 42:
-#line 142 "sysy.y"
+#line 144 "sysy.y"
                              {(yyval.ptr)=mknode(STM_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1894 "sysy.tab.c"
+#line 1896 "sysy.tab.c"
     break;
 
   case 43:
-#line 143 "sysy.y"
+#line 145 "sysy.y"
                             {(yyval.ptr)=mknode(STM_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1900 "sysy.tab.c"
+#line 1902 "sysy.tab.c"
     break;
 
   case 44:
-#line 145 "sysy.y"
+#line 147 "sysy.y"
                              {(yyval.ptr)=mknode(EXP_STMT,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1906 "sysy.tab.c"
+#line 1908 "sysy.tab.c"
     break;
 
   case 45:
-#line 146 "sysy.y"
+#line 148 "sysy.y"
                              {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1912 "sysy.tab.c"
+#line 1914 "sysy.tab.c"
     break;
 
   case 46:
-#line 147 "sysy.y"
+#line 149 "sysy.y"
                              {(yyval.ptr)=mknode(RETURN,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1918 "sysy.tab.c"
+#line 1920 "sysy.tab.c"
     break;
 
   case 47:
-#line 148 "sysy.y"
+#line 150 "sysy.y"
                              {(yyval.ptr)=mknode(RETURN,NULL,NULL,NULL,yylineno);}
-#line 1924 "sysy.tab.c"
+#line 1926 "sysy.tab.c"
     break;
 
   case 48:
-#line 149 "sysy.y"
+#line 151 "sysy.y"
                                                 {(yyval.ptr)=mknode(IF_THEN,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1930 "sysy.tab.c"
+#line 1932 "sysy.tab.c"
     break;
 
   case 49:
-#line 150 "sysy.y"
+#line 152 "sysy.y"
                                     {(yyval.ptr)=mknode(IF_THEN_ELSE,(yyvsp[-4].ptr),(yyvsp[-2].ptr),(yyvsp[0].ptr),yylineno);}
-#line 1936 "sysy.tab.c"
+#line 1938 "sysy.tab.c"
     break;
 
   case 50:
-#line 151 "sysy.y"
+#line 153 "sysy.y"
                              {(yyval.ptr)=mknode(WHILE,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1942 "sysy.tab.c"
+#line 1944 "sysy.tab.c"
     break;
 
   case 51:
-#line 152 "sysy.y"
+#line 154 "sysy.y"
                              {(yyval.ptr)=mknode(CONTINUE_STMT,NULL,NULL,NULL,yylineno);}
-#line 1948 "sysy.tab.c"
+#line 1950 "sysy.tab.c"
     break;
 
   case 52:
-#line 153 "sysy.y"
+#line 155 "sysy.y"
                              {(yyval.ptr)=mknode(BREAK_STMT,NULL,NULL,NULL,yylineno);}
-#line 1954 "sysy.tab.c"
+#line 1956 "sysy.tab.c"
     break;
 
   case 53:
-#line 154 "sysy.y"
+#line 156 "sysy.y"
                              {(yyval.ptr)=mknode(FOR_STMT,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1960 "sysy.tab.c"
+#line 1962 "sysy.tab.c"
     break;
 
   case 54:
-#line 155 "sysy.y"
+#line 157 "sysy.y"
                {(yyval.ptr)=mknode(VOID_STMT,NULL,NULL,NULL,yylineno);}
-#line 1966 "sysy.tab.c"
+#line 1968 "sysy.tab.c"
     break;
 
   case 55:
-#line 157 "sysy.y"
+#line 159 "sysy.y"
                                                          {(yyval.ptr)=mknode(FOR_ARGS,(yyvsp[-5].ptr),(yyvsp[-3].ptr),(yyvsp[-1].ptr),yylineno);}
-#line 1972 "sysy.tab.c"
+#line 1974 "sysy.tab.c"
     break;
 
   case 56:
-#line 160 "sysy.y"
+#line 162 "sysy.y"
         {(yyval.ptr)=NULL;}
-#line 1978 "sysy.tab.c"
+#line 1980 "sysy.tab.c"
     break;
 
   case 57:
-#line 161 "sysy.y"
+#line 163 "sysy.y"
              {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1984 "sysy.tab.c"
+#line 1986 "sysy.tab.c"
     break;
 
   case 58:
-#line 165 "sysy.y"
+#line 167 "sysy.y"
                      {(yyval.ptr)=mknode(ASSIGN,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGN");}
-#line 1990 "sysy.tab.c"
+#line 1992 "sysy.tab.c"
     break;
 
   case 59:
-#line 166 "sysy.y"
+#line 168 "sysy.y"
                      {(yyval.ptr)=mknode(AND,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"AND");}
-#line 1996 "sysy.tab.c"
+#line 1998 "sysy.tab.c"
     break;
 
   case 60:
-#line 167 "sysy.y"
+#line 169 "sysy.y"
                      {(yyval.ptr)=mknode(OR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"OR");}
-#line 2002 "sysy.tab.c"
+#line 2004 "sysy.tab.c"
     break;
 
   case 61:
-#line 168 "sysy.y"
+#line 170 "sysy.y"
                    {(yyval.ptr)=mknode(UMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"UMINUS");}
-#line 2008 "sysy.tab.c"
+#line 2010 "sysy.tab.c"
     break;
 
   case 62:
-#line 169 "sysy.y"
+#line 171 "sysy.y"
                      {(yyval.ptr)=mknode(RELOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
-#line 2014 "sysy.tab.c"
+#line 2016 "sysy.tab.c"
     break;
 
   case 63:
-#line 170 "sysy.y"
+#line 172 "sysy.y"
                     {(yyval.ptr)=mknode(EQOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
-#line 2020 "sysy.tab.c"
+#line 2022 "sysy.tab.c"
     break;
 
   case 64:
-#line 171 "sysy.y"
+#line 173 "sysy.y"
                      {(yyval.ptr)=mknode(ADD,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ADD");}
-#line 2026 "sysy.tab.c"
+#line 2028 "sysy.tab.c"
     break;
 
   case 65:
-#line 172 "sysy.y"
+#line 174 "sysy.y"
                                  {(yyval.ptr)=mknode(MINUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MINUS");}
-#line 2032 "sysy.tab.c"
+#line 2034 "sysy.tab.c"
     break;
 
   case 66:
-#line 173 "sysy.y"
+#line 175 "sysy.y"
                      {(yyval.ptr)=mknode(MUL,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MUL");}
-#line 2038 "sysy.tab.c"
+#line 2040 "sysy.tab.c"
     break;
 
   case 67:
-#line 174 "sysy.y"
+#line 176 "sysy.y"
                      {(yyval.ptr)=mknode(DIV,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"DIV");}
-#line 2044 "sysy.tab.c"
+#line 2046 "sysy.tab.c"
     break;
 
   case 68:
-#line 175 "sysy.y"
+#line 177 "sysy.y"
                      {(yyval.ptr)=mknode(MOD,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MOD");}
-#line 2050 "sysy.tab.c"
+#line 2052 "sysy.tab.c"
     break;
 
   case 69:
-#line 176 "sysy.y"
+#line 178 "sysy.y"
                      {(yyval.ptr)=(yyvsp[-1].ptr);}
-#line 2056 "sysy.tab.c"
+#line 2058 "sysy.tab.c"
     break;
 
   case 70:
-#line 177 "sysy.y"
+#line 179 "sysy.y"
                      {(yyval.ptr)=mknode(NOT,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"NOT");}
-#line 2062 "sysy.tab.c"
+#line 2064 "sysy.tab.c"
     break;
 
   case 71:
-#line 178 "sysy.y"
+#line 180 "sysy.y"
                      {(yyval.ptr)=mknode(FUNC_CALL,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
-#line 2068 "sysy.tab.c"
+#line 2070 "sysy.tab.c"
     break;
 
   case 72:
-#line 179 "sysy.y"
+#line 181 "sysy.y"
                      {(yyval.ptr)=mknode(FUNC_CALL,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 2074 "sysy.tab.c"
+#line 2076 "sysy.tab.c"
     break;
 
   case 73:
-#line 180 "sysy.y"
+#line 182 "sysy.y"
                      {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 2080 "sysy.tab.c"
+#line 2082 "sysy.tab.c"
     break;
 
   case 74:
-#line 181 "sysy.y"
+#line 183 "sysy.y"
                      {(yyval.ptr)=mknode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
-#line 2086 "sysy.tab.c"
+#line 2088 "sysy.tab.c"
     break;
 
   case 75:
-#line 182 "sysy.y"
+#line 184 "sysy.y"
                      {(yyval.ptr)=mknode(FLOAT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_float=(yyvsp[0].type_float);(yyval.ptr)->type=FLOAT;}
-#line 2092 "sysy.tab.c"
+#line 2094 "sysy.tab.c"
     break;
 
   case 76:
-#line 183 "sysy.y"
+#line 185 "sysy.y"
                      {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 2098 "sysy.tab.c"
+#line 2100 "sysy.tab.c"
     break;
 
   case 77:
-#line 186 "sysy.y"
+#line 188 "sysy.y"
                       {(yyval.ptr)=mknode(ARGS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 2104 "sysy.tab.c"
+#line 2106 "sysy.tab.c"
     break;
 
   case 78:
-#line 187 "sysy.y"
+#line 189 "sysy.y"
                       {(yyval.ptr)=mknode(ARGS,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 2110 "sysy.tab.c"
+#line 2112 "sysy.tab.c"
     break;
 
 
-#line 2114 "sysy.tab.c"
+#line 2116 "sysy.tab.c"
 
       default: break;
     }
@@ -2348,10 +2350,12 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 190 "sysy.y"
+#line 192 "sysy.y"
 
 
 int main(int argc, char *argv[]) {
+        
+
        char file[36];strcpy(file,"../../test/test.c");
        char putfile[36]="../../test/test.s";
   yyin = fopen(argv[4],"r");

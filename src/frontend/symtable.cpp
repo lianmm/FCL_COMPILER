@@ -5,9 +5,7 @@
 struct symboltable sT;
 struct symbol_scope_begin symbol_scope_TX;
 struct array_table aT;
-struct ext_val_table evT;
 struct func_table fT;
-struct arr_val_table avT;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 char glo_name[MAXNAME], glo_alias[10] = "", glo_flag;
@@ -21,6 +19,7 @@ int glo_init_sym;
 struct opn glo_arr_lim[10];
 int glo_D = 0;
 struct opn glo_size;
+char glo_flage = '0';
 
 /*--------------------------------------符号表维护函数区----------------------------------------*/
 //构造新的数组内情向量并插入aT。
@@ -94,11 +93,6 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
         //全局变量地址偏移量维护；
         if (level == 0)
         {
-            evT.vals[evT.top] = sT->index, evT.top++;
-            if (evT.top == 1)
-                offset.const_int = 0;
-            else
-                offset.const_int = sT->symbols[evT.vals[evT.top - 2]].offset.const_int + sT->symbols[evT.vals[evT.top - 2]].size.const_int;
         }
         //无参函数第一个局部变量的偏移值维护；
         else if (sT->symbols[tmp_sym].flag == 'F')
@@ -126,25 +120,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     }
     case 'T':
     {
-        // //全局变量地址偏移量维护；
-        // if (level == 0)
-        // {
-        //     evT.vals[evT.top] = sT->index, evT.top++;
-        //     if (evT.top == 1)
-        //         offset.const_int = 0;
-        //     else
-        //         offset.const_int = sT->symbols[evT.vals[evT.top - 2]].offset.const_int + sT->symbols[evT.vals[evT.top - 2]].size.const_int;
-        // }
-        // //无参函数第一个局部变量的偏移值维护；
-        // else if (sT->symbols[sT->index - 1].flag == 'F')
-        // {
-        //     offset.const_int = sT->symbols[sT->index - 1].offset.const_int + sT->symbols[sT->index - 1].size.const_int;
-        // }
-        // //其他局部变量偏移值维护；
-        // else
-        // {
-        //     offset.const_int = sT->symbols[sT->index - 1].offset.const_int + sT->symbols[sT->index - 1].size.const_int;
-        // }
+
         offset.const_int = sT->symbols[sT->index - 1].offset.const_int;
         sT->symbols[sT->index].size.const_int = sT->symbols[sT->index - 1].size.const_int;
         break;
@@ -155,13 +131,12 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
         while (sT->symbols[tmp_sym].flag == 'T')
             tmp_sym--;
         //外部数组偏移；
-        if (level == 0)
+        if (glo_flage == 'P' && offset.const_int > 3)
         {
-            evT.vals[evT.top] = sT->index, evT.top++;
-            if (evT.top == 1)
-                offset.const_int = 0;
-            else
-                offset.const_int = sT->symbols[evT.vals[evT.top - 2]].offset.const_int + sT->symbols[evT.vals[evT.top - 2]].size.const_int;
+            offset.const_int = -4 * (offset.const_int + 5);
+        }
+        else if (level == 0)
+        {
         }
         //无参函数第一个局部数组的偏移值维护；
         else if (sT->symbols[tmp_sym].flag == 'F')
@@ -206,11 +181,8 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
         //全局变量地址偏移量维护；
         if (level == 0)
         {
-            evT.vals[evT.top] = sT->index, evT.top++;
-            if (evT.top == 1)
-                offset.const_int = 0;
-            else
-                offset.const_int = sT->symbols[evT.vals[evT.top - 2]].offset.const_int + sT->symbols[evT.vals[evT.top - 2]].size.const_int;
+
+            offset.const_int = 0;
         }
         //无参函数第一个局部变量的偏移值维护；
         else if (sT->symbols[tmp_sym].flag == 'F')
@@ -308,6 +280,7 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'V':
         {
             printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("\t外部标记flage：%c", sT.symbols[i].flage);
             printf("\t变量空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
             printf("\tlevel： %d", sT.symbols[i].level);
@@ -320,8 +293,7 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'A':
         {
             printf("%d\t%s\t%d\t%s\t%c\t向量表索引:%d\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
-            if (sT.symbols[i].flage == 'P')
-                printf("\t外部标记flage：%c", sT.symbols[i].flage);
+            printf("\t外部标记flage：%c", sT.symbols[i].flage);
             printf("\t数组空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t数组地址偏移：%d", sT.symbols[i].offset.const_int);
             printf("\t维数：%d\t 各维度长度：", aT.arrs[sT.symbols[i].paramnum].D);
@@ -337,6 +309,7 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'P':
         {
             printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("\t外部标记flage：%c", sT.symbols[i].flage);
 
             printf("\t形参空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
@@ -351,6 +324,8 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'T':
         {
             printf("%d\t%s\tlevel:%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("\t外部标记flage：%c", sT.symbols[i].flage);
+
             printf("\t变量空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
             printf("\t变量地址偏移：%d", sT.symbols[i].offset.const_int);
@@ -363,6 +338,7 @@ void DisplaySymbolTable(struct symboltable sT)
         case 'C':
         {
             printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("\t外部标记flage：%c", sT.symbols[i].flage);
 
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
             printf("\t常量地址偏移：%d", sT.symbols[i].offset.const_int);
@@ -373,11 +349,6 @@ void DisplaySymbolTable(struct symboltable sT)
                 for (int j = 0; j < aT.arrs[sT.symbols[i].paramnum].D; j++)
                 {
                     printOpn(aT.arrs[sT.symbols[i].paramnum].lim[j]);
-                }
-                printf("\t常数组初始化值：");
-                for (int k = 0; k < avT.arr[sT.symbols[i].val_index].lim; k++)
-                {
-                    printOpn(avT.arr[sT.symbols[i].val_index].val[k]);
                 }
             }
             else
@@ -452,5 +423,8 @@ void add_lib()
     mksym(&sT, (char *)"after_main", 0, (char *)"void(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"starttime", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"stoptime", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"memset(PLT)", 0, (char *)"int(void)", 3, (char *)"", 'F', topn, 0, 0, 0, topn);
+    sT.symbols[sT.index - 1].paras[0] = 1, sT.symbols[sT.index - 1].paras[1] = 1, sT.symbols[sT.index - 1].paras[2] = 1;
+
     // DisplaySymbolTable(sT);
 }

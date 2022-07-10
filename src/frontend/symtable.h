@@ -6,7 +6,7 @@ struct symbol
 {                       //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
     char name[MAXNAME]; //变量或函数名
     int level;          //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
-    char type[MAXTYPE];      //变量类型或函数返回值类型
+    char type[MAXTYPE]; //变量类型或函数返回值类型
     int paramnum;       //形式参数个数;数组的向量内情表索引;
     char alias[10];     //别名，为解决嵌套层次使用，使得每一个数据名称唯一
     char flag;          //符号标记，函数：'F'  变量：'V'   参数：'P'  临时变量：'T'
@@ -26,6 +26,10 @@ struct symbol
     int address;    //栈上地址；栈上已分配才有效；
     int no_ris;     //对应寄存器编号，寄存器已分配才有效；
     int paras[250]; //形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
+    symbol()
+    {
+        flage = '0';
+    }
 };
 
 //符号表，是一个顺序栈，index初值为0
@@ -63,14 +67,6 @@ struct array_table
     array_table() { this->top = 0; }
 };
 
-//全局变量索引表，用于维护全局变量在堆空间的偏移量；
-struct ext_val_table
-{
-    int vals[500];
-    int top;
-    ext_val_table() { this->top = 0; }
-};
-
 //函数体索引表，用于维护函数体在栈空间的偏移量；
 struct func_table
 {
@@ -79,25 +75,8 @@ struct func_table
     func_table() { this->top = 0; }
 };
 
-struct arrcon_node
-{
-    struct opn val[500];
-    int lim;
-    arrcon_node() { this->lim = 0; }
-};
-
-struct arr_val_table
-{
-    struct arrcon_node arr[500];
-    int top;
-        arr_val_table() { this->top = 0; }
-
-};
-
 /*----------------------------------信息存储表结构定义-----------------------------------------*/
 extern struct symboltable sT;
-extern struct ext_val_table evT;
-extern struct arr_val_table avT;
 extern struct func_table fT;
 extern struct array_table aT;
 extern struct symbol_scope_begin symbol_scope_TX;
@@ -114,6 +93,7 @@ extern int glo_init_sym;
 extern struct opn glo_arr_lim[10];
 extern int glo_D;
 extern struct opn glo_size;
+extern char glo_flage;
 
 /*--------------------------------------符号表维护函数区-------------------------------------------*/
 //构造新的数组内情向量并插入aT。

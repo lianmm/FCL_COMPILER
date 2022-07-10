@@ -10,10 +10,10 @@ echo -e "\nthe ans from arm-linux-gcc： \c" >>../test_out.txt
 echo -e "out:\t" >>../test_out.txt
 if [ -f test.in ];
     then
-        qemu-arm -L /usr/arm-linux-gnueabihf/ test.right.target <test.in >>../test_out.txt
+        qemu-arm -L /usr/arm-linux-gnueabihf/ test.right.target  -static ../sysy_lib/libsysy.a <test.in >>../test_out.txt
         RET_VALUE1=$?
     else
-        qemu-arm -L /usr/arm-linux-gnueabihf/ test.right.target >>../test_out.txt 
+        qemu-arm -L /usr/arm-linux-gnueabihf/ test.right.target  -static ../sysy_lib/libsysy.a >>../test_out.txt
         RET_VALUE1=$?
     fi
 

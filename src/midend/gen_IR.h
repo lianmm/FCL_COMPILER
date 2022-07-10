@@ -62,7 +62,8 @@ enum IR_op
   IR_CALL_VOID,
 
   ARM_MOVNE,
-  ARM_MOVEQ
+  ARM_MOVEQ,
+  ARM_ITORG
 
 };
 
@@ -90,7 +91,7 @@ struct T_symbol
   int status;
   int address;
   int no_ris;
-  char name[MAXNAME];
+  char name[15];
   char type;
 };
 struct T_symtable
@@ -103,8 +104,13 @@ struct T_symtable
 struct func_symtable
 {
   int top;
+  // struct T_symtable *st = (struct T_symtable *)malloc(sizeof(struct T_symtable) * 100); //预分配50空间;
   struct T_symtable st[100];
-  func_symtable() { this->top = 0; }
+  func_symtable()
+  {
+    this->top = 0;
+    memset(this->st, 0, sizeof(struct T_symtable) * 100);
+  }
 };
 
 //在if或while内的赋值时记录赋值的变量的索引，出语句块时清空临时变量分配；
@@ -116,7 +122,7 @@ struct if_while_sym
 };
 struct if_whi_top
 {
-  int sym_top[500];
+  int sym_top[100];
   int top;
   if_whi_top() { this->top = 1; }
 };
@@ -124,6 +130,7 @@ extern struct func_symtable fsT;
 extern struct index_table iT;
 extern struct if_while_sym iwT;
 extern struct if_whi_top iwtT;
+
 //暂存变量结点信息。
 extern struct opn glo_opn1, glo_opn2, glo_res;
 
@@ -148,15 +155,17 @@ extern struct codenode *out_IR;
 extern int no_tmp;
 extern int no_lab;
 
+extern struct node *out_ast;
+
 void DisplayIR(struct codenode *C);
 
 void display_fsT(int index);
 
-void copyOpn(struct opn *dopn, struct opn sopn);
-
 struct codenode *mkIR(enum IR_op op);
 
 struct codenode *merge(int num, ...);
+void split(struct codenode *head1, struct codenode *head2);
+
 void printIR(struct codenode *h);
 void initOpn(struct opn *tmp_opn);
 
@@ -164,3 +173,6 @@ void display_iwT();
 char *newLabel();
 int a2i(char *in);
 void gen_IR(struct node *T);
+
+//遍历语法树释放空间；
+void clear_ast(struct node *T);

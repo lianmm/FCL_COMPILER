@@ -70,6 +70,8 @@ program: ExtDefList  {
       if(ir_sym==1)
             gen_arm(0);
       gen_arm(1);
+          clear_ast($1);
+
       }
          ;
 
@@ -190,6 +192,8 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
 %%
 
 int main(int argc, char *argv[]) {
+        
+
        char file[36];strcpy(file,"../../test/test.c");
        char putfile[36]="../../test/test.s";
   yyin = fopen(argv[4],"r");

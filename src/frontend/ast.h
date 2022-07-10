@@ -8,8 +8,8 @@
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
 #define MAXLENGTH 4000     //定义符号表的大小
-#define MAXNAME 2199
-#define MAXTYPE 200
+#define MAXNAME 1000
+#define MAXTYPE 25
 extern char filename[50]; //输入文件名；
 extern char out_file[50]; //输出文件名；
 extern int lev;           //???
@@ -20,8 +20,7 @@ extern int lev;           //???
 struct opn
 {
     char kind;         //标识变量的类型；V->0,P->1，T->2，A->3，F->4,C->5,L->6;
-    char type;         //标识操作数的类型
-                       //只使用四种类型：变量（临时变量）v，常整数 i，常浮点 f,常字符 c;
+    char type;         //标识操作数的类型                       //只使用四种类型：变量（临时变量）v，常整数 i，常浮点 f,常字符 c;
     int const_int;     //整常数值，立即数
     float const_float; //浮点常数值，立即数
     char const_char;   //字符常数值，立即数
@@ -107,7 +106,6 @@ struct node
     int type;   //结点对应值的类型
     int pos;    //语法单位所在位置行号
     int offset; //偏移量
-    int width;  //各种数据占用的字节数
     struct opn out;
     struct opn depth, length;
     char fun_end[36];
