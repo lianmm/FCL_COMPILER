@@ -31,7 +31,7 @@ int mkarr(struct opn arr_lim[], int D)
     {
         aT.arrs[aT.top].lim[i].type = arr_lim[i].type;
         aT.arrs[aT.top].lim[i].const_int = arr_lim[i].const_int;
-        strcpy(aT.arrs[aT.top].lim[i].id, arr_lim[i].id);
+        aT.arrs[aT.top].lim[i].id = arr_lim[i].id;
     }
     aT.top++;
 
@@ -69,7 +69,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     sT->symbols[sT->index].status = 0;
     sT->symbols[sT->index].size.const_int = 0;
     sT->symbols[sT->index].paramnum = 0;
-    strcpy(sT->symbols[sT->index].name, name);
+    sT->symbols[sT->index].name = name;
     sT->symbols[sT->index].level = level;
     strcpy(sT->symbols[sT->index].type, type);
     sT->symbols[sT->index].paramnum = paramnum;
@@ -80,7 +80,7 @@ void mksym(struct symboltable *sT, char *name, int level, char *type, int paramn
     sT->symbols[sT->index].init_sym = init_sym;
     sT->symbols[sT->index].size.type = size.type;
     sT->symbols[sT->index].size.const_int = size.const_int;
-    strcpy(sT->symbols[sT->index].size.id, size.id);
+    sT->symbols[sT->index].size.id = size.id;
     sT->symbols[sT->index].offset.const_int = 0;
     sT->symbols[sT->index].offset.type = 'i';
     switch (flag)
@@ -223,7 +223,7 @@ void printOpn(struct opn topn)
     switch (topn.type)
     {
     case 'v':
-        printf("\t%s", topn.id);
+        printf("\t%s", topn.id.c_str());
         break;
     case 'i':
         printf("\t%d", topn.const_int);
@@ -257,7 +257,7 @@ void DisplaySymbolTable(struct symboltable sT)
 {
     int i;
     printf("----------------symbol table-----------------------\n");
-    printf("%s\t%s\t%s\t%s\t%s\t\n", "Index", "Name", "Level", "Type", "Flag");
+    printf("Index\tName\tLevel\tType\tFlag\t\n");
     printf("---------------------------------------------------\n");
     for (i = 15; i < sT.index; i++)
     {
@@ -266,7 +266,7 @@ void DisplaySymbolTable(struct symboltable sT)
         {
         case 'F':
         {
-            printf("%d\t%s\t%d\t%s\t%c\t参数个数：%d", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
+            printf("%d\t%s\t%d\t%s\t%c\t参数个数：%d", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
             printf("\t函数形参标识表： ");
             for (int j = 0; j < sT.symbols[i].paramnum; j++)
                 printf("\t%d", sT.symbols[i].paras[j]);
@@ -279,7 +279,7 @@ void DisplaySymbolTable(struct symboltable sT)
         }
         case 'V':
         {
-            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
             printf("\t外部标记flage：%c", sT.symbols[i].flage);
             printf("\t变量空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
@@ -292,7 +292,7 @@ void DisplaySymbolTable(struct symboltable sT)
         }
         case 'A':
         {
-            printf("%d\t%s\t%d\t%s\t%c\t向量表索引:%d\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
+            printf("%d\t%s\t%d\t%s\t%c\t向量表索引:%d\t", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag, sT.symbols[i].paramnum);
             printf("\t外部标记flage：%c", sT.symbols[i].flage);
             printf("\t数组空间大小size：%d", sT.symbols[i].size.const_int);
             printf("\t数组地址偏移：%d", sT.symbols[i].offset.const_int);
@@ -308,7 +308,7 @@ void DisplaySymbolTable(struct symboltable sT)
         }
         case 'P':
         {
-            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
             printf("\t外部标记flage：%c", sT.symbols[i].flage);
 
             printf("\t形参空间大小size：%d", sT.symbols[i].size.const_int);
@@ -323,7 +323,7 @@ void DisplaySymbolTable(struct symboltable sT)
         }
         case 'T':
         {
-            printf("%d\t%s\tlevel:%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("%d\t%s\tlevel:%d\t%s\t%c\t", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
             printf("\t外部标记flage：%c", sT.symbols[i].flage);
 
             printf("\t变量空间大小size：%d", sT.symbols[i].size.const_int);
@@ -337,7 +337,7 @@ void DisplaySymbolTable(struct symboltable sT)
         }
         case 'C':
         {
-            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name, sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
+            printf("%d\t%s\t%d\t%s\t%c\t", i, sT.symbols[i].name.c_str(), sT.symbols[i].level, sT.symbols[i].type, sT.symbols[i].flag);
             printf("\t外部标记flage：%c", sT.symbols[i].flage);
 
             printf("\t初始化状态：%d", sT.symbols[i].init_sym);
@@ -366,13 +366,13 @@ void DisplaySymbolTable(struct symboltable sT)
 }
 
 //查询符号表，返回表内索引，-1表示不存在。
-int find(char *id)
+int find(string id)
 {
     int i;
     int ans = -1;
     for (i = 0; i < sT.index; i++)
     {
-        if (strcmp(sT.symbols[i].name, id) == 0)
+        if (sT.symbols[i].name == id)
             ans = i;
     }
     return ans;

@@ -2,7 +2,7 @@
 export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin:/usr/lib/jvm/jdk-11/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/games:/usr/local/games:/snap/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin
 
 #.fcl输出文件，.ir中间代码，.s目标代码；
-cd /home/chui/桌面/compiler_fcl/
+
 rm ./p2022/*.fcl ./p2022/*.ir ./p2022/*.s ./test_out.txt ./p2022/*.target ./p2022/*.tst  2>>junk.txt >>junk.txt
 
 if [ ! -f "compiler" ];

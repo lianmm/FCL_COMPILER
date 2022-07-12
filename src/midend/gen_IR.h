@@ -6,7 +6,8 @@
 #include "../frontend/sysy.tab.h"
 #include <stdbool.h>
 #include "../frontend/semantic.h"
-
+#include <string>
+using namespace std;
 /*----------------------------中间代码生成结构定义区-------------------------*/
 
 // IR的op枚举类型。
@@ -72,6 +73,12 @@ struct codenode
   enum IR_op op;                 // TAC代码的运算符种类
   struct opn opn1, opn2, result; // 2个操作数和运算结果
   struct codenode *next, *prior;
+  codenode()
+  {
+    this->op = IR_VOID;
+    this->next = nullptr;
+    this->prior = nullptr;
+  }
 };
 
 //数组访问索引表，实现数组访问的支持。
@@ -91,7 +98,7 @@ struct T_symbol
   int status;
   int address;
   int no_ris;
-  char name[15];
+  string name;
   char type;
 };
 struct T_symtable
@@ -109,7 +116,7 @@ struct func_symtable
   func_symtable()
   {
     this->top = 0;
-    memset(this->st, 0, sizeof(struct T_symtable) * 100);
+    // memset(this->st, 0, sizeof(struct T_symtable) * 100);
   }
 };
 
@@ -124,7 +131,10 @@ struct if_whi_top
 {
   int sym_top[100];
   int top;
-  if_whi_top() { this->top = 1; }
+  if_whi_top()
+  {
+    this->top = 1;
+  }
 };
 extern struct func_symtable fsT;
 extern struct index_table iT;
@@ -139,7 +149,6 @@ extern int displayIR_sym;
 //存放op字段的字符串数组，便于输出IR。
 extern char IR_op_strs[50][32];
 extern struct codenode null_ir;
-//左右类型标识。
 
 // label标识。函数头尾，用于调用和返回；未用。
 extern int func_head_LabIn, func_tail_LabIn;
@@ -172,7 +181,6 @@ void initOpn(struct opn *tmp_opn);
 void display_iwT();
 char *newLabel();
 int a2i(char *in);
-void gen_IR(struct node *T);
+int a2i(string in);
 
-//遍历语法树释放空间；
-void clear_ast(struct node *T);
+void gen_IR(struct node *T);

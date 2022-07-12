@@ -4,7 +4,8 @@
 #include "stdarg.h"
 #include "sysy.tab.h"
 #include <stdbool.h>
-
+#include <string>
+using namespace std;
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
 #define MAXLENGTH 4000     //定义符号表的大小
@@ -24,7 +25,7 @@ struct opn
     int const_int;     //整常数值，立即数
     float const_float; //浮点常数值，立即数
     char const_char;   //字符常数值，立即数
-    char id[MAXNAME];  //变量或临时变量的别名或标号字符串
+    string id;         //变量或临时变量的别名或标号字符串
     int level;         //变量的层号，0表示是全局变量，数据保存在静态数据区
     int offset;        //变量单元偏移量，或函数在符号表的定义位置序号，目标代码生成时用
     int next_use;      //下次调用的语句索引号，为0表示最后一次调用；
@@ -33,6 +34,45 @@ struct opn
     int status;
     char flage;
     char flaga;
+    opn()
+    {
+        this->kind = '0';
+        this->type = '0';
+        this->const_int = 0;
+        this->const_float = 0.0;
+
+        this->id = " ";
+
+        this->level = 0;
+        this->offset = 0;
+        this->next_use = 0;
+        this->address = 0;
+        this->no_ris = 0;
+        this->status = 0;
+        this->flage = '0';
+        this->flaga = '0';
+    }
+
+    opn &operator=(const opn &o1)
+    {
+        this->kind = o1.kind;
+        this->type = o1.type;
+        this->const_int = o1.const_int;
+        this->const_float = o1.const_float;
+
+        this->id = o1.id;
+
+        this->level = o1.level;
+        this->offset = o1.offset;
+        this->next_use = o1.next_use;
+        this->address = o1.address;
+        this->no_ris = o1.no_ris;
+        this->status = o1.status;
+        this->flage = o1.flage;
+        this->flaga = o1.flaga;
+
+        return *this;
+    }
 };
 
 //抽象语法树结点枚举类型；
@@ -109,6 +149,15 @@ struct node
     struct opn out;
     struct opn depth, length;
     char fun_end[36];
+    node()
+    {
+        this->Etrue[0] = '\0', this->Efalse[0] = '\0'; //对布尔表达式的翻译时，真假转移目标的标号
+        this->Snext[0] = '\0';                         //该结点对应语句执行后的下一条语句位置标号
+        this->while_head[0] = '\0', this->while_tail[0] = '\0', this->while_true[0] = '\0';
+        this->type_id[0] = '\0', this->op[0] = '\0', this->fun_end[0] = '\0';
+        this->ptr[0] = this->ptr[1] = this->ptr[2] = NULL;
+        this->code = NULL;
+    }
 };
 
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos);

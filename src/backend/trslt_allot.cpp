@@ -2,6 +2,7 @@
 #include <queue>
 #include <map>
 #include <set>
+#include <string>
 using namespace std;
 
 /*--------------------------------------------相关全局变量-------------------------------------*/
@@ -16,7 +17,17 @@ map<int, int, greater<int>> tmp_map;
 int ris3_status[11] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 struct arm_instruction null_ar;
 struct arm_instruction *out_arm;
-struct blocks b_list;
+map<int, struct block, greater<int>> b_list;
+
+char arm_op_strs[50][15] = {
+    "ARM_FUNC", "ARM_FUNC_END", "ARM_BLOCK", "ARM_BLOCK_END", "ARM_VOID", "ARM_ALLOC_E",
+
+    "mov", "mov", "mov_RE", "ldr", ".ltorg", "str", "str", "ldr", "ldr", ".word", ".space",
+
+    "add", "add", "rsb", "sub", "mul",
+
+    ".label:", "cmp", "b", "bl", "blt", "ble", "bgt", "bge", "beq", "bne", "moveq", "movne"};
+
 /*--------------------------------------------支持函数实现区------------------------------------*/
 
 void printris(set<int, greater<int>> *ris_pq)
@@ -83,7 +94,7 @@ void split_a(struct arm_instruction *head1, struct arm_instruction *head2)
 //生成一条TAC代码的结点组成的双向循环链表，返回头指针
 struct arm_instruction *mkarm(ARM_op op)
 {
-    struct arm_instruction *h = (struct arm_instruction *)malloc(sizeof(struct arm_instruction));
+    struct arm_instruction *h = new struct arm_instruction();
     h->op = op;
     h->next = h;
     h->prior = h;
@@ -212,7 +223,7 @@ void trslt_div(struct codenode *glo_begin, struct codenode *head, int st_index, 
             // display_fsT();
         }
     }
-    glo_res.type = 'v', glo_res.kind = 'F', strcpy(glo_res.id, type == 0 ? "__aeabi_idiv" : "__aeabi_idivmod");
+    glo_res.type = 'v', glo_res.kind = 'F', glo_res.id = type == 0 ? "__aeabi_idiv" : "__aeabi_idivmod";
     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_CALL_VOID), head);
     head->op = IR_ASSIGN;
     head->opn1 = head->result;
@@ -231,7 +242,7 @@ void trslt_goto(struct codenode *glo_begin, struct codenode *head)
     {
         tmp_res = head->next->result;
         tmp_res1 = head->next->next->opn1;
-        head->next->op = (IR_op)((int)head->op + 8), strcpy(head->next->result.id, tmp_label);
+        head->next->op = (IR_op)((int)head->op + 8), head->next->result.id = tmp_label;
         head->op = IR_EQ;
         //信号为false时的转化；
         hnext2 = head->next->next;
@@ -247,7 +258,7 @@ void trslt_goto(struct codenode *glo_begin, struct codenode *head)
         // printf("goto: %c\n", glo_opn1.type);
         split(glo_begin, hnext2), merge(3, glo_begin, mkIR(IR_GOTO), hnext2);
         //信号为true时的转化；
-        glo_opn1.type = 'v', glo_opn1.kind = 'L', strcpy(glo_opn1.id, tmp_label);
+        glo_opn1.type = 'v', glo_opn1.kind = 'L', glo_opn1.id = tmp_label;
         split(glo_begin, hnext2), merge(3, glo_begin, mkIR(IR_LABEL), hnext2);
         glo_opn1.type = 'v', glo_opn1.kind = 'T', glo_opn1.status = 2, glo_opn1.no_ris = 0, glo_opn1.flage = ' ', glo_opn1.flaga = ' ';
         glo_opn2.type = 'i', glo_opn2.const_int = 0;
@@ -271,14 +282,14 @@ void trslt_goto(struct codenode *glo_begin, struct codenode *head)
             hnext2 = head->next->next;
             tmp_res = head->next->result;
 
-            strcpy(head->next->result.id, tmp_label);
+            head->next->result.id = tmp_label;
         }
         else if (head->next->op == IR_LABEL)
         {
             tmp_res = head->next->opn1;
 
             hnext2 = head->next;
-            glo_res.type = 'v', glo_res.kind = 'L', strcpy(glo_res.id, tmp_label);
+            glo_res.type = 'v', glo_res.kind = 'L', glo_res.id = tmp_label;
             split(glo_begin, hnext2), merge(3, glo_begin, mkIR((IR_op)((int)head->op + 8)), hnext2);
         }
         head->op = IR_EQ;
@@ -296,7 +307,7 @@ void trslt_goto(struct codenode *glo_begin, struct codenode *head)
         // printf("goto: %c\n", glo_opn1.type);
         split(glo_begin, hnext2), merge(3, glo_begin, mkIR(IR_GOTO), hnext2);
         //信号为true时的转化；
-        glo_opn1.type = 'v', glo_opn1.kind = 'L', strcpy(glo_opn1.id, tmp_label);
+        glo_opn1.type = 'v', glo_opn1.kind = 'L', glo_opn1.id = tmp_label;
         split(glo_begin, hnext2), merge(3, glo_begin, mkIR(IR_LABEL), hnext2);
         glo_opn1.type = 'v', glo_opn1.kind = 'T', glo_opn1.status = 2, glo_opn1.no_ris = 0;
         glo_opn2.type = 'i', glo_opn2.const_int = 0;
@@ -409,7 +420,7 @@ void trslt_before_allot()
             now_C->op = IR_EXT_ALLOCA;
             if (now_C->next->op != IR_ASSIGN)
             {
-                glo_opn1.type = 'v', strcpy(glo_opn1.id, "\t.space");
+                glo_opn1.type = 'v', glo_opn1.id = "\t.space";
                 glo_res = now_C->opn1;
                 split(hC, nnext), merge(3, hC, mkIR(IR_ARROFF_EXPie), nnext);
             }
@@ -422,15 +433,15 @@ void trslt_before_allot()
                     {
                         nnext->op = IR_VOID;
                         nnext2->result = nnext->opn2;
-                        nnext2->opn1.type = 'v', strcpy(nnext2->opn1.id, "\t.word");
+                        nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                         nnext2->op = IR_ARROFF_EXPie;
                     }
                     else if (nnext2->opn2.const_int > tmp_offset + 4)
                     {
-                        nnext->opn1.type = 'v', strcpy(nnext->opn1.id, "\t.space");
+                        nnext->opn1.type = 'v', nnext->opn1.id = "\t.space";
                         nnext->result.type = 'i', nnext->result.const_int = nnext2->opn2.const_int - tmp_offset - 4;
                         nnext2->result = nnext->opn2;
-                        nnext2->opn1.type = 'v', strcpy(nnext2->opn1.id, "\t.word");
+                        nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                         nnext2->op = IR_ARROFF_EXPie;
                         nnext->op = IR_ARROFF_EXPie;
                     }
@@ -439,7 +450,7 @@ void trslt_before_allot()
                 }
                 if (tmp_offset < now_C->opn1.const_int - 4)
                 {
-                    glo_opn1.type = 'v', strcpy(glo_opn1.id, "\t.space");
+                    glo_opn1.type = 'v', glo_opn1.id = "\t.space";
                     glo_res.type = 'i', glo_res.const_int = now_C->opn1.const_int - 4 - tmp_offset;
                     split(hC, nnext), merge(3, hC, mkIR(IR_ARROFF_EXPie), nnext);
                 }
@@ -467,7 +478,7 @@ void trslt_before_allot()
     for (i = 1; now_C != hC; now_C = now_C->next, i++)
     { //全局变量翻译；
 
-        if (now_C->op == IR_ALLOCA && (now_C->result.kind != 'P') && strcmp(sT.symbols[now_C->result.offset].name, now_C->result.id) == 0 && now_C->result.offset < sT.index)
+        if (now_C->op == IR_ALLOCA && (now_C->result.kind != 'P') && sT.symbols[now_C->result.offset].name == now_C->result.id && now_C->result.offset < sT.index)
         {
             struct codenode *nnext = now_C->next, *nnext2 = nnext->next;
 
@@ -479,7 +490,7 @@ void trslt_before_allot()
                 if (now_C->next->op != IR_ASSIGN)
                 {
 
-                    glo_opn1.type = 'v', strcpy(glo_opn1.id, "\t.space");
+                    glo_opn1.type = 'v', glo_opn1.id = "\t.space";
                     glo_res = now_C->opn1;
                     split(hC, nnext), merge(3, hC, mkIR(IR_ARROFF_EXPie), nnext);
                 }
@@ -493,15 +504,15 @@ void trslt_before_allot()
                         {
                             nnext->op = IR_VOID;
                             nnext2->result = nnext->opn2;
-                            nnext2->opn1.type = 'v', strcpy(nnext2->opn1.id, "\t.word");
+                            nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                             nnext2->op = IR_ARROFF_EXPie;
                         }
                         else if (nnext2->opn2.const_int > tmp_offset + 4)
                         {
-                            nnext->opn1.type = 'v', strcpy(nnext->opn1.id, "\t.space");
+                            nnext->opn1.type = 'v', nnext->opn1.id = "\t.space";
                             nnext->result.type = 'i', nnext->result.const_int = nnext2->opn2.const_int - tmp_offset - 4;
                             nnext2->result = nnext->opn2;
-                            nnext2->opn1.type = 'v', strcpy(nnext2->opn1.id, "\t.word");
+                            nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                             nnext2->op = IR_ARROFF_EXPie;
                             nnext->op = IR_ARROFF_EXPie;
                         }
@@ -510,7 +521,7 @@ void trslt_before_allot()
                     }
                     if (tmp_offset < now_C->opn1.const_int - 4)
                     {
-                        glo_opn1.type = 'v', strcpy(glo_opn1.id, "\t.space");
+                        glo_opn1.type = 'v', glo_opn1.id = "\t.space";
                         glo_res.type = 'i', glo_res.const_int = now_C->opn1.const_int - 4 - tmp_offset;
                         split(hC, nnext), merge(3, hC, mkIR(IR_ARROFF_EXPie), nnext);
                     }
@@ -553,7 +564,7 @@ void trslt_out()
                 {
                 case IR_ASSIGN:
                 {
-                    if (strcmp(cur_IR->opn1.id, "r0") == 0)
+                    if (cur_IR->opn1.id == "r0")
                     {
                         out_arm = merge_a(2, out_arm, mkarm(arm_mov_r0));
                         out_arm->prior->opn2 = cur_IR->opn2;
@@ -809,7 +820,7 @@ void trslt_out()
                 }
                 case IR_ARROFF_EXPie:
                 {
-                    if (!strcmp(cur_IR->opn1.id, "\t.space"))
+                    if (cur_IR->opn1.id == "\t.space")
                         out_arm = merge_a(2, out_arm, mkarm(arm_space));
                     else
                         out_arm = merge_a(2, out_arm, mkarm(arm_word));
@@ -863,7 +874,7 @@ void trslt_out()
                         if (inde == cur_IR->result.const_int)
                         {
                             out_arm = merge_a(2, out_arm, mkarm(arm_ldr_ri));
-                            out_arm->prior->opn2.type = 'i', out_arm->prior->opn2.const_int = -cur_IR->opn1.address,
+                            out_arm->prior->opn2.type = 'i', out_arm->prior->opn2.const_int = -cur_IR->opn1.address;
                             out_arm->prior->opn1.type = 'v', out_arm->prior->opn1.kind = 'T', out_arm->prior->opn1.no_ris = 0;
 
                             out_arm = merge_a(2, out_arm, mkarm(arm_add));
@@ -1074,7 +1085,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 //分配12号寄存器；并把对应结点写入变量结点中；
                 //插入存入栈语句；
                 struct codenode *next_code = head->next;
-                glo_opn1.type = 'v', glo_opn1.kind = 'V', strcpy(glo_opn1.id, O->id), glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
+                glo_opn1.type = 'v', glo_opn1.kind = 'V', glo_opn1.id = O->id, glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
                 glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.kind = 'T', glo_opn2.no_ris = 12;
                 split(glo_begin, next_code), merge(3, glo_begin, mkIR(IR_ASSIGN), next_code);
                 //分配空间并维护函数空间大小；
@@ -1091,7 +1102,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 //插入存入栈语句；将最晚调用的临时变量存入栈；
                 struct codenode *next_code = head->next;
                 split(glo_begin, head); //换语句插入位置；
-                glo_opn1.type = 'v', glo_opn1.kind = 'V', strcpy(glo_opn1.id, O->id), glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
+                glo_opn1.type = 'v', glo_opn1.kind = 'V', glo_opn1.id = O->id, glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
                 glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.no_ris = fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t].no_ris, glo_opn2.kind = 'T';
                 tmp_ris = fsT.st[sT.symbols[st_index].val_index].Tsyms[tmp_t].no_ris;
                 merge(3, glo_begin, mkIR(IR_ASSIGN), head);
@@ -1152,7 +1163,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 glo_opn1.type = 'v', glo_opn1.status = 1, glo_opn1.address = tmp_Tsym->address, glo_opn1.kind = 'V', glo_opn1.flage = '0';
                 glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 12, glo_res.kind = 'T';
-                strcpy(glo_opn1.id, O->id);
+                glo_opn1.id = O->id;
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
                 tmp_Tsym->status = 1;
                 dlt = tmp_map.begin()->first;
@@ -1171,12 +1182,12 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
 
                 //设定一节点地址为变量地址；二节点为寄存器；做一次load；
-                glo_opn1.status = 1, glo_opn1.address = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address, strcpy(glo_opn1.id, tmp_Tsym->name), glo_opn1.kind = 'V', glo_opn1.flage = '0';
+                glo_opn1.status = 1, glo_opn1.address = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
                 glo_res.status = 2, glo_res.no_ris = tmp_ris1, glo_res.kind = 'T', glo_res.type = 'v';
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
 
                 //设定一节点地址为变量地址，二结点为寄存器；做一次store；
-                glo_opn1.status = 1, glo_opn1.address = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address, strcpy(glo_opn1.id, tmp_Tsym->name), glo_opn1.kind = 'V', glo_opn1.flage = '0';
+                glo_opn1.status = 1, glo_opn1.address = fsT.st[sT.symbols[st_index].val_index].Tsyms[a2i(O->id)].address, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
                 glo_opn2.status = 2, glo_opn2.no_ris = 12, glo_opn2.kind = 'T', glo_opn2.type = 'v';
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
 
@@ -1244,6 +1255,7 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
     struct codenode *cur_C; //当前语句；
     cur_C = end;
     int i;
+
     int tmp_num = fsT.st[sT.symbols[begin->opn1.offset].val_index].top;
     for (i = 0; cur_C != begin; cur_C = cur_C->prior, i++)
     {
@@ -1317,19 +1329,22 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
 void glo_ris_allot()
 {
     // printf("glo_ris_alloting\n");
+
     struct codenode *hC, *now_C;
+
     hC = out_IR;
     now_C = hC;
     int i = 0;
     int now_begin_index, now_end_index;
     struct codenode *now_begin, *now_end; //当前的函数体的开始语句索引与终止语句索引；
-
     //大循环,找出所有的func_end和function语句并按函数体分别分配寄存器；
     if (now_C->op == IR_FUNCTION)
     {
+
         now_begin = now_C, now_begin_index = i;
     }
     now_C = now_C->next;
+
     for (i = 1; now_C != hC; now_C = now_C->next, i++)
     {
 
@@ -1338,8 +1353,10 @@ void glo_ris_allot()
             now_begin_index = i;
         else if (now_C->op == IR_FUNC_END)
         {
+
             now_end = now_C, now_end_index = i;
             int add_size = func_ris_allot(now_begin, now_end, now_end_index, hC);
+
             sT.symbols[now_begin->opn1.offset].size.const_int += add_size; //按照使用的寄存器个数与额外内存大小扩大函数栈帧大小；
             if (add_size < 41)
             {
@@ -1354,14 +1371,14 @@ void glo_ris_allot()
                 now_end->result.type = 'i', now_end->result.const_int = add_size;
             }
 
-            //寄存器分配后翻译；
             int argi = 1, parai = 0; //形参实参计算标志；
-            trslt_after_allot(hC, now_begin, now_end, argi, parai);
-            now_begin = now_end = NULL;
-        }
 
-        // printf("%d: now_begin:%d; now_end:%d", i, now_begin_index, now_end_index);
-        // printf("\tOP: %s\n", IR_op_strs[int(now_C->op)]);
+            trslt_after_allot(hC, now_begin, now_end, argi, parai);
+
+            now_begin = now_end = NULL;
+            // printf("%d: now_begin:%d; now_end:%d", i, now_begin_index, now_end_index);
+            // printf("\tOP: %s\n", IR_op_strs[int(now_C->op)]);
+        }
     }
 }
 
@@ -1373,85 +1390,65 @@ void Divide_blocks()
     int i = 0;
     int now_begin_index, now_end_index;
     struct arm_instruction *now_begin, *now_end; //当前的函数体的开始语句索引与终止语句索引；
-
+    struct block tmp_block;
     if (now_C->op == arm_func)
     {
-        glo_opn1.type = 'i', glo_opn1.const_int = block_num;
-        b_list.bl[b_list.top].b_begin = now_C;
-        b_list.bl[b_list.top].size = 0;
-        b_list.bl[b_list.top].index = block_num;
-        b_list.top = 1;
+
+        tmp_block.b_begin = now_C;
+        tmp_block.size = 0;
+        tmp_block.index = block_num;
+        tmp_block.b_end = NULL;
+        b_list[0] = tmp_block;
     }
     now_C = now_C->next;
 
     for (i = 1; now_C != hC; now_C = now_C->next, i++)
     { //全局变量翻译；
+        auto it = b_list.begin();
 
-        if (b_list.bl[b_list.top - 1].b_end == NULL)
-            b_list.bl[b_list.top - 1].size++;
-        // if (b_list.bl[b_list.top - 1].size % 60 == 0 && b_list.bl[b_list.top - 1].size > 59)
-        // {
-        //     glo_opn1.type = 'v', glo_opn1.kind = 'L', strcpy(glo_opn1.id, newLabel());
-        //     split_a(hC, now_C);
-        //     hC = merge_a(5, hC, mkarm(arm_b), mkarm(arm_ltorg), mkarm(arm_label), now_C);
-        //     now_C->prior->prior->prior->opn1 = glo_opn1;
-        //     now_C->prior->opn1 = glo_opn1;
-        //     // now_C = now_C->prior->prior;
-        // }
+        if (it->second.b_end == NULL && it->second.b_begin != NULL)
+            it->second.size++;
+        if (it->second.b_end == NULL && it->second.b_end != NULL && it->second.size % 60 == 0 && it->second.size > 59)
+        {
+            glo_opn1.type = 'v', glo_opn1.kind = 'L', glo_opn1.id = newLabel();
+            split_a(hC, now_C);
+            hC = merge_a(5, hC, mkarm(arm_b), mkarm(arm_ltorg), mkarm(arm_label), now_C);
+            now_C->prior->prior->prior->opn1 = glo_opn1;
+            now_C->prior->opn1 = glo_opn1;
+            // now_C = now_C->prior->prior;
+        }
         if (now_C->op == arm_func || now_C->op == arm_label)
         {
-            if (b_list.bl[b_list.top - 1].b_end == NULL)
+            if (it->second.b_end == NULL)
             {
-                b_list.bl[b_list.top - 1].b_end = now_C->prior;
+                it->second.b_end = now_C->prior;
             }
             glo_opn1.type = 'i', glo_opn1.const_int = block_num;
-            b_list.bl[b_list.top].b_begin = now_C;
-            b_list.bl[b_list.top].size = 0;
-            b_list.bl[b_list.top].index = block_num;
-
-            // if (b_list.bl[b_list.top - 1].index == 45)
-            // {
-            //     b_list.bl = (struct block *)realloc(b_list.bl,100* sizeof(struct block));
-            // }
-            b_list.top++, block_num++;
+            tmp_block.b_begin = now_C;
+            tmp_block.size = 0;
+            tmp_block.index = block_num;
+            b_list[i] = tmp_block;
+            block_num++;
+            if (now_C->prior->op == arm_b)
+                split_a(hC, now_C), hC = merge_a(3, hC, mkarm(arm_ltorg), now_C);
         }
         else if (now_C->op == arm_func_end || now_C->op == arm_b)
         {
-            glo_opn2.type = 'i', glo_opn2.const_int = b_list.bl[b_list.top - 1].size;
-            b_list.bl[b_list.top - 1].b_end = now_C;
-        }
-    }
-}
-
-void clear_IR()
-{
-
-    struct codenode *code = out_IR, *cp = code->prior, *cn = code->next;
-    while (1)
-    {
-        cp = code->prior, cn = code->next;
-        if (cp != cn)
-        {
-            cp->next = cn, cn->prior = cp;
-            free(code), code = cn;
-        }
-        else
-        {
-            if (cp != code)
-                free(code);
-            free(cp);
-            break;
+            it = b_list.begin();
+            glo_opn2.type = 'i', glo_opn2.const_int = it->second.size;
+            it->second.b_end = now_C;
         }
     }
 }
 
 void display_bl()
 {
+    auto it = b_list.begin();
     printf("------------------------------bl:-----------------------------\n");
-    for (int i = 0; i < b_list.top; i++)
+    for (int i = 0; it != b_list.end(); it++, i++)
     {
 
-        printf("\tindex:%d\tsize:%d\tbegin:%s;%s\tend:%s;%s\n", b_list.bl[i].index, b_list.bl[i].size, IR_op_strs[b_list.bl[i].b_begin->op], b_list.bl[i].b_begin->opn1.id, IR_op_strs[b_list.bl[i].b_end->op], b_list.bl[i].b_end->opn1.id);
+        printf("\t%d\tindex:%d\tsize:%d\tbegin:%s;\tend:%s;\n", it->first, it->second.index, it->second.size, arm_op_strs[it->second.b_begin->op], arm_op_strs[it->second.b_end->op]);
     }
     printf("------------------------------   -----------------------------\n");
 }
@@ -1463,7 +1460,7 @@ void translation()
 
     trslt_before_allot();
     glo_ris_allot();
-    // display_bl();
     trslt_out();
-    // Divide_blocks();
+    Divide_blocks();
+    // display_bl();
 }

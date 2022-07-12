@@ -1,6 +1,7 @@
 #include "../midend/optimization.h"
 #include <queue>
 #include <map>
+#include <string>
 #include <set>
 using namespace std;
 enum ARM_op
@@ -62,30 +63,22 @@ struct block
     struct arm_instruction *b_end;
     block()
     {
-        b_begin = b_end = NULL;
-    }
-};
-
-struct blocks
-{
-    struct block *bl;
-    int top;
-    blocks()
-    {
-        bl = (struct block *)malloc(sizeof(struct block) * 200);
-        this->top = 0;
+        this->index = 0;
+        this->size = 0;
+        this->b_begin = this->b_end = NULL;
     }
 };
 
 extern int block_num;
 extern int tmp_allot[MAXLENGTH];
 extern int tmp_sp;
-extern struct blocks b_list;
+extern map<int, struct block, greater<int>> b_list;
 extern char arm_op_strs[50][15];
 extern map<int, int, greater<int>> tmp_map;
 extern int ris3_status[11];
 extern struct arm_instruction *out_arm;
 extern struct arm_instruction null_ar;
-
+extern char arm_op_strs[50][15];
 void translation();
 void clear_IR();
+void clear_ast(struct node *T);

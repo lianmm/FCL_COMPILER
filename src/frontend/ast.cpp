@@ -1,5 +1,6 @@
 #include "ast.h"
-
+#include <string>
+using namespace std;
 /*-------------------------------全局宏变量定义区--------------------------------------*/
 char filename[50];
 char out_file[50];
@@ -8,7 +9,7 @@ int lev;
 /*-----------------------------语法树生成函数实现区----------------------------------*/
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos)
 {
-    struct node *T = (struct node *)malloc(sizeof(struct node));
+    struct node *T = new struct node;
     T->kind = node_kind(kind);
     T->ptr[0] = first;
     T->ptr[1] = second;

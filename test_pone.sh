@@ -3,7 +3,7 @@ rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./t
 rm ./p2022/*.fcl ./p2022/*.ir ./p2022/*.s ./test_out.txt ./p2022/*.target ./p2022/*.tst  2>>junk.txt >>junk.txt
 
 #读取测试用例           
-cd /home/chui/桌面/compiler_fcl/p2022/
+cd ./p2022/
 li=`ls`
 
 read -p '' in_fi

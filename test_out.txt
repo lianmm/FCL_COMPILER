@@ -1,0 +1,313 @@
+0.Time: 0.000246s
+32412kB
+Mem: 	right!!
+1.Time: 0.000307s
+32552kB
+Mem: 	right!!
+2.Time: 0.00034s
+32496kB
+Mem: 	right!!
+3.Time: 0.000229s
+32356kB
+Mem: 	right!!
+4.Time: 0.000689s
+32964kB
+Mem: 	right!!
+5.Time: 0.000737s
+33156kB
+Mem: 	right!!
+6.Time: 0.00025s
+32392kB
+Mem: 	right!!
+7.Time: 0.000254s
+32388kB
+Mem: 	right!!
+8.Time: 0.000308s
+32444kB
+Mem: 	right!!
+9.Time: 0.000362s
+32664kB
+Mem: 	right!!
+10.Time: 0.000269s
+32384kB
+Mem: 	right!!
+11.Time: 0.000318s
+32556kB
+Mem: 	right!!
+12.Time: 0.000249s
+32460kB
+Mem: 	right!!
+13.Time: 0.000381s
+32440kB
+Mem: 	right!!
+14.Time: 0.000272s
+32512kB
+Mem: 	right!!
+15.Time: 0.0003s
+32452kB
+Mem: 	right!!
+16.Time: 0.000226s
+32328kB
+Mem: 	right!!
+17.Time: 0.000303s
+32556kB
+Mem: 	right!!
+18.Time: 0.000324s
+32368kB
+Mem: 	right!!
+19.Time: 0.000712s
+32508kB
+Mem: 	right!!
+20.Time: 0.000265s
+32508kB
+Mem: 	right!!
+21.Time: 0.000535s
+32816kB
+Mem: 	right!!
+22.Time: 0.000537s
+32616kB
+Mem: 	right!!
+23.Time: 0.000439s
+32636kB
+Mem: 	right!!
+24.Time: 0.000519s
+32596kB
+Mem: 	right!!
+25.Time: 0.001391s
+33156kB
+Mem: 	right!!
+26.Time: 0.000453s
+32760kB
+Mem: 	right!!
+27.Time: 0.000988s
+33148kB
+Mem: 	right!!
+28.Time: 0.002126s
+33960kB
+Mem: 	right!!
+29.Time: 0.000603s
+32768kB
+Mem: 	right!!
+30.Time: 0.000509s
+32744kB
+Mem: 	right!!
+31.Time: 0.00051s
+32848kB
+Mem: 	right!!
+32.Time: 0.000681s
+32772kB
+Mem: 	right!!
+33.Time: 0.000631s
+33080kB
+Mem: 	right!!
+34.Time: 0.00044s
+32764kB
+Mem: 	right!!
+35.Time: 0.000496s
+32688kB
+Mem: 	right!!
+36.Time: 0.000439s
+32512kB
+Mem: 	right!!
+37.Time: 0.000446s
+32508kB
+Mem: 	right!!
+38.Time: 0.000875s
+32848kB
+Mem: 	right!!
+39.Time: 0.000518s
+32780kB
+Mem: 	right!!
+40.Time: 0.000339s
+32528kB
+Mem: 	right!!
+41.Time: 0.000417s
+32664kB
+Mem: 	right!!
+42.Time: 0.000561s
+32428kB
+Mem: 	right!!
+43.Time: 0.000668s
+32672kB
+Mem: 	right!!
+44.Time: 0.000937s
+32712kB
+Mem: 	right!!
+45.Time: 0.000418s
+32476kB
+Mem: 	right!!
+46.Time: 0.000259s
+32448kB
+Mem: 	right!!
+47.Time: 0.000318s
+32576kB
+Mem: 	right!!
+48.Time: 0.000576s
+32944kB
+Mem: 	right!!
+49.Time: 0.000665s
+32952kB
+Mem: 	right!!
+50.Time: 0.001275s
+33116kB
+Mem: 	right!!
+51.Time: 0.002058s
+34336kB
+Mem: 	right!!
+52.Time: 0.000573s
+32836kB
+Mem: 	right!!
+53.Time: 0.000607s
+33016kB
+Mem: 	right!!
+54.Time: 0.0022s
+33600kB
+Mem: 	right!!
+55.Time: 0.001059s
+33692kB
+Mem: 	right!!
+56.Time: 0.001126s
+33620kB
+Mem: 	right!!
+57.Time: 0.001407s
+33936kB
+Mem: 	right!!
+58.Time: 0.000955s
+33616kB
+Mem: 	right!!
+59.Time: 0.002337s
+34120kB
+Mem: 	right!!
+60.Time: 0.001254s
+33952kB
+Mem: 	right!!
+61.Time: 0.001189s
+33444kB
+Mem: 	right!!
+62.Time: 0.00362s
+34416kB
+Mem: 	right!!
+63.Time: 0.001463s
+34280kB
+Mem: 	right!!
+64.Time: 0.0033s
+35824kB
+Mem: 	right!!
+65.Time: 0.002299s
+34576kB
+Mem: 	right!!
+66.Time: 0.000722s
+32992kB
+Mem: 	right!!
+67.Time: 0.000395s
+32628kB
+Mem: 	right!!
+68.Time: 0.001224s
+33832kB
+Mem: 	right!!
+69.Time: 0.003147s
+34764kB
+Mem: 	right!!
+70.Time: 0.001861s
+34084kB
+Mem: 	right!!
+71.Time: 0.025449s
+38664kB
+Mem: 	right!!
+72.Time: 0.000842s
+32912kB
+Mem: 	right!!
+73.Time: 0.001523s
+33300kB
+Mem: 	right!!
+74.Time: 0.001375s
+33456kB
+Mem: 	right!!
+75.Time: 0.001982s
+34300kB
+Mem: 	right!!
+76.Time: 0.001136s
+33612kB
+Mem: 	right!!
+77.Time: 0.002324s
+33944kB
+Mem: 	right!!
+78.Time: 0.000897s
+33080kB
+Mem: 	right!!
+79.Time: 0.000836s
+32892kB
+Mem: 	right!!
+80.Time: 0.001354s
+33912kB
+Mem: 	right!!
+81.Time: 0.000532s
+32696kB
+Mem: 	right!!
+82.Time: 0.025742s
+50032kB
+Mem: 	right!!
+83.Time: 0.001564s
+33980kB
+Mem: 	right!!
+84.Time: 0.001234s
+32936kB
+Mem: 	right!!
+85.Time: 0.004973s
+37956kB
+Mem: 	right!!
+86.86_long_code2.sy:
+Compiling failed:  86_long_code2.sy
+87.Time: 0.005712s
+36336kB
+Mem: 
+87_many_params.sy:
+139
+the right ans:
+331024
+0
+88.Time: 0.001569s
+33576kB
+Mem: 	right!!
+89.Time: 0.003015s
+35888kB
+Mem: 	right!!
+90.Time: 0.001515s
+33808kB
+Mem: 	right!!
+91.Time: 0.002241s
+35392kB
+Mem: 	right!!
+92.Time: 0.005939s
+39332kB
+Mem: 	right!!
+93.Time: 0.001598s
+33968kB
+Mem: 	right!!
+94.Time: 0.003116s
+35176kB
+Mem: 	right!!
+95.Error type A :Mysterious character "."
+	 at Line 5
+95_float.sy:8 'PI_HEX' undeclared
+95_float.sy:66 'HEX2' undeclared
+Time: 0.001524s
+34148kB
+Mem: 95_float.s: Assembler messages:
+95_float.s:346: 错误： ARM register expected -- `cmp #0.000000,#1'
+95_float.s:362: 错误： ARM register expected -- `cmp #1.000000,#1'
+95_float.sy:
+Assembling failed: 95_float.sy
+96.Time: 0.001423s
+33912kB
+Mem: 	right!!
+97.Time: 0.001529s
+33928kB
+Mem: 	right!!
+98.Time: 0.002264s
+34372kB
+Mem: 	right!!
+99.Time: 0.001684s
+33960kB
+Mem: 	right!!
+the number of  passed: 97

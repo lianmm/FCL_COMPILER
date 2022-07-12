@@ -6,6 +6,11 @@
 #include "math.h"
 #include "string.h"
 #include "../backend/gen_arm.h"
+#include <string>
+#include <iostream>
+#include <filesystem>
+#include <algorithm>
+#include <unistd.h>
 extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
@@ -67,10 +72,7 @@ program: ExtDefList  {
       //printf("CompUnit:\n"); display_ast($1,3); 
 //使用命令行参数选择是否打印AST，并选择生成中间代码的输出方式（打印 或 新建文件生成）。TODO
       gen_IR($1);
-      if(ir_sym==1)
-            gen_arm(0);
       gen_arm(1);
-          clear_ast($1);
 
       }
          ;
@@ -192,18 +194,22 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
 %%
 
 int main(int argc, char *argv[]) {
-        
+    clock_t beginTime = clock();
+      yyin = fopen(argv[4],"r");
+      if (!yyin) return 0;
+      yylineno = 1;
+      strcpy(filename,argv[4]);
+      strcpy(out_file,argv[3]);
+      if(strcmp(argv[1],"-ir")==0)ir_sym=1;
+      yyparse();
+      fclose(yyin);
+      clock_t endTime = clock();
+    cout << "Time: " << (endTime - beginTime) / 1000000.0 << "s" << endl;
+    pid_t pid = getpid();
+    cout << "Mem: ";
+    system(string("cat /proc/" + to_string(pid) + "/status | grep VmHWM | awk '{print $2 $3}' > /dev/fd/2 >>../test_out.txt").data());
 
-       char file[36];strcpy(file,"../../test/test.c");
-       char putfile[36]="../../test/test.s";
-  yyin = fopen(argv[4],"r");
-  if (!yyin) return 0;
-  yylineno = 1;
-  strcpy(filename,argv[4]);
-  strcpy(out_file,argv[3]);
-  if(strcmp(argv[1],"-ir")==0)ir_sym=1;
-  yyparse();
-  return 0;
+      return 0;
 }
 #include<stdarg.h>
 

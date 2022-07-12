@@ -1,0 +1,58 @@
+
+read_str:
+162		param	buf
+163		alloca	#4	buf
+164		alloca	#4	i
+165		ASSIGN	t0	#0
+166		ASSIGN	i	t0
+167	
+.L83:
+168		ASSIGN	t1	#1
+169		eq	t1	#0	i
+170		goto_neq	t1	#1	.L106
+171		ASSIGN	.L40	#1
+172		eq	.L40	#0	t5
+173		goto	.L85
+174	
+.L106:
+175		ASSIGN	.L106	#0
+176		eq	.L106	#0	t5
+177		goto	.L84
+178		goto	.L85
+179	
+.L84:
+180		CALL	getch	t2
+181		load	i	t3
+182		load	buf	t4
+183		arroff_exp	t2,	[t4, t3]
+184		load	i	t5
+185		load	buf	t6
+186		exp_arroff	t7,	[t6, t5]
+187		ASSIGN	t8	#10
+188		eq	t7	t8	t9
+189		goto_eq	t9	#1	.L89
+190		goto	.L90
+191	
+.L89:
+192		goto	.L85
+193	
+.L90:
+194		load	i	t10
+195		ASSIGN	t11	#1
+196		add	t10	t11	t12
+197		ASSIGN	i	t12
+198		goto	.L83
+199	
+.L85:
+200		ASSIGN	t13	#0
+201		load	buf	t14
+202		arroff_exp	t13,	[t14, t12]
+203		load	buf	t15
+204		ASSIGN		t15
+205		ASSIGN		t12
+206		call_void	putarray
+207		ASSIGN	r0	t12
+208		goto	.L82
+209	
+.L82:
+210		func_end:	read_str

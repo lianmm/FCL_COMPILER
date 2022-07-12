@@ -1,10 +1,11 @@
 #include "ast.h"
-
+#include <string>
+using namespace std;
 /*----------------------------------信息存储结构定义-----------------------------------------*/
 
 struct symbol
-{                       //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
-    char name[MAXNAME]; //变量或函数名
+{
+    string name;        //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
     int level;          //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
     char type[MAXTYPE]; //变量类型或函数返回值类型
     int paramnum;       //形式参数个数;数组的向量内情表索引;
@@ -112,7 +113,7 @@ struct opn arr_size(int index);
 void DisplaySymbolTable(struct symboltable sT);
 
 //查询符号表，返回表内索引，-1表示不存在。
-int find(char *id);
+int find(string id);
 
 //查询库函数表，返回表内索引(TODO)，-1表示不存在。
 int lib_func_find(char *id);
