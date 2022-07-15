@@ -5,16 +5,16 @@
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
-#include "../backend/gen_arm.h"
 #include <string>
 #include <iostream>
 #include <filesystem>
 #include <algorithm>
 #include <unistd.h>
+#include "../backend/free_Memory.h"
 extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
-
+extern struct node *out_ast;
 extern void yyerror(const char* fmt, ...);
 //语法错误处理；
 extern struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos);
@@ -68,14 +68,7 @@ bool ir_sym=0;
 
 %%
 
-program: ExtDefList  {
-      //printf("CompUnit:\n"); display_ast($1,3); 
-//使用命令行参数选择是否打印AST，并选择生成中间代码的输出方式（打印 或 新建文件生成）。TODO
-      gen_IR($1);
-      gen_arm(1);
-
-      }
-         ;
+program: ExtDefList  {out_ast=$1;};
 
 ExtDefList: {$$=NULL;}
           | ExtDef ExtDefList  {$$=mknode(EXT_DEF_LIST,$1,$2,NULL,yylineno);}  //每一个EXTDEFLIST的结点，其第1棵子树对应一个外部变量声明或函数
@@ -193,24 +186,6 @@ Args: Exp COMMA Args  {$$=mknode(ARGS,$1,$3,NULL,yylineno);}
        
 %%
 
-int main(int argc, char *argv[]) {
-    clock_t beginTime = clock();
-      yyin = fopen(argv[4],"r");
-      if (!yyin) return 0;
-      yylineno = 1;
-      strcpy(filename,argv[4]);
-      strcpy(out_file,argv[3]);
-      if(strcmp(argv[1],"-ir")==0)ir_sym=1;
-      yyparse();
-      fclose(yyin);
-      clock_t endTime = clock();
-    cout << "Time: " << (endTime - beginTime) / 1000000.0 << "s" << endl;
-    pid_t pid = getpid();
-    cout << "Mem: ";
-    system(string("cat /proc/" + to_string(pid) + "/status | grep VmHWM | awk '{print $2 $3}' > /dev/fd/2 >>../test_out.txt").data());
-
-      return 0;
-}
 #include<stdarg.h>
 
 void yyerror(const char* fmt, ...)

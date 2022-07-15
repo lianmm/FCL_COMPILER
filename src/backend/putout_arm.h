@@ -1,4 +1,4 @@
-#include "trslt_allot.h"
+#include "translation.h"
 #include "stdio.h"
 
 #include <queue>
@@ -11,4 +11,5 @@
 #include <unistd.h>
 
 using namespace std;
-void gen_arm(int type);
+void putout_arm();
+void print_arm();

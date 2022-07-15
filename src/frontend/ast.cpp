@@ -5,6 +5,20 @@ using namespace std;
 char filename[50];
 char out_file[50];
 int lev;
+struct node *out_ast;
+
+//存放op字段的字符串数组，便于输出IR。
+char IR_op_strs[50][32] = {
+    "ASSIGN", "ext_alloca", "",
+
+    "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "eq", "neq", "and", "or", "goto_glt", "goto_gle", "goto_gjt", "goto_gje", "goto_eq", "goto_neq", "goto_and", "goto_or", "exp_arroff", "arroff_exp", "arroff_expi", "arroff_expie", "exp_arroffa", "arroff_expi0",
+
+    "goto_neq ", "CALL", "not", "uminus", "load", "alloca",
+
+    "function: ", "func_end:", "param", "label:", "goto",
+
+    "arg", "return", "call_void",
+    ".ltorg"};
 
 /*-----------------------------语法树生成函数实现区----------------------------------*/
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos)

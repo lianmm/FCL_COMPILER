@@ -1,58 +1,128 @@
+  putint(a1);
+  putch(32);
+  putint(a2);
+  putch(32);
+  putint(a3);
+  putch(32);
+  putint(a4);
+  putch(32);
+  putint(a5);
+  putch(32);
+  putint(a6);
+  putch(32);
+  putint(a7);
+  putch(32);
+  putint(a8);
+  putch(32);
+  putint(a9);
+  putch(32);
+  putint(a10);
+  putch(32);
+  putint(a11);
+  putch(32);
+  putint(a12);
+  putch(32);
+  putint(a13);
+  putch(32);
+  putint(a14);
+  putch(32);
+  putint(a15);
+  putch(32);
+  putint(a16);
+  putch(32);
+  putint(a17);
+  putch(32);
+  putint(a18);
+  putch(32);
+  putint(a19);
+  putch(32);
+  putint(a20);
+  putch(32);
+  putint(a21);
+  putch(32);
+  putint(a22);
+  putch(32);
+  putint(a23);
+  putch(32);
+  putint(a24);
+  putch(32);
+  putint(a25);
+  putch(32);
+  putint(a26);
+  putch(32);
+  putint(a27);
+  putch(32);
+  putint(a28);
+  putch(32);
+  putint(a29);
+  putch(32);
+  putint(a30);
+  putch(32);
+  putint(a31);
+  putch(32);
+  putint(a32);
+  putch(32);
+  putch(10);
 
-read_str:
-162		param	buf
-163		alloca	#4	buf
-164		alloca	#4	i
-165		ASSIGN	t0	#0
-166		ASSIGN	i	t0
-167	
-.L83:
-168		ASSIGN	t1	#1
-169		eq	t1	#0	i
-170		goto_neq	t1	#1	.L106
-171		ASSIGN	.L40	#1
-172		eq	.L40	#0	t5
-173		goto	.L85
-174	
-.L106:
-175		ASSIGN	.L106	#0
-176		eq	.L106	#0	t5
-177		goto	.L84
-178		goto	.L85
-179	
-.L84:
-180		CALL	getch	t2
-181		load	i	t3
-182		load	buf	t4
-183		arroff_exp	t2,	[t4, t3]
-184		load	i	t5
-185		load	buf	t6
-186		exp_arroff	t7,	[t6, t5]
-187		ASSIGN	t8	#10
-188		eq	t7	t8	t9
-189		goto_eq	t9	#1	.L89
-190		goto	.L90
-191	
-.L89:
-192		goto	.L85
-193	
-.L90:
-194		load	i	t10
-195		ASSIGN	t11	#1
-196		add	t10	t11	t12
-197		ASSIGN	i	t12
-198		goto	.L83
-199	
-.L85:
-200		ASSIGN	t13	#0
-201		load	buf	t14
-202		arroff_exp	t13,	[t14, t12]
-203		load	buf	t15
-204		ASSIGN		t15
-205		ASSIGN		t12
-206		call_void	putarray
-207		ASSIGN	r0	t12
-208		goto	.L82
-209	
-.L82:
-210		func_end:	read_str
+
+int param16(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8,
+            int a9, int a10, int a11, int a12, int a13, int a14, int a15,
+            int a16)
+{
+}
+
+
+// attempt to fool the inliner
+int param32_rec(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8,
+                int a9, int a10, int a11, int a12, int a13, int a14, int a15,
+                int a16, int a17, int a18, int a19, int a20, int a21, int a22,
+                int a23, int a24, int a25, int a26, int a27, int a28, int a29,
+                int a30, int a31, int a32)
+{
+  putint(a1);  putch(32);  putint(a2);  putch(32);
+  putint(a3);  putch(32);  putint(a4);  putch(32);
+  putint(a5);  putch(32);  putint(a6);  putch(32);
+  putint(a7);  putch(32);  putint(a8);  putch(32);
+  putint(a9);  putch(32);  putint(a10);  putch(32);
+  putint(a11);  putch(32);  putint(a12);  putch(32);
+  putint(a13);  putch(32);  putint(a14);  putch(32);
+  putint(a15);  putch(32);  putint(a16);  putch(32);
+  putint(a17);  putch(32);  putint(a18);  putch(32);
+  putint(a19);  putch(32);  putint(a20);  putch(32);
+  putint(a21);  putch(32);  putint(a22);  putch(32);
+  putint(a23);  putch(32);  putint(a24);  putch(32);
+  putint(a25);  putch(32);  putint(a26);  putch(32);
+  putint(a27);  putch(32);  putint(a28);  putch(32);
+  putint(a29);  putch(32);  putint(a30);  putch(32);
+  putint(a31);  putch(32);  putint(a32);  putch(32);
+  putch(10);
+  if (a1 == 0)
+  {
+    return a2;
+  }
+  else
+  {
+    int ans = param32_rec(a1 - 1, (a2 + a3) % 998244353, a4, a5, a6, a7, a8, a9,
+                          a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20,
+                          a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31,
+                          a32, 0);
+    // putint(ans);
+    return ans;
+  }
+}
+
+int main()
+{
+  // int arr[32][2] = {{param16(getint(), getint(), getint(), getint(), getint(),
+  //                            getint(), getint(), getint(), getint(), getint(),
+  //                            getint(), getint(), getint(), getint(), getint(),
+  //                            getint()),
+  //                    8848}},
+  //     i = 1;
+  // putarray(64, arr);
+  // int arr[16] = {95, 91, 81, 80, 67, 63, 63, 58, 55, 54, 45, 19, 17, 13, 13, 5};
+  int ans = param32_rec(95, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31);
+  putint(ans);
+  // putch(10);
+  return 0;
+}

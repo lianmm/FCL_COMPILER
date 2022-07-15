@@ -8,16 +8,18 @@
 using namespace std;
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
-#define MAXLENGTH 4000     //定义符号表的大小
+#define MAXLENGTH 30000    //定义符号表的大小
 #define MAXNAME 1000
 #define MAXTYPE 25
 extern char filename[50]; //输入文件名；
 extern char out_file[50]; //输出文件名；
 extern int lev;           //???
+//存放op字段的字符串数组，便于输出IR。
+extern char IR_op_strs[50][32];
+extern struct node *out_ast;
 
 /*-----------------------中间代码结点和语法树结点区------------------------------------*/
 //中间代码变量结点；
-
 struct opn
 {
     char kind;         //标识变量的类型；V->0,P->1，T->2，A->3，F->4,C->5,L->6;
@@ -40,9 +42,7 @@ struct opn
         this->type = '0';
         this->const_int = 0;
         this->const_float = 0.0;
-
         this->id = " ";
-
         this->level = 0;
         this->offset = 0;
         this->next_use = 0;
@@ -59,9 +59,7 @@ struct opn
         this->type = o1.type;
         this->const_int = o1.const_int;
         this->const_float = o1.const_float;
-
         this->id = o1.id;
-
         this->level = o1.level;
         this->offset = o1.offset;
         this->next_use = o1.next_use;
@@ -74,7 +72,75 @@ struct opn
         return *this;
     }
 };
+// IR的op枚举类型。
+enum IR_op
+{
+    IR_ASSIGN,
+    IR_EXT_ALLOCA,
+    IR_VOID,
 
+    IR_ADD,
+    IR_MINUS,
+    IR_MUL,
+    IR_DIV,
+    IR_MOD,
+    IR_JLT,
+    IR_JLE,
+    IR_JGT,
+    IR_JGE,
+    IR_EQ,
+    IR_NEQ,
+    IR_AND,
+    IR_OR,
+    IR_GOTO_JLT,
+    IR_GOTO_JLE,
+    IR_GOTO_JGT,
+    IR_GOTO_JGE,
+    IR_GOTO_EQ,
+    IR_GOTO_NEQ,
+    IR_GOTO_AND,
+    IR_GOTO_OR,
+    IR_EXP_ARROFF,
+    IR_ARROFF_EXP,
+    IR_ARROFF_EXPi,
+    IR_ARROFF_EXPie,
+    IR_EXP_ARROFFa,
+    IR_ARROFF_EXPi0,
+
+    IR_GOTO_NOT,
+    IR_CALL,
+    IR_NOT,
+    IR_UMINUS,
+    IR_LOAD,
+    IR_ALLOCA,
+
+    IR_FUNCTION,
+    IR_FUNC_END,
+    IR_PARAM,
+    IR_LABEL,
+    IR_GOTO,
+
+    IR_ARG,
+    IR_RETURN,
+    IR_CALL_VOID,
+
+    ARM_MOVNE,
+    ARM_MOVEQ,
+    ARM_ITORG
+
+};
+struct codenode
+{                                  //三地址TAC代码结点,采用双向循环链表存放中间语言代码
+    enum IR_op op;                 // TAC代码的运算符种类
+    struct opn opn1, opn2, result; // 2个操作数和运算结果
+    struct codenode *next, *prior;
+    codenode()
+    {
+        this->op = IR_VOID;
+        this->next = nullptr;
+        this->prior = nullptr;
+    }
+};
 //抽象语法树结点枚举类型；
 enum node_kind
 {
@@ -124,7 +190,6 @@ enum node_kind
     CONST_TERM,
     VOID_STMT
 };
-
 //抽象语法树结点；
 struct node
 {                        //以下对结点属性定义没有考虑存储效率，只是简单地列出要用到的一些属性
@@ -149,6 +214,7 @@ struct node
     struct opn out;
     struct opn depth, length;
     char fun_end[36];
+    string call_name;
     node()
     {
         this->Etrue[0] = '\0', this->Efalse[0] = '\0'; //对布尔表达式的翻译时，真假转移目标的标号
@@ -157,6 +223,7 @@ struct node
         this->type_id[0] = '\0', this->op[0] = '\0', this->fun_end[0] = '\0';
         this->ptr[0] = this->ptr[1] = this->ptr[2] = NULL;
         this->code = NULL;
+        call_name = " ";
     }
 };
 
