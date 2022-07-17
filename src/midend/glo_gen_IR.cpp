@@ -11,7 +11,7 @@ void printOpn1(struct opn *topn)
     switch (topn->type)
     {
     case 'v':
-        fprintf(fp, "\t%s", topn->id.c_str());
+        fprintf(fp, "\t%s.%c", topn->id.c_str(), topn->cal_type);
         break;
     case 'i':
         fprintf(fp, "\t#%d", topn->const_int);
@@ -32,7 +32,7 @@ void printOpn2(struct opn *topn)
     switch (topn->type)
     {
     case 'v':
-        fprintf(fp, "%s", topn->id.c_str());
+        fprintf(fp, "%s.%c", topn->id.c_str(), topn->cal_type);
         break;
     case 'i':
         fprintf(fp, "#%d", topn->const_int);
@@ -263,6 +263,7 @@ void gen_IR(struct node *T)
             // printf("INT：%d\n", T->type_int);
             initOpn(&T->out);
             T->out.type = 'i', T->out.level = glo_level, T->out.offset = -1, T->out.const_int = T->type_int;
+            T->out.cal_type = 'i';
 
             break;
         }
@@ -272,9 +273,8 @@ void gen_IR(struct node *T)
             initOpn(&glo_res);
             glo_res.type = 'f', glo_res.level = glo_level, glo_res.offset = -1, glo_res.const_float = T->type_float;
             glo_res.flage = '0';
-
             T->out = glo_res;
-
+            T->out.cal_type = 'i';
             break;
         }
         case ASSIGN:
@@ -435,7 +435,23 @@ void gen_IR(struct node *T)
                 {
                     // printf("它的初值:\n");
                     glo_init_sym = (int)T->ptr[0]->kind == (int)INT ? 1 : 2;
-                    (int)T->ptr[0]->kind == (int)INT ? glo_int_val = T->ptr[0]->type_int : glo_float_val = T->ptr[0]->type_float;
+                    if (T->ptr[0]->out.type == 'i' && strcmp(glo_type, "int") == 0)
+                    {
+                        glo_int_val = T->ptr[0]->out.const_int;
+                    }
+                    else if (T->ptr[0]->out.type == 'i' && strcmp(glo_type, "float") == 0)
+                    {
+                        glo_float_val = float(T->ptr[0]->out.const_int);
+                    }
+                    else if (T->ptr[0]->out.type == 'f' && strcmp(glo_type, "float") == 0)
+                    {
+                        glo_float_val = T->ptr[0]->out.const_float;
+                    }
+                    else if (T->ptr[0]->out.type == 'f' && strcmp(glo_type, "int") == 0)
+                    {
+                        glo_int_val = int(T->ptr[0]->out.const_float);
+                    }
+
                     assign_sym = 1;
                     gen_IR(T->ptr[0]); //表达式初值
                     if (T->ptr[0])
@@ -516,7 +532,9 @@ void gen_IR(struct node *T)
             // printf("局部变量定义: \n");
             init();
             glo_flag = 'V', glo_paramnum = -1;
-            gen_IR(T->ptr[0]); //显示变量类型
+            gen_IR(T->ptr[0]);                                         //显示变量类型
+            T->place = strcmp(T->ptr[0]->type_id, "int") == 0 ? 1 : 2; //设定类型；
+            T->ptr[1]->place = T->place;
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
             // printf("定义的变量:\n");
@@ -550,88 +568,95 @@ void gen_IR(struct node *T)
             gen_IR(T->ptr[0]);
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            if (check_val_id(glo_name, glo_level, T->pos, glo_type, glo_int_val, glo_float_val))
+
+            glo_size.const_int = 4;
+            //
+            glo_size.type = 'i';
+            if (glo_flag == 'A')
             {
-
-                glo_size.const_int = 4;
-                //
+                glo_paramnum = mkarr(glo_arr_lim, glo_D);
+                glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
                 glo_size.type = 'i';
-                if (glo_flag == 'A')
+                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
+                if (glo_level == 0)
                 {
-                    glo_paramnum = mkarr(glo_arr_lim, glo_D);
-                    glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
-                    glo_size.type = 'i';
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
-                    if (glo_level == 0)
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = 'E';
-                    }
-                    else
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
-                    }
+                    g_sL.find(g_sL.last_sym)->flage = 'E';
+                }
+                else
+                {
+                    g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
+                }
 
-                    //全局变量标识；
-                    g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
-                    add_alloca_IR(1, T, glo_name, &glo_size);
+                //全局变量标识；
+                g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
+                add_alloca_IR(1, T, glo_name, &glo_size);
+                if (glo_level == 0)
+                {
+                    g_sL.find(glo_name)->code_b = T->code->prior;
+                }
+                int tmp_num = 0;
+                struct node *T0;
+                if ((int)T->ptr[0]->kind == VAR_DEC && T->ptr[0]->ptr[1])
+                {
+                    T0 = T->ptr[0]->ptr[0];
+                    T0->place = glo_des[0] * glo_arr_lim[0].const_int;
+                    if (glo_level > 0 && glo_size.const_int > 0) //如果数组大小大于50*4字节，则使用memset语句先置零；
+                    {
+                        // printf("glo_size.const_int: %d\n", glo_size.const_int);
+
+                        add_memset0arr_IR(T);
+                    }
+                    add_initarr_IR(T, T0);
+                } //初始化赋值语句；
+            }
+            else
+            {
+                T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
+                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
+                if (glo_level == 0)
+                {
+                    g_sL.find(g_sL.last_sym)->flage = 'E';
+                }
+                else
+                {
+                    g_sL.find(g_sL.last_sym)->flage = '0';
+                    g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
+                }
+                g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
+                if (glo_flag != 'F' && glo_flag != 'T')
+                {
+                    add_alloca_IR(0, T, glo_name, NULL);
+
                     if (glo_level == 0)
                     {
                         g_sL.find(glo_name)->code_b = T->code->prior;
                     }
-                    int tmp_num = 0;
-                    struct node *T0;
-                    if ((int)T->ptr[0]->kind == VAR_DEC && T->ptr[0]->ptr[1])
-                    {
-                        T0 = T->ptr[0]->ptr[0];
-                        T0->place = glo_des[0] * glo_arr_lim[0].const_int;
-                        if (glo_level > 0 && glo_size.const_int > 200) //如果数组大小大于50*4字节，则使用memset语句先置零；
-                        {
-                            // printf("glo_size.const_int: %d\n", glo_size.const_int);
-
-                            add_memset0arr_IR(T);
-                        }
-                        add_initarr_IR(T, T0);
-                    } //初始化赋值语句；
-                }
-                else
-                {
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
-                    if (glo_level == 0)
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = 'E';
-                    }
-                    else
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = '0';
-                        g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
-                    }
-                    g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
-                    if (glo_flag != 'F' && glo_flag != 'T')
-                    {
-                        add_alloca_IR(0, T, glo_name, NULL);
-                        if (glo_level == 0)
-                        {
-                            g_sL.find(glo_name)->code_b = T->code->prior;
-                        }
-                    }
-                }
-
-                if ((int)T->ptr[0]->kind == VAR_DEC && !(T->ptr[0]->ptr[1]))
-                {
-                    check_load(T, &T->ptr[0]->ptr[0]->out, 0);
-                    glo_opn1.type = 'v', glo_opn1.id = T->ptr[0]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
-                    glo_opn1.kind = 'V';
-
-                    glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
-                    glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
-                    glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
-
-                    glo_opn2 = T->ptr[0]->ptr[0]->out;
-                    T->code = merge(2, T->code, mkIR(IR_ASSIGN));
                 }
             }
-            //插入新局部变量入符号表。
 
+            if ((int)T->ptr[0]->kind == VAR_DEC && !(T->ptr[0]->ptr[1]))
+            {
+                check_load(T, &T->ptr[0]->ptr[0]->out, 0);
+
+                if (strcmp(g_sL.find((string)T->ptr[0]->type_id)->type, "float") == 0 && strcmp(g_sL.find(T->ptr[0]->ptr[0]->out.id)->type, "int") == 0)
+                    add_vcvt_IR(T, &T->ptr[0]->ptr[0]->out, (string) ".f32.s32");
+                else if (strcmp(g_sL.find((string)T->ptr[0]->type_id)->type, "int") == 0 && strcmp(g_sL.find(T->ptr[0]->ptr[0]->out.id)->type, "float") == 0)
+                    add_vcvt_IR(T, &T->ptr[0]->ptr[0]->out, (string) ".s32.f32");
+
+                glo_opn1.type = 'v', glo_opn1.id = T->ptr[0]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
+                glo_opn1.kind = 'V';
+                glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
+                glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+                glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
+
+                glo_opn2 = T->ptr[0]->ptr[0]->out;
+                T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+                // DisplaySymbolTable();
+            }
+
+            //插入新局部变量入符号表。
+            if (T->ptr[1])
+                T->ptr[1]->place = T->place;
             gen_IR(T->ptr[1]);
             if (T->ptr[1])
                 T->code = merge(2, T->code, T->ptr[1]->code);
@@ -811,7 +836,141 @@ void gen_IR(struct node *T)
 
             break;
         }
-        //常变量定义相关；
+            //常变量定义相关；
+        case CONST_VAR_DEF:
+        {
+            if (T->ptr[0] && check_process(2, T, *T))
+            {
+                strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
+            }
+            if (T->ptr[0])
+            {
+                strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
+                strcpy(T->ptr[0]->fun_end, T->fun_end);
+            }
+            if (T->ptr[1] && check_process(2, T, *T))
+            {
+                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
+            }
+            if (T->ptr[1])
+            {
+                strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
+                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            }
+
+            init();
+            glo_flag = 'V', glo_paramnum = -1;
+            gen_IR(T->ptr[0]); //显示变量类型
+            if (T->ptr[0])
+                T->code = merge(2, T->code, T->ptr[0]->code);
+            // printf("定义的变量:\n");
+            assign_sym = 0;
+            T->place = strcmp(T->ptr[0]->type_id, "int") == 0 ? 1 : 2; //设定类型；
+            if (T->ptr[1])
+                T->ptr[1]->place = T->place;
+            gen_IR(T->ptr[1]); //显示该定义的全部变量名
+            if (T->ptr[1])
+                T->code = merge(2, T->code, T->ptr[1]->code);
+
+            break;
+        }
+        case CONST_DEC_LIST:
+        {
+            if (T->ptr[0] && check_process(2, T, *T))
+            {
+                strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
+            }
+            if (T->ptr[0])
+            {
+                strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
+                strcpy(T->ptr[0]->fun_end, T->fun_end);
+            }
+            if (T->ptr[1] && check_process(2, T, *T))
+            {
+                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
+            }
+            if (T->ptr[1])
+            {
+                strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
+                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            }
+
+            gen_IR(T->ptr[0]);
+            if (T->ptr[0])
+                T->code = merge(2, T->code, T->ptr[0]->code);
+            if (check_val_id(glo_name, glo_level, T->pos, glo_type, glo_int_val, glo_float_val))
+            {
+
+                glo_size.const_int = 4;
+                //
+                glo_size.type = 'i';
+                if (glo_flag == 'A')
+                {
+
+                    glo_paramnum = mkarr(glo_arr_lim, glo_D);
+                    glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
+                    glo_size.type = 'i';
+
+                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
+                    if (glo_level == 0)
+                    {
+                        g_sL.find(g_sL.last_sym)->flage = 'E';
+                    }
+                    else
+                    {
+                        g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
+                    }
+
+                    sT.symbols[sT.index - 1].flag = 'C';
+                    g_sL.find(g_sL.last_sym)->flag = 'C', g_sL.find(g_sL.last_sym)->flagca = 'A';
+                    add_alloca_IR(1, T, glo_name, &glo_size);
+                    if (glo_level == 0)
+                    {
+                        g_sL.find(glo_name)->code_b = T->code->prior;
+                    }
+                    struct node *T0;
+                    if ((int)T->ptr[0]->kind == CONST_VAR_DEC && T->ptr[0]->ptr[1])
+                    {
+                        T0 = T->ptr[0]->ptr[0];
+                        T0->place = glo_des[0] * glo_arr_lim[0].const_int;
+                        if (glo_level > 0 && glo_size.const_int > 0) //如果数组大小大于50*4字节，则使用memset语句先置零；
+                        {
+                            add_memset0arr_IR(T);
+                        }
+                        add_initarr_IR(T, T0);
+                    } //初始化赋值语句；
+
+                    // DisplaySymbolTable(sT);
+                }
+                else
+                {
+                    T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
+
+                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //常量入表
+                    if (glo_level == 0)
+                    {
+                        g_sL.find(g_sL.last_sym)->flage = 'E';
+                    }
+                    else
+                    {
+                        g_sL.find(g_sL.last_sym)->flage = '0';
+                    }
+                    sT.symbols[sT.index - 1].flag = 'C';
+                    g_sL.find(g_sL.last_sym)->flag = 'C', g_sL.find(g_sL.last_sym)->flagca = 'V';
+                    T->code = &null_ir;
+                }
+
+                g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
+            }
+            //插入新局部变量入符号表。
+            if (T->ptr[1])
+                T->ptr[1]->place = T->place;
+            gen_IR(T->ptr[1]);
+            if (T->ptr[1])
+                T->code = merge(2, T->code, T->ptr[1]->code);
+
+            break;
+        }
         case CONST_VAR_DEC:
         {
             if (T->ptr[0] && check_process(2, T, *T))
@@ -846,8 +1005,23 @@ void gen_IR(struct node *T)
 
                     assign_sym = 1;
                     gen_IR(T->ptr[0]); //表达式初值
-                    glo_int_val = T->ptr[0]->out.const_int;
-                    glo_float_val = T->ptr[0]->out.const_float;
+
+                    if (T->ptr[0]->out.type == 'i' && strcmp(glo_type, "int") == 0)
+                    {
+                        glo_int_val = T->ptr[0]->out.const_int;
+                    }
+                    else if (T->ptr[0]->out.type == 'i' && strcmp(glo_type, "float") == 0)
+                    {
+                        glo_float_val = float(T->ptr[0]->out.const_int);
+                    }
+                    else if (T->ptr[0]->out.type == 'f' && strcmp(glo_type, "float") == 0)
+                    {
+                        glo_float_val = T->ptr[0]->out.const_float;
+                    }
+                    else if (T->ptr[0]->out.type == 'f' && strcmp(glo_type, "int") == 0)
+                    {
+                        glo_int_val = int(T->ptr[0]->out.const_float);
+                    }
                     if (T->ptr[0])
                         T->code = merge(2, T->code, T->ptr[0]->code);
                     T->out = T->ptr[0]->out;
@@ -899,133 +1073,6 @@ void gen_IR(struct node *T)
                 glo_size.const_int = tmp_size;
                 glo_size.type = 'i';
             }
-
-            break;
-        }
-        case CONST_VAR_DEF:
-        {
-            if (T->ptr[0] && check_process(2, T, *T))
-            {
-                strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
-            }
-            if (T->ptr[0])
-            {
-                strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
-            }
-            if (T->ptr[1] && check_process(2, T, *T))
-            {
-                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
-            }
-            if (T->ptr[1])
-            {
-                strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
-            }
-
-            init();
-            glo_flag = 'V', glo_paramnum = -1;
-            gen_IR(T->ptr[0]); //显示变量类型
-            if (T->ptr[0])
-                T->code = merge(2, T->code, T->ptr[0]->code);
-            // printf("定义的变量:\n");
-            assign_sym = 0;
-            gen_IR(T->ptr[1]); //显示该定义的全部变量名
-            if (T->ptr[1])
-                T->code = merge(2, T->code, T->ptr[1]->code);
-
-            break;
-        }
-        case CONST_DEC_LIST:
-        {
-            if (T->ptr[0] && check_process(2, T, *T))
-            {
-                strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
-            }
-            if (T->ptr[0])
-            {
-                strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
-            }
-            if (T->ptr[1] && check_process(2, T, *T))
-            {
-                strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
-            }
-            if (T->ptr[1])
-            {
-                strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
-            }
-
-            gen_IR(T->ptr[0]);
-            if (T->ptr[0])
-                T->code = merge(2, T->code, T->ptr[0]->code);
-            if (check_val_id(glo_name, glo_level, T->pos, glo_type, glo_int_val, glo_float_val))
-            {
-
-                glo_size.const_int = 4;
-                //
-                glo_size.type = 'i';
-                if (glo_flag == 'A')
-                {
-
-                    glo_paramnum = mkarr(glo_arr_lim, glo_D);
-                    glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
-                    glo_size.type = 'i';
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
-                    if (glo_level == 0)
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = 'E';
-                    }
-                    else
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
-                    }
-
-                    sT.symbols[sT.index - 1].flag = 'C';
-                    g_sL.find(g_sL.last_sym)->flag = 'C', g_sL.find(g_sL.last_sym)->flagca = 'A';
-                    add_alloca_IR(1, T, glo_name, &glo_size);
-                    if (glo_level == 0)
-                    {
-                        g_sL.find(glo_name)->code_b = T->code->prior;
-                    }
-                    struct node *T0;
-                    if ((int)T->ptr[0]->kind == CONST_VAR_DEC && T->ptr[0]->ptr[1])
-                    {
-                        T0 = T->ptr[0]->ptr[0];
-                        T0->place = glo_des[0] * glo_arr_lim[0].const_int;
-                        if (glo_level > 0 && glo_size.const_int > 200) //如果数组大小大于50*4字节，则使用memset语句先置零；
-                        {
-                            add_memset0arr_IR(T);
-                        }
-                        add_initarr_IR(T, T0);
-                    } //初始化赋值语句；
-
-                    // DisplaySymbolTable(sT);
-                }
-                else
-                {
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //常量入表
-                    if (glo_level == 0)
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = 'E';
-                    }
-                    else
-                    {
-                        g_sL.find(g_sL.last_sym)->flage = '0';
-                    }
-                    sT.symbols[sT.index - 1].flag = 'C';
-                    g_sL.find(g_sL.last_sym)->flag = 'C', g_sL.find(g_sL.last_sym)->flagca = 'V';
-                    T->code = &null_ir;
-                }
-
-                g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
-            }
-            //插入新局部变量入符号表。
-
-            gen_IR(T->ptr[1]);
-            if (T->ptr[1])
-                T->code = merge(2, T->code, T->ptr[1]->code);
 
             break;
         }
@@ -1181,6 +1228,17 @@ void gen_IR(struct node *T)
                         //构造结果变量代码结点。
                     }
                     T->code = merge(2, T->code, mkIR(IR_EXP_ARROFF));
+                    if (g_sL.find(T->type_id)->flage == 'P')
+                    {
+                        T->code->prior->result.cal_type = 'i';
+                        T->code->prior->opn1.cal_type = 'i';
+                        T->code->prior->cal_type = 'i';
+                        glo_res = T->code->prior->result;
+                        add_cal_IR(1, T, NULL, glo_res, 0);
+                        strcpy(g_sL.find(g_sL.last_sym)->type, "float");
+                        T->code->prior->opn1.cal_type = 'f';
+                        glo_res = T->code->prior->opn1;
+                    }
                     T->out = glo_res;
                     glo_flag = 'A';
                 }
@@ -1253,6 +1311,7 @@ void gen_IR(struct node *T)
                 glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
                 glo_opn1 = T->ptr[0]->out;
                 glo_opn2.flage = '0';
+                glo_opn2.cal_type = 'i';
 
                 T->code = merge(2, T->code, mkIR(IR_NEQ));
             }
@@ -1347,6 +1406,7 @@ void gen_IR(struct node *T)
                 glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
                 glo_opn1 = T->ptr[0]->out;
                 glo_opn2.flage = '0';
+                glo_opn2.cal_type = 'i';
 
                 T->code = merge(2, T->code, mkIR(IR_NEQ));
             }
@@ -1433,6 +1493,7 @@ void gen_IR(struct node *T)
                 glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
                 glo_opn1 = T->ptr[0]->out;
                 glo_opn2.flage = '0';
+                glo_opn2.cal_type = 'i';
 
                 T->code = merge(2, T->code, mkIR(IR_NEQ));
             }
@@ -1613,7 +1674,7 @@ void gen_IR(struct node *T)
             glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
             T->code = merge(2, T->code, mkIR(IR_FUNC_END));
-            g_sL.find(g_sL.now_func)->code_e = T->code->prior;
+            g_sL.glo_ymT[g_sL.now_func].code_e = T->code->prior;
 
             g_sL.now_func = "glo";
             break;
@@ -1631,11 +1692,11 @@ void gen_IR(struct node *T)
                 if (check_func_id(glo_name, glo_level, T->pos, glo_type, glo_paramnum))
                 {
                     sT.index++;
-                    glo_tmp_type = strcat(glo_type, "(");
+                    glo_tmp_type = strcat(glo_type, "");
                     gen_IR(T->ptr[0]); //显示函数参数列表
                     if (T->ptr[0])
                         T->code = merge(2, T->code, T->ptr[0]->code);
-                    glo_tmp_type = strcat(glo_type, ")");
+                    glo_tmp_type = strcat(glo_type, "");
                     glo_size.const_int = DX;
                     glo_size.type = 'i';
                     glo_flag = 'F';
@@ -1660,7 +1721,7 @@ void gen_IR(struct node *T)
                 // printf("无参函数\n");
                 glo_paramnum = 0;
                 glo_flag = 'F';
-                glo_tmp_type = strcat(glo_type, "(void)");
+                glo_tmp_type = strcat(glo_type, "");
                 if (check_func_id(glo_name, glo_level, T->pos, glo_tmp_type, glo_paramnum))
                 {
                     glo_size.const_int = DX;
@@ -1685,7 +1746,8 @@ void gen_IR(struct node *T)
 
                         //动态维护函数活动空间大小。
                         initOpn(&glo_opn1);
-                        glo_opn1.type = 'v', glo_opn1.id = sT.symbols[sT.index].name, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
+                        // printf("\tglo_opn1.id:%s\n", sT.symbols[sT.index - 1].name.c_str());
+                        glo_opn1.type = 'v', glo_opn1.id = sT.symbols[sT.index - 1].name, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
                         glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
                         // cout << glo_opn1.id << "\t";
                         glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
@@ -1693,6 +1755,12 @@ void gen_IR(struct node *T)
 
                         T->code = merge(2, T->code, mkIR(IR_PARAM));
                         //构造形参代码。
+                        if (strcmp(g_sL.find(sT.symbols[sT.index - 1].name)->type, "float") == 0 && g_sL.find(sT.symbols[sT.index - 1].name)->flag == 'A')
+                        {
+                            T->code->prior->cal_type = 'i';
+                            T->code->prior->opn1.cal_type = 'i';
+                            // strcpy(g_sL.find(T->code->prior->opn1.id)->type, "int");
+                        }
 
                         add_alloca_IR(0, T, sT.symbols[sT.index].name, NULL);
                     }
@@ -1769,10 +1837,7 @@ void gen_IR(struct node *T)
             }
             mksym(&sT, T->ptr[1]->type_id, glo_level + 1, tmp_type1, tmp_paramnum, glo_alias, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
             g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
-            //  if (glo_flag == 'A')
-            //  {
             g_sL.find(g_sL.last_sym)->flage = 'P';
-            //  }
             //添加形参入符号表，当前假定无默认值。
 
             g_sL.find(g_sL.now_func)->paras[glo_paramnum] = tmp_para_type;
@@ -1807,11 +1872,28 @@ void gen_IR(struct node *T)
                 // initOpn(&glo_res);
                 // T->code = merge(2, T->code, mkIR(IR_RETURN));
                 glo_opn2 = T->ptr[0]->out;
-                glo_opn1.type = 'v', glo_opn1.id = "r0";
-                glo_opn1.kind = 'T', glo_opn1.no_ris = 0;
-                glo_opn1.status = 2;
+                if (strcmp(strtok(g_sL.find(g_sL.now_func)->type, "("), "float") == 0)
+                {
+                    glo_opn1.type = 'v', glo_opn1.id = "s0";
+                    glo_opn1.kind = 'T', glo_opn1.no_ris = 100;
+                    glo_opn1.status = 2, glo_opn1.cal_type = 'f';
+                }
+                else
+                {
+                    glo_opn1.type = 'v', glo_opn1.id = "r0";
+                    glo_opn1.kind = 'T', glo_opn1.no_ris = 0;
+                    glo_opn1.status = 2, glo_opn1.cal_type = 'i';
+                }
 
                 T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+                if (strcmp(strtok(g_sL.find(g_sL.now_func)->type, "("), "float") == 0)
+                {
+                    T->code->prior->opn1.cal_type = 'f';
+                }
+                else
+                {
+                    T->code->prior->opn1.cal_type = 'i';
+                }
             }
             else
             {
@@ -1886,7 +1968,6 @@ void gen_IR(struct node *T)
 
                 initOpn(&glo_res);
                 glo_res.type = 'v', glo_res.offset = sT.index - 1, glo_res.level = glo_level, glo_res.id = g_sL.last_sym;
-
                 glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 glo_res.flage = g_sL.find(glo_res.id)->flage;
@@ -1940,10 +2021,15 @@ void gen_IR(struct node *T)
                             glo_res.flage = g_sL.find(glo_res.id)->flage;
                             glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
                             glo_res.kind = g_sL.find(glo_res.id)->flag;
+                            strcpy(g_sL.find(glo_res.id)->type, "int");
 
                             // printf("aaaaaaaaaaaaaaaaaaaa :%s\n", T0->out.id);
 
                             T0->code = merge(2, T0->code, mkIR(IR_LOAD));
+                            T0->code->prior->cal_type = 'i';
+                            T0->code->prior->result.cal_type = 'i';
+                            T0->code->prior->opn1.cal_type = 'i';
+
                             T0->out = glo_res;
                         }
                         else
@@ -1971,13 +2057,18 @@ void gen_IR(struct node *T)
                             if (T0->code->prior->prior->op == IR_EXP_ARROFF)
                             {
                                 T0->code->prior->prior->op = IR_EXP_ARROFFa;
+                                T0->code->prior->result.cal_type = 'i';
+                                strcpy(g_sL.find(T0->code->prior->result.id)->type, "int");
                             }
                             if (T0->code->prior->op == IR_EXP_ARROFF)
                             {
                                 T0->code->prior->op = IR_EXP_ARROFFa;
+                                T0->code->prior->result.cal_type = 'i';
+                                strcpy(g_sL.find(T0->code->prior->result.id)->type, "int");
                             }
                         }
                     }
+
                     // printf("aaaaaaaaaaaaaaaa :%d\n", num_in_para);
                 }
 

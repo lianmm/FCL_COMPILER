@@ -36,8 +36,10 @@ struct opn
     int status;
     char flage;
     char flaga;
+    char cal_type;
     opn()
     {
+        this->cal_type = 'i';
         this->kind = '0';
         this->type = '0';
         this->const_int = 0;
@@ -55,6 +57,7 @@ struct opn
 
     opn &operator=(const opn &o1)
     {
+        this->cal_type = o1.cal_type;
         this->kind = o1.kind;
         this->type = o1.type;
         this->const_int = o1.const_int;
@@ -106,6 +109,7 @@ enum IR_op
     IR_ARROFF_EXPie,
     IR_EXP_ARROFFa,
     IR_ARROFF_EXPi0,
+    IR_VCVT,
 
     IR_GOTO_NOT,
     IR_CALL,
@@ -126,7 +130,7 @@ enum IR_op
 
     ARM_MOVNE,
     ARM_MOVEQ,
-    ARM_ITORG
+    ARM_ITORG,
 
 };
 struct codenode
@@ -134,8 +138,10 @@ struct codenode
     enum IR_op op;                 // TAC代码的运算符种类
     struct opn opn1, opn2, result; // 2个操作数和运算结果
     struct codenode *next, *prior;
+    char cal_type;
     codenode()
     {
+        this->cal_type = 'i';
         this->op = IR_VOID;
         this->next = nullptr;
         this->prior = nullptr;
@@ -202,7 +208,7 @@ struct node
     };
     struct node *ptr[3];                                 //子树指针，由kind确定有多少棵子树
     int level;                                           //层号
-    int place;                                           //表示结点对应的变量或运算结果临时变量在符号表的位置序号；place用于存放函数调用中函数在符号表中的位置；回传ED结点表示的范围；是否是关系型表达式；
+    int place;                                           //回传ED结点表示的范围；是否是关系型表达式；定义的变量的类型；
     char Etrue[15], Efalse[15];                          //对布尔表达式的翻译时，真假转移目标的标号
     char Snext[15];                                      //该结点对应语句执行后的下一条语句位置标号
     char while_head[15], while_tail[15], while_true[15]; //控制while内部的跳转位置。
@@ -215,6 +221,7 @@ struct node
     struct opn depth, length;
     char fun_end[36];
     string call_name;
+    struct node *parent;
     node()
     {
         this->Etrue[0] = '\0', this->Efalse[0] = '\0'; //对布尔表达式的翻译时，真假转移目标的标号
@@ -228,3 +235,4 @@ struct node
 };
 
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos);
+void display_ast(struct node *T, int indent);

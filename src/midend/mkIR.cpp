@@ -90,9 +90,9 @@ void split_id(struct node *T)
 {
     char tmp_id[36];
     if (sizeof(T->type_id) > 500)
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
             tmp_id[i] = T->type_id[i];
-    tmp_id[10] = '\0', strcpy(T->type_id, tmp_id);
+    tmp_id[20] = '\0', strcpy(T->type_id, tmp_id);
 }
 
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
@@ -176,15 +176,84 @@ void mksymt()
 //生成一条TAC代码的结点组成的双向循环链表，返回头指针
 struct codenode *mkIR(IR_op op)
 {
-
+    if (glo_opn1.type == 'v')
+    {
+        glo_opn1.cal_type = 'i';
+        if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0)
+        {
+            glo_opn1.cal_type = 'f';
+        }
+    }
+    if (glo_opn2.type == 'v')
+    {
+        glo_opn2.cal_type = 'i';
+        if (strcmp(g_sL.find(glo_opn2.id)->type, "float") == 0)
+        {
+            glo_opn2.cal_type = 'f';
+        }
+    }
+    if (glo_res.type == 'v')
+    {
+        glo_res.cal_type = 'i';
+        if (strcmp(g_sL.find(glo_res.id)->type, "float") == 0)
+        {
+            glo_res.cal_type = 'f';
+        }
+    }
     struct codenode *h = new codenode();
     h->op = op;
     if (h->op == ARM_ITORG)
         ;
+    else if (h->op == IR_PARAM)
+    {
+        // printf("\tg_sL.find(h->opn1.id)->type:%s\n", g_sL.find(h->opn1.id)->type);
+        h->opn1.cal_type = strcmp(g_sL.find(h->opn1.id)->type, "float") == 0 ? 'f' : 'i';
+        h->opn1 = glo_opn1;
+    }
+    else if (h->op == IR_ASSIGN)
+    {
+        if (glo_opn1.type == 'v' && glo_opn1.kind == 'T')
+        {
+            if (glo_opn2.type == 'i')
+                glo_opn1.cal_type = 'i', strcpy(g_sL.find(glo_opn1.id)->type, "int"), glo_opn2.cal_type = 'i';
+            else if (glo_opn2.type == 'f' || strcmp(g_sL.find(glo_opn2.id)->type, "float") == 0)
+                glo_opn1.cal_type = 'f', glo_opn2.cal_type = 'f', strcpy(g_sL.find(glo_opn1.id)->type, "float");
+        }
+        h->opn1 = glo_opn1;
+        h->opn2 = glo_opn2;
+    }
+    else if (h->op == IR_EXP_ARROFF)
+    {
+        if (glo_res.type == 'v' && glo_res.kind == 'T')
+        {
+            if (glo_opn1.type == 'i')
+                glo_res.cal_type = 'i', strcpy(g_sL.find(glo_res.id)->type, "int");
+            else if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0)
+                glo_res.cal_type = 'f', glo_opn1.cal_type = 'f', strcpy(g_sL.find(glo_res.id)->type, "float");
+        }
+        glo_opn2.cal_type = 'i';
+        h->result = glo_res;
+        h->opn2 = glo_opn2;
+        h->opn1 = glo_opn1;
+    }
     else if (h->op == IR_ARROFF_EXPie)
     {
         h->opn1 = glo_opn1;
         h->result = glo_res;
+    }
+    else if (h->op == IR_VCVT)
+    {
+
+        h->opn1 = glo_opn1;
+        h->opn2 = glo_res;
+        h->result = glo_opn2;
+        h->opn2.cal_type = 'i', h->result.cal_type = 'f';
+        if (h->opn1.id == ".f32.s32")
+        {
+            h->opn2.cal_type = 'f', h->result.cal_type = 'f';
+        }
+        else
+            h->opn2.cal_type = 'f', h->result.cal_type = 'f';
     }
     else if (h->op == ARM_MOVEQ || h->op == ARM_MOVNE)
     {
@@ -196,11 +265,44 @@ struct codenode *mkIR(IR_op op)
         h->opn1 = glo_opn1;
         h->opn2 = glo_opn2;
     }
+    else if (h->op < IR_GOTO_JLT)
+    {
+        if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0 && strcmp(g_sL.find(glo_opn2.id)->type, "float") == 0)
+            glo_res.cal_type = 'f', glo_opn1.cal_type = 'f', glo_opn2.cal_type = 'f', strcpy(g_sL.find(glo_res.id)->type, "float");
+
+        h->result = glo_res;
+        h->opn2 = glo_opn2;
+        h->opn1 = glo_opn1;
+    }
     else if (h->op < IR_GOTO_NOT)
     {
         h->opn1 = glo_opn1;
         h->opn2 = glo_opn2;
         h->result = glo_res;
+    }
+    // else if (h->op == IR_LOAD)
+    // {
+    //     if (glo_res.type == 'v' && glo_res.kind == 'T')
+    //     {
+    //         if (glo_opn1.type == 'i' || glo_opn1.flage == 'E')
+    //             glo_res.cal_type = 'i', strcpy(g_sL.find(glo_res.id)->type, "int");
+    //         else if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(glo_opn1.id)->type, "("), "float") == 0)
+    //             glo_res.cal_type = 'f', glo_opn1.cal_type = 'f', strcpy(g_sL.find(glo_res.id)->type, "float");
+    //     }
+    //     h->result = glo_res;
+    //     h->opn1 = glo_opn1;
+    // }
+    else if (h->op > IR_GOTO_NOT && h->op < IR_ALLOCA)
+    {
+        if (glo_res.type == 'v' && glo_res.kind == 'T')
+        {
+            if (glo_opn1.type == 'i')
+                glo_res.cal_type = 'i', strcpy(g_sL.find(glo_res.id)->type, "int");
+            else if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(glo_opn1.id)->type, "("), "float") == 0)
+                glo_res.cal_type = 'f', glo_opn1.cal_type = 'f', strcpy(g_sL.find(glo_res.id)->type, "float");
+        }
+        h->result = glo_res;
+        h->opn1 = glo_opn1;
     }
     else if (h->op < IR_FUNCTION)
     {
@@ -612,6 +714,12 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 }
             }
             check_load(out_T, &in_T->out, 0);
+
+            if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "float") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "int") == 0)
+                add_vcvt_IR(out_T, &in_T->out, (string) ".f32.s32");
+            else if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "int") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "float") == 0)
+                add_vcvt_IR(out_T, &in_T->out, (string) ".s32.f32");
+
             glo_res = in_T->out;
 
             glo_opn1.id = out_T->ptr[0]->ptr[1]->type_id, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = tmp_c->result.offset;
@@ -669,12 +777,48 @@ void add_memset0arr_IR(struct node *T)
     T->code = merge(2, T->code, mkIR(IR_CALL_VOID));
 }
 
+void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
+{
+    if (op_type == ".f32.s32")
+    {
+        initOpn(&glo_opn1), initOpn(&glo_opn2), initOpn(&glo_res);
+        glo_opn2 = *O;
+        glo_opn2.cal_type = 'i';
+        mksymt();
+        strcpy(g_sL.find(g_sL.last_sym)->type, "float");
+        glo_opn1.type = 'v', glo_opn1.id = g_sL.last_sym, glo_opn1.kind = 'T', glo_opn1.cal_type = 'f';
+        T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+
+        initOpn(&glo_opn2), initOpn(&glo_res);
+        glo_opn2 = glo_opn1, glo_res = glo_opn1;
+        glo_opn1.type = 'v', glo_opn1.id = op_type;
+        T->code = merge(2, T->code, mkIR(IR_VCVT));
+        *O = glo_res;
+    }
+    else if (op_type == ".s32.f32")
+    {
+        glo_opn2 = *O, glo_res = glo_opn2;
+        glo_res.cal_type = glo_opn2.cal_type = 'f';
+        glo_opn1.type = 'v', glo_opn1.id = op_type;
+        T->code = merge(2, T->code, mkIR(IR_VCVT));
+
+        glo_opn2.cal_type = 'f';
+        mksymt();
+        // DisplaySymbolTable();
+        glo_opn1.type = 'v', glo_opn1.id = g_sL.last_sym, glo_opn1.kind = 'T', glo_opn1.cal_type = 'i';
+        T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+        strcpy(g_sL.find(g_sL.last_sym)->type, "int");
+        T->code->prior->opn1.cal_type = 'i';
+        O->type = 'v', O->id = g_sL.last_sym, O->kind = 'T', O->cal_type = 'i';
+    }
+}
+
 /*---------------------------------语义计算优化-------------------------------------*/
 //常量运算直接计算出最终结果；
 void int_cal(struct opn *O1, struct opn *O2, struct node *T)
 {
-
     T->out.type = 'i';
+    T->out.cal_type = 'i';
     switch ((int)T->kind)
     {
 
@@ -729,6 +873,8 @@ void float_cal(struct opn *O1, struct opn *O2, struct node *T)
 {
 
     T->out.type = 'f';
+    T->out.cal_type = 'f';
+
     switch ((int)T->kind)
     {
 
@@ -774,6 +920,7 @@ void float_cal(struct opn *O1, struct opn *O2, struct node *T)
         T->out.const_float = int(O1->const_float) % int(O2->const_float);
         break;
     }
+    // printf("\t%f op %f = %f\n", O1->const_float, O2->const_float, T->out.const_float);
 }
 
 void arroffset_cal(int aTindex)

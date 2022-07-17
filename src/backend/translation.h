@@ -39,7 +39,26 @@ enum ARM_op
     arm_beq,
     arm_bne,
     arm_moveq,
-    arm_movne
+    arm_movne,
+
+    vfp_mov_s0,
+    vfp_mov_ss,
+    vfp_mov_rE,
+    vfp_ldr_si,
+    vfp_str,
+    vfp_str_l2,
+    vfp_ldr,
+    vfp_ldr_l2,
+    vfp_add,
+    vfp_add_l2,
+    vfp_rsb,
+    vfp_sub,
+    vfp_mul,
+    vfp_div,
+    vfp_cmp,
+    vfp_msr,
+    vfp_mrs,
+    vfp_vcvt
 };
 
 struct arm_instruction
@@ -47,8 +66,10 @@ struct arm_instruction
     enum ARM_op op;                // TAC代码的运算符种类
     struct opn opn1, opn2, result; // 2个操作数和运算结果
     struct arm_instruction *next, *prior;
+    char cal_type;
     arm_instruction()
     {
+        this->cal_type = 'i';
         this->op = arm_void;
         this->next = this;
         this->prior = this;
@@ -73,12 +94,13 @@ extern int block_num;
 extern int tmp_allot[MAXLENGTH];
 extern int tmp_sp;
 extern map<int, struct block, greater<int>> b_list;
-extern char arm_op_strs[50][15];
 extern map<int, int, greater<int>> tmp_map;
 extern int ris3_status[11];
 extern struct arm_instruction *out_arm;
 extern struct arm_instruction null_ar;
-extern char arm_op_strs[50][15];
+extern char arm_op_strs[75][15];
+struct arm_instruction *merge_a(int num, ...);
+void split_a(struct arm_instruction *head1, struct arm_instruction *head2);
+struct arm_instruction *mkarm(struct codenode *C, ARM_op op);
+
 void translation();
-void clear_IR();
-void clear_ast(struct node *T);

@@ -338,7 +338,7 @@ void DisplaySymbolTable(struct symbolstack sT)
         // {
         // case 'F':
         // {
-        //     printf("%d\t%s\t%d\t%s\t%c\t参数个数：%d", i, sT.symbols[i].name.c_str(), sT.symbols[i].flag);
+        printf("%d\tname: %s\tflag: %c\n", i, sT.symbols[i].name.c_str(), sT.symbols[i].flag);
         //     printf("\t函数形参标识表： ");
         //     for (int j = 0; j < sT.symbols[i].paramnum; j++)
         //         printf("\t%d", sT.symbols[i].paras[j]);
@@ -443,12 +443,35 @@ void DisplaySymbolTable()
     {
         if (it->second.func_v == NULL && it->second.func_t == NULL)
         {
-            printf("%d\t%s\t%s\t%d\t%s\t%c\t", i, it->first.c_str(), it->second.name.c_str(), it->second.level, it->second.type, it->second.flag);
-            printf("\t外部标记flage：%c", it->second.flage);
-            printf("\t维数：%d\t 各维度长度：", aT.arrs[it->second.paramnum].D);
-            if (it->second.code_b != NULL)
-                printf("\tcode.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->result.id.c_str());
-            printf("\n");
+            if (it->second.flag != 'F')
+            {
+                printf("%d\t%s\t%s\t%d\t%s\t%c\t", i, it->first.c_str(), it->second.name.c_str(), it->second.level, it->second.type, it->second.flag);
+                printf("\t外部标记flage：%c", it->second.flage);
+                if (it->second.flag == 'A')
+                    printf("\t维数：%d\t 各维度长度：", aT.arrs[it->second.paramnum].D);
+                else
+                    printf("\t初始化状态：%d\t初始化值：", it->second.init_sym), strcmp(it->second.type, "int") == 0 ? printf("%d", it->second.int_val) : printf("%f", it->second.float_val);
+                if (it->second.code_b != NULL)
+                    printf("\tcode.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->result.id.c_str());
+                printf("\n");
+            }
+            else if (it->second.flag == 'F')
+            {
+                printf("%d\t%s\t%d\t%s\t%c\t参数个数:%d", i, it->second.name.c_str(), it->second.level, it->second.type, it->second.flag, it->second.paramnum);
+                printf("\t函数形参标识表： ");
+                for (int ji = 0; ji < it->second.paramnum; ji++)
+                    printf("\t%d", it->second.paras[ji]);
+                printf("\tsize: %d\t", it->second.size.const_int);
+                if (it->second.code_b != NULL)
+                {
+                    printf("\tcodeb.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->opn1.id.c_str());
+                }
+                if (it->second.code_e != NULL)
+                {
+                    printf("\tcodee.op:%s\tname:%s", IR_op_strs[(int)it->second.code_e->op], it->second.code_e->opn1.id.c_str());
+                }
+                printf("\n");
+            }
         }
         else
         {
@@ -480,6 +503,7 @@ void DisplaySymbolTable()
                     printf("\t外部标记flage：%c", it2->second.top().flage);
                     printf("\t变量空间大小size：%d", it2->second.top().size.const_int);
                     printf("\t初始化状态：%d", it2->second.top().init_sym);
+                    strcmp(it2->second.top().type, "int") == 0 ? printf("初始化值:%d", it2->second.top().int_val) : printf("初始化值：%f", it2->second.top().float_val);
                     printf("\tlevel： %d", it2->second.top().level);
                     printf("\t变量地址偏移：%d", it2->second.top().offset.const_int);
                     printf("\t变量分配状态： %d", it2->second.top().status);

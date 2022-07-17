@@ -20,6 +20,8 @@ INT8 0[0-7]*
 INT ([1-9][0-9]*|0[0-7]*|(0x|0X)[0-9a-fA-F]+)
 ID [a-z_A-Z][a-z_A-Z0-9]*
 EXP ([Ee][-+]?[0-9]+)
+PXP ([Pp][-+]?[0-9a-fA-F]+)
+FLOAT16 (((0x|0X)[0-9a-f]*\.[0-9a-fA-F]+|(0x|0X)[0-9a-fA-F]+\.){PXP}?[fF]?)|(0x|0X)[0-9a-fA-F]+{PXP}[fF]?|(0x|0X)\.[0-9a-fA-F]+{PXP}?[fF]?
 FLOAT (([0-9]*\.[0-9]+|[0-9]+\.){EXP}?[fF]?)|[0-9]+{EXP}[fF]?
 MultilineComment "/*"([^\*]|(\*)*[^\*/])*(\*)*"*/"
 SingleLineComment "//".*$
@@ -33,6 +35,7 @@ float  ([0-9]*\.[0-9]+)|([0-9]+\.)
 {INT8}		 {yylval.type_int= strtol(yytext, NULL, 8); return INT;}
 {INT16}		 {yylval.type_int= strtol(yytext, NULL, 16); return INT;}
 {INT}        {yylval.type_int=atoi(yytext); return INT;}
+{FLOAT16}	 {yylval.type_float=strtof(yytext, NULL);return FLOAT;}
 {FLOAT}      {yylval.type_float=atof(yytext); return FLOAT;}
 
 "int"        {strcpy(yylval.type_id, yytext); return TYPE;}

@@ -3,11 +3,19 @@
 using namespace std;
 
 // arm语句打印支持;有大写标志说明不一一对应arm语句；
-char arm_ir_op[50][15] = {"store", "ext_alloca", "",
+char arm_ir_op[75][15] = {"store", "ext_alloca", "",
+
                           "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "cmp", "neq", "and", "orr", "blt", "ble", "bgt", "bge", "beq", "bne", "GOTO_AND", "GOTO_OR", "ldr", "str", "str", "AEIE", "add", "str",
+
                           "bne ", "bl", "not", "UMINUS", "load", "alloca",
+
                           "function: ", "func_end:", "param", "label:", "b",
-                          "arg", "ret", "bl", "movne", "moveq"};
+
+                          "arg", "ret", "bl", "movne", "moveq",
+
+                          "vmov.f32", "vmov.f32", "vfp_mov_rE",
+
+                          "vldr.f32", "vstr.32", "vstr.32", "vldr.32", "vldr.32", "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32", "vmsr", "vmsr", "vcvt"};
 
 void printOpn_arm1(struct opn topn)
 {
@@ -24,20 +32,29 @@ void printOpn_arm1(struct opn topn)
         }
         else if (topn.kind == 'T')
         {
-            if (topn.id == "fp")
-                fprintf(fp, "fp");
-            // fprintf(fp, "%s %d %d %d", topn.id, topn.status, topn.no_ris, topn.address);
-            else if (topn.status == 2)
-                fprintf(fp, "r%d", topn.no_ris);
-            else if (topn.status < 2)
-                fprintf(fp, "r%d", topn.no_ris);
+            if (topn.cal_type == 'i')
+            {
+                if (topn.id == "fp")
+                    fprintf(fp, "fp");
+                else if (topn.status == 2)
+                    fprintf(fp, "r%d", topn.no_ris);
+                else if (topn.status < 2)
+                    fprintf(fp, "r%d", topn.no_ris);
+            }
+            else if (topn.cal_type == 'f')
+            {
+                if (topn.no_ris > 40)
+                    topn.no_ris -= 100;
+                fprintf(fp, "s%d", topn.no_ris);
+            }
         }
         break;
     case 'i':
         fprintf(fp, "#%d", topn.const_int);
         break;
     case 'f':
-        fprintf(fp, "#%f", topn.const_float);
+        topn.const_int = *(int *)(&topn.const_float);
+        fprintf(fp, "#%d", topn.const_int);
         break;
     case 'c':
         fprintf(fp, "%c", topn.const_char);
@@ -64,19 +81,29 @@ void printOpn_arm2(struct opn topn)
         }
         else if (topn.kind == 'T')
         {
-            if (topn.id == "fp")
-                fprintf(fp, "\tfp");
-            else if (topn.status == 2)
-                fprintf(fp, "\tr%d", topn.no_ris);
-            else if (topn.status < 2)
-                fprintf(fp, "\tr%d", topn.no_ris);
+            if (topn.cal_type == 'i')
+            {
+                if (topn.id == "fp")
+                    fprintf(fp, "\tfp");
+                else if (topn.status == 2)
+                    fprintf(fp, "\tr%d", topn.no_ris);
+                else if (topn.status < 2)
+                    fprintf(fp, "\tr%d", topn.no_ris);
+            }
+            else if (topn.cal_type == 'f')
+            {
+                if (topn.no_ris > 40)
+                    topn.no_ris -= 100;
+                fprintf(fp, "\ts%d", topn.no_ris);
+            }
         }
         break;
     case 'i':
         fprintf(fp, "\t#%d", topn.const_int);
         break;
     case 'f':
-        fprintf(fp, "\t#%f", topn.const_float);
+        topn.const_int = *(int *)(&topn.const_float);
+        fprintf(fp, "\t#%d", topn.const_int);
         break;
     case 'c':
         fprintf(fp, "\t%c", topn.const_char);
@@ -138,6 +165,7 @@ void print_arm(arm_instruction *h)
         g_sL.now_func = "glo";
         break;
     }
+
     case arm_block:
     case arm_block_end:
     case arm_void:
@@ -152,6 +180,7 @@ void print_arm(arm_instruction *h)
         fprintf(fp, "\t.type\t%s, %%object\n", h->result.id.c_str());
         fprintf(fp, "\t.size\t%s, %d\n", h->result.id.c_str(), h->opn1.const_int);
         fprintf(fp, "%s:", h->result.id.c_str());
+
         if (g_sL.find(h->result.id)->flag == 'A' || g_sL.find(h->result.id)->flagca == 'A')
             fprintf(fp, "\n");
         else if (strcmp(g_sL.find(h->result.id)->type, "int") == 0)
@@ -161,6 +190,7 @@ void print_arm(arm_instruction *h)
         break;
     }
 
+    case vfp_mov_rE:
     case arm_mov_rE:
     {
         fprintf(fp, "\tmovw"), printOpn_arm2(h->opn1), fprintf(fp, ", #:lower16:%s\n", h->opn2.id.c_str());
@@ -170,9 +200,15 @@ void print_arm(arm_instruction *h)
 
     case arm_ldr_ri:
     {
-        fprintf(fp, "\tldr\t"), printOpn_arm1(h->opn1), h->opn2.type == 'i' ? fprintf(fp, ", =%d\n", h->opn2.const_int) : fprintf(fp, ", =%f\n", h->opn2.const_float);
+        fprintf(fp, "\tldr\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", h->opn2.const_int);
         break;
     }
+    case vfp_ldr_si:
+    {
+        fprintf(fp, "\tvldr.f32\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", h->opn2.const_int);
+        break;
+    }
+
     case arm_ltorg:
     {
         fprintf(fp, "\t.ltorg\n");
@@ -181,6 +217,8 @@ void print_arm(arm_instruction *h)
     }
     case arm_word:
     {
+        if (h->opn1.cal_type == 'f')
+            h->opn1.const_int = *(int *)(&h->opn1.const_float);
         fprintf(fp, "\t.word\t %d\n", h->opn1.const_int);
         break;
     }
@@ -198,6 +236,17 @@ void print_arm(arm_instruction *h)
         break;
     }
 
+    case vfp_str_l2:
+    case vfp_ldr_l2:
+    {
+        fprintf(fp, "\tmov"), printOpn_arm2(h->result), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, ",LSL#2\n");
+        fprintf(fp, "\tadd"), printOpn_arm2(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        fprintf(fp, "\n\t%s", arm_op_strs[(int)h->op]);
+        printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2), fprintf(fp, "]\n");
+        break;
+    }
+
+    case vfp_add_l2:
     case arm_add_l2:
     {
         fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
@@ -211,16 +260,26 @@ void print_arm(arm_instruction *h)
         fprintf(fp, ":\n");
         break;
     }
-    case arm_str:
 
+    case arm_str:
     case arm_ldr:
     {
         fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
         printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, "]\n");
         break;
     }
-    case arm_mov_r0:
+    case vfp_ldr:
+    case vfp_str:
+    {
+        fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "]\n");
+        break;
+    }
 
+    case arm_mov_r0:
     case arm_mov_rr:
 
     case arm_add:
@@ -230,8 +289,6 @@ void print_arm(arm_instruction *h)
     case arm_sub:
 
     case arm_mul:
-
-    case arm_cmp:
 
     case arm_b:
 
@@ -252,12 +309,96 @@ void print_arm(arm_instruction *h)
     case arm_moveq:
 
     case arm_movne:
+
+    case vfp_add:
+
+    case vfp_sub:
+
+    case vfp_mul:
+
+    case vfp_div:
+
+    case vfp_mov_ss:
+    case vfp_mov_s0:
+
+    case vfp_msr:
+    case vfp_mrs:
     {
         fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
         if (h->opn1.type != '0')
             printOpn_arm2(h->opn1);
         if (h->opn2.type != '0')
             fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "\n");
+        break;
+    }
+    case vfp_cmp:
+    {
+        if (h->opn1.type != 'v' && h->opn2.type != 'v')
+        {
+            if (h->opn1.type == 'f')
+                fprintf(fp, "\tvldr.f32\ts5, =%d\n", *(int *)(&h->opn1.const_float));
+            else
+                fprintf(fp, "\tvldr.f32\ts5, =%d\n", h->opn1.const_int);
+
+            if (h->opn2.type == 'f')
+                fprintf(fp, "\tvldr.f32\ts0, =%d\n", *(int *)(&h->opn1.const_float));
+            else
+                fprintf(fp, "\tvldr.f32\ts0, =%d\n", h->opn1.const_int);
+
+            fprintf(fp, "\tvcmp.f32\ts5, s0\n");
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
+        fprintf(fp, "\tvmrs\tAPSR_nzcv, FPSCR\n");
+
+        break;
+    }
+    case arm_cmp:
+    {
+        if (h->opn1.type != 'v' && h->opn2.type != 'v')
+        {
+            fprintf(fp, "\tldr\tr0, =%d\n", h->opn1.const_int);
+            fprintf(fp, "\tcmp\tr0, #%d\n", h->opn2.const_int);
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
+
+        break;
+    }
+    case vfp_rsb:
+    {
+
+        break;
+    }
+
+    case vfp_vcvt:
+    {
+        fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        if (h->opn1.type != '0')
+            fprintf(fp, "%s", h->opn1.id.c_str());
+        if (h->opn2.type != '0')
+            fprintf(fp, "\t"), printOpn_arm1(h->opn2);
         if (h->result.type != '0')
             fprintf(fp, ", "), printOpn_arm1(h->result);
         fprintf(fp, "\n");
@@ -304,7 +445,7 @@ void print_arm()
     if (arm->next != &null_ar)
         for (i = 0; 1; i++)
         {
-            fprintf(fp, "\t%d\t%s", i, arm_op_strs[(int)h->op]);
+            fprintf(fp, "\t%d\t%s.%c", i, arm_op_strs[(int)h->op], h->cal_type);
             if (h->opn1.type != '0')
                 printOpn_arm2(h->opn1);
             if (h->opn2.type != '0')

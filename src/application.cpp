@@ -38,21 +38,22 @@ int main(int argc, char *argv[])
     strcpy(filename, argv[4]);
     strcpy(out_file, argv[3]);
 
-    p1 = fork();
+    // p1 = fork();
     if (p1 == 0)
     {
         clock_t beginTime = clock();
 
         //生成语法树；
         yyparse(), fclose(yyin);
-
+        // display_ast(out_ast,0);
         //生成中间代码；
         gen_IR(out_ast);
-        putout_IR(out_IR);
 
         //生成汇编代码；
         translation();
+        // putout_IR(out_IR);
 
+        // DisplaySymbolTable();
         // print_arm();
         putout_arm();
         //释放内存；

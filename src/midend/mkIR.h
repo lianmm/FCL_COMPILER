@@ -150,6 +150,8 @@ void add_initarr_IR(struct node *out_T, struct node *in_T);
 
 void add_memset0arr_IR(struct node *T);
 
+void add_vcvt_IR(struct node *T, struct opn *O, string op_type);
+
 /*---------------------------------语义计算优化-------------------------------------*/
 //常量运算直接计算出最终结果；
 void int_cal(struct opn *O1, struct opn *O2, struct node *T);
