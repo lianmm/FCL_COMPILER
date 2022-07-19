@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
         //生成汇编代码；
         translation();
-        // putout_IR(out_IR);
+        putout_IR(out_IR);
 
         // DisplaySymbolTable();
         // print_arm();

@@ -61,7 +61,7 @@ extern struct opn glo_opn1, glo_opn2, glo_res;
 //打印标志。
 extern int displayIR_sym;
 
-extern struct codenode null_ir;
+extern class codenode null_ir;
 // label标识。函数头尾，用于调用和返回；未用。
 extern int func_head_LabIn, func_tail_LabIn;
 //数组初始化暂存地址计算辅助；
@@ -71,7 +71,7 @@ extern int des_top;
 extern char tmp_name[36];
 //输出文件指针；
 extern FILE *fp;
-extern struct codenode *out_IR;
+extern class codenode *out_IR;
 extern int no_tmp;
 extern int no_lab;
 extern int no_par;
@@ -105,13 +105,13 @@ char *newPara();
 char *newTemp();
 
 //形成新变量标识。
-char *newVal();
+string newVal();
 
 //构造新的临时符号并插入sT。
 void mksymt();
 
 //生成一条TAC代码的结点组成的双向循环链表，返回头指针
-struct codenode *mkIR(IR_op op);
+class codenode *mkIR(IR_op op);
 
 void display_iwT();
 

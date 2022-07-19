@@ -1,5 +1,6 @@
 #include "node_gen_IR.h"
 using namespace std;
+extern class codenode *oneir;
 
 void EXT_DEF_LIST_gen_ir_1(struct node *T)
 {
@@ -186,7 +187,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
                 T->out.const_int = 1;
             glo_opn1 = T->out;
             glo_opn2.type = 'i', glo_opn2.const_int = 1;
-            T->code = merge(2, T->code, mkIR(IR_EQ));
+            oneir = mkIR(IR_EQ);
+            T->code = merge(2, T->code, oneir);
         }
         T->place = 0; //可计算的表达式不能直接跳转，需额外比较；
         return;
@@ -220,7 +222,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
             {
                 glo_opn1 = T->ptr[0]->out;
                 glo_opn2.type = 'i', glo_opn2.const_int = 0;
-                T->code = merge(2, T->code, mkIR(IR_NEQ));
+                oneir = mkIR(IR_NEQ);
+                T->code = merge(2, T->code, oneir);
             }
             add_goto_IR((char *)next_label.c_str(), T, &T->ptr[0]->out, 1);
             add_goto_IR((char *)last_label.c_str(), T, &T->ptr[0]->out, 0);
@@ -235,8 +238,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
                 glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
                 glo_opn1 = T->ptr[0]->out;
                 glo_opn2.flage = '0';
-
-                T->code = merge(2, T->code, mkIR(IR_NEQ));
+                oneir = mkIR(IR_NEQ);
+                T->code = merge(2, T->code, oneir);
             }
             add_goto_IR((char *)last_label.c_str(), T, &T->ptr[0]->out, 1);
             add_goto_IR((char *)next_label.c_str(), T, &T->ptr[0]->out, 0);
@@ -293,7 +296,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
 
                 glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
-                T->code = merge(2, T->code, mkIR(IR_LOAD));
+                oneir = mkIR(IR_LOAD);
+                T->code = merge(2, T->code, oneir);
                 if (strcmp(g_sL.find(T->ptr[0]->type_id)->type, "float") == 0)
                 {
                     T->code->prior->result.cal_type = 'i';
@@ -315,7 +319,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
                 glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
             }
             //构造结果变量代码结点。
-            T->code = merge(2, T->code, mkIR(IR_ARROFF_EXP));
+            oneir = mkIR(IR_ARROFF_EXP);
+            T->code = merge(2, T->code, oneir);
             if (g_sL.find(T->ptr[0]->type_id)->flage == 'P' && strcmp(g_sL.find(T->ptr[0]->type_id)->type, "float") == 0)
             {
                 // strcpy(g_sL.find(T->code->prior->result.id)->type, "int");
@@ -355,7 +360,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
             glo_opn2.flage = g_sL.find(T->ptr[1]->out.id)->flage;
             glo_opn2.flaga = g_sL.find(T->ptr[1]->out.id)->flagca;
             T->out = T->ptr[0]->out;
-            T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+            oneir = mkIR(IR_ASSIGN);
+            T->code = merge(2, T->code, oneir);
 
             if (T->ptr[0]->out.type == 'v' && (T->ptr[0]->out.kind = 'V' || T->ptr[0]->out.kind == 'P') && T->ptr[1]->out.type == 'v' && T->ptr[1]->out.kind == 'T')
             {
@@ -391,8 +397,11 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
         T->out = glo_res;
         // printf("%s\n", T->type_id);
         if ((int)T->kind != (int)AND && (int)T->kind != (int)OR)
-            //构造结点变量代码结点。
-            T->code = merge(2, T->code, mkIR(get_OpType(*T)));
+        //构造结点变量代码结点。
+        {
+            oneir = mkIR(get_OpType(*T));
+            T->code = merge(2, T->code, oneir);
+        }
     }
 
     if ((int)T->kind == (int)OR || (int)T->kind == (int)AND)
@@ -404,8 +413,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
             glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
             glo_opn1 = T->ptr[1]->out;
             glo_opn2.flage = '0';
-
-            T->code = merge(2, T->code, mkIR(IR_NEQ));
+            oneir = mkIR(IR_NEQ);
+            T->code = merge(2, T->code, oneir);
         }
         T->out = T->ptr[0]->out;
         add_label_IR((char *)tmp_label.c_str(), T);
@@ -546,7 +555,8 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             glo_res.flage = g_sL.find(glo_res.id)->flage;
             glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
             glo_res.kind = g_sL.find(glo_res.id)->flag;
-            T->code = merge(2, T->code, mkIR(IR_LOAD));
+            oneir = mkIR(IR_LOAD);
+            T->code = merge(2, T->code, oneir);
             if (strcmp(g_sL.find(T->type_id)->type, "float") == 0)
             {
                 T->code->prior->result.cal_type = 'i';
@@ -583,7 +593,8 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
 
             //构造结果变量代码结点。
         }
-        T->code = merge(2, T->code, mkIR(IR_EXP_ARROFF));
+        oneir = mkIR(IR_EXP_ARROFF);
+        T->code = merge(2, T->code, oneir);
         if (g_sL.find(T->type_id)->flage == 'P' && strcmp(g_sL.find(T->type_id)->type, "float") == 0)
         {
             T->code->prior->result.cal_type = 'i';
@@ -659,8 +670,8 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
                 glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 strcpy(g_sL.find(glo_res.id)->type, "int");
-
-                T0->code = merge(2, T0->code, mkIR(IR_LOAD));
+                oneir = mkIR(IR_LOAD);
+                T0->code = merge(2, T0->code, oneir);
                 T0->code->prior->cal_type = 'i';
                 T0->code->prior->result.cal_type = 'i';
                 T0->code->prior->opn1.cal_type = 'i';
@@ -724,8 +735,8 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
             }
             initOpn(&glo_res);
             glo_res = T0->out;
-
-            hT->code = merge(2, hT->code, mkIR(IR_ARG));
+            oneir = mkIR(IR_ARG);
+            hT->code = merge(2, hT->code, oneir);
             if (g_sL.find(hT->call_name)->paras[para_no] == 4)
             {
                 hT->code->prior->cal_type = 'i';
@@ -749,7 +760,8 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
         }
         initOpn(&glo_res);
         glo_res = T0->out;
-        hT->code = merge(2, hT->code, mkIR(IR_ARG));
+        oneir = mkIR(IR_ARG);
+        hT->code = merge(2, hT->code, oneir);
         if (g_sL.find(hT->call_name)->paras[para_no] == 4)
         {
             hT->code->prior->cal_type = 'i';

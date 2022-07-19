@@ -11,7 +11,7 @@ struct node *out_ast;
 char IR_op_strs[50][32] = {
     "ASSIGN", "ext_alloca", "",
 
-    "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "eq", "neq", "and", "or", "goto_glt", "goto_gle", "goto_gjt", "goto_gje", "goto_eq", "goto_neq", "goto_and", "goto_or", "exp_arroff", "arroff_exp", "arroff_expi", "arroff_expie", "exp_arroffa", "arroff_expi0","vcvt",
+    "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "eq", "neq", "and", "or", "goto_glt", "goto_gle", "goto_gjt", "goto_gje", "goto_eq", "goto_neq", "goto_and", "goto_or", "exp_arroff", "arroff_exp", "arroff_expi", "arroff_expie", "exp_arroffa", "arroff_expi0", "vcvt",
 
     "goto_neq ", "CALL", "not", "uminus", "load", "alloca",
 

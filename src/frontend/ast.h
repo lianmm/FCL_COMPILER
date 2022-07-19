@@ -5,6 +5,7 @@
 #include "sysy.tab.h"
 #include <stdbool.h>
 #include <string>
+#include <map>
 using namespace std;
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
@@ -133,8 +134,17 @@ enum IR_op
     ARM_ITORG,
 
 };
-struct codenode
-{                                  //三地址TAC代码结点,采用双向循环链表存放中间语言代码
+
+enum IR_opn_num
+{
+    Opn1,
+    Opn2,
+    Res
+};
+
+class codenode
+{
+public:                            //三地址TAC代码结点,采用双向循环链表存放中间语言代码
     enum IR_op op;                 // TAC代码的运算符种类
     struct opn opn1, opn2, result; // 2个操作数和运算结果
     struct codenode *next, *prior;
@@ -146,7 +156,15 @@ struct codenode
         this->next = nullptr;
         this->prior = nullptr;
     }
+    void setOpn(IR_opn_num opn_No, string id);
+    void setOpn(IR_opn_num opn_No, int const_int);
+    void setOpn(IR_opn_num opn_No, char type);
+    void setOpn(IR_opn_num opn_No, float const_float);
+    void setOpn(IR_opn_num opn_No, struct opn O);
+    void setOpn(IR_opn_num opn_No, string id, char kind);
 };
+
+;
 //抽象语法树结点枚举类型；
 enum node_kind
 {
@@ -200,12 +218,11 @@ enum node_kind
 struct node
 {                        //以下对结点属性定义没有考虑存储效率，只是简单地列出要用到的一些属性
     enum node_kind kind; //结点类型
-    union
-    {
-        char type_id[MAXNAME]; //由标识符生成的叶结点
-        int type_int;          //由整常数生成的叶结点
-        float type_float;      //由浮点常数生成的叶结点
-    };
+
+    char type_id[MAXNAME]; //由标识符生成的叶结点
+    int type_int;          //由整常数生成的叶结点
+    float type_float;      //由浮点常数生成的叶结点
+
     struct node *ptr[3];                                 //子树指针，由kind确定有多少棵子树
     int level;                                           //层号
     int place;                                           //回传ED结点表示的范围；是否是关系型表达式；定义的变量的类型；

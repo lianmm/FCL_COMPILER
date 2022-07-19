@@ -8,9 +8,9 @@ struct opn glo_opn1, glo_opn2, glo_res;
 
 //打印标志。
 int displayIR_sym = 0;
-struct codenode null_ir;
+class codenode null_ir;
 //左右类型标识。
-
+class codenode *oneir;
 // label标识。函数头尾，用于调用和返回；未用。
 int func_head_LabIn, func_tail_LabIn;
 //数组初始化暂存地址计算辅助；
@@ -19,16 +19,171 @@ int des_top;
 char tmp_name[36];
 //输出文件指针；
 FILE *fp = NULL;
-struct codenode *out_IR;
-
+class codenode *out_IR;
 struct index_table iT;
 class if_while_sym iwT;
 struct if_whi_top iwtT;
+
+map<string, string> node_id;
 
 int no_tmp = 0;
 int no_lab = 1;
 int no_par = 0;
 int comp_stm_type = 0;
+
+void codenode::setOpn(IR_opn_num opn_No, string id)
+{
+    switch (opn_No)
+    {
+    case Opn1:
+    {
+        this->opn1.id = id;
+        this->opn1.type = 'v';
+        this->opn1.level = glo_level;
+        this->opn1.flage = g_sL.find(this->opn1.id)->flage;
+        this->opn1.address = g_sL.find(this->opn1.id)->offset.const_int;
+        this->opn1.kind = g_sL.find(this->opn1.id)->flag;
+        break;
+    }
+    case Opn2:
+    {
+        this->opn2.id = id;
+        this->opn2.type = 'v';
+        this->opn2.level = glo_level;
+        this->opn2.flage = g_sL.find(this->opn2.id)->flage;
+        this->opn2.address = g_sL.find(this->opn2.id)->offset.const_int;
+        this->opn2.kind = g_sL.find(this->opn2.id)->flag;
+        break;
+    }
+    case Res:
+    {
+        this->result.id = id;
+        this->result.type = 'v';
+        this->result.level = glo_level;
+        this->result.flage = g_sL.find(this->result.id)->flage;
+        this->result.address = g_sL.find(this->result.id)->offset.const_int;
+        this->result.kind = g_sL.find(this->result.id)->flag;
+        break;
+    }
+    }
+}
+void codenode::setOpn(IR_opn_num opn_No, int const_int)
+{
+    switch (opn_No)
+    {
+    case Opn1:
+    {
+        this->opn1.type = 'i', this->opn1.offset = -1, this->opn1.level = glo_level, this->opn1.const_int = const_int;
+        this->opn1.cal_type = 'i';
+        this->opn1.flaga = '0', this->opn1.flage = '0';
+        break;
+    }
+    case Opn2:
+    {
+        this->opn2.type = 'i', this->opn2.offset = -1, this->opn2.level = glo_level, this->opn2.const_int = const_int;
+        this->opn2.cal_type = 'i';
+        this->opn2.flaga = '0', this->opn2.flage = '0';
+        break;
+    }
+    case Res:
+    {
+        this->result.type = 'i', this->result.offset = -1, this->result.level = glo_level, this->result.const_int = const_int;
+        this->result.cal_type = 'i';
+        this->result.flaga = '0', this->result.flage = '0';
+        break;
+    }
+    }
+}
+void codenode::setOpn(IR_opn_num opn_No, float const_float)
+{
+    switch (opn_No)
+    {
+    case Opn1:
+    {
+        this->opn1.type = 'f', this->opn1.offset = -1, this->opn1.level = glo_level, this->opn1.const_float = const_float;
+        this->opn1.cal_type = 'f';
+        this->opn1.flaga = '0', this->opn1.flage = '0';
+        break;
+    }
+    case Opn2:
+    {
+        this->opn2.type = 'f', this->opn2.offset = -1, this->opn2.level = glo_level, this->opn2.const_float = const_float;
+        this->opn2.cal_type = 'f';
+        this->opn2.flaga = '0', this->opn2.flage = '0';
+        break;
+    }
+    case Res:
+    {
+        this->result.type = 'f', this->result.offset = -1, this->result.level = glo_level, this->result.const_float = const_float;
+        this->result.cal_type = 'f';
+        this->result.flaga = '0', this->result.flage = '0';
+        break;
+    }
+    }
+}
+void codenode::setOpn(IR_opn_num opn_No, char type)
+{
+}
+void codenode::setOpn(IR_opn_num opn_No, struct opn O)
+{
+    switch (opn_No)
+    {
+    case Opn1:
+    {
+        this->opn1 = O;
+        break;
+    }
+    case Opn2:
+    {
+        this->opn2 = O;
+        break;
+    }
+    case Res:
+    {
+        this->result = O;
+        break;
+    }
+    }
+}
+void codenode::setOpn(IR_opn_num opn_No, string id, char kind)
+{
+    switch (opn_No)
+    {
+    case Opn1:
+    {
+        this->opn1.id = id;
+        this->opn1.type = 'v';
+        this->opn1.level = glo_level;
+        this->opn1.flage = g_sL.find(this->opn1.id)->flage;
+        this->opn1.address = g_sL.find(this->opn1.id)->offset.const_int;
+        this->opn1.kind = g_sL.find(this->opn1.id)->flag;
+        this->opn1.kind = kind;
+        break;
+    }
+    case Opn2:
+    {
+        this->opn2.id = id;
+        this->opn2.type = 'v';
+        this->opn2.level = glo_level;
+        this->opn2.flage = g_sL.find(this->opn2.id)->flage;
+        this->opn2.address = g_sL.find(this->opn2.id)->offset.const_int;
+        this->opn2.kind = g_sL.find(this->opn2.id)->flag;
+        this->opn2.kind = kind;
+        break;
+    }
+    case Res:
+    {
+        this->result.id = id;
+        this->result.type = 'v';
+        this->result.level = glo_level;
+        this->result.flage = g_sL.find(this->result.id)->flage;
+        this->result.address = g_sL.find(this->result.id)->offset.const_int;
+        this->result.kind = g_sL.find(this->result.id)->flag;
+        this->result.kind = kind;
+        break;
+    }
+    }
+}
 
 // void copyTsym(int index);
 /*--------------------------------------中间代码构造所需函数实现区-------------------------------------*/
@@ -88,11 +243,26 @@ string i2s(int in)
 //预处理结点id防止超出字符串静态分配范围；
 void split_id(struct node *T)
 {
+
     char tmp_id[36];
     if (sizeof(T->type_id) > 500)
         for (int i = 0; i < 20; i++)
             tmp_id[i] = T->type_id[i];
     tmp_id[20] = '\0', strcpy(T->type_id, tmp_id);
+    // if (strcmp(T->type_id, "main") != 0 && sizeof(T->type_id) > 50)
+    // {
+    //     if (node_id.find(string(T->type_id)) != node_id.end())
+    //     {
+    //         strcpy(T->type_id, node_id[string(T->type_id)].c_str());
+    //     }
+    //     else
+    //     {
+    //         string ans = newVal();
+    //         cout << "新key-value：" << T->type_id << " " << ans << endl;
+    //         node_id[string(T->type_id)] = ans;
+    //         strcpy(T->type_id, node_id[string(T->type_id)].c_str());
+    //     }
+    // }
 }
 
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
@@ -152,12 +322,13 @@ char *newTemp()
 }
 
 //形成新变量标识。
-char *newVal()
+string newVal()
 {
     static int no = 1;
-    char s[10];
-    snprintf(s, 10, "%d", no++);
-    return strcat0((char *)"v", (char *)s);
+    string new_id = "var";
+    new_id = new_id + to_string(no);
+    no++;
+    return new_id;
 }
 
 //构造新的临时符号并插入sT。
@@ -446,7 +617,8 @@ void add_label_IR(char *a, struct node *T)
     glo_opn1.type = 'v', glo_opn1.offset = sT.index, glo_opn1.level = glo_level, glo_opn1.id = a;
     glo_opn1.kind = 'L';
 
-    T->code = merge(2, T->code, mkIR(IR_LABEL));
+    oneir = mkIR(IR_LABEL);
+    T->code = merge(2, T->code, oneir);
 }
 
 //语法树结点上添加一条新转移代码；
@@ -459,16 +631,25 @@ void add_goto_IR(char *a, struct node *T, struct opn *O, int type)
         initOpn(&glo_opn1), glo_opn1 = *O; //设置第一个变量。
         initOpn(&glo_opn2);
         glo_opn2.type = 'i', glo_opn2.offset = -1, glo_opn2.level = glo_level, glo_opn2.const_int = 1;
-        initOpn(&glo_res); //设置第二个变量。
         glo_opn2.flage = '0';
+        initOpn(&glo_res); //设置第二个变量。
 
         glo_res.type = 'v', glo_res.offset = sT.index, glo_res.level = glo_level, glo_res.id = a;
-        //设置第三个变量。
-
         glo_res.address = 0;
         glo_res.kind = 'L';
+        //设置第三个变量。
 
-        T->code = merge(2, T->code, mkIR(IR_GOTO_EQ)); //生成代码；
+        oneir = mkIR(IR_GOTO_EQ);
+        // oneir->setOpn(Opn2, 1);
+        // oneir->opn2.flage = '0';
+
+        // oneir->setOpn(Res, a);
+        // oneir->result.offset = sT.index;
+        // oneir->result.kind = 'L';
+
+        // oneir->opn1 = *O;
+
+        T->code = merge(2, T->code, oneir); //生成代码；
         break;
     }
     case 0:
@@ -477,7 +658,10 @@ void add_goto_IR(char *a, struct node *T, struct opn *O, int type)
         glo_opn1.type = 'v', glo_opn1.offset = sT.index, glo_opn1.level = glo_level, glo_opn1.id = a;
         glo_opn1.kind = 'L';
 
-        T->code = merge(2, T->code, mkIR(IR_GOTO));
+        oneir = mkIR(IR_GOTO);
+        // oneir->setOpn(Opn1, a, 'L');
+
+        T->code = merge(2, T->code, oneir);
         break;
     }
     case 3:
@@ -492,7 +676,12 @@ void add_goto_IR(char *a, struct node *T, struct opn *O, int type)
         glo_res.type = 'v', glo_res.offset = sT.index, glo_res.level = glo_level, glo_res.id = a;
         //设置第三个变量。
 
-        T->code = merge(2, T->code, mkIR(IR_GOTO_NEQ)); //生成代码；
+        oneir = mkIR(IR_GOTO_NEQ);
+        // oneir->setOpn(Res, a);
+        // oneir->setOpn(Opn2, 1);
+        // oneir->setOpn(Opn1, glo_res);
+
+        T->code = merge(2, T->code, oneir); //生成代码；
         break;
     }
     }
@@ -538,7 +727,8 @@ void add_cal_IR(int type, struct node *T, struct opn *O1, struct opn O2, int tmp
     glo_opn2.flage = '0';
 
     IR_op x[6] = {IR_ASSIGN, IR_ASSIGN, IR_ASSIGN, IR_MUL, IR_ADD, IR_JGE};
-    T->code = merge(2, T->code, mkIR(x[type]));
+    oneir = mkIR(x[type]);
+    T->code = merge(2, T->code, oneir);
 }
 
 //语法树结点上添加一条load代码；
@@ -549,25 +739,27 @@ void add_load_IR(struct opn *O, struct node *T)
 
     initOpn(&glo_res);
     glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
-
     glo_res.address = g_sL.find(glo_name)->offset.const_int;
     glo_res.flage = g_sL.find(glo_name)->flage;
-
     glo_res.kind = 'T',
     glo_res.flage = '0';
+
+    // oneir->setOpn(Res, glo_name);
     // printf("当前装入变量的名称为：%s;地址为：%d\n", glo_res.id, glo_res.address);
     //构造结果变量代码结点。
+    // oneir->setOpn(Opn1, *O);
     glo_opn1 = *O;
     if (O->type == 'v')
     {
         // if (O->id == "p")
         // {
         //     // DisplaySymbolTable(sT), DisplaySymbolTable();
-
+        // oneir->opn1.flage = g_sL.find(O->id)->flage, oneir->opn1.flaga = g_sL.find(O->id)->flagca;
         glo_opn1.flage = g_sL.find(O->id)->flage, glo_opn1.flaga = g_sL.find(O->id)->flagca;
     }
-    T->code = merge(2, T->code, mkIR(IR_LOAD));
-    *O = glo_res;
+    oneir = mkIR(IR_LOAD);
+    T->code = merge(2, T->code, oneir);
+    *O = oneir->result;
 }
 
 //语法树结点检查并添加一条load代码；
@@ -632,7 +824,8 @@ void add_alloca_IR(int type, struct node *T, string a, struct opn *O)
 
     else
         glo_opn1 = *O;
-    T->code = merge(2, T->code, mkIR(IR_ALLOCA));
+    oneir = mkIR(IR_ALLOCA);
+    T->code = merge(2, T->code, oneir);
     glo_res.flage = '0';
 }
 
@@ -667,7 +860,8 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                     glo_opn1.kind = 'A';
                     glo_res.type = 'i', glo_res.const_int = tmp_el->length.const_int * 4 + 4;
                     glo_opn2.type = 'i', glo_opn2.const_int = (in_T->length.const_int + in_T->place) * 4;
-                    out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi0));
+                    oneir = mkIR(IR_ARROFF_EXPi0);
+                    out_T->code = merge(2, out_T->code, oneir);
                 }
             }
 
@@ -681,7 +875,8 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 glo_opn1.kind = 'A';
                 glo_res.type = 'i', glo_res.const_int = in_T->length.const_int * 4;
                 glo_opn2.type = 'i', glo_opn2.const_int = (in_T->length.const_int + in_T->place) * 4;
-                out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi0));
+                oneir = mkIR(IR_ARROFF_EXPi0);
+                out_T->code = merge(2, out_T->code, oneir);
             } //零初始化;
 
             break;
@@ -710,7 +905,8 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                     glo_opn1.kind = 'A';
                     glo_res.type = 'i', glo_res.const_int = tmp_code->opn2.const_int + 4;
                     glo_opn2.type = 'i', glo_opn2.const_int = in_T->length.const_int * 4;
-                    out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi0));
+                    oneir = mkIR(IR_ARROFF_EXPi0);
+                    out_T->code = merge(2, out_T->code, oneir);
                 }
             }
             check_load(out_T, &in_T->out, 0);
@@ -738,7 +934,8 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 glo_opn2 = glo_opn1;
             }
             glo_opn1 = tmp_opn;
-            out_T->code = merge(2, out_T->code, mkIR(IR_ARROFF_EXPi));
+            oneir = mkIR(IR_ARROFF_EXPi);
+            out_T->code = merge(2, out_T->code, oneir);
 
             break;
         }
@@ -753,10 +950,12 @@ void add_memset0arr_IR(struct node *T)
     int tmp_off = g_sL.find(g_sL.last_sym)->size.const_int;
     add_cal_IR(2, T, NULL, glo_opn1, 0);
     glo_res = glo_opn1;
-    T->code = merge(2, T->code, mkIR(IR_ARG));
+    oneir = mkIR(IR_ARG);
+    T->code = merge(2, T->code, oneir);
     add_cal_IR(2, T, NULL, glo_opn1, tmp_off);
     glo_res = glo_opn1;
-    T->code = merge(2, T->code, mkIR(IR_ARG));
+    oneir = mkIR(IR_ARG);
+    T->code = merge(2, T->code, oneir);
     glo_opn2.type = 'i', glo_opn2.status = 1, glo_opn2.const_int = -(g_sL.find(arr_id)->offset.const_int + g_sL.find(arr_id)->size.const_int - 4);
 
     glo_opn2.id = g_sL.find(arr_id)->name;
@@ -766,15 +965,18 @@ void add_memset0arr_IR(struct node *T)
     glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
     glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
-    T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+    oneir = mkIR(IR_ASSIGN);
+    T->code = merge(2, T->code, oneir);
     struct opn tmp_opn2;
     tmp_opn2.type = 'v', tmp_opn2.kind = 'T', tmp_opn2.status = 2, tmp_opn2.no_ris = 11;
     add_cal_IR(4, T, &glo_opn1, tmp_opn2, 0);
 
-    T->code = merge(2, T->code, mkIR(IR_ARG));
+    oneir = mkIR(IR_ARG);
+    T->code = merge(2, T->code, oneir);
     glo_res.type = 'v', glo_res.id = "memset(PLT)";
     glo_res.kind = 'F';
-    T->code = merge(2, T->code, mkIR(IR_CALL_VOID));
+    oneir = mkIR(IR_CALL_VOID);
+    T->code = merge(2, T->code, oneir);
 }
 
 void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
@@ -787,12 +989,14 @@ void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
         mksymt();
         strcpy(g_sL.find(g_sL.last_sym)->type, "float");
         glo_opn1.type = 'v', glo_opn1.id = g_sL.last_sym, glo_opn1.kind = 'T', glo_opn1.cal_type = 'f';
-        T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+        oneir = mkIR(IR_ASSIGN);
+        T->code = merge(2, T->code, oneir);
 
         initOpn(&glo_opn2), initOpn(&glo_res);
         glo_opn2 = glo_opn1, glo_res = glo_opn1;
         glo_opn1.type = 'v', glo_opn1.id = op_type;
-        T->code = merge(2, T->code, mkIR(IR_VCVT));
+        oneir = mkIR(IR_VCVT);
+        T->code = merge(2, T->code, oneir);
         *O = glo_res;
     }
     else if (op_type == ".s32.f32")
@@ -800,13 +1004,15 @@ void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
         glo_opn2 = *O, glo_res = glo_opn2;
         glo_res.cal_type = glo_opn2.cal_type = 'f';
         glo_opn1.type = 'v', glo_opn1.id = op_type;
-        T->code = merge(2, T->code, mkIR(IR_VCVT));
+        oneir = mkIR(IR_VCVT);
+        T->code = merge(2, T->code, oneir);
 
         glo_opn2.cal_type = 'f';
         mksymt();
         // DisplaySymbolTable();
         glo_opn1.type = 'v', glo_opn1.id = g_sL.last_sym, glo_opn1.kind = 'T', glo_opn1.cal_type = 'i';
-        T->code = merge(2, T->code, mkIR(IR_ASSIGN));
+        oneir = mkIR(IR_ASSIGN);
+        T->code = merge(2, T->code, oneir);
         strcpy(g_sL.find(g_sL.last_sym)->type, "int");
         T->code->prior->opn1.cal_type = 'i';
         O->type = 'v', O->id = g_sL.last_sym, O->kind = 'T', O->cal_type = 'i';
