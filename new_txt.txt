@@ -126,3 +126,5 @@ int main()
   // putch(10);
   return 0;
 }
+
+"vmov.f32", "vmov.f32", "vfp_mov_rE", "vldr.f32", "vstr.f32", "vstr.f32", "vldr.f32", "vldr.f32", "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32", "vmsr", "vmsr", "vcvt"

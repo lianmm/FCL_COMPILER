@@ -1,3 +1,4 @@
+//项目整合的启动主文件；
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
@@ -23,6 +24,7 @@ extern FILE *yyin;
 pid_t p1;
 void apply_stack()
 {
+    /*此函数用于执行编译前申请内存栈空间，以一定程度上回避编译过程中的内存问题*/
     struct rlimit limit;
     memset(&limit, 0, sizeof(limit));
     limit.rlim_cur = RLIM_INFINITY; //软限制，表示对资源没有限制
@@ -31,6 +33,7 @@ void apply_stack()
 }
 int main(int argc, char *argv[])
 {
+    /*命令行参数处理*/
     apply_stack();
     yyin = fopen(argv[4], "r");
     if (!yyin)
@@ -38,27 +41,29 @@ int main(int argc, char *argv[])
     strcpy(filename, argv[4]);
     strcpy(out_file, argv[3]);
 
-    // p1 = fork();
+    // p1 = fork();一开始认为申请的栈空间只对子进程生效，后来发现不是，故不再建立子进程，但仍然保留方便出问题回撤；
     if (p1 == 0)
     {
-        clock_t beginTime = clock();
+        clock_t beginTime = clock(); //打开编译计时；
 
-        //生成语法树；
-        yyparse(), fclose(yyin);
-        // display_ast(out_ast,0);
-        //生成中间代码；
-        gen_IR(out_ast);
+        yyparse(), fclose(yyin); //生成语法树；
+        // display_ast(out_ast,0);//打印语法树；
 
-        //生成汇编代码；
-        translation();
-        putout_IR(out_IR);
+        gen_IR(out_ast);   //生成中间代码；
+        putout_IR(out_IR); //打印中间代码；
 
-        // DisplaySymbolTable();
-        // print_arm();
-        putout_arm();
-        //释放内存；
-        free_Memory();
+        // DisplaySymbolTable();//打印符号表；
 
+        mid_optimization();  //中端优化；
+        translation();       //生成汇编代码；
+        back_optimization(); //后端优化；
+
+        // print_arm();//以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
+        putout_arm(); //将可运行的arm代码打印到文件中；
+
+        free_Memory(); //释放内存；
+
+        /*关闭编译计时，并打印出编译时间和所使用的空间（堆空间和栈空间都算上）*/
         pid_t pid = getpid();
         clock_t endTime = clock();
         cout << "Time: " << (endTime - beginTime) / 1000000.0 << "s" << endl;

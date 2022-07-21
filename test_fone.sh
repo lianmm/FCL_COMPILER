@@ -1,3 +1,4 @@
+#此脚本会跑f2022中的指定序号的单个用例，运行情况输出到test_out.txt；同时复制用例内容到test.c中；
 
 rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./test/test.in 2>>junk.txt
 rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
@@ -54,8 +55,9 @@ i=`find . -name "$in_fi[_A-Za-b0-9]*.sy"`
     if [ -f $infile ];
     then
         qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target < $infile > $outfile 
-        cat $infile>>../test/test.in
         retnval=$?
+        cat $infile>>../test/test.in
+
     else
         qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target > $outfile 
         retnval=$?

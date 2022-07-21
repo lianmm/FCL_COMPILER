@@ -1,3 +1,5 @@
+/*arm输出的实现文件*/
+//一般优化应该是不需要修改的，如果做指令替换时需要使用表中没有的新指令需再添加；
 #include "putout_arm.h"
 
 using namespace std;
@@ -28,7 +30,12 @@ void printOpn_arm1(struct opn topn)
         //     fprintf(fp, "\t此变量nextuse：%d", topn.next_use);
         if (topn.kind == 'V' || topn.kind == 'P' || topn.kind == 'L' || topn.kind == 'F')
         {
-            fprintf(fp, "%s", topn.id.c_str());
+            if (topn.id == "starttime")
+                fprintf(fp, "_sysy_starttime(PLT)");
+            else if (topn.id == "stoptime")
+                fprintf(fp, "_sysy_stoptime(PLT)");
+            else
+                fprintf(fp, "%s", topn.id.c_str());
         }
         else if (topn.kind == 'T')
         {
@@ -77,7 +84,12 @@ void printOpn_arm2(struct opn topn)
         //      fprintf(fp, "\t此变量nextuse：%d", topn.next_use);
         if (topn.kind == 'V' || topn.kind == 'P' || topn.kind == 'L' || topn.kind == 'F')
         {
-            fprintf(fp, "\t%s", topn.id.c_str());
+            if (topn.id == "starttime")
+                fprintf(fp, "\t_sysy_starttime(PLT)");
+            else if (topn.id == "stoptime")
+                fprintf(fp, "\t_sysy_stoptime(PLT)");
+            else
+                fprintf(fp, "\t%s", topn.id.c_str());
         }
         else if (topn.kind == 'T')
         {

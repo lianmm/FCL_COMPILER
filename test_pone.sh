@@ -1,6 +1,6 @@
+#此脚本会跑p2022中的指定序名称（无拓展名的全名）的单个用例，运行情况输出到test_out.txt；同时复制用例内容到test.c中；
 
 rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./test/test.in 2>>junk.txt
-rm ./p2022/*.fcl ./p2022/*.ir ./p2022/*.s ./test_out.txt ./p2022/*.target ./p2022/*.tst  2>>junk.txt >>junk.txt
 
 #读取测试用例           
 cd ./p2022/
@@ -34,7 +34,7 @@ i=`find . -name "$in_fi.sy"`
        echo "Compiling failed:  $i"  >>../test_out.txt
        
     else
-    arm-linux-gnueabihf-gcc -o $target  $asm -static ../sysy_lib/libsysy.a   2>>../test_out.txt  
+    arm-linux-gnueabihf-gcc -o $target  $asm -static ../sysy_lib/libsysy.a ../sysy_lib/sylib.a  2>>../test_out.txt  
     # cat $asm >>../test/test.s
     cat ${i/".sy"/".ir"} >>../test/test.ir
      cat $ansfile >>../test/test.out 
@@ -54,8 +54,9 @@ i=`find . -name "$in_fi.sy"`
     if [ -f $infile ];
     then
         qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target < $infile > $outfile 
-        cat $infile>>../test/test.in
         retnval=$?
+        cat $infile>>../test/test.in
+
     else
         qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target > $outfile 
         retnval=$?

@@ -1,3 +1,6 @@
+/*IR到ARM的翻译实现：含翻译，分块，寄存器分配三部分*/
+//在优化中必会用到的ARM增删改实现函数：split_a,merge_a,mkarm需要清楚其功能
+//层次很杂乱，之后有机会再整理一下，本文件做优化应该不需要修改。
 #include "translation.h"
 #include <queue>
 #include <map>
@@ -38,6 +41,8 @@ char arm_op_strs[75][15] = {
     "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32",
 
     "vmsr", "vmsr", "vcvt"};
+
+extern class codenode *oneir;
 
 /*--------------------------------------------支持函数实现区------------------------------------*/
 
@@ -119,39 +124,45 @@ struct arm_instruction *mkarm(struct codenode *C, ARM_op op)
 /*------------------------------------------指令浮点翻译----------------------------------------*/
 void IR_op_cal_type()
 {
-    struct codenode *now = out_IR->next;
-    for (int i = 0; now != out_IR; now = now->next, i++)
+    if (out_IR != &null_ir && out_IR != NULL)
     {
-        now->cal_type = 'i';
-        if ((int)now->op < (int)IR_ADD)
+        struct codenode *now = out_IR->next;
+        if (now != NULL)
         {
-            if (now->op == IR_ASSIGN && now->opn1.id == "t2")
+            for (int i = 0; now != out_IR; now = now->next, i++)
             {
-                // printf("now->opn1.cal_type:%c, now->opn2.cal_type:%c\n", now->opn1.cal_type, now->opn2.cal_type);
+                now->cal_type = 'i';
+                if ((int)now->op < (int)IR_ADD)
+                {
+                    if (now->op == IR_ASSIGN && now->opn1.id == "t2")
+                    {
+                        // printf("now->opn1.cal_type:%c, now->opn2.cal_type:%c\n", now->opn1.cal_type, now->opn2.cal_type);
+                    }
+                    if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
+                else if ((int)now->op < (int)IR_VCVT)
+                {
+                    // printf("%s: %c:%c", IR_op_strs[(int)now->op], now->opn2.type, now->opn2.cal_type);
+                    if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f' || now->result.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
+                else if ((int)now->op < (int)IR_FUNCTION)
+                {
+                    if (now->opn1.cal_type == 'f' || now->result.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
+                else if ((int)now->op < (int)IR_ARG)
+                {
+                    if (now->opn1.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
+                else
+                {
+                    if (now->result.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
             }
-            if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f')
-                now->cal_type = 'f';
-        }
-        else if ((int)now->op < (int)IR_VCVT)
-        {
-            // printf("%s: %c:%c", IR_op_strs[(int)now->op], now->opn2.type, now->opn2.cal_type);
-            if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f' || now->result.cal_type == 'f')
-                now->cal_type = 'f';
-        }
-        else if ((int)now->op < (int)IR_FUNCTION)
-        {
-            if (now->opn1.cal_type == 'f' || now->result.cal_type == 'f')
-                now->cal_type = 'f';
-        }
-        else if ((int)now->op < (int)IR_ARG)
-        {
-            if (now->opn1.cal_type == 'f')
-                now->cal_type = 'f';
-        }
-        else
-        {
-            if (now->result.cal_type == 'f')
-                now->cal_type = 'f';
         }
     }
 }
@@ -778,41 +789,48 @@ void glo_ris_allot()
 
         now_begin = now_C, now_begin_index = i;
     }
-    now_C = now_C->next;
-
-    for (i = 1; now_C != hC; now_C = now_C->next, i++)
+    if (now_C->next != NULL)
     {
+        now_C = now_C->next;
 
-        if (now_C->op == IR_FUNCTION)
-            now_begin = now_C, g_sL.now_func = now_C->opn1.id,
-            now_begin_index = i;
-        else if (now_C->op == IR_FUNC_END)
+        for (i = 1; now_C != hC; i++)
         {
 
-            now_end = now_C, now_end_index = i;
+            if (now_C->op == IR_FUNCTION)
+                now_begin = now_C, g_sL.now_func = now_C->opn1.id,
+                now_begin_index = i;
+            else if (now_C->op == IR_FUNC_END)
+            {
 
-            func_ris_allot(now_begin, now_end, now_end_index, hC);
+                now_end = now_C, now_end_index = i;
 
-            // g_sL.glo_ymT[g_sL.now_func].size.const_int += add_size;
+                func_ris_allot(now_begin, now_end, now_end_index, hC);
 
-            // if (add_size < 41)
-            // {
-            //     now_begin->opn2.type = 'i', now_begin->opn2.const_int = add_size;
-            //     now_end->opn2.type = 'i', now_end->opn2.const_int = add_size;
-            // }
-            // else if (add_size > 40)
-            // {
-            now_begin->opn2.type = 'i', now_begin->opn2.const_int = 40;
-            now_begin->result.type = 'i', now_begin->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
-            now_end->opn2.type = 'i', now_end->opn2.const_int = 40;
-            now_end->result.type = 'i', now_end->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
-            // }
+                // g_sL.glo_ymT[g_sL.now_func].size.const_int += add_size;
 
-            now_begin = now_end = NULL;
-            g_sL.now_func = "glo";
+                // if (add_size < 41)
+                // {
+                //     now_begin->opn2.type = 'i', now_begin->opn2.const_int = add_size;
+                //     now_end->opn2.type = 'i', now_end->opn2.const_int = add_size;
+                // }
+                // else if (add_size > 40)
+                // {
+                now_begin->opn2.type = 'i', now_begin->opn2.const_int = 40;
+                now_begin->result.type = 'i', now_begin->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
+                now_end->opn2.type = 'i', now_end->opn2.const_int = 40;
+                now_end->result.type = 'i', now_end->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
+                // }
 
-            // printf("%d: now_begin:%d; now_end:%d", i, now_begin_index, now_end_index);
-            // printf("\tOP: %s\n", IR_op_strs[int(now_C->op)]);
+                now_begin = now_end = NULL;
+                g_sL.now_func = "glo";
+
+                // printf("%d: now_begin:%d; now_end:%d", i, now_begin_index, now_end_index);
+                // printf("\tOP: %s\n", IR_op_strs[int(now_C->op)]);
+            }
+            if (now_C->next != NULL)
+                now_C = now_C->next;
+            else
+                break;
         }
     }
 }
@@ -887,10 +905,25 @@ void trslt_arg(int a_index, struct codenode *glo_begin, struct codenode *head, i
     }
     else
     {
-
-        head->op = IR_ASSIGN;
-        head->opn2 = head->result;
-        head->opn1.type = 'v', head->opn1.kind = 'R', head->opn1.status = 1, head->opn1.address = -4 * (a_index - 4);
+        if (g_sL.find(head->result.id)->flage == 'E' && g_sL.find(head->result.id)->flag == 'A')
+        {
+            // printf("当前实参名：%s\n", head->result.id.c_str());
+            oneir = mkIR(IR_ASSIGN);
+            oneir->setOpn(Opn1, "r12", 'T');
+            oneir->opn1.status = 2, oneir->opn1.no_ris = 12;
+            oneir->opn2 = head->result;
+            split(glo_begin, head), merge(3, glo_begin, oneir, head);
+            head->op = IR_ASSIGN;
+            head->setOpn(Opn2, "r12", 'T');
+            head->opn2.status = 2, head->opn2.no_ris = 12;
+            head->opn1.type = 'v', head->opn1.kind = 'R', head->opn1.status = 1, head->opn1.address = -4 * (a_index - 4);
+        }
+        else
+        {
+            head->op = IR_ASSIGN;
+            head->opn2 = head->result;
+            head->opn1.type = 'v', head->opn1.kind = 'R', head->opn1.status = 1, head->opn1.address = -4 * (a_index - 4);
+        }
         // ris3_status[a_index] = a2i(head->result.id);
     }
 }
@@ -1243,7 +1276,7 @@ void glo_trslt()
     }
 }
 
-//翻译输出时重新遍历IR代码，并生成全局arm双向循环表；
+//翻译后重新遍历IR代码，并生成全局arm双向循环表；
 void gen_arm()
 {
 
@@ -1940,15 +1973,17 @@ void translation()
 {
     null_ar.op = arm_void;
     out_arm = &null_ar;
-    IR_op_cal_type();
+    IR_op_cal_type(); //翻译和寄存器分配前维护指令的计算类型，浮点or整型；
 
-    glo_ris_allot();
+    glo_ris_allot(); //对于每条IR完成寄存器分配；
 
-    glo_trslt();
+    glo_trslt(); //通过IR替换使IR更接近ARM，方便生成；
 
-    gen_arm();
-    float_trslt();
+    gen_arm();     //遍历IR生成ARM；
+    float_trslt(); //在ARM生成后依据指令计算类型进行指令替换，正确生成浮点指令；
+
     // DisplaySymbolTable();
-    Divide_blocks();
-    // display_bl();
+
+    Divide_blocks(); //对于ARM进行基本块分块；由于IR不方便故在ARM层完成分块；（优化可能要改）
+    // display_bl();//打印分块情况，debug时调用；
 }

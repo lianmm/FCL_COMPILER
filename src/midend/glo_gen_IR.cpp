@@ -1,3 +1,6 @@
+/*生成并输出中间代码*/
+//生成中间代码的屎山代码，勿改；
+
 #include "glo_gen_IR.h"
 #include <stdio.h>
 #include <cmath>
@@ -350,11 +353,12 @@ void gen_IR(struct node *T)
             // glo_opn1 = T->ptr[0]->out;
             oneir = mkIR(IR_NOT);
             oneir->opn1 = T->ptr[0]->out;
-            // oneir->setOpn(Res, string(glo_name));
-            oneir->result.id = glo_name, oneir->result.type = 'v', oneir->result.level = glo_level;
-            oneir->result.flage = g_sL.find(oneir->result.id)->flage;
-            oneir->result.address = g_sL.find(oneir->result.id)->offset.const_int;
-            oneir->result.kind = g_sL.find(oneir->result.id)->flag;
+            oneir->setOpn(Res, string(glo_name));
+            // oneir->result.id = glo_name, oneir->result.type = 'v', oneir->result.level = glo_level;
+            // oneir->result.flage = g_sL.find(oneir->result.id)->flage;
+            // oneir->result.address = g_sL.find(oneir->result.id)->offset.const_int;
+            // oneir->result.kind = g_sL.find(oneir->result.id)->flag;
+            set_opn_float(oneir);
             T->code = merge(2, T->code, oneir);
             T->out = oneir->result;
 
@@ -391,18 +395,22 @@ void gen_IR(struct node *T)
                     T->code = merge(2, T->code, T->ptr[0]->code);
                 //插入临时变量。
                 mksymt();
-                initOpn(&glo_res);
-                glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
+                // initOpn(&glo_res);
+                // glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
-                glo_res.flage = g_sL.find(glo_res.id)->flage;
-                glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
-                glo_res.kind = g_sL.find(glo_res.id)->flag;
+                // glo_res.flage = g_sL.find(glo_res.id)->flage;
+                // glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                // glo_res.kind = g_sL.find(glo_res.id)->flag;
 
                 //构造结果变量代码结点。
                 glo_opn1 = T->ptr[0]->out;
-                T->out = glo_res;
                 oneir = mkIR(IR_UMINUS);
+                oneir->setOpn(Res, glo_name);
+                oneir->setOpn(Opn1, T->ptr[0]->out);
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
+                T->out = oneir->result;
+
                 break;
             }
         }
@@ -646,14 +654,17 @@ void gen_IR(struct node *T)
                 else if (strcmp(g_sL.find((string)T->ptr[0]->type_id)->type, "int") == 0 && strcmp(g_sL.find(T->ptr[0]->ptr[0]->out.id)->type, "float") == 0)
                     add_vcvt_IR(T, &T->ptr[0]->ptr[0]->out, (string) ".s32.f32");
 
-                glo_opn1.type = 'v', glo_opn1.id = T->ptr[0]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
-                glo_opn1.kind = 'V';
-                glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
-                glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
-                glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
+                // glo_opn1.type = 'v', glo_opn1.id = T->ptr[0]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
+                // glo_opn1.kind = 'V';
+                // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
+                // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+                // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
 
                 glo_opn2 = T->ptr[0]->ptr[0]->out;
                 oneir = mkIR(IR_ASSIGN);
+                oneir->setOpn(Opn1, T->ptr[0]->type_id);
+
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
                 // DisplaySymbolTable();
             }
@@ -1313,13 +1324,12 @@ void gen_IR(struct node *T)
             if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
             {
                 check_load(T, &T->ptr[0]->out, 0);
-
-                glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.flage = '0';
-                glo_opn2.cal_type = 'i';
-
                 oneir = mkIR(IR_NEQ);
+                oneir->setOpn(Opn2, 0);
+                // glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
+                oneir->opn1 = T->ptr[0]->out;
+                // glo_opn2.flage = '0', glo_opn2.cal_type = 'i';
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
             }
             if (T->ptr[0]->out.type == 'i' || T->ptr[0]->out.type == 'f')
@@ -1411,12 +1421,13 @@ void gen_IR(struct node *T)
             {
 
                 check_load(T, &T->ptr[0]->out, 0);
-                glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.flage = '0';
-                glo_opn2.cal_type = 'i';
-
                 oneir = mkIR(IR_NEQ);
+
+                // glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
+                oneir->opn1 = T->ptr[0]->out;
+                // glo_opn2.flage = '0', glo_opn2.cal_type = 'i';
+                oneir->setOpn(Opn2, 0);
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
             }
             if (T->ptr[0]->out.type == 'i' || T->ptr[0]->out.type == 'f')
@@ -1425,9 +1436,12 @@ void gen_IR(struct node *T)
                 if (T->ptr[0]->out.const_int != 0)
                     T->ptr[0]->out.const_int = 1;
                 check_load(T, &T->ptr[0]->out, 0);
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.type = 'i', glo_opn2.const_int = 1;
                 oneir = mkIR(IR_EQ);
+
+                oneir->opn1 = T->ptr[0]->out;
+                // glo_opn2.type = 'i', glo_opn2.const_int = 1;
+                oneir->setOpn(Opn2, 1);
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
             }
             check_load(T, &T->ptr[0]->out, 0);
@@ -1513,9 +1527,12 @@ void gen_IR(struct node *T)
                 if (T->ptr[0]->out.const_int != 0)
                     T->ptr[0]->out.const_int = 1;
                 check_load(T, &T->ptr[0]->out, 0);
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.type = 'i', glo_opn2.const_int = 1;
+                // glo_opn1 = T->ptr[0]->out;
+                // glo_opn2.type = 'i', glo_opn2.const_int = 1;
                 oneir = mkIR(IR_EQ);
+                oneir->opn1 = T->ptr[0]->out;
+                oneir->setOpn(Opn2, 1);
+                set_opn_float(oneir);
                 T->code = merge(2, T->code, oneir);
             }
             check_load(T, &T->ptr[0]->out, 0);
@@ -1670,23 +1687,27 @@ void gen_IR(struct node *T)
 
             symbol_scope_TX.top--;
 
-            initOpn(&glo_opn1);
-            glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
-            glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
-            glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
-            glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
-
-            T->out = glo_opn1;
             oneir = mkIR(IR_FUNCTION);
+
+            // initOpn(&glo_opn1);
+            // glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
+            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+            // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
+            // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
+            oneir->setOpn(Opn1, T->ptr[1]->type_id);
+            T->out = oneir->opn1;
+            set_opn_float(oneir);
             T->code = merge(2, oneir, T->code);
             g_sL.find(g_sL.now_func)->code_b = T->code;
             add_label_IR(T->fun_end, T);
-            glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
-            glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
-            glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
-            glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
+            // glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
+            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+            // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
+            // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
             oneir = mkIR(IR_FUNC_END);
+            oneir->setOpn(Opn1, T->ptr[1]->type_id);
+            set_opn_float(oneir);
             T->code = merge(2, T->code, oneir);
             g_sL.glo_ymT[g_sL.now_func].code_e = T->code->prior;
 
@@ -1697,17 +1718,19 @@ void gen_IR(struct node *T)
         {
             // printf("函数名：%s\n", T->type_id);
             strcpy(glo_name, T->type_id);
+
             func_state = 0;
             if (T->ptr[0])
             {
                 // printf("函数形参：\n");
                 glo_paramnum = 0;
 
-                if (check_func_id(glo_name, glo_level, T->pos, glo_type, glo_paramnum))
+                if (1)
                 {
                     sT.index++;
                     glo_tmp_type = strcat(glo_type, "");
                     gen_IR(T->ptr[0]); //显示函数参数列表
+                    // DisplaySymbolTable(sT);
                     if (T->ptr[0])
                         T->code = merge(2, T->code, T->ptr[0]->code);
                     glo_tmp_type = strcat(glo_type, "");
@@ -1715,6 +1738,8 @@ void gen_IR(struct node *T)
                     glo_size.type = 'i';
                     glo_flag = 'F';
                     sT.index = sT.index - glo_paramnum - 1;
+
+                    strcpy(glo_name, T->type_id);
                     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
 
                     if (ceil(glo_paramnum / (float)2) == 0)
@@ -1740,6 +1765,7 @@ void gen_IR(struct node *T)
                 {
                     glo_size.const_int = DX;
                     glo_size.type = 'i';
+                    strcpy(glo_name, T->type_id);
                     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
                     g_sL.find(g_sL.last_sym)->flage = 'E';
                     g_sL.glo_ymT[g_sL.now_func].size.const_int = 12;
@@ -1758,6 +1784,7 @@ void gen_IR(struct node *T)
                     if (sT.index != symbol_scope_TX.TX[symbol_scope_TX.top - 1])
                     {
 
+                        // oneir->setOpn(Opn1, sT.symbols[sT.index - 1].name);
                         //动态维护函数活动空间大小。
                         initOpn(&glo_opn1);
                         // printf("\tglo_opn1.id:%s\n", sT.symbols[sT.index - 1].name.c_str());
@@ -1767,8 +1794,11 @@ void gen_IR(struct node *T)
                         glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
                         glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
+                        // set_opn_float(oneir);
                         oneir = mkIR(IR_PARAM);
                         T->code = merge(2, T->code, oneir);
+                        // if (sT.symbols[sT.index - 1].name == "A")
+                        //     DisplaySymbolTable();
                         //构造形参代码。
                         if (strcmp(g_sL.find(sT.symbols[sT.index - 1].name)->type, "float") == 0 && g_sL.find(sT.symbols[sT.index - 1].name)->flag == 'A')
                         {
@@ -1780,6 +1810,7 @@ void gen_IR(struct node *T)
                         add_alloca_IR(0, T, sT.symbols[sT.index].name, NULL);
                     }
                     // DisplaySymbolTable(sT);
+                    // DisplaySymbolTable();
                 }
                 // cout << endl;
                 sT.index--;
@@ -1814,13 +1845,14 @@ void gen_IR(struct node *T)
             glo_size.type = 'i';
             if (glo_paramnum == 0)
             {
-                g_sL.find(g_sL.last_sym)->flag = 'F', g_sL.find(g_sL.last_sym)->name = " ";
+                // g_sL.find(g_sL.last_sym)->flag = 'F', g_sL.find(g_sL.last_sym)->name = " ";
                 glo_offset.const_int = 12, glo_offset.type = 'i';
             } //首参清除预留函数位置的过时数据。
             glo_flag = 'P';
             if (T->ptr[1]->ptr[0])
             {
                 glo_flag = 'A';
+
                 tmp_para_type += 2;
                 node *T0 = T->ptr[1]->ptr[0]->ptr[1]; // T0是ARRAYS结点
                 glo_arr_lim[0].type = 'i', glo_arr_lim[0].const_int = 0;
@@ -1837,12 +1869,14 @@ void gen_IR(struct node *T)
                         strcpy(index_type, "int");
                     }
 
-                    check_array_id(T->type_id, glo_level, T->pos, (char *)"int", index_type);
+                    // check_array_id(T->type_id, glo_level, T->pos, (char *)"int", index_type);
                     T0 = T0->ptr[1];
                 }
-                glo_D = i;
 
+                glo_D = i;
                 tmp_paramnum = mkarr(glo_arr_lim, glo_D);
+
+                glo_flag = 'A';
             }
 
             glo_offset.const_int = glo_paramnum;
@@ -1851,6 +1885,7 @@ void gen_IR(struct node *T)
                 glo_flage = 'P';
             }
             mksym(&sT, T->ptr[1]->type_id, glo_level + 1, tmp_type1, tmp_paramnum, glo_alias, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
+
             g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
             g_sL.find(g_sL.last_sym)->flage = 'P';
             //添加形参入符号表，当前假定无默认值。

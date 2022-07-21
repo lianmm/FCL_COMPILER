@@ -1,21 +1,10 @@
-#此脚本会跑f2022中的全部用例，并统计通过个数，通过情况输出到test_out.txt；
-
+#此脚本用于比较性能用例的输出与正确输出，并统计通过个数，先运行 test_pone.sh多次 或 test_per.sh 后才能统计；
 #!/bin/bash
 export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin:/usr/lib/jvm/jdk-11/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/games:/usr/local/games:/snap/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin
-
-#.fcl输出文件，.ir中间代码，.s目标代码；
-
-rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
-
-if [ ! -f "compiler" ];
-then
-./build.sh
-fi
-
-chmod +x compiler
+rm ./test_out.txt
 
 #读取测试用例           
-cd ./f2022/
+cd ./p2022/
 li=`ls`
 totalpassed=0
 index=0
@@ -40,7 +29,6 @@ do
     ansfile=${i/".sy"/".out"}
     # tmpfile=${i/".sy"/".tmp"}
     retnval=0
-    ../compiler -ir -o $asm $i   >>../test_out.txt
    
     if [ ! -f $asm ];
     then
@@ -48,8 +36,6 @@ do
        echo "Compiling failed:  $i"  >>../test_out.txt
         index=`expr $index + 1`
        continue
-    else
-    arm-linux-gnueabihf-gcc -o $target  $asm -static ../sysy_lib/libsysy.a   2>>../test_out.txt  
     fi
 
     if [ ! -f $target ];
@@ -62,33 +48,21 @@ do
     chmod +x $target
     fi
 
-    # If InFile exists, Redirect and Compare
-    if [ -f $infile ];
-    then
-        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target < $infile > $outfile  
-        retnval=$?
-    else
-        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target > $outfile  
-        retnval=$?
-    fi
     
     if [ -s $outfile ];
     then
         if [ -z "$(tail -c 1 "$outfile")" ];
         then
             echo "Already has trailing newline" >/dev/null 
-        else
-            echo "" >> $outfile
         fi
     fi
-    echo $retnval >> $outfile
 
     diffres=`diff -Z $outfile $ansfile`
 
     # echo "OUTFILE= $outfile"
     # cat $outfile
     # echo "ANSFILE= $ansfile"
-    cat $outfile | grep -v "TOTAL:" 
+    # cat $outfile | grep -v "TOTAL:" 
 
     if [ "$diffres" != "" ];
     then

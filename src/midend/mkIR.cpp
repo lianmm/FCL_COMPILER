@@ -1,3 +1,4 @@
+//生成中间代码的支持函数，做中端优化需清楚split，merge，mkIR几个函数的功能，也可以基于这几个函数封装更方便的增删代码的函数；
 #include "mkIR.h"
 using namespace std;
 
@@ -519,6 +520,122 @@ void displayiT()
     printf("\n------------------------------------------------------------\n");
 }
 
+void set_opn_float(codenode *oneir)
+{
+    IR_op op = oneir->op;
+    if (oneir->opn1.type == 'v')
+    {
+        oneir->opn1.cal_type = 'i';
+        if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0)
+        {
+            oneir->opn1.cal_type = 'f';
+        }
+    }
+    if (oneir->opn2.type == 'v')
+    {
+        oneir->opn2.cal_type = 'i';
+        if (strcmp(g_sL.find(oneir->opn2.id)->type, "float") == 0)
+        {
+            oneir->opn2.cal_type = 'f';
+        }
+    }
+    if (oneir->result.type == 'v')
+    {
+        oneir->result.cal_type = 'i';
+        if (strcmp(g_sL.find(oneir->result.id)->type, "float") == 0)
+        {
+            oneir->result.cal_type = 'f';
+        }
+    }
+
+    if (oneir->op == ARM_ITORG)
+        ;
+    else if (oneir->op == IR_PARAM)
+    {
+        // printf("\tg_sL.find(oneir->opn1.id)->type:%s\n", g_sL.find(oneir->opn1.id)->type);
+        oneir->opn1.cal_type = strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 ? 'f' : 'i';
+    }
+    else if (oneir->op == IR_ASSIGN)
+    {
+        if (oneir->opn1.type == 'v' && oneir->opn1.kind == 'T')
+        {
+            if (oneir->opn2.type == 'i')
+                oneir->opn1.cal_type = 'i', strcpy(g_sL.find(oneir->opn1.id)->type, "int"), oneir->opn2.cal_type = 'i';
+            else if (oneir->opn2.type == 'f' || strcmp(g_sL.find(oneir->opn2.id)->type, "float") == 0)
+                oneir->opn1.cal_type = 'f', oneir->opn2.cal_type = 'f', strcpy(g_sL.find(oneir->opn1.id)->type, "float");
+        }
+    }
+    else if (oneir->op == IR_EXP_ARROFF)
+    {
+        if (oneir->result.type == 'v' && oneir->result.kind == 'T')
+        {
+            if (oneir->opn1.type == 'i')
+                oneir->result.cal_type = 'i', strcpy(g_sL.find(oneir->result.id)->type, "int");
+            else if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0)
+                oneir->result.cal_type = 'f', oneir->opn1.cal_type = 'f', strcpy(g_sL.find(oneir->result.id)->type, "float");
+        }
+        oneir->opn2.cal_type = 'i';
+    }
+    else if (oneir->op == IR_ARROFF_EXPie)
+    {
+    }
+    else if (oneir->op == IR_VCVT)
+    {
+
+        oneir->opn2.cal_type = 'i', oneir->result.cal_type = 'f';
+        if (oneir->opn1.id == ".f32.s32")
+        {
+            oneir->opn2.cal_type = 'f', oneir->result.cal_type = 'f';
+        }
+        else
+            oneir->opn2.cal_type = 'f', oneir->result.cal_type = 'f';
+    }
+    else if (oneir->op == ARM_MOVEQ || oneir->op == ARM_MOVNE)
+    {
+    }
+    else if (oneir->op < IR_ADD)
+    {
+    }
+    else if (oneir->op < IR_GOTO_JLT)
+    {
+        if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 && strcmp(g_sL.find(oneir->opn2.id)->type, "float") == 0)
+            oneir->result.cal_type = 'f', oneir->opn1.cal_type = 'f', oneir->opn2.cal_type = 'f', strcpy(g_sL.find(oneir->result.id)->type, "float");
+    }
+    else if (oneir->op < IR_GOTO_NOT)
+    {
+    }
+    // else if (oneir->op == IR_LOAD)
+    // {
+    //     if (oneir->result.type == 'v' && oneir->result.kind == 'T')
+    //     {
+    //         if (oneir->opn1.type == 'i' || oneir->opn1.flage == 'E')
+    //             oneir->result.cal_type = 'i', strcpy(g_sL.find(oneir->result.id)->type, "int");
+    //         else if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(oneir->opn1.id)->type, "("), "float") == 0)
+    //             oneir->result.cal_type = 'f', oneir->opn1.cal_type = 'f', strcpy(g_sL.find(oneir->result.id)->type, "float");
+    //     }
+
+    // }
+    else if (oneir->op > IR_GOTO_NOT && oneir->op < IR_ALLOCA)
+    {
+        if (oneir->result.type == 'v' && oneir->result.kind == 'T')
+        {
+            if (oneir->opn1.type == 'i')
+                oneir->result.cal_type = 'i', strcpy(g_sL.find(oneir->result.id)->type, "int");
+            else if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(oneir->opn1.id)->type, "("), "float") == 0)
+                oneir->result.cal_type = 'f', oneir->opn1.cal_type = 'f', strcpy(g_sL.find(oneir->result.id)->type, "float");
+        }
+    }
+    else if (oneir->op < IR_FUNCTION)
+    {
+    }
+    else if (oneir->op < IR_ARG)
+    {
+    }
+    else
+    {
+    }
+}
+
 /*--------------------------------模块化各类代码生成的函数实现区-------------------------------*/
 //将语法树上运算结点类型转化成IR结点类型。
 enum IR_op get_OpType(struct node T)
@@ -973,9 +1090,12 @@ void add_memset0arr_IR(struct node *T)
 
     oneir = mkIR(IR_ARG);
     T->code = merge(2, T->code, oneir);
-    glo_res.type = 'v', glo_res.id = "memset(PLT)";
-    glo_res.kind = 'F';
+
     oneir = mkIR(IR_CALL_VOID);
+    oneir->setOpn(Res, string("memset(PLT)"), 'F');
+    set_opn_float(oneir);
+    // glo_res.type = 'v', glo_res.id = "memset(PLT)";
+    // glo_res.kind = 'F';
     T->code = merge(2, T->code, oneir);
 }
 

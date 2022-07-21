@@ -1,3 +1,5 @@
+//从glo_gen_IR中模块化出的部分；某些结点生成对应中间代码的函数；
+
 #include "node_gen_IR.h"
 using namespace std;
 extern class codenode *oneir;
@@ -637,6 +639,7 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
     glo_res.kind = g_sL.find(glo_res.id)->flag;
 
     T->out = glo_res;
+
     if (g_sL.find(T->type_id)->flag == 'C')
     {
         if (strcmp(g_sL.find(T->type_id)->type, "int") == 0)
@@ -644,6 +647,8 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
         else
             T->out.type = 'f', T->out.const_float = g_sL.find(T->type_id)->float_val;
     }
+    // cout << "常量:" << T->type_id << ": " << T->out.const_int << endl;
+    // DisplaySymbolTable();
     assign_sym = tmp_assign_sym;
 }
 

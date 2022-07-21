@@ -1,3 +1,6 @@
+/*符号表的相关结构定义*/
+//前端文件不需要修改；
+
 #include "ast.h"
 #include <string>
 #include <unordered_map>

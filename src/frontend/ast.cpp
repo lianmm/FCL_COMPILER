@@ -1,3 +1,5 @@
+/*实现抽象语法树的相关操作*/
+//前端文件不需要修改；
 #include "ast.h"
 #include <string>
 using namespace std;

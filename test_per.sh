@@ -1,9 +1,10 @@
+#此脚本会跑p2022中的全部用例，并统计通过个数，通过情况输出到test_out.txt；目前有未知的bug无法正常使用，运行性能用例使用test_pone.sh一个一个跑。
+
 #!/bin/bash
 export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin:/usr/lib/jvm/jdk-11/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/games:/usr/local/games:/snap/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin
 
 #.fcl输出文件，.ir中间代码，.s目标代码；
 
-rm ./p2022/*.fcl ./p2022/*.ir ./p2022/*.s ./test_out.txt ./p2022/*.target ./p2022/*.tst  2>>junk.txt >>junk.txt
 
 if [ ! -f "compiler" ];
 then
@@ -79,7 +80,6 @@ do
             echo "" >> $outfile
         fi
     fi
-    echo $retnval >> $outfile
 
     diffres=`diff -Z $outfile $ansfile`
 

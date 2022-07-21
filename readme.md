@@ -1,22 +1,22 @@
-# FCL_compiler  V1.0
+# FCL_compiler  V2.0
 
 ### 描述：
 
-fcl编译器 v1.0版。
+fcl编译器 v2.0版。
 
 当前支持简单的sysy语言到arm语言的编译；
 
 支持全局&局部，常，单数值型&数组型，浮点&整型的变量的声明定义与使用，循环&分支流程控制，函数声明定义与调用几类基本语法；
 
-此版本目标是作为无优化初版跑通全部功能测试用例。
+此版本目标是作为完全的编译器保证正确性同时优化性能。
 
-已完成：100/100。TODO
+已完成：? ? ? / ? ? ?
 
 代码覆盖率测试TODO；
 
 ### 依赖：
 
-开发系统平台：ubuntu 20.04；目标平台：树莓派XXXXXX（版本系统名没记住TODO）
+开发系统平台：ubuntu 20.04；目标平台：树莓派4B
 
 依赖库：flex，bison，clang++，g++，arm-linux-gnueabihf-gcc，qemu-arm
 
@@ -35,15 +35,14 @@ fcl编译器 v1.0版。
 1.编译构建项目；
 ./build.sh # 使用 clang++ 编译
 或 
-./gcc_gdb.sh #  使用 g++ 编译
+./build_g++.sh #  使用 g++ 编译
 
 2.运行项目编译sy源文件；
-./fcl_parser -S -o {outfile} {infile}  # 只生成汇编；
+./compiler -S -o {outfile} {infile}  # 只生成汇编；
 或
-./fcl_parser -ir -o {outfile} {infile} # 生成汇编； 同时生成以.ir为拓展名的同名中间代码文件；
+./compiler -ir -o {outfile} {infile} # 生成汇编； 同时生成以.ir为拓展名的同名中间代码文件；
 
  # {infile} 替换为输入文件路径及名称；{outfile} 替换为输出文件路径及名称；
- # infile 如果是路径可能会有段错误？ TODO；
  
 3.链接运行...
 可使用arm-linux-gnueabihf-gcc，qemu-arm工具链在ubuntu上模拟运行；
@@ -54,7 +53,7 @@ fcl编译器 v1.0版。
 2、脚本批量自动运行全部用例并与参考正确输出相对比；
 
 ```shell
-./func_test.sh  
+./test_func.sh  
 # 自动编译并运行位于./f2022 的所有.c文件，并将结果输出到./test_out.txt中；
 # 统计通过数目打印到终端；
 ```
@@ -66,13 +65,25 @@ fcl编译器 v1.0版。
 # 编译并运行位于./test/test_in/ 的test.c文件，并将结果输出到test_out.txt；
 ```
 
-4、脚本自动编译运行./test/test.c并与arm-linux-gnueabihf-gcc输出对比，生成对应ir文件，方便调试；
+4、脚本自动编译运行./test/test.c并与参考编译器输出对比，生成对应ir文件，方便调试；
 
 ```shell
 ./test_tmp.sh  
 # 同时编译并运行位于./test/test_in/ 的test.c文件，并将结果输出到test_out.txt；
 # 需在运行过test_one.sh之后运行；
 ```
+
+(注：)
+
+5、脚本运行性能用例大同小异。
+
+6、已有的代码文件做优化需要用的部分已写好注释。
+
+7、arm，ir的op，opn的含义与对应关系见ref的几个word文档，及ARM手册。
+
+8、用例由于过大github中不方便上传，需要从官方的包中直接分别复制到f2022，p2022文件夹中。
+
+9、这几个依赖包除了flex和bison都是ubuntu上编译运行arm文件必用的，去网上搜经验贴安装上避免环境问题。不装flex和bison需要将构建脚本中对应的几行注释掉。
 
 ### 项目文件组织：
 
@@ -82,11 +93,14 @@ compiler_fcl
 |   └── ......
 ├── p2022 # 性能测试用例；
 |   └── ......
+├── ref_compiler # 参考编译器的可执行文件；
+|   └── compiler
 ├── ref
 │   └── compiler2022
 |   │   └── ......
 |   ├── 已完成&未完成.docx
 |   ├── IR_op表.docx
+|   ├── arm_op表.docx
 |   ├── readme.md
 |   └── TODO.txt
 ├── src 
@@ -103,13 +117,28 @@ compiler_fcl
 │   |   ├── sysy.tab.h*
 |   │   └── sysy.y
 │   ├── midend # 编译器中端：中间代码生成；中端优化TODO；
-|   │   ├── gen_IR.cpp 
-|   │   ├── gen_IR.h
-│   |   ├── optimization.cpp 
-│   |   └── optimization.h
-│   └── backend # 编译器后端：生成汇编代码；后端优化；
-|       ├── gen_arm.cpp 
-│       └── gen_arm.h
+|   │   ├── mid_optimization #中端优化的文件夹，在此处添加模块化的优化文件；
+|   │   |   └── ......
+|   │   ├── glo_gen_IR.cpp 
+|   │   ├── glo_gen_IR.h
+|   │   ├── node_gen_IR.cpp 
+|   │   ├── node_gen_IR.h
+|   │   ├── mkIR.cpp 
+|   │   ├── mkIR.h
+│   |   ├── mid_optimization.cpp 
+│   |   └── mid_optimization.h
+│   ├── backend # 编译器后端：生成汇编代码；后端优化；
+|   │   ├── back_optimization #后端优化的文件夹，在此处添加模块化的优化文件；
+|   │   |   └── ......
+|   │   ├── translation.cpp 
+|   │   ├── translation.h
+|   │   ├── putout_arm.cpp 
+|   │   ├── putout_arm.h
+|   │   ├── free_Memory.cpp 
+|   │   ├── free_Memory.h
+│   |   ├── back_optimization.cpp 
+│   |   └── back_optimization.h
+|   └── application.cpp #启动器；
 ├── sysy_lib # sysy运行时库支持，已预编译为.a静态库文件（来自官方）；
 │   ├── libsysy.a 
 │   ├── sylib.c
@@ -123,11 +152,14 @@ compiler_fcl
 │   ├── test.right.s*
 │   └── test.right.target*
 ├── build.sh 
+├── build_g++.sh 
 ├── compiler* # 主体编译输出可执行文件；
-├── func_test.sh 
-├── gcc_gdb.sh 
 ├── readme.md 
-├── test_one.sh 
+├── test_fone.sh 
+├── test_pone.sh 
+├── test_func.sh 
+├── test_per.sh 
+├── diff_pf.sh 
 ├── test_out.txt* # 测试结果文件；
 └── test_tmp.sh 
 

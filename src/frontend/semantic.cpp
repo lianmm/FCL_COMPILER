@@ -1,3 +1,6 @@
+/*静态语义检查，已弃用*/
+//前端文件不需要修改；
+
 #include "semantic.h"
 #include <string>
 using namespace std;

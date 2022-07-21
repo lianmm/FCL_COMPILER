@@ -1,3 +1,4 @@
+//生成中间代码的支持结构；
 #include "../frontend/semantic.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -117,6 +118,7 @@ void display_iwT();
 
 void displayiT();
 
+void set_opn_float(codenode *oneir);
 /*--------------------------------模块化各类代码生成的函数实现区-------------------------------*/
 //将语法树上运算结点类型转化成IR结点类型。
 enum IR_op get_OpType(struct node T);

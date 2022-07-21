@@ -1,3 +1,6 @@
+/*实现符号表的相关操作*/
+//前端文件不需要修改；
+
 #include "symtable.h"
 
 /*----------------------------------信息存储表结构定义-----------------------------------------*/
@@ -270,7 +273,7 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     }
     // cout << name << " :\n";
     // DisplaySymbolTable();
-
+    // printf("sT.num: %d\n", sT->index);
     // printf("\t%d\n", sT->index);
     // if (g_sL.glo_ymT.size() > 15)
     //     printf("g_sL.last_v:%s\n", g_sL.last_v.c_str()), DisplaySymbolTable(), DisplaySymbolTable(*sT);
@@ -493,11 +496,11 @@ void DisplaySymbolTable()
                     printf("\t%d", it->second.paras[j]);
                 j = 0;
                 printf("\n");
-                std::map<string, stack<symbol>>::iterator it2 = (*g_sL.glo_ymT[it->second.name].func_v).begin();
+                auto it2 = (*it->second.func_v).begin();
                 // printf("(...func_ymT).size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_ymT).size());
                 printf("---------------------------------------------------\n");
-
-                for (; it2 != g_sL.glo_ymT[it->second.name].func_v->end(); it2++, j++)
+                cout << it2->first << endl;
+                for (; it2 != it->second.func_v->end(); it2++, j++)
                 {
                     printf("%d\t%s\t%d\t%s\t%c\t", j, it2->second.top().name.c_str(), it2->second.top().level, it2->second.top().type, it2->second.top().flag);
                     printf("\t外部标记flage：%c", it2->second.top().flage);
@@ -508,6 +511,14 @@ void DisplaySymbolTable()
                     printf("\t变量地址偏移：%d", it2->second.top().offset.const_int);
                     printf("\t变量分配状态： %d", it2->second.top().status);
                     printf("\t对应临时变量： t%d", it2->second.top().no_ris);
+                    if (it2->second.top().flag == 'A' || it2->second.top().flagca == 'A')
+                    {
+                        printf("\t维数：%d\t 各维度长度：", aT.arrs[it2->second.top().paramnum].D);
+                        for (int j = 0; j < aT.arrs[it2->second.top().paramnum].D; j++)
+                        {
+                            printOpn(aT.arrs[it2->second.top().paramnum].lim[j]);
+                        }
+                    }
                     printf("\n");
                 }
                 printf("---------------------------------------------------\n");
