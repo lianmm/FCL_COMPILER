@@ -142,7 +142,6 @@ void gen_IR(struct node *T)
     if (T)
     {
         // DisplaySymbolTable(sT);
-        split_id(T); //预处理ID；
         T->code = &null_ir;
         switch ((int)T->kind)
         {
@@ -244,19 +243,19 @@ void gen_IR(struct node *T)
         case TYPE:
         case VOID:
         {
-            // printf("类型: %s\n", T->type_id);
-            if (void_func_sym == 0 && strcmp(T->type_id, "void") == 0)
+            // printf("类型: %s\n", T->type_id.c_str());
+            if (void_func_sym == 0 && T->type_id == "void")
                 void_func_sym = 1;
-            strcpy(glo_type, T->type_id);
+            strcpy(glo_type, T->type_id.c_str());
             glo_tmp_type = strcat(glo_type, "");
             break;
         }
         case NODE_ID:
         {
-            // printf("ID： %s\n", T->type_id);
-            check_val_id(T->type_id, glo_level, T->pos, glo_type, glo_int_val, glo_float_val);
+            // printf("ID： %s\n", T->type_id.c_str());
+            check_val_id((char *)T->type_id.c_str(), glo_level, T->pos, glo_type, glo_int_val, glo_float_val);
             //检查表达式是否存在未初始化问题。
-            strcpy(glo_name, T->type_id);
+            glo_name = T->type_id;
             T->out = glo_res;
 
             break;
@@ -324,7 +323,7 @@ void gen_IR(struct node *T)
         {
             T->place = 2; //关系型表达式标识；
 
-            // printf("%s\n", T->type_id);
+            // printf("%s\n", T->type_id.c_str());
             if (T->ptr[0] && check_process(2, T, *T))
             {
                 strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
@@ -356,7 +355,7 @@ void gen_IR(struct node *T)
             oneir->setOpn(Res, string(glo_name));
             // oneir->result.id = glo_name, oneir->result.type = 'v', oneir->result.level = glo_level;
             // oneir->result.flage = g_sL.find(oneir->result.id)->flage;
-            // oneir->result.address = g_sL.find(oneir->result.id)->offset.const_int;
+            // oneir->result.address = g_sL.find(oneir->result.id)->offset;
             // oneir->result.kind = g_sL.find(oneir->result.id)->flag;
             set_opn_float(oneir);
             T->code = merge(2, T->code, oneir);
@@ -368,7 +367,7 @@ void gen_IR(struct node *T)
         {
             T->place = 2; //关系型表达式标识；
 
-            // printf("%s\n", T->type_id);
+            // printf("%s\n", T->type_id.c_str());
             if (T->ptr[0] && check_process(2, T, *T))
             {
                 strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
@@ -399,7 +398,7 @@ void gen_IR(struct node *T)
                 // glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
                 // glo_res.flage = g_sL.find(glo_res.id)->flage;
-                // glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                // glo_res.address = g_sL.find(glo_res.id)->offset;
                 // glo_res.kind = g_sL.find(glo_res.id)->flag;
 
                 //构造结果变量代码结点。
@@ -439,8 +438,9 @@ void gen_IR(struct node *T)
             //有初始化的值的变量；
             if (!T->ptr[1])
             {
+                split_id(T);
 
-                // printf("变量名: %s\n", T->type_id);
+                // printf("变量名: %s\n", T->type_id.c_str());
 
                 if (T->ptr[0])
                 {
@@ -470,7 +470,8 @@ void gen_IR(struct node *T)
                     T->out = T->ptr[0]->out;
                     glo_flag = 'V';
                     glo_tmp_type = strcat(glo_type, "");
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
+                    // printf("glo_name:%s\n", T->type_id.c_str());
                     assign_sym = 0;
                 }
             }
@@ -485,6 +486,7 @@ void gen_IR(struct node *T)
 
                 if (T->ptr[0])
                 {
+
                     T->ptr[0]->depth.type = T->ptr[0]->length.type = 'i';
                     T->ptr[0]->length.const_int = 0;
                     T->ptr[0]->depth.const_int = 1;
@@ -503,7 +505,8 @@ void gen_IR(struct node *T)
                     if (T->ptr[0])
                         T->code = merge(2, T->code, T->ptr[0]->code);
                     glo_flag = 'A';
-                    strcpy(glo_name, T->ptr[1]->type_id);
+                    // printf("T->ptr[1]->type_id:%s\n", T->ptr[1]->type_id);
+                    glo_name = T->ptr[1]->type_id;
                     assign_sym = 0;
                 }
                 gen_IR(T->ptr[1]); //进入term
@@ -543,8 +546,8 @@ void gen_IR(struct node *T)
             // printf("局部变量定义: \n");
             init();
             glo_flag = 'V', glo_paramnum = -1;
-            gen_IR(T->ptr[0]);                                         //显示变量类型
-            T->place = strcmp(T->ptr[0]->type_id, "int") == 0 ? 1 : 2; //设定类型；
+            gen_IR(T->ptr[0]);                              //显示变量类型
+            T->place = T->ptr[0]->type_id == "int" ? 1 : 2; //设定类型；
             T->ptr[1]->place = T->place;
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
@@ -581,21 +584,23 @@ void gen_IR(struct node *T)
                 T->code = merge(2, T->code, T->ptr[0]->code);
 
             glo_size.const_int = 4;
-            //
+
             glo_size.type = 'i';
             if (glo_flag == 'A')
             {
                 glo_paramnum = mkarr(glo_arr_lim, glo_D);
                 glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
                 glo_size.type = 'i';
+                T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
                 mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
+
                 if (glo_level == 0)
                 {
                     g_sL.find(g_sL.last_sym)->flage = 'E';
                 }
                 else
                 {
-                    g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
+                    g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size += glo_size.const_int;
                 }
 
                 //全局变量标识；
@@ -604,6 +609,8 @@ void gen_IR(struct node *T)
                 if (glo_level == 0)
                 {
                     g_sL.find(glo_name)->code_b = T->code->prior;
+                    // printf("\tglo_name:%s\n", glo_name);
+                    // DisplaySymbolTable();
                 }
                 int tmp_num = 0;
                 struct node *T0;
@@ -611,7 +618,7 @@ void gen_IR(struct node *T)
                 {
                     T0 = T->ptr[0]->ptr[0];
                     T0->place = glo_des[0] * glo_arr_lim[0].const_int;
-                    if (glo_level > 0 && glo_size.const_int > 0) //如果数组大小大于50*4字节，则使用memset语句先置零；
+                    if (glo_level > 0 && glo_size.const_int > 0) //如果数组大小大于0字节，则使用memset语句先置零；
                     {
                         // printf("glo_size.const_int: %d\n", glo_size.const_int);
 
@@ -631,7 +638,7 @@ void gen_IR(struct node *T)
                 else
                 {
                     g_sL.find(g_sL.last_sym)->flage = '0';
-                    g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
+                    g_sL.find(g_sL.now_func)->size += glo_size.const_int;
                 }
                 g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
                 if (glo_flag != 'F' && glo_flag != 'T')
@@ -657,7 +664,7 @@ void gen_IR(struct node *T)
                 // glo_opn1.type = 'v', glo_opn1.id = T->ptr[0]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
                 // glo_opn1.kind = 'V';
                 // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
-                // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+                // glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
                 // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
 
                 glo_opn2 = T->ptr[0]->ptr[0]->out;
@@ -680,9 +687,12 @@ void gen_IR(struct node *T)
         }
         case TERM:
         {
+            split_id(T); //预处理ID；
 
+            // printf("T->type_id:%s\n", T->type_id.c_str());
             if (T->ptr[0])
             {
+
                 int tmp_assign_sym = assign_sym;
 
                 if (check_process(2, T, *T))
@@ -746,7 +756,7 @@ void gen_IR(struct node *T)
                         strcpy(index_type, g_sL.find(T0->ptr[0]->out.id)->type);
                     }
                 }
-                check_array_id(T->type_id, glo_level, T->pos, (char *)"int", index_type);
+                check_array_id((char *)T->type_id.c_str(), glo_level, T->pos, (char *)"int", index_type);
                 //检查数组下标为整数。
                 iT.indexs[iT.top] = T0->ptr[0]->out, iT.top++;
                 T0 = T0->ptr[1];
@@ -880,7 +890,7 @@ void gen_IR(struct node *T)
                 T->code = merge(2, T->code, T->ptr[0]->code);
             // printf("定义的变量:\n");
             assign_sym = 0;
-            T->place = strcmp(T->ptr[0]->type_id, "int") == 0 ? 1 : 2; //设定类型；
+            T->place = T->ptr[0]->type_id == "int" ? 1 : 2; //设定类型；
             if (T->ptr[1])
                 T->ptr[1]->place = T->place;
             gen_IR(T->ptr[1]); //显示该定义的全部变量名
@@ -913,7 +923,7 @@ void gen_IR(struct node *T)
             gen_IR(T->ptr[0]);
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            if (check_val_id(glo_name, glo_level, T->pos, glo_type, glo_int_val, glo_float_val))
+            if (check_val_id((char *)glo_name.c_str(), glo_level, T->pos, glo_type, glo_int_val, glo_float_val))
             {
 
                 glo_size.const_int = 4;
@@ -933,7 +943,7 @@ void gen_IR(struct node *T)
                     }
                     else
                     {
-                        g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size.const_int += glo_size.const_int;
+                        g_sL.find(g_sL.last_sym)->flage = '0', g_sL.glo_ymT[g_sL.now_func].size += glo_size.const_int;
                     }
 
                     sT.symbols[sT.index - 1].flag = 'C';
@@ -975,7 +985,7 @@ void gen_IR(struct node *T)
                     T->code = &null_ir;
                 }
 
-                g_sL.find(g_sL.now_func)->size.const_int += glo_size.const_int;
+                g_sL.find(g_sL.now_func)->size += glo_size.const_int;
             }
             //插入新局部变量入符号表。
             if (T->ptr[1])
@@ -988,6 +998,7 @@ void gen_IR(struct node *T)
         }
         case CONST_VAR_DEC:
         {
+
             if (T->ptr[0] && check_process(2, T, *T))
             {
                 strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
@@ -1009,8 +1020,9 @@ void gen_IR(struct node *T)
 
             if (!T->ptr[1])
             {
+                split_id(T);
 
-                // printf("变量名: %s\n", T->type_id);
+                // printf("变量名: %s\n", T->type_id.c_str());
 
                 if (T->ptr[0])
                 {
@@ -1043,7 +1055,7 @@ void gen_IR(struct node *T)
                     glo_flag = 'C';
                     ;
                     glo_tmp_type = strcat(glo_type, "");
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
                     assign_sym = 0;
                 }
             }
@@ -1075,7 +1087,7 @@ void gen_IR(struct node *T)
                     if (T->ptr[0])
                         T->code = merge(2, T->code, T->ptr[0]->code);
                     glo_flag = 'A';
-                    strcpy(glo_name, T->ptr[1]->type_id);
+                    glo_name = T->ptr[1]->type_id;
                     assign_sym = 0;
                 }
                 gen_IR(T->ptr[1]); //进入term
@@ -1093,6 +1105,8 @@ void gen_IR(struct node *T)
         }
         case CONST_TERM:
         {
+            split_id(T); //预处理ID；
+
             if (T->ptr[0] && check_process(2, T, *T))
             {
                 strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
@@ -1110,7 +1124,7 @@ void gen_IR(struct node *T)
             node *T0 = T->ptr[0];
             if (T->ptr[0])
             {
-                // printf("数组: "); printf("%s\n", T->type_id);
+                // printf("数组: "); printf("%s\n", T->type_id.c_str());
 
                 //数组作为右值时进行初始化检查。
                 if (tmp_assign_sym == 1)
@@ -1139,7 +1153,8 @@ void gen_IR(struct node *T)
                     }
 
                     tmp_out = glo_opn1;
-                    tmp_size = aT.arrs[aTindex].lim[glo_D - 1];
+                    tmp_size.type = 'i';
+                    tmp_size.const_int = aT.arrs[aTindex].lim[glo_D - 1];
                     struct opn tmp_opn2;
 
                     for (i = glo_D - 2; i > -1; i--)
@@ -1153,7 +1168,7 @@ void gen_IR(struct node *T)
                         add_cal_IR(4, T, &tmp_out, glo_res, 0);
                         tmp_out = glo_res;
                         if (i > 0)
-                            glo_res.const_int = tmp_size.const_int * aT.arrs[aTindex].lim[i].const_int, glo_res.type = 'i';
+                            glo_res.const_int = tmp_size.const_int * aT.arrs[aTindex].lim[i], glo_res.type = 'i';
                         tmp_size = glo_res;
                     }
                     iT.top = 0;
@@ -1164,7 +1179,7 @@ void gen_IR(struct node *T)
                     char tmp_name[36];
                     char tmp_flag = glo_flag;
 
-                    strcpy(tmp_name, glo_name);
+                    strcpy(tmp_name, glo_name.c_str());
 
                     initOpn(&glo_opn1), initOpn(&glo_opn2);
 
@@ -1182,9 +1197,9 @@ void gen_IR(struct node *T)
                     }
                     iT.top = 0;
                     T->out = tmp_out;
-                    strcpy(glo_name, tmp_name);
+                    glo_name = tmp_name;
                     glo_flag = tmp_flag;
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
 
                     if (strcmp(glo_type, "int") == 0 || strcmp(glo_type, "float") == 0)
                     {
@@ -1203,14 +1218,14 @@ void gen_IR(struct node *T)
                     if (g_sL.find(T->type_id)->flage == 'P')
                     {
                         glo_opn2 = glo_res;
-                        glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->type_id)->offset.const_int;
+                        glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->type_id)->offset;
                         glo_opn1.id = T->type_id;
                         glo_opn1.flage = g_sL.find(T->type_id)->flage;
                         glo_opn1.flaga = g_sL.find(T->type_id)->flagca;
                         mksymt();
                         glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
                         glo_res.flage = g_sL.find(glo_res.id)->flage;
-                        glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                        glo_res.address = g_sL.find(glo_res.id)->offset;
                         glo_res.kind = g_sL.find(glo_res.id)->flag;
                         oneir = mkIR(IR_LOAD);
                         T->code = merge(2, T->code, oneir);
@@ -1220,7 +1235,7 @@ void gen_IR(struct node *T)
                         initOpn(&glo_res);
                         glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
                         glo_res.flage = g_sL.find(glo_res.id)->flage;
-                        glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                        glo_res.address = g_sL.find(glo_res.id)->offset;
                         glo_res.kind = g_sL.find(glo_res.id)->flag;
                     }
                     else
@@ -1229,7 +1244,7 @@ void gen_IR(struct node *T)
 
                         glo_opn1.type = 'v', glo_opn1.offset = find(T->type_id), glo_opn1.level = glo_level, glo_opn1.id = T->type_id;
 
-                        glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+                        glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
                         glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
                         glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
                         //插入临时变量。
@@ -1238,7 +1253,7 @@ void gen_IR(struct node *T)
                         glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
                         glo_res.flage = g_sL.find(glo_res.id)->flage;
-                        glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                        glo_res.address = g_sL.find(glo_res.id)->offset;
                         glo_res.kind = g_sL.find(glo_res.id)->flag;
 
                         //构造结果变量代码结点。
@@ -1263,11 +1278,11 @@ void gen_IR(struct node *T)
             else
             {
                 gen_IR(T->ptr[0]);
-                // printf("ID: "), printf("%s\n", T->type_id);
+                // printf("ID: "), printf("%s\n", T->type_id.c_str());
                 if (tmp_assign_sym != 0)
                 {
 
-                    check_val_id(T->type_id, glo_level, T->pos, glo_type, glo_int_val, glo_float_val);
+                    check_val_id((char *)T->type_id.c_str(), glo_level, T->pos, glo_type, glo_int_val, glo_float_val);
                 }
 
                 //判断单个符号是否重复或存在未初始化问题。
@@ -1275,16 +1290,16 @@ void gen_IR(struct node *T)
                 {
                     glo_flag = 'V';
                     glo_tmp_type = strcat(glo_type, "");
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
                 }
 
                 if (T->ptr[0])
                     T->code = merge(2, T->code, T->ptr[0]->code);
 
-                T->out.type = 'v', T->out.id = T->type_id, T->out.level = glo_level, T->out.offset = find(T->type_id);
+                T->out.type = 'v', T->out.id = T->type_id, T->out.level = glo_level, T->out.offset = find(T->type_id.c_str());
 
                 T->out.flage = g_sL.find(T->out.id)->flage;
-                T->out.address = g_sL.find(T->out.id)->offset.const_int;
+                T->out.address = g_sL.find(T->out.id)->offset;
                 T->out.kind = g_sL.find(T->out.id)->flag;
             }
             assign_sym = tmp_assign_sym;
@@ -1651,7 +1666,8 @@ void gen_IR(struct node *T)
         //函数区；
         case FUNC_DEF:
         {
-            split_id(T->ptr[1]);
+            split_fid(T->ptr[1]);
+            // split_id(T->ptr[1]);
             g_sL.now_func = T->ptr[1]->type_id;
 
             strcpy(T->fun_end, newLabel());
@@ -1691,7 +1707,7 @@ void gen_IR(struct node *T)
 
             // initOpn(&glo_opn1);
             // glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
-            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
             // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
             // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
             oneir->setOpn(Opn1, T->ptr[1]->type_id);
@@ -1701,7 +1717,7 @@ void gen_IR(struct node *T)
             g_sL.find(g_sL.now_func)->code_b = T->code;
             add_label_IR(T->fun_end, T);
             // glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
-            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+            // glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
             // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
             // glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
@@ -1716,8 +1732,10 @@ void gen_IR(struct node *T)
         }
         case FUNC_DEC:
         {
-            // printf("函数名：%s\n", T->type_id);
-            strcpy(glo_name, T->type_id);
+            split_fid(T);
+            // split_id(T); //预处理ID；
+            // printf("函数名：%s\n", T->type_id.c_str());
+            glo_name = T->type_id;
 
             func_state = 0;
             if (T->ptr[0])
@@ -1739,18 +1757,18 @@ void gen_IR(struct node *T)
                     glo_flag = 'F';
                     sT.index = sT.index - glo_paramnum - 1;
 
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
                     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
 
                     if (ceil(glo_paramnum / (float)2) == 0)
-                        g_sL.glo_ymT[g_sL.now_func].size.const_int = 12;
+                        g_sL.glo_ymT[g_sL.now_func].size = 12;
                     else if (ceil(glo_paramnum / (float)2) == 1)
-                        g_sL.glo_ymT[g_sL.now_func].size.const_int = 28;
+                        g_sL.glo_ymT[g_sL.now_func].size = 28;
                     else if (ceil(glo_paramnum / (float)2) == 2)
-                        g_sL.glo_ymT[g_sL.now_func].size.const_int = 44;
+                        g_sL.glo_ymT[g_sL.now_func].size = 44;
                     else
                     {
-                        g_sL.glo_ymT[g_sL.now_func].size.const_int = 44;
+                        g_sL.glo_ymT[g_sL.now_func].size = 44;
                     }
                     sT.index = sT.index + glo_paramnum; //函数入符号表；
                 }
@@ -1761,14 +1779,14 @@ void gen_IR(struct node *T)
                 glo_paramnum = 0;
                 glo_flag = 'F';
                 glo_tmp_type = strcat(glo_type, "");
-                if (check_func_id(glo_name, glo_level, T->pos, glo_tmp_type, glo_paramnum))
+                if (check_func_id((char *)glo_name.c_str(), glo_level, T->pos, glo_tmp_type, glo_paramnum))
                 {
                     glo_size.const_int = DX;
                     glo_size.type = 'i';
-                    strcpy(glo_name, T->type_id);
+                    glo_name = T->type_id;
                     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
                     g_sL.find(g_sL.last_sym)->flage = 'E';
-                    g_sL.glo_ymT[g_sL.now_func].size.const_int = 12;
+                    g_sL.glo_ymT[g_sL.now_func].size = 12;
 
                     //函数入符号表；
                 }
@@ -1789,7 +1807,7 @@ void gen_IR(struct node *T)
                         initOpn(&glo_opn1);
                         // printf("\tglo_opn1.id:%s\n", sT.symbols[sT.index - 1].name.c_str());
                         glo_opn1.type = 'v', glo_opn1.id = sT.symbols[sT.index - 1].name, glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
-                        glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+                        glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
                         // cout << glo_opn1.id << "\t";
                         glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
                         glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
@@ -1834,6 +1852,7 @@ void gen_IR(struct node *T)
         }
         case PARAM_DEC:
         {
+            split_id(T->ptr[1]);
             int tmp_para_type = 0, tmp_paramnum;
             char index_type[36];
             // printf("类型：%s, 参数名：%s\n", T->ptr[0]->type == (int)INT ? "int" : "float", T->ptr[1]->type_id);
@@ -1884,7 +1903,7 @@ void gen_IR(struct node *T)
             {
                 glo_flage = 'P';
             }
-            mksym(&sT, T->ptr[1]->type_id, glo_level + 1, tmp_type1, tmp_paramnum, glo_alias, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
+            mksym(&sT, (char *)T->ptr[1]->type_id.c_str(), glo_level + 1, tmp_type1, tmp_paramnum, glo_alias, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
 
             g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
             g_sL.find(g_sL.last_sym)->flage = 'P';
@@ -1964,8 +1983,9 @@ void gen_IR(struct node *T)
         case FUNC_CALL:
         {
             // printf("函数调用：\n");
-
-            // printf("函数名：%s\n", T->type_id);
+            split_fid(T);
+            // split_id(T); //预处理ID；
+            // printf("函数名：%s\n", T->type_id.c_str());
             func_state = -1, num_in_para = 0;
             if (T->ptr[0] && check_process(2, T, *T))
             {
@@ -1978,13 +1998,13 @@ void gen_IR(struct node *T)
             }
             if (T->ptr[0])
             {
-                T->ptr[0]->place = find(T->type_id); // place用于存放函数调用中函数在符号表中的位置；
+                T->ptr[0]->place = find(T->type_id.c_str()); // place用于存放函数调用中函数在符号表中的位置；
                 T->ptr[0]->call_name = T->type_id;
             }
             gen_IR(T->ptr[0]);
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            check_func_id(T->type_id, glo_level, T->pos, (char *)"int(", num_in_para);
+            check_func_id((char *)T->type_id.c_str(), glo_level, T->pos, (char *)"int(", num_in_para);
 
             char tmp_type[36], *re_type;
             strcpy(tmp_type, g_sL.find(T->type_id)->type);
@@ -1996,7 +2016,7 @@ void gen_IR(struct node *T)
                 initOpn(&glo_res);
                 glo_res.type = 'v', glo_res.offset = find(T->type_id), glo_res.level = glo_level, glo_res.id = T->type_id;
 
-                glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                glo_res.address = g_sL.find(glo_res.id)->offset;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 glo_res.flage = g_sL.find(glo_res.id)->flage;
                 oneir = mkIR(IR_CALL_VOID);
@@ -2008,7 +2028,7 @@ void gen_IR(struct node *T)
                 initOpn(&glo_opn1);
                 glo_opn1.type = 'v', glo_opn1.offset = find(T->type_id), glo_opn1.level = glo_level, glo_opn1.id = T->type_id;
 
-                glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+                glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
                 glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
                 glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
@@ -2020,7 +2040,7 @@ void gen_IR(struct node *T)
 
                 initOpn(&glo_res);
                 glo_res.type = 'v', glo_res.offset = sT.index - 1, glo_res.level = glo_level, glo_res.id = g_sL.last_sym;
-                glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                glo_res.address = g_sL.find(glo_res.id)->offset;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 glo_res.flage = g_sL.find(glo_res.id)->flage;
 
@@ -2064,7 +2084,7 @@ void gen_IR(struct node *T)
                         {
 
                             glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1;
-                            glo_opn1.address = g_sL.find(T0->out.id)->offset.const_int;
+                            glo_opn1.address = g_sL.find(T0->out.id)->offset;
                             glo_opn1.id = g_sL.find(T0->out.id)->name;
                             glo_opn1.flage = g_sL.find(T0->out.id)->flage;
                             glo_opn1.flaga = g_sL.find(T0->out.id)->flagca;
@@ -2072,7 +2092,7 @@ void gen_IR(struct node *T)
                             glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
                             glo_res.flage = g_sL.find(glo_res.id)->flage;
-                            glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                            glo_res.address = g_sL.find(glo_res.id)->offset;
                             glo_res.kind = g_sL.find(glo_res.id)->flag;
                             strcpy(g_sL.find(glo_res.id)->type, "int");
 
@@ -2087,7 +2107,7 @@ void gen_IR(struct node *T)
                         }
                         else
                         {
-                            T0->out.type = 'i', T0->out.const_int = -(g_sL.find(T0->out.id)->offset.const_int + g_sL.find(T0->out.id)->size.const_int - 4);
+                            T0->out.type = 'i', T0->out.const_int = -(g_sL.find(T0->out.id)->offset + g_sL.find(T0->out.id)->size - 4);
 
                             add_cal_IR(1, T0, NULL, T0->out, 0);
                             // printf("aaaaaaaaaaaaaaaaaa %s\n", T0->out.id);

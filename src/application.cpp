@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
         return 0;
     strcpy(filename, argv[4]);
     strcpy(out_file, argv[3]);
+    // if (argv[5] && strcmp(argv[5], "-O2") == 0)
+    //     return 0;
 
     // p1 = fork();一开始认为申请的栈空间只对子进程生效，后来发现不是，故不再建立子进程，但仍然保留方便出问题回撤；
     if (p1 == 0)
@@ -47,16 +49,18 @@ int main(int argc, char *argv[])
         clock_t beginTime = clock(); //打开编译计时；
 
         yyparse(), fclose(yyin); //生成语法树；
-        // display_ast(out_ast,0);//打印语法树；
+        // display_ast(out_ast, 0); //打印语法树；
 
         gen_IR(out_ast);   //生成中间代码；
         putout_IR(out_IR); //打印中间代码；
 
-        // DisplaySymbolTable();//打印符号表；
+        // DisplaySymbolTable(); //打印符号表；
 
         mid_optimization();  //中端优化；
         translation();       //生成汇编代码；
         back_optimization(); //后端优化；
+
+        // DisplaySymbolTable(); //打印符号表；
 
         // print_arm();//以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
         putout_arm(); //将可运行的arm代码打印到文件中；

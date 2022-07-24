@@ -68,7 +68,7 @@ void display_ast(struct node *T, int indent)
             {
                 printf("%*cID: ", indent, ' ');
             }
-            printf("%s\n", T->type_id);
+            printf("%s\n", T->type_id.c_str());
             display_ast(T->ptr[0], indent + 3);
             break;
         case ARRAYS:
@@ -83,14 +83,14 @@ void display_ast(struct node *T, int indent)
             break;
         case TYPE:
         case VOID:
-            printf("%*c类型: %s\n", indent, ' ', T->type_id);
+            printf("%*c类型: %s\n", indent, ' ', T->type_id.c_str());
             break;
         case EXT_DEC_LIST:
             display_ast(T->ptr[0], indent); //依次显示外部变量名，
             display_ast(T->ptr[1], indent); //后续还有相同的，仅显示语法树此处理代码可以和类似代码合并
             break;
         case VAR_DEC:
-            printf("%*c变量名: %s\n", indent, ' ', T->type_id);
+            printf("%*c变量名: %s\n", indent, ' ', T->type_id.c_str());
             if (T->ptr[0])
             {
                 printf("%*c它的初值:\n", indent + 3, ' ');
@@ -104,7 +104,7 @@ void display_ast(struct node *T, int indent)
             display_ast(T->ptr[2], indent + 3); //显示函数体
             break;
         case FUNC_DEC:
-            printf("%*c函数名：%s\n", indent, ' ', T->type_id);
+            printf("%*c函数名：%s\n", indent, ' ', T->type_id.c_str());
             if (T->ptr[0])
             {
                 printf("%*c函数形参：\n", indent, ' ');
@@ -118,7 +118,7 @@ void display_ast(struct node *T, int indent)
             display_ast(T->ptr[1], indent);
             break;
         case PARAM_DEC:
-            printf("%*c类型：%s, 参数名：%s\n", indent, ' ', T->ptr[0]->type == INT ? "int" : "float", T->ptr[1]->type_id);
+            printf("%*c类型：%s, 参数名：%s\n", indent, ' ', T->ptr[0]->type == INT ? "int" : "float", T->ptr[1]->type_id.c_str());
             break;
         case EXP_STMT:
             printf("%*c表达式语句：\n", indent, ' ');
@@ -225,7 +225,7 @@ void display_ast(struct node *T, int indent)
             display_ast(T->ptr[1], indent);
             break;
         case NODE_ID:
-            printf("%*cID： %s\n", indent, ' ', T->type_id);
+            printf("%*cID： %s\n", indent, ' ', T->type_id.c_str());
             break;
         case INT:
             printf("%*cINT：%d\n", indent, ' ', T->type_int);
@@ -242,18 +242,18 @@ void display_ast(struct node *T, int indent)
         case MUL:
         case DIV:
         case MOD:
-            printf("%*c%s\n", indent, ' ', T->type_id);
+            printf("%*c%s\n", indent, ' ', T->type_id.c_str());
             display_ast(T->ptr[0], indent + 3);
             display_ast(T->ptr[1], indent + 3);
             break;
         case NOT:
         case UMINUS:
-            printf("%*c%s\n", indent, ' ', T->type_id);
+            printf("%*c%s\n", indent, ' ', T->type_id.c_str());
             display_ast(T->ptr[0], indent + 3);
             break;
         case FUNC_CALL:
             printf("%*c函数调用：\n", indent, ' ');
-            printf("%*c函数名：%s\n", indent + 3, ' ', T->type_id);
+            printf("%*c函数名：%s\n", indent + 3, ' ', T->type_id.c_str());
             display_ast(T->ptr[0], indent + 3);
             break;
         case ARGS:
@@ -271,11 +271,11 @@ void display_ast(struct node *T, int indent)
             break;
         case SELF_ADD_EXP:
             printf("%*c后置自增: \n", indent, ' ');
-            printf("%*c变量: %s\n", indent + 3, ' ', T->type_id);
+            printf("%*c变量: %s\n", indent + 3, ' ', T->type_id.c_str());
             break;
         case SELF_MINUS_EXP:
             printf("%*c后置自减: \n", indent, ' ');
-            printf("%*c变量: %s\n", indent + 3, ' ', T->type_id);
+            printf("%*c变量: %s\n", indent + 3, ' ', T->type_id.c_str());
             break;
         }
     }

@@ -46,7 +46,7 @@ public:
 };
 struct if_whi_top
 {
-    int sym_top[100];
+    int sym_top[2000];
     int top;
     if_whi_top()
     {
@@ -85,6 +85,7 @@ int a2i(string in);
 string i2s(int in);
 //预处理结点id防止超出字符串静态分配范围；
 void split_id(struct node *T);
+void split_fid(struct node *T);
 
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
 //初始化变量结点；
@@ -107,6 +108,8 @@ char *newTemp();
 
 //形成新变量标识。
 string newVal();
+
+string newFunc();
 
 //构造新的临时符号并插入sT。
 void mksymt();

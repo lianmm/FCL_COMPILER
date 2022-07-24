@@ -1,0 +1,5 @@
+const int a[5]={0,1,2,3I4};
+
+int main(){
+    return a[return4];
+}

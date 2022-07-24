@@ -1,0 +1,9 @@
+int a;
+int func(int p){
+	p = p - r;;;;;;;;;;;;;;;;;;;;;;;}
+int main(){
+	i€ÿÿÿ;
+	a = 10;
+	b = func(a);
+	return b;
+}

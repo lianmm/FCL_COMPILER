@@ -13,7 +13,8 @@ rm ./test_out.txt
 cd ./test
 rm test.right.s test.fcl.s  test.fcl.target test.right.target 
 ../compiler -ir -o test.fcl.s ./test.c >>../test_out.txt
-../ref_compiler/compiler -S -o test.right.s test.c >>../test_out.txt  #此处修改参考编译器；当前是蔡冰逸队的编译器，仅作为参考，其性能和正确性需要检查；
+# ../ref_compiler/compiler -S -o test.right.s test.c >>../test_out.txt  #此处修改参考编译器；当前是蔡冰逸队的编译器，仅作为参考，其性能和正确性需要检查；
+arm-linux-gnueabihf-gcc -S -o test.right.s test.c >>../test_out.txt
 arm-linux-gnueabihf-gcc -o test.right.target test.right.s -static ../sysy_lib/libsysy.a 
 arm-linux-gnueabihf-gcc -o test.fcl.target test.fcl.s -static ../sysy_lib/libsysy.a 
 echo -e "\nthe ans from arm-linux-gcc： \c" >>../test_out.txt

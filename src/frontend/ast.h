@@ -12,9 +12,11 @@
 using namespace std;
 /*-------------------------------全局宏变量声明区--------------------------------------*/
 #define DX 3 * sizeof(int) //活动记录控制信息需要的单元数
-#define MAXLENGTH 30000    //定义符号表的大小
-#define MAXNAME 1000
+#define MAXLENGTH 200100   //定义符号表的大小
+#define MAXNAME 2105
 #define MAXTYPE 25
+#define MAXLIM 50
+
 extern char filename[50]; //输入文件名；
 extern char out_file[50]; //输出文件名；
 extern int lev;           //???
@@ -169,7 +171,6 @@ public:
     void setOpn(IR_opn_num opn_No, string id, char kind);
 };
 
-;
 //抽象语法树结点枚举类型；
 enum node_kind
 {
@@ -224,10 +225,10 @@ struct node
 {                        //以下对结点属性定义没有考虑存储效率，只是简单地列出要用到的一些属性
     enum node_kind kind; //结点类型
 
-    char type_id[MAXNAME]; //由标识符生成的叶结点
-    int type_int;          //由整常数生成的叶结点
-    float type_float;      //由浮点常数生成的叶结点
-
+    string type_id;   //由标识符生成的叶结点
+    int type_int;     //由整常数生成的叶结点
+    float type_float; //由浮点常数生成的叶结点
+    string var_name;
     struct node *ptr[3];                                 //子树指针，由kind确定有多少棵子树
     int level;                                           //层号
     int place;                                           //特殊的标志，在数组初始化时表示回传ED结点表示的范围；在运算中表示是否是关系型表达式；在变量定义时表示定义的变量的类型；
@@ -249,9 +250,10 @@ struct node
         this->Etrue[0] = '\0', this->Efalse[0] = '\0';
         this->Snext[0] = '\0';
         this->while_head[0] = '\0', this->while_tail[0] = '\0', this->while_true[0] = '\0';
-        this->type_id[0] = '\0', this->op[0] = '\0', this->fun_end[0] = '\0';
+        this->type_id = " ", this->op[0] = '\0', this->fun_end[0] = '\0';
         this->ptr[0] = this->ptr[1] = this->ptr[2] = NULL;
         this->code = NULL;
+        this->var_name = " ";
         call_name = " ";
     }
 };

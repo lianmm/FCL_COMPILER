@@ -1,0 +1,11 @@
+int a;
+int func(int p){
+	p = p - int1;
+	return p;
+}
+int main(){
+	int b;
+	a = 10;
+	b = funcNNNNNNNNNNNNNNNNNNNNNNNNNNN(a);
+	return b;
+}

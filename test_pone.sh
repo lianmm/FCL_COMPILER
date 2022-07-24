@@ -3,7 +3,7 @@
 rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./test/test.in 2>>junk.txt
 
 #读取测试用例           
-cd ./p2022/
+cd ./pf2022/
 li=`ls`
 
 read -p '' in_fi
@@ -34,7 +34,7 @@ i=`find . -name "$in_fi.sy"`
        echo "Compiling failed:  $i"  >>../test_out.txt
        
     else
-    arm-linux-gnueabihf-gcc -o $target  $asm -static ../sysy_lib/libsysy.a ../sysy_lib/sylib.a  2>>../test_out.txt  
+    arm-linux-gnueabihf-gcc -o $target  $asm -static ../sysy_lib/libsysy.a   2>>../test_out.txt  
     # cat $asm >>../test/test.s
     cat ${i/".sy"/".ir"} >>../test/test.ir
      cat $ansfile >>../test/test.out 

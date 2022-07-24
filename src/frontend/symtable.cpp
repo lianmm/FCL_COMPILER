@@ -12,7 +12,8 @@ struct func_table fT;
 class sym_list g_sL;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
-char glo_name[MAXNAME], glo_alias[10] = "", glo_flag;
+string glo_name;
+char glo_alias[10] = "", glo_flag;
 struct opn glo_offset;
 struct symbol null_symbol;
 char glo_type[MAXTYPE];
@@ -21,7 +22,7 @@ float glo_float_val = 0;
 int glo_level, glo_paramnum;
 char *glo_tmp_type;
 int glo_init_sym;
-struct opn glo_arr_lim[10];
+struct opn glo_arr_lim[MAXLIM];
 int glo_D = 0;
 struct opn glo_size;
 char glo_flage = '0';
@@ -34,9 +35,7 @@ int mkarr(struct opn arr_lim[], int D)
     int i = 0;
     for (i = 0; i < D; i++)
     {
-        aT.arrs[aT.top].lim[i].type = arr_lim[i].type;
-        aT.arrs[aT.top].lim[i].const_int = arr_lim[i].const_int;
-        aT.arrs[aT.top].lim[i].id = arr_lim[i].id;
+        aT.arrs[aT.top].lim[i] = arr_lim[i].const_int;
     }
     aT.top++;
 
@@ -54,7 +53,7 @@ void display_fT()
     printf("\n");
 }
 //构造新的符号并插入sT。
-void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size)
+void mksym(struct symbolstack *sT, string name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size)
 {
 
     if (sT->symbols[sT->index].flag != 'F')
@@ -67,16 +66,12 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     tmp_sym_in.level = level;
     strcpy(tmp_sym_in.type, type);
     tmp_sym_in.paramnum = paramnum;
-    strcpy(tmp_sym_in.alias, alias);
+    tmp_sym_in.alias = alias;
     tmp_sym_in.flag = flag;
     tmp_sym_in.int_val = int_val;
     tmp_sym_in.float_val = float_val;
     tmp_sym_in.init_sym = init_sym;
-    tmp_sym_in.size.type = size.type;
-    tmp_sym_in.size.const_int = size.const_int;
-    tmp_sym_in.size.id = size.id;
-    tmp_sym_in.offset.const_int = 0;
-    tmp_sym_in.offset.type = 'i';
+    tmp_sym_in.size = size.const_int;
 
     // printf("g_sL.now_func: %s\n", g_sL.now_func.c_str());
     // printf("\t%c:%s\n", flag, name);
@@ -92,13 +87,20 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
         if (name == g_sL.now_func && g_sL.glo_ymT.find(g_sL.now_func) != g_sL.glo_ymT.end())
         {
             tmp_sym_in.func_v = g_sL.glo_ymT[g_sL.now_func].func_v;
+            tmp_sym_in.paras = new int[12000];
             for (int pai = 0; pai < tmp_sym_in.paramnum; pai++)
             {
                 tmp_sym_in.paras[pai] = g_sL.glo_ymT[g_sL.now_func].paras[pai];
             }
+            delete[] g_sL.glo_ymT[g_sL.now_func].paras;
+            g_sL.glo_ymT[g_sL.now_func].paras = NULL;
         }
         else
         {
+            if (paramnum > 0)
+                tmp_sym_in.paras = new int[12000];
+            else
+                tmp_sym_in.paras = NULL;
             tmp_sym_in.func_v = NULL;
         }
         g_sL.glo_ymT[name] = tmp_sym_in;
@@ -112,24 +114,30 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
             struct symbol tmp_sym_inf;
             tmp_sym_inf.name = g_sL.now_func, tmp_sym_inf.flag = 'F', tmp_sym_inf.flage = 'E';
             g_sL.glo_ymT[g_sL.now_func] = tmp_sym_inf;
+            g_sL.glo_ymT[g_sL.now_func].paras = new int[1200];
             // printf("tmp_sym_inf.name:%s \n", g_sL.glo_ymT[g_sL.now_func].name.c_str());
         }
 
         if (flag != 'T' && g_sL.glo_ymT[g_sL.now_func].func_v == NULL)
         {
-            g_sL.glo_ymT[g_sL.now_func].func_v = new map<string, stack<struct symbol>>;
+            g_sL.glo_ymT[g_sL.now_func].func_v = new map<string, stack<struct symbol> *>;
         }
         if (flag == 'T' && g_sL.glo_ymT[g_sL.now_func].func_t == NULL)
         {
-            g_sL.glo_ymT[g_sL.now_func].func_t = new map<string, struct symbol>;
+            g_sL.glo_ymT[g_sL.now_func].func_t = new map<string, struct symbol *>;
         }
         if (flag != 'T')
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].push(tmp_sym_in);
+        {
+            if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[name] == NULL)
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name] = new stack<struct symbol>;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->push(tmp_sym_in);
+        }
         else
         {
             tmp_sym_in.status = 0, tmp_sym_in.no_ris = 0, tmp_sym_in.address = 0;
-
-            (*g_sL.glo_ymT[g_sL.now_func].func_t)[name] = tmp_sym_in;
+            if ((*g_sL.glo_ymT[g_sL.now_func].func_t)[name] == NULL)
+                (*g_sL.glo_ymT[g_sL.now_func].func_t)[name] = new struct symbol;
+            *(*g_sL.glo_ymT[g_sL.now_func].func_t)[name] = tmp_sym_in;
         }
         g_sL.last_sym = name;
     }
@@ -139,18 +147,25 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     {
         if (g_sL.now_func == "glo")
             ;
-        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second.size() == 1)
+        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
             // if (g_sL.find(g_sL.now_func)->paramnum > 0)
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
             // else if (g_sL.find(g_sL.now_func)->paramnum == 0)
             // {
-            //     (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = 4;
+            //     (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int = 4;
             // }
         }
         else
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().offset.const_int + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().size.const_int;
+            if (tmp_sym_in.name != g_sL.last_v)
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+            else if (tmp_sym_in.name == g_sL.last_v)
+            {
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->pop();
+                tmp_sym_in.offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->push(tmp_sym_in);
+            }
         }
 
         int tmp_sym = sT->index - 1;
@@ -189,18 +204,25 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     {
         if (glo_flage == 'P' && offset.const_int > 3)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = -4 * (offset.const_int + 5);
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
         }
         else if (level == 0)
         {
         }
-        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second.size() == 1)
+        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
         }
         else
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().offset.const_int + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().size.const_int;
+            if (tmp_sym_in.name == g_sL.last_v)
+            {
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->pop();
+                tmp_sym_in.offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->push(tmp_sym_in);
+            }
+            else
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
         }
 
         int tmp_sym = sT->index - 1;
@@ -228,19 +250,19 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     }
     case 'P':
     {
-        (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().flage = 'P';
-        (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().size.const_int = 4;
+        (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().flage = 'P';
+        (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().size = 4;
         //首形参偏移维护；
-        if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second.size() == 1)
+        if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
         }
         else
         {
             if (offset.const_int < 4)
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().offset.const_int + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().size.const_int;
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
             else
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = -4 * (offset.const_int + 5);
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
         }
 
         break;
@@ -249,13 +271,20 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
     {
         if (g_sL.now_func == "glo")
             ;
-        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second.size() == 1)
+        else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
         }
         else
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().offset.const_int + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v].top().size.const_int;
+            if (tmp_sym_in.name == g_sL.last_v)
+            {
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->pop();
+                tmp_sym_in.offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->push(tmp_sym_in);
+            }
+            else
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
         }
 
         break;
@@ -266,17 +295,20 @@ void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramn
 
     if (flag != 'T' && flag != 'F' && g_sL.now_func != "glo")
     {
-        // printf("g_sL.now_func:%s;name:%s;offset:%d\n", g_sL.now_func.c_str(), name, (*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int);
+        // printf("g_sL.now_func:%s;name:%s;offset:%d\n", g_sL.now_func.c_str(), name, (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int);
 
-        if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[name].top().offset.const_int > 0)
+        if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset > 0)
             g_sL.last_v = name;
     }
-    // cout << name << " :\n";
     // DisplaySymbolTable();
-    // printf("sT.num: %d\n", sT->index);
+    // cout << name << " :\n";
+    // printf("sT.num: %d:%s\n", sT->index, name);
     // printf("\t%d\n", sT->index);
     // if (g_sL.glo_ymT.size() > 15)
     //     printf("g_sL.last_v:%s\n", g_sL.last_v.c_str()), DisplaySymbolTable(), DisplaySymbolTable(*sT);
+    if (tmp_sym_in.paras != NULL)
+        delete[] tmp_sym_in.paras;
+    tmp_sym_in.paras = NULL;
 }
 
 //显示当前数组内情向量表中的内容。
@@ -287,7 +319,7 @@ void DisplayArrTable()
     {
         for (j = 0; j < aT.arrs[i].D; j++)
         {
-            printf("\t%d", aT.arrs[i].lim[j].const_int);
+            printf("\t%d", aT.arrs[i].lim[j]);
         }
         printf("\n");
     }
@@ -320,7 +352,7 @@ struct opn arr_size(int index)
     int i = 0, ans = 1;
     for (i = 0; i < aT.arrs[index].D; i++)
     {
-        ans *= aT.arrs[index].lim[i].const_int;
+        ans *= aT.arrs[index].lim[i];
     }
     struct opn topn;
     topn.type = 'i', topn.const_int = ans;
@@ -462,9 +494,12 @@ void DisplaySymbolTable()
             {
                 printf("%d\t%s\t%d\t%s\t%c\t参数个数:%d", i, it->second.name.c_str(), it->second.level, it->second.type, it->second.flag, it->second.paramnum);
                 printf("\t函数形参标识表： ");
-                for (int ji = 0; ji < it->second.paramnum; ji++)
-                    printf("\t%d", it->second.paras[ji]);
-                printf("\tsize: %d\t", it->second.size.const_int);
+                if (it->second.paras != NULL)
+                {
+                    for (int ji = 0; ji < it->second.paramnum; ji++)
+                        printf("\t%d", it->second.paras[ji]);
+                }
+                printf("\tsize: %d\t", it->second.size);
                 if (it->second.code_b != NULL)
                 {
                     printf("\tcodeb.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->opn1.id.c_str());
@@ -479,7 +514,7 @@ void DisplaySymbolTable()
         else
         {
             printf("%d\t%s\t%d\t%s\t%c\t参数个数:%d\t", i, it->second.name.c_str(), it->second.level, it->second.type, it->second.flag, it->second.paramnum);
-            printf("size: %d\t", it->second.size.const_int);
+            printf("size: %d\t", it->second.size);
             if (it->second.code_b != NULL)
             {
                 printf("\tcodeb.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->opn1.id.c_str());
@@ -502,21 +537,21 @@ void DisplaySymbolTable()
                 cout << it2->first << endl;
                 for (; it2 != it->second.func_v->end(); it2++, j++)
                 {
-                    printf("%d\t%s\t%d\t%s\t%c\t", j, it2->second.top().name.c_str(), it2->second.top().level, it2->second.top().type, it2->second.top().flag);
-                    printf("\t外部标记flage：%c", it2->second.top().flage);
-                    printf("\t变量空间大小size：%d", it2->second.top().size.const_int);
-                    printf("\t初始化状态：%d", it2->second.top().init_sym);
-                    strcmp(it2->second.top().type, "int") == 0 ? printf("初始化值:%d", it2->second.top().int_val) : printf("初始化值：%f", it2->second.top().float_val);
-                    printf("\tlevel： %d", it2->second.top().level);
-                    printf("\t变量地址偏移：%d", it2->second.top().offset.const_int);
-                    printf("\t变量分配状态： %d", it2->second.top().status);
-                    printf("\t对应临时变量： t%d", it2->second.top().no_ris);
-                    if (it2->second.top().flag == 'A' || it2->second.top().flagca == 'A')
+                    printf("%d\t%s\t%d\t%s\t%c\t", j, it2->second->top().name.c_str(), it2->second->top().level, it2->second->top().type, it2->second->top().flag);
+                    printf("\t外部标记flage：%c", it2->second->top().flage);
+                    printf("\t变量空间大小size：%d", it2->second->top().size);
+                    printf("\t初始化状态：%d", it2->second->top().init_sym);
+                    strcmp(it2->second->top().type, "int") == 0 ? printf("初始化值:%d", it2->second->top().int_val) : printf("初始化值：%f", it2->second->top().float_val);
+                    printf("\tlevel： %d", it2->second->top().level);
+                    printf("\t变量地址偏移：%d", it2->second->top().offset);
+                    printf("\t变量分配状态： %d", it2->second->top().status);
+                    printf("\t对应临时变量： t%d", it2->second->top().no_ris);
+                    if (it2->second->top().flag == 'A' || it2->second->top().flagca == 'A')
                     {
-                        printf("\t维数：%d\t 各维度长度：", aT.arrs[it2->second.top().paramnum].D);
-                        for (int j = 0; j < aT.arrs[it2->second.top().paramnum].D; j++)
+                        printf("\t维数：%d\t 各维度长度：", aT.arrs[it2->second->top().paramnum].D);
+                        for (int j = 0; j < aT.arrs[it2->second->top().paramnum].D; j++)
                         {
-                            printOpn(aT.arrs[it2->second.top().paramnum].lim[j]);
+                            printf("\t%d", aT.arrs[it2->second->top().paramnum].lim[j]);
                         }
                     }
                     printf("\n");
@@ -529,29 +564,29 @@ void DisplaySymbolTable()
             if (it->second.func_t != NULL)
             {
 
-                std::map<string, symbol>::iterator it2 = (*g_sL.glo_ymT[it->second.name].func_t).begin();
+                std::map<string, symbol *>::iterator it2 = (*g_sL.glo_ymT[it->second.name].func_t).begin();
                 // printf("(...func_ymT).size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_ymT).size());
                 printf("---------------------------------------------------\n");
 
                 for (; it2 != g_sL.glo_ymT[it->second.name].func_t->end(); it2++, j++)
                 {
-                    // printf("%d\t%s\t%d\t%s\t%c\t", j, it2->second.name.c_str(), it2->second.level, it2->second.type, it2->second.flag);
-                    // printf("\t外部标记flage：%c", it2->second.flage);
-                    // printf("\t变量空间大小size：%d", it2->second.size.const_int);
-                    // printf("\t初始化状态：%d", it2->second.init_sym);
-                    // printf("\tlevel： %d", it2->second.level);
-                    // printf("\t变量地址偏移：%d", it2->second.offset.const_int);
-                    // printf("\t变量分配状态： %d", it2->second.status);
-                    // printf("\t对应临时变量： t%d", it2->second.no_ris);
+                    // printf("%d\t%s\t%d\t%s\t%c\t", j, it2->second->name.c_str(), it2->second->level, it2->second->type, it2->second->flag);
+                    // printf("\t外部标记flage：%c", it2->second->flage);
+                    // printf("\t变量空间大小size：%d", it2->second->size.const_int);
+                    // printf("\t初始化状态：%d", it2->second->init_sym);
+                    // printf("\tlevel： %d", it2->second->level);
+                    // printf("\t变量地址偏移：%d", it2->second->offset.const_int);
+                    // printf("\t变量分配状态： %d", it2->second->status);
+                    // printf("\t对应临时变量： t%d", it2->second->no_ris);
                     // printf("\n");
-                    printf("%d\t%s\tlevel:%d\t%s\t%c\t", j, it2->second.name.c_str(), it2->second.level, it2->second.type, it2->second.flag);
-                    printf("\t外部标记flage：%c", it2->second.flage);
-                    printf("\t变量空间大小size：%d", it2->second.size.const_int);
-                    printf("\t初始化状态：%d", it2->second.init_sym);
-                    printf("\t变量地址偏移：%d", it2->second.offset.const_int);
-                    printf("\t伪寄存器分配状态： %d", it2->second.status);
-                    printf("\t对应寄存器： r%d", it2->second.no_ris);
-                    printf("\t对应栈地址： 0x%d", it2->second.address);
+                    printf("%d\t%s\tlevel:%d\t%s\t%c\t", j, it2->second->name.c_str(), it2->second->level, it2->second->type, it2->second->flag);
+                    printf("\t外部标记flage：%c", it2->second->flage);
+                    printf("\t变量空间大小size：%d", it2->second->size);
+                    printf("\t初始化状态：%d", it2->second->init_sym);
+                    printf("\t变量地址偏移：%d", it2->second->offset);
+                    printf("\t伪寄存器分配状态： %d", it2->second->status);
+                    printf("\t对应寄存器： r%d", it2->second->no_ris);
+                    printf("\t对应栈地址： 0x%d", it2->second->address);
                     printf("\n");
                 }
                 printf("---------------------------------------------------\n");
@@ -568,20 +603,20 @@ void DisplaySymbolTable(string funcid)
     if (it->second.func_t != NULL)
     {
 
-        std::map<string, symbol>::iterator it2 = (*g_sL.glo_ymT[it->second.name].func_t).begin();
+        std::map<string, symbol *>::iterator it2 = (*g_sL.glo_ymT[it->second.name].func_t).begin();
         // printf("(...func_ymT).size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_ymT).size());
         printf("---------------------------------------------------\n");
         int j = 0;
         for (; it2 != g_sL.glo_ymT[it->second.name].func_t->end(); it2++, j++)
         {
-            printf("%d\t%s\tlevel:%d\t%s\t%c\t", j, it2->second.name.c_str(), it2->second.level, it2->second.type, it2->second.flag);
-            printf("\t外部标记flage：%c", it2->second.flage);
-            printf("\t变量空间大小size：%d", it2->second.size.const_int);
-            printf("\t初始化状态：%d", it2->second.init_sym);
-            printf("\t变量地址偏移：%d", it2->second.offset.const_int);
-            printf("\t伪寄存器分配状态： %d", it2->second.status);
-            printf("\t对应寄存器： r%d", it2->second.no_ris);
-            printf("\t对应栈地址： 0x%d", it2->second.address);
+            printf("%d\t%s\tlevel:%d\t%s\t%c\t", j, it2->second->name.c_str(), it2->second->level, it2->second->type, it2->second->flag);
+            printf("\t外部标记flage：%c", it2->second->flage);
+            printf("\t变量空间大小size：%d", it2->second->size);
+            printf("\t初始化状态：%d", it2->second->init_sym);
+            printf("\t变量地址偏移：%d", it2->second->offset);
+            printf("\t伪寄存器分配状态： %d", it2->second->status);
+            printf("\t对应寄存器： r%d", it2->second->no_ris);
+            printf("\t对应栈地址： 0x%d", it2->second->address);
             printf("\n");
         }
         printf("---------------------------------------------------\n");
@@ -604,7 +639,7 @@ int find(string id)
 //初始化全局暂存变量。
 void init()
 {
-    strcpy(glo_name, "");
+    glo_name = "";
     glo_flag = ' ';
     glo_init_sym = 0;
     glo_int_val = 0;
@@ -627,6 +662,7 @@ void add_lib()
     mksym(&sT, (char *)"getint", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getch", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getarray", 0, (char *)"int(int[])", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
+
     g_sL.glo_ymT["getarray"].paras[0] = 3;
     mksym(&sT, (char *)"getfloat", 0, (char *)"float(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"getfarray", 0, (char *)"int(float[])", 1, (char *)"", 'F', topn, 0, 0, 0, topn);
@@ -654,4 +690,5 @@ void add_lib()
     mksym(&sT, (char *)"stoptime", 0, (char *)"int(void)", 0, (char *)"", 'F', topn, 0, 0, 0, topn);
     mksym(&sT, (char *)"memset(PLT)", 0, (char *)"int(void)", 3, (char *)"", 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["memset(PLT)"].paras[0] = 1, g_sL.glo_ymT["memset(PLT)"].paras[1] = 1, g_sL.glo_ymT["memset(PLT)"].paras[2] = 1;
+    // DisplaySymbolTable();
 }

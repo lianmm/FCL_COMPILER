@@ -1,11 +1,301 @@
-Time: 0.367223s
-376000kB
-Mem: 
-the ans from arm-linux-gcc： out:	
-13203
-
-the ans from fcl_parser： out:	
-13203
-
-return from arm-linux-gcc:	0
-return from fcl_parser:		0
+0.Time: 0.000315s
+19308kB
+Mem: 	right!!
+1.Time: 0.000404s
+19528kB
+Mem: 	right!!
+2.Time: 0.000421s
+19652kB
+Mem: 	right!!
+3.Time: 0.000308s
+19448kB
+Mem: 	right!!
+4.Time: 0.002028s
+20460kB
+Mem: 	right!!
+5.Time: 0.002062s
+20452kB
+Mem: 	right!!
+6.Time: 0.0003s
+19464kB
+Mem: 	right!!
+7.Time: 0.000608s
+19424kB
+Mem: 	right!!
+8.Time: 0.000465s
+19628kB
+Mem: 	right!!
+9.Time: 0.000582s
+19696kB
+Mem: 	right!!
+10.Time: 0.000355s
+19512kB
+Mem: 	right!!
+11.Time: 0.000366s
+19528kB
+Mem: 	right!!
+12.Time: 0.000459s
+19492kB
+Mem: 	right!!
+13.Time: 0.000401s
+19560kB
+Mem: 	right!!
+14.Time: 0.000325s
+19504kB
+Mem: 	right!!
+15.Time: 0.000401s
+19512kB
+Mem: 	right!!
+16.Time: 0.000381s
+19484kB
+Mem: 	right!!
+17.Time: 0.00037s
+19512kB
+Mem: 	right!!
+18.Time: 0.000359s
+19384kB
+Mem: 	right!!
+19.Time: 0.000486s
+19508kB
+Mem: 	right!!
+20.Time: 0.000376s
+19452kB
+Mem: 	right!!
+21.Time: 0.000896s
+19908kB
+Mem: 	right!!
+22.Time: 0.000668s
+19776kB
+Mem: 	right!!
+23.Time: 0.000587s
+19812kB
+Mem: 	right!!
+24.Time: 0.000924s
+19860kB
+Mem: 	right!!
+25.Time: 0.001178s
+20408kB
+Mem: 	right!!
+26.Time: 0.000937s
+19924kB
+Mem: 	right!!
+27.Time: 0.001115s
+20504kB
+Mem: 	right!!
+28.Time: 0.002093s
+21476kB
+Mem: 	right!!
+29.Time: 0.000651s
+19836kB
+Mem: 	right!!
+30.Time: 0.001018s
+19904kB
+Mem: 	right!!
+31.Time: 0.000691s
+19992kB
+Mem: 	right!!
+32.Time: 0.001648s
+19844kB
+Mem: 	right!!
+33.Time: 0.000908s
+20280kB
+Mem: 	right!!
+34.Time: 0.001015s
+19952kB
+Mem: 	right!!
+35.Time: 0.000862s
+19656kB
+Mem: 	right!!
+36.Time: 0.000512s
+19688kB
+Mem: 	right!!
+37.Time: 0.000463s
+19664kB
+Mem: 	right!!
+38.Time: 0.00124s
+20044kB
+Mem: 	right!!
+39.Time: 0.001135s
+20076kB
+Mem: 	right!!
+40.Time: 0.000511s
+19648kB
+Mem: 	right!!
+41.Time: 0.000639s
+19812kB
+Mem: 	right!!
+42.Time: 0.000405s
+19572kB
+Mem: 	right!!
+43.Time: 0.000553s
+19700kB
+Mem: 	right!!
+44.Time: 0.000676s
+19828kB
+Mem: 	right!!
+45.Time: 0.000397s
+19400kB
+Mem: 	right!!
+46.Time: 0.000317s
+19456kB
+Mem: 	right!!
+47.Time: 0.000457s
+19616kB
+Mem: 	right!!
+48.Time: 0.001351s
+20116kB
+Mem: 	right!!
+49.Time: 0.001168s
+20204kB
+Mem: 	right!!
+50.Time: 0.002202s
+20380kB
+Mem: 	right!!
+51.Time: 0.002651s
+22108kB
+Mem: 	right!!
+52.Time: 0.00088s
+20000kB
+Mem: 	right!!
+53.Time: 0.000926s
+20292kB
+Mem: 	right!!
+54.Time: 0.001735s
+21140kB
+Mem: 	right!!
+55.Time: 0.002136s
+21100kB
+Mem: 	right!!
+56.Time: 0.001908s
+21080kB
+Mem: 	right!!
+57.Time: 0.002947s
+21592kB
+Mem: 	right!!
+58.Time: 0.002594s
+21228kB
+Mem: 	right!!
+59.Time: 0.002808s
+21900kB
+Mem: 	right!!
+60.Time: 0.002341s
+21592kB
+Mem: 	right!!
+61.Time: 0.003028s
+20756kB
+Mem: 	right!!
+62.Time: 0.003704s
+22292kB
+Mem: 	right!!
+63.Time: 0.004765s
+22148kB
+Mem: 	right!!
+64.Time: 0.010798s
+24532kB
+Mem: 	right!!
+65.Time: 0.004989s
+22532kB
+Mem: 	right!!
+66.Time: 0.001273s
+20268kB
+Mem: 	right!!
+67.Time: 0.000857s
+19760kB
+Mem: 	right!!
+68.Time: 0.002282s
+21264kB
+Mem: 	right!!
+69.Time: 0.004722s
+22760kB
+Mem: 	right!!
+70.Time: 0.003034s
+21844kB
+Mem: 	right!!
+71.Time: 0.019091s
+28344kB
+Mem: 	right!!
+72.Time: 0.001228s
+20096kB
+Mem: 	right!!
+73.Time: 0.001576s
+20612kB
+Mem: 	right!!
+74.Time: 0.002215s
+20968kB
+Mem: 	right!!
+75.Time: 0.003542s
+22344kB
+Mem: 	right!!
+76.Time: 0.002735s
+21000kB
+Mem: 	right!!
+77.Time: 0.003084s
+21652kB
+Mem: 	right!!
+78.Time: 0.001272s
+20244kB
+Mem: 	right!!
+79.Time: 0.00137s
+20100kB
+Mem: 	right!!
+80.Time: 0.002675s
+21668kB
+Mem: 	right!!
+81.Time: 0.000809s
+19852kB
+Mem: 	right!!
+82.Time: 0.054507s
+46840kB
+Mem: 	right!!
+83.Time: 0.002644s
+21568kB
+Mem: 	right!!
+84.Time: 0.001423s
+20212kB
+Mem: 	right!!
+85.Time: 0.010627s
+27692kB
+Mem: 	right!!
+86.Time: 0.280766s
+267244kB
+Mem: 	right!!
+87.Time: 0.009829s
+25388kB
+Mem: 	right!!
+88.Time: 0.00319s
+21144kB
+Mem: 	right!!
+89.Time: 0.006456s
+24504kB
+Mem: 	right!!
+90.Time: 0.00269s
+21480kB
+Mem: 	right!!
+91.Time: 0.005472s
+23560kB
+Mem: 	right!!
+92.Time: 0.010081s
+28928kB
+Mem: 	right!!
+93.Time: 0.00411s
+21852kB
+Mem: 	right!!
+94.Time: 0.0059s
+23404kB
+Mem: 	right!!
+95.Time: 0.003139s
+22048kB
+Mem: 	right!!
+96.Time: 0.003463s
+21720kB
+Mem: 	right!!
+97.Time: 0.00326s
+21704kB
+Mem: 	right!!
+98.Time: 0.005054s
+22412kB
+Mem: 	right!!
+99.Time: 0.003241s
+21796kB
+Mem: 	right!!
+the number of  passed: 100

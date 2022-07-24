@@ -26,6 +26,7 @@ class if_while_sym iwT;
 struct if_whi_top iwtT;
 
 map<string, string> node_id;
+// map<string, string> fun_id;
 
 int no_tmp = 0;
 int no_lab = 1;
@@ -42,7 +43,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id)
         this->opn1.type = 'v';
         this->opn1.level = glo_level;
         this->opn1.flage = g_sL.find(this->opn1.id)->flage;
-        this->opn1.address = g_sL.find(this->opn1.id)->offset.const_int;
+        this->opn1.address = g_sL.find(this->opn1.id)->offset;
         this->opn1.kind = g_sL.find(this->opn1.id)->flag;
         break;
     }
@@ -52,7 +53,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id)
         this->opn2.type = 'v';
         this->opn2.level = glo_level;
         this->opn2.flage = g_sL.find(this->opn2.id)->flage;
-        this->opn2.address = g_sL.find(this->opn2.id)->offset.const_int;
+        this->opn2.address = g_sL.find(this->opn2.id)->offset;
         this->opn2.kind = g_sL.find(this->opn2.id)->flag;
         break;
     }
@@ -62,7 +63,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id)
         this->result.type = 'v';
         this->result.level = glo_level;
         this->result.flage = g_sL.find(this->result.id)->flage;
-        this->result.address = g_sL.find(this->result.id)->offset.const_int;
+        this->result.address = g_sL.find(this->result.id)->offset;
         this->result.kind = g_sL.find(this->result.id)->flag;
         break;
     }
@@ -156,7 +157,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id, char kind)
         this->opn1.type = 'v';
         this->opn1.level = glo_level;
         this->opn1.flage = g_sL.find(this->opn1.id)->flage;
-        this->opn1.address = g_sL.find(this->opn1.id)->offset.const_int;
+        this->opn1.address = g_sL.find(this->opn1.id)->offset;
         this->opn1.kind = g_sL.find(this->opn1.id)->flag;
         this->opn1.kind = kind;
         break;
@@ -167,7 +168,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id, char kind)
         this->opn2.type = 'v';
         this->opn2.level = glo_level;
         this->opn2.flage = g_sL.find(this->opn2.id)->flage;
-        this->opn2.address = g_sL.find(this->opn2.id)->offset.const_int;
+        this->opn2.address = g_sL.find(this->opn2.id)->offset;
         this->opn2.kind = g_sL.find(this->opn2.id)->flag;
         this->opn2.kind = kind;
         break;
@@ -178,7 +179,7 @@ void codenode::setOpn(IR_opn_num opn_No, string id, char kind)
         this->result.type = 'v';
         this->result.level = glo_level;
         this->result.flage = g_sL.find(this->result.id)->flage;
-        this->result.address = g_sL.find(this->result.id)->offset.const_int;
+        this->result.address = g_sL.find(this->result.id)->offset;
         this->result.kind = g_sL.find(this->result.id)->flag;
         this->result.kind = kind;
         break;
@@ -245,23 +246,45 @@ string i2s(int in)
 void split_id(struct node *T)
 {
 
-    char tmp_id[36];
-    if (sizeof(T->type_id) > 500)
-        for (int i = 0; i < 20; i++)
-            tmp_id[i] = T->type_id[i];
-    tmp_id[20] = '\0', strcpy(T->type_id, tmp_id);
-    // if (strcmp(T->type_id, "main") != 0 && sizeof(T->type_id) > 50)
+    if (sizeof(T->type_id) > 20)
+        T->type_id = T->type_id.substr(0, 20);
+    // if (T->type_id =="main") != 0 && T->var_name == " ")
     // {
     //     if (node_id.find(string(T->type_id)) != node_id.end())
     //     {
-    //         strcpy(T->type_id, node_id[string(T->type_id)].c_str());
+    //         cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
+
+    //         T->var_name = node_id[string(T->type_id)];
     //     }
     //     else
     //     {
     //         string ans = newVal();
     //         cout << "新key-value：" << T->type_id << " " << ans << endl;
     //         node_id[string(T->type_id)] = ans;
-    //         strcpy(T->type_id, node_id[string(T->type_id)].c_str());
+    //         T->var_name = node_id[string(T->type_id)];
+    //     }
+    // }
+}
+
+void split_fid(struct node *T)
+{
+
+    if (sizeof(T->type_id) > 20)
+        T->type_id = T->type_id.substr(0, 20);
+    // if (T->type_id =="main") != 0 && T->var_name == " ")
+    // {
+    //     if (node_id.find(string(T->type_id)) != node_id.end())
+    //     {
+    //         cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
+
+    //         T->var_name = node_id[string(T->type_id)];
+    //     }
+    //     else
+    //     {
+    //         string ans = newVal();
+    //         cout << "新key-value：" << T->type_id << " " << ans << endl;
+    //         node_id[string(T->type_id)] = ans;
+    //         T->var_name = node_id[string(T->type_id)];
     //     }
     // }
 }
@@ -332,15 +355,25 @@ string newVal()
     return new_id;
 }
 
+//形成新变量标识。
+string newFunc()
+{
+    static int no = 1;
+    string new_id = "func";
+    new_id = new_id + to_string(no);
+    no++;
+    return new_id;
+}
+
 //构造新的临时符号并插入sT。
 void mksymt()
 {
     init();
     strcpy(glo_tmp_type, "int");
-    strcpy(glo_name, newTemp()), glo_paramnum = -1, glo_flag = 'T', glo_init_sym = 0, glo_size.const_int = 4;
+    glo_name = newTemp(), glo_paramnum = -1, glo_flag = 'T', glo_init_sym = 0, glo_size.const_int = 4;
     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
     if (glo_level > 0)
-        (*g_sL.glo_ymT[g_sL.now_func].func_t)[g_sL.last_sym].flage = '0';
+        (*g_sL.glo_ymT[g_sL.now_func].func_t)[g_sL.last_sym]->flage = '0';
     else
         g_sL.glo_ymT[g_sL.last_sym].flage = 'E';
 }
@@ -458,7 +491,7 @@ struct codenode *mkIR(IR_op op)
     //     {
     //         if (glo_opn1.type == 'i' || glo_opn1.flage == 'E')
     //             glo_res.cal_type = 'i', strcpy(g_sL.find(glo_res.id)->type, "int");
-    //         else if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(glo_opn1.id)->type, "("), "float") == 0)
+    //         else if (strcmp(g_sL.find(glo_opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(glo_opn1.id)->type, "("), "float")
     //             glo_res.cal_type = 'f', glo_opn1.cal_type = 'f', strcpy(g_sL.find(glo_res.id)->type, "float");
     //     }
     //     h->result = glo_res;
@@ -610,7 +643,7 @@ void set_opn_float(codenode *oneir)
     //     {
     //         if (oneir->opn1.type == 'i' || oneir->opn1.flage == 'E')
     //             oneir->result.cal_type = 'i', strcpy(g_sL.find(oneir->result.id)->type, "int");
-    //         else if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(oneir->opn1.id)->type, "("), "float") == 0)
+    //         else if (strcmp(g_sL.find(oneir->opn1.id)->type, "float") == 0 || strcmp(strtok(g_sL.find(oneir->opn1.id)->type, "("), "float")
     //             oneir->result.cal_type = 'f', oneir->opn1.cal_type = 'f', strcpy(g_sL.find(oneir->result.id)->type, "float");
     //     }
 
@@ -652,22 +685,22 @@ enum IR_op get_OpType(struct node T)
         break;
     case RELOP:
     {
-        if (strcmp(T.type_id, "<") == 0)
+        if (T.type_id == "<")
             ans = IR_JLT;
-        if (strcmp(T.type_id, "<=") == 0)
+        if (T.type_id == "<=")
             ans = IR_JLE;
-        if (strcmp(T.type_id, ">") == 0)
+        if (T.type_id == ">")
             ans = IR_JGT;
-        if (strcmp(T.type_id, ">=") == 0)
+        if (T.type_id == ">=")
             ans = IR_JGE;
 
         break;
     }
     case EQOP:
     {
-        if (strcmp(T.type_id, "==") == 0)
+        if (T.type_id == "==")
             ans = IR_EQ;
-        if (strcmp(T.type_id, "!=") == 0)
+        if (T.type_id == "!=")
             ans = IR_NEQ;
         break;
     }
@@ -829,7 +862,7 @@ void add_cal_IR(int type, struct node *T, struct opn *O1, struct opn O2, int tmp
         initOpn(&glo_opn1);
         glo_opn1.id = glo_name, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
         glo_opn1.kind = glo_flag;
-        glo_opn1.address = g_sL.find(glo_name)->offset.const_int;
+        glo_opn1.address = g_sL.find(glo_name)->offset;
         glo_opn1.flage = g_sL.find(glo_name)->flage;
 
         //构造opn1变量代码结点。
@@ -856,7 +889,7 @@ void add_load_IR(struct opn *O, struct node *T)
 
     initOpn(&glo_res);
     glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
-    glo_res.address = g_sL.find(glo_name)->offset.const_int;
+    glo_res.address = g_sL.find(glo_name)->offset;
     glo_res.flage = g_sL.find(glo_name)->flage;
     glo_res.kind = 'T',
     glo_res.flage = '0';
@@ -910,7 +943,7 @@ void check_load(struct node *T, struct opn *O, int type)
         else
         {
 
-            char tmp[5];
+            char tmp[35];
             sprintf(tmp, "t%d", g_sL.find(O->id)->no_ris);
             O->type = 'v', O->id = tmp;
             O->kind = 'T';
@@ -929,7 +962,7 @@ void add_alloca_IR(int type, struct node *T, string a, struct opn *O)
     initOpn(&glo_res);
     glo_res.type = 'v', glo_res.id = a, glo_res.offset = sT.index - 1, glo_res.level = glo_level;
 
-    glo_res.address = g_sL.find(a)->offset.const_int;
+    glo_res.address = g_sL.find(a)->offset;
     glo_res.kind = g_sL.find(a)->flag;
     glo_res.flage = g_sL.find(a)->flage;
 
@@ -966,12 +999,12 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 while (tmp_el->ptr[1] != NULL)
                     tmp_el = tmp_el->ptr[1];
 
-                if (tmp_el->length.const_int < in_T->length.const_int + in_T->place - 4 && glo_level > 0 && g_sL.find(tmp_c->result.id)->size.const_int < 200)
+                if (tmp_el->length.const_int < in_T->length.const_int + in_T->place - 4 && glo_level > 0 && g_sL.find(tmp_c->result.id)->size < 200)
                 {
                     glo_opn1.id = out_T->ptr[0]->ptr[1]->type_id, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = tmp_c->result.offset;
                     // DisplaySymbolTable(sT), DisplaySymbolTable();
                     // cout << glo_opn1.id;
-                    glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+                    glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
                     glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
                     glo_opn1.kind = 'A';
@@ -982,11 +1015,11 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 }
             }
 
-            else if (glo_level > 0 && g_sL.find(tmp_c->result.id)->size.const_int < 200)
+            else if (glo_level > 0 && g_sL.find(tmp_c->result.id)->size < 200)
             {
                 glo_opn1.id = out_T->ptr[0]->ptr[1]->type_id, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = tmp_c->result.offset;
 
-                glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+                glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
                 glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
                 glo_opn1.kind = 'A';
@@ -1012,11 +1045,11 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 tmp_code = tmp_code->prior;
             if (tmp_code->op == IR_ARROFF_EXPi)
             {
-                if (tmp_code->opn2.const_int < in_T->length.const_int * 4 - 4 && glo_level > 0 && g_sL.find(tmp_c->result.id)->size.const_int < 200)
+                if (tmp_code->opn2.const_int < in_T->length.const_int * 4 - 4 && glo_level > 0 && g_sL.find(tmp_c->result.id)->size < 200)
                 {
                     glo_opn1.id = out_T->ptr[0]->ptr[1]->type_id, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = tmp_c->result.offset;
 
-                    glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+                    glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
                     glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
                     glo_opn1.kind = 'A';
@@ -1027,17 +1060,18 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
                 }
             }
             check_load(out_T, &in_T->out, 0);
-
-            if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "float") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "int") == 0)
-                add_vcvt_IR(out_T, &in_T->out, (string) ".f32.s32");
-            else if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "int") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "float") == 0)
-                add_vcvt_IR(out_T, &in_T->out, (string) ".s32.f32");
-
+            if (glo_level > 0)
+            {
+                if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "float") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "int") == 0)
+                    add_vcvt_IR(out_T, &in_T->out, (string) ".f32.s32");
+                else if (strcmp(g_sL.find(out_T->ptr[0]->ptr[1]->type_id)->type, "int") == 0 && strcmp(g_sL.find(in_T->out.id)->type, "float") == 0)
+                    add_vcvt_IR(out_T, &in_T->out, (string) ".s32.f32");
+            }
             glo_res = in_T->out;
 
             glo_opn1.id = out_T->ptr[0]->ptr[1]->type_id, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = tmp_c->result.offset;
 
-            glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+            glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
             glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
             glo_opn1.kind = 'A';
@@ -1064,7 +1098,7 @@ void add_initarr_IR(struct node *out_T, struct node *in_T)
 void add_memset0arr_IR(struct node *T)
 {
     string arr_id = g_sL.last_sym;
-    int tmp_off = g_sL.find(g_sL.last_sym)->size.const_int;
+    int tmp_off = g_sL.find(g_sL.last_sym)->size;
     add_cal_IR(2, T, NULL, glo_opn1, 0);
     glo_res = glo_opn1;
     oneir = mkIR(IR_ARG);
@@ -1073,12 +1107,12 @@ void add_memset0arr_IR(struct node *T)
     glo_res = glo_opn1;
     oneir = mkIR(IR_ARG);
     T->code = merge(2, T->code, oneir);
-    glo_opn2.type = 'i', glo_opn2.status = 1, glo_opn2.const_int = -(g_sL.find(arr_id)->offset.const_int + g_sL.find(arr_id)->size.const_int - 4);
+    glo_opn2.type = 'i', glo_opn2.status = 1, glo_opn2.const_int = -(g_sL.find(arr_id)->offset + g_sL.find(arr_id)->size - 4);
 
     glo_opn2.id = g_sL.find(arr_id)->name;
     mksymt();
     glo_opn1.id = glo_name, glo_opn1.type = 'v', glo_opn1.level = glo_level, glo_opn1.offset = sT.index - 1;
-    glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int;
+    glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
     glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
     glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
@@ -1157,22 +1191,22 @@ void int_cal(struct opn *O1, struct opn *O2, struct node *T)
         break;
     case RELOP:
     {
-        if (strcmp(T->type_id, "<") == 0)
+        if (T->type_id == "<")
             T->out.const_int = O1->const_int < O2->const_int;
-        if (strcmp(T->type_id, "<=") == 0)
+        if (T->type_id == "<=")
             T->out.const_int = O1->const_int <= O2->const_int;
-        if (strcmp(T->type_id, ">") == 0)
+        if (T->type_id == ">")
             T->out.const_int = O1->const_int > O2->const_int;
-        if (strcmp(T->type_id, ">=") == 0)
+        if (T->type_id == ">=")
             T->out.const_int = O1->const_int >= O2->const_int;
         break;
     }
     case EQOP:
     {
         // printf("opn1:%d;opn2:%d\n", O1->const_int, O2->const_int);
-        if (strcmp(T->type_id, "==") == 0)
+        if (T->type_id == "==")
             T->out.const_int = O1->const_int == O2->const_int;
-        if (strcmp(T->type_id, "!=") == 0)
+        if (T->type_id == "!=")
             T->out.const_int = O1->const_int != O2->const_int;
         break;
     }
@@ -1212,21 +1246,21 @@ void float_cal(struct opn *O1, struct opn *O2, struct node *T)
         break;
     case RELOP:
     {
-        if (strcmp(T->type_id, "<") == 0)
+        if (T->type_id == "<")
             T->out.const_float = O1->const_float < O2->const_float;
-        if (strcmp(T->type_id, "<=") == 0)
+        if (T->type_id == "<=")
             T->out.const_float = O1->const_float <= O2->const_float;
-        if (strcmp(T->type_id, ">") == 0)
+        if (T->type_id == ">")
             T->out.const_float = O1->const_float > O2->const_float;
-        if (strcmp(T->type_id, ">=") == 0)
+        if (T->type_id == ">=")
             T->out.const_float = O1->const_float >= O2->const_float;
         break;
     }
     case EQOP:
     {
-        if (strcmp(T->type_id, "==") == 0)
+        if (T->type_id == "==")
             T->out.const_float = O1->const_float == O2->const_float;
-        if (strcmp(T->type_id, "!=") == 0)
+        if (T->type_id == "!=")
             T->out.const_float = O1->const_float != O2->const_float;
         break;
     }
@@ -1251,7 +1285,7 @@ void float_cal(struct opn *O1, struct opn *O2, struct node *T)
 
 void arroffset_cal(int aTindex)
 {
-    int tmp_out = iT.indexs[iT.top - 1].const_int, tmp_size = aT.arrs[aTindex].lim[glo_D - 1].const_int;
+    int tmp_out = iT.indexs[iT.top - 1].const_int, tmp_size = aT.arrs[aTindex].lim[glo_D - 1];
     iT.top--;
     int tmp2;
     if (glo_D == 1)
@@ -1264,7 +1298,7 @@ void arroffset_cal(int aTindex)
         {
             tmp2 = tmp_size * iT.indexs[iT.top - 1].const_int;
             tmp_out = tmp2 + tmp_out;
-            tmp_size = tmp_size * aT.arrs[aTindex].lim[i].const_int;
+            tmp_size = tmp_size * aT.arrs[aTindex].lim[i];
             iT.top--;
         }
         glo_res.type = 'i', glo_res.const_int = tmp_out;

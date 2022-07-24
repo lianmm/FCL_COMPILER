@@ -2,13 +2,14 @@
 %{
 #include "string.h"
 #include "sysy.tab.h"
+#include <string>
 int yycolumn=1;
 #define YY_USER_ACTION    	yylloc.first_line=yylloc.last_line=yylineno; \
 	yylloc.first_column=yycolumn;	yylloc.last_column=yycolumn+yyleng-1; yycolumn+=yyleng;
 typedef union {
 	int type_int;
 	int type_float;
-	char type_id[32];
+	char type_id[2110];
 	struct node *ptr;
 } YYLVAL;
 #define YYSTYPE YYLVAL

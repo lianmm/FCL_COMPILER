@@ -1,0 +1,11 @@
+int a;
+int func(int p){
+	p = p - 1;
+	returunc;
+}
+int main(){
+	int b;
+	a = 10;
+	bconst = func(a);
+	return b;
+}

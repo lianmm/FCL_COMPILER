@@ -99,12 +99,15 @@ void COMP_STM_gen_ir_2(struct node *T)
                 {
                     // printf("\t1");
                     erase_sym = 1;
-                    if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name].size() > 1)
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name].pop();
-                    else if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name].size() == 1)
+                    // printf("(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size());
+                    if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size() > 1)
+                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
+                    else if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size() == 1)
                     {
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name].pop();
+
+                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
                         auto itt = (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name);
+                        delete itt->second;
                         (*g_sL.glo_ymT[g_sL.now_func].func_v).erase(itt);
                     }
                     // DisplaySymbolTable();
@@ -199,6 +202,8 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
     if ((int)T->kind != (int)ASSIGN)
     {
         check_load(T, &T->ptr[0]->out, 0);
+        // if (T->ptr[0]->out.id == "a" )
+        // DisplaySymbolTable();
         glo_opn1 = glo_res;
     }
     // printf("\t%s\t%s\n", T->ptr[0]->out.id, T->Etrue);
@@ -288,7 +293,7 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
 
             if (g_sL.find(T->ptr[0]->type_id)->flage == 'P')
             {
-                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->ptr[0]->type_id)->offset.const_int, glo_opn1.id = T->ptr[0]->type_id;
+                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->ptr[0]->type_id)->offset, glo_opn1.id = T->ptr[0]->type_id;
                 glo_opn1.id = T->ptr[0]->type_id;
                 glo_opn1.flage = g_sL.find(T->ptr[0]->type_id)->flage;
                 glo_opn1.flaga = g_sL.find(T->ptr[0]->type_id)->flagca;
@@ -296,7 +301,7 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
                 glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
                 glo_res.flage = g_sL.find(glo_res.id)->flage;
 
-                glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                glo_res.address = g_sL.find(glo_res.id)->offset;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 oneir = mkIR(IR_LOAD);
                 T->code = merge(2, T->code, oneir);
@@ -315,7 +320,7 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
                 glo_res = T->ptr[1]->out;
                 glo_opn1.type = 'v', glo_opn1.offset = find(T->ptr[0]->type_id), glo_opn1.level = glo_level, glo_opn1.id = T->ptr[0]->type_id;
                 // if (glo_opn1.id == "count_arr")
-                glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+                glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
                 glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
                 glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
@@ -393,7 +398,7 @@ void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string t
         glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
         glo_res.flage = g_sL.find(glo_res.id)->flage;
-        glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+        glo_res.address = g_sL.find(glo_res.id)->offset;
         glo_res.kind = g_sL.find(glo_res.id)->flag;
 
         T->out = glo_res;
@@ -474,7 +479,8 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             }
             iT.top--;
             tmp_out = glo_opn1;
-            tmp_size = aT.arrs[aTindex].lim[glo_D - 1];
+            tmp_size.const_int = aT.arrs[aTindex].lim[glo_D - 1];
+            tmp_size.type = 'i';
             if (glo_D == 1)
                 glo_res = glo_opn1;
             else
@@ -489,7 +495,7 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
                     add_cal_IR(4, T, &tmp_out, glo_res, 0);
                     tmp_out = glo_res;
                     if (i > 0)
-                        glo_res.const_int = tmp_size.const_int * aT.arrs[aTindex].lim[i].const_int, glo_res.type = 'i';
+                        glo_res.const_int = tmp_size.const_int * aT.arrs[aTindex].lim[i], glo_res.type = 'i';
                     tmp_size = glo_res;
                     iT.top--;
                 }
@@ -502,7 +508,7 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
         char tmp_name[36];
         char tmp_flag = glo_flag;
 
-        strcpy(tmp_name, glo_name);
+        strcpy(tmp_name, glo_name.c_str());
 
         initOpn(&glo_opn1), initOpn(&glo_opn2);
 
@@ -520,9 +526,9 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
         }
         iT.top = 0;
         T->out = tmp_out;
-        strcpy(glo_name, tmp_name);
+        glo_name= tmp_name;
         glo_flag = tmp_flag;
-        strcpy(glo_name, T->type_id);
+        glo_name= T->type_id;
 
         if (strcmp(glo_type, "int") == 0 || strcmp(glo_type, "float") == 0)
         {
@@ -548,14 +554,14 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             glo_opn1.id = T->type_id;
             glo_opn1.status = 1;
 
-            glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->type_id)->offset.const_int;
+            glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->type_id)->offset;
             glo_opn1.flage = g_sL.find(T->type_id)->flage;
             glo_opn1.flaga = g_sL.find(T->type_id)->flagca;
             mksymt();
             glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
             glo_res.flage = g_sL.find(glo_res.id)->flage;
-            glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+            glo_res.address = g_sL.find(glo_res.id)->offset;
             glo_res.kind = g_sL.find(glo_res.id)->flag;
             oneir = mkIR(IR_LOAD);
             T->code = merge(2, T->code, oneir);
@@ -571,7 +577,7 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
             glo_res.flage = g_sL.find(glo_res.id)->flage;
-            glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+            glo_res.address = g_sL.find(glo_res.id)->offset;
             glo_res.kind = g_sL.find(glo_res.id)->flag;
         }
         else
@@ -580,7 +586,7 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
 
             glo_opn1.type = 'v', glo_opn1.offset = find(T->type_id), glo_opn1.level = glo_level, glo_opn1.id = T->type_id;
 
-            glo_opn1.address = g_sL.find(glo_opn1.id)->offset.const_int + g_sL.find(glo_opn1.id)->size.const_int - 4;
+            glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
             glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
             glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
@@ -591,7 +597,7 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
             glo_res.id = g_sL.find(g_sL.last_sym)->name;
             glo_res.flage = g_sL.find(glo_res.id)->flage;
-            glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+            glo_res.address = g_sL.find(glo_res.id)->offset;
 
             //构造结果变量代码结点。
         }
@@ -628,14 +634,14 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
     {
         glo_flag = 'V';
         glo_tmp_type = strcat(glo_type, "");
-        strcpy(glo_name, T->type_id);
+        glo_name= T->type_id;
     }
 
     initOpn(&glo_res);
     glo_res.type = 'v', glo_res.id = T->type_id, glo_res.level = glo_level, glo_res.offset = find(T->type_id);
 
     glo_res.flage = g_sL.find(glo_res.id)->flage;
-    glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+    glo_res.address = g_sL.find(glo_res.id)->offset;
     glo_res.kind = g_sL.find(glo_res.id)->flag;
 
     T->out = glo_res;
@@ -664,7 +670,7 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
             if (g_sL.find(T0->out.id)->flage == 'P')
             {
 
-                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T0->out.id)->offset.const_int;
+                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T0->out.id)->offset;
                 glo_opn1.id = g_sL.find(T0->out.id)->name;
                 glo_opn1.flage = g_sL.find(T0->out.id)->flage;
                 glo_opn1.flaga = g_sL.find(T0->out.id)->flagca;
@@ -672,7 +678,7 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
                 glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
 
                 glo_res.flage = g_sL.find(glo_res.id)->flage;
-                glo_res.address = g_sL.find(glo_res.id)->offset.const_int;
+                glo_res.address = g_sL.find(glo_res.id)->offset;
                 glo_res.kind = g_sL.find(glo_res.id)->flag;
                 strcpy(g_sL.find(glo_res.id)->type, "int");
                 oneir = mkIR(IR_LOAD);
@@ -684,7 +690,7 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
             }
             else
             {
-                T0->out.type = 'i', T0->out.const_int = -(g_sL.find(T0->out.id)->offset.const_int + g_sL.find(T0->out.id)->size.const_int - 4);
+                T0->out.type = 'i', T0->out.const_int = -(g_sL.find(T0->out.id)->offset + g_sL.find(T0->out.id)->size - 4);
 
                 add_cal_IR(1, T0, NULL, T0->out, 0);
                 if (g_sL.find(T0->out.id)->flage != 'E')

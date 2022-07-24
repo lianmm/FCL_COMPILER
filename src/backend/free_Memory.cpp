@@ -6,22 +6,25 @@ using namespace std;
 //遍历释放目标代码结点空间；
 void clear_arm()
 {
-    struct arm_instruction *code = out_arm, *cp = code->prior, *cn = code->next;
-    while (1)
+    if (out_arm != &null_ar && out_arm != NULL)
     {
-        cp = code->prior, cn = code->next;
-        if (cp != cn)
+        struct arm_instruction *code = out_arm, *cp = code->prior, *cn = code->next;
+        while (1)
         {
-            cp->next = cn, cn->prior = cp;
-            delete (code), code = cn;
-        }
-        else
-        {
-            if (cp != code)
-                delete (code), code = NULL;
-            delete (cp);
-            cp = NULL;
-            break;
+            cp = code->prior, cn = code->next;
+            if (cp != cn)
+            {
+                cp->next = cn, cn->prior = cp;
+                delete (code), code = cn;
+            }
+            else
+            {
+                if (cp != code)
+                    delete (code), code = NULL;
+                delete (cp);
+                cp = NULL;
+                break;
+            }
         }
     }
 }
@@ -29,22 +32,26 @@ void clear_arm()
 //遍历释放中间代码结点空间；
 void clear_IR()
 {
-
-    struct codenode *code = out_IR, *cp = code->prior, *cn = code->next;
-    while (1)
+    if (out_IR != &null_ir && out_IR != NULL)
     {
-        cp = code->prior, cn = code->next;
-        if (cp != cn)
+        struct codenode *code = out_IR;
+
+        struct codenode *cp = code->prior, *cn = code->next;
+        while (1)
         {
-            cp->next = cn, cn->prior = cp;
-            delete (code), code = cn;
-        }
-        else
-        {
-            if (cp != code)
-                delete (code);
-            delete (cp);
-            break;
+            cp = code->prior, cn = code->next;
+            if (cp != cn)
+            {
+                cp->next = cn, cn->prior = cp;
+                delete (code), code = cn;
+            }
+            else
+            {
+                if (cp != code)
+                    delete (code);
+                delete (cp);
+                break;
+            }
         }
     }
 }
@@ -68,19 +75,42 @@ void clear_ast(struct node *T)
 void clear_symlist()
 {
     auto it = g_sL.glo_ymT.begin();
-    for (; it != g_sL.glo_ymT.end(); it++)
+    if (it != g_sL.glo_ymT.end())
     {
-        if (it->second.func_v != NULL)
+        for (; it != g_sL.glo_ymT.end(); it++)
         {
-            (*it->second.func_v).clear();
-            delete it->second.func_v;
-            it->second.func_v = NULL;
-        }
-        if (it->second.func_t != NULL)
-        {
-            (*it->second.func_t).clear();
-            delete it->second.func_t;
-            it->second.func_t = NULL;
+            //释放参数表；
+            if (it->second.paras != NULL)
+            {
+                delete[] it->second.paras;
+                it->second.paras = NULL;
+            }
+
+            //释放局部变量表；
+            if (it->second.func_v != NULL)
+            {
+                for (auto it1 = (*it->second.func_v).begin(); it1 != (*it->second.func_v).end(); it1++)
+                {
+                    delete it1->second;
+                    it1->second = NULL;
+                }
+                (*it->second.func_v).clear();
+                delete it->second.func_v;
+                it->second.func_v = NULL;
+            }
+
+            //释放局部临时变量表；
+            if (it->second.func_t != NULL)
+            {
+                for (auto it1 = (*it->second.func_t).begin(); it1 != (*it->second.func_t).end(); it1++)
+                {
+                    delete it1->second;
+                    it1->second = NULL;
+                }
+                (*it->second.func_t).clear();
+                delete it->second.func_t;
+                it->second.func_t = NULL;
+            }
         }
     }
 }

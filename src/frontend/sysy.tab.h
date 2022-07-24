@@ -99,7 +99,7 @@ union YYSTYPE
 
   int    type_int;
   float  type_float;
-  char   type_id[32];
+  char   type_id[2110];
   struct node *ptr;
 
 #line 106 "sysy.tab.h"

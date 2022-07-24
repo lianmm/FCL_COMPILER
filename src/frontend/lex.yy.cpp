@@ -583,19 +583,20 @@ char *yytext;
 #line 3 "sysy.l"
 #include "string.h"
 #include "sysy.tab.h"
+#include <string>
 int yycolumn=1;
 #define YY_USER_ACTION    	yylloc.first_line=yylloc.last_line=yylineno; \
 	yylloc.first_column=yycolumn;	yylloc.last_column=yycolumn+yyleng-1; yycolumn+=yyleng;
 typedef union {
 	int type_int;
 	int type_float;
-	char type_id[32];
+	char type_id[2110];
 	struct node *ptr;
 } YYLVAL;
 #define YYSTYPE YYLVAL
 
-#line 598 "lex.yy.c"
 #line 599 "lex.yy.c"
+#line 600 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -812,9 +813,9 @@ YY_DECL
 		}
 
 	{
-#line 34 "sysy.l"
+#line 35 "sysy.l"
 
-#line 818 "lex.yy.c"
+#line 819 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -883,218 +884,218 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 35 "sysy.l"
+#line 36 "sysy.l"
 {yylval.type_int= strtol(yytext, NULL, 8); return INT;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 36 "sysy.l"
+#line 37 "sysy.l"
 {yylval.type_int= strtol(yytext, NULL, 16); return INT;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "sysy.l"
+#line 38 "sysy.l"
 {yylval.type_int=atoi(yytext); return INT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 38 "sysy.l"
+#line 39 "sysy.l"
 {yylval.type_float=strtof(yytext, NULL);return FLOAT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 39 "sysy.l"
+#line 40 "sysy.l"
 {yylval.type_float=atof(yytext); return FLOAT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 41 "sysy.l"
+#line 42 "sysy.l"
 {strcpy(yylval.type_id, yytext); return TYPE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 42 "sysy.l"
+#line 43 "sysy.l"
 {strcpy(yylval.type_id, yytext); return TYPE;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 43 "sysy.l"
+#line 44 "sysy.l"
 {strcpy(yylval.type_id, yytext); return VOID;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 44 "sysy.l"
+#line 45 "sysy.l"
 {return CONST;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 45 "sysy.l"
+#line 46 "sysy.l"
 {return RETURN;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 46 "sysy.l"
+#line 47 "sysy.l"
 {return IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 47 "sysy.l"
+#line 48 "sysy.l"
 {return ELSE;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 48 "sysy.l"
+#line 49 "sysy.l"
 {return FOR;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 49 "sysy.l"
+#line 50 "sysy.l"
 {return WHILE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 50 "sysy.l"
+#line 51 "sysy.l"
 {return DO;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 51 "sysy.l"
+#line 52 "sysy.l"
 {return BREAK;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 52 "sysy.l"
+#line 53 "sysy.l"
 {return CONTINUE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 54 "sysy.l"
+#line 55 "sysy.l"
 {strcpy(yylval.type_id, yytext); return ID;/*由于关键字的形式也符合表示符的规则，所以把关键字的处理全部放在标识符的前面，优先识别*/}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 56 "sysy.l"
+#line 57 "sysy.l"
 {strcpy(yylval.type_id, yytext); return RELOP;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 57 "sysy.l"
+#line 58 "sysy.l"
 {strcpy(yylval.type_id, yytext); return EQOP;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 58 "sysy.l"
+#line 59 "sysy.l"
 {return LP;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 59 "sysy.l"
+#line 60 "sysy.l"
 {return RP;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 60 "sysy.l"
+#line 61 "sysy.l"
 {return LB;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 61 "sysy.l"
+#line 62 "sysy.l"
 {return RB;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 62 "sysy.l"
+#line 63 "sysy.l"
 {return LC;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 63 "sysy.l"
+#line 64 "sysy.l"
 {return RC;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 64 "sysy.l"
+#line 65 "sysy.l"
 {return COMMA;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 65 "sysy.l"
+#line 66 "sysy.l"
 {return SEMICOLON;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 66 "sysy.l"
+#line 67 "sysy.l"
 {return QUESTION;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 67 "sysy.l"
+#line 68 "sysy.l"
 {return COLON;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 69 "sysy.l"
+#line 70 "sysy.l"
 {return NOT;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 70 "sysy.l"
+#line 71 "sysy.l"
 {return ASSIGN;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 71 "sysy.l"
+#line 72 "sysy.l"
 {return MINUS;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 72 "sysy.l"
+#line 73 "sysy.l"
 {return ADD;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 73 "sysy.l"
+#line 74 "sysy.l"
 {return MUL;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 74 "sysy.l"
+#line 75 "sysy.l"
 {return DIV;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 75 "sysy.l"
+#line 76 "sysy.l"
 {return MOD;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 76 "sysy.l"
+#line 77 "sysy.l"
 {return AND;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 77 "sysy.l"
+#line 78 "sysy.l"
 {return OR;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 78 "sysy.l"
+#line 79 "sysy.l"
 {return SELF_ADD;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 79 "sysy.l"
+#line 80 "sysy.l"
 {return SELF_MINUS;}
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 81 "sysy.l"
+#line 82 "sysy.l"
 {yycolumn=1;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 82 "sysy.l"
+#line 83 "sysy.l"
 {}
 	YY_BREAK
 case 44:
@@ -1102,26 +1103,26 @@ case 44:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 83 "sysy.l"
+#line 84 "sysy.l"
 {}
 	YY_BREAK
 case 45:
 /* rule 45 can match eol */
 YY_RULE_SETUP
-#line 84 "sysy.l"
+#line 85 "sysy.l"
 {}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 85 "sysy.l"
+#line 86 "sysy.l"
 {printf("Error type A :Mysterious character \"%s\"\n\t at Line %d\n",yytext,yylineno);}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 86 "sysy.l"
+#line 87 "sysy.l"
 ECHO;
 	YY_BREAK
-#line 1125 "lex.yy.c"
+#line 1126 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2138,7 +2139,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 86 "sysy.l"
+#line 87 "sysy.l"
 
 
 

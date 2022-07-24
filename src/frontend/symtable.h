@@ -15,31 +15,34 @@ struct symbol
     int level;          //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
     char type[MAXTYPE]; //变量类型或函数返回值类型
     int paramnum;       //形式参数个数;数组的向量内情表索引;
-    char alias[10];     //别名，为解决嵌套层次使用，使得每一个数据名称唯一
+    string alias;       //别名，为解决嵌套层次使用，使得每一个数据名称唯一
     char flag;          //符号标记，函数：'F'  变量：'V'   参数：'P'  临时变量：'T'
     char flagca;
     char flage;
-    int val_index;     //数组初始化表索引；函数的单独符号表索引；
-    struct opn offset; //外部变量和局部变量在其静态数据区或活动记录中的偏移量
+    int val_index; //数组初始化表索引；函数的单独符号表索引；
+    int offset;    //外部变量和局部变量在其静态数据区或活动记录中的偏移量
     int int_val;
     float float_val;
     //初始化值。
     int init_sym;
     // 初始化标志：0表示未初始化，1表示初始化为int，2表示初始化为float。
-    struct opn size;
+    int size;
     //函数活动记录大小，目标代码生成时使用
     int status;
     //分配状态；有栈上已分配，寄存器上已分配几种；
-    int address;    //栈上地址；栈上已分配才有效；
-    int no_ris;     //对应寄存器编号，寄存器已分配才有效；
-    int paras[250]; //形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
-    map<string, stack<struct symbol>> *func_v;
-    map<string, struct symbol> *func_t;
+    int address; //栈上地址；栈上已分配才有效；
+    int no_ris;  //对应寄存器编号，寄存器已分配才有效；
+    int *paras;  //形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
+    map<string, stack<struct symbol> *> *func_v;
+    map<string, struct symbol *> *func_t;
     struct codenode *code_b, *code_e;
     int tval_num;
 
     symbol()
     {
+        this->offset = 0;
+        this->size = 4;
+        tval_num = 0;
         name = " ";
         level = 0;
         strcpy(type, " ");
@@ -61,10 +64,12 @@ struct symbol
         name = " ";
         code_b = NULL;
         code_e = NULL;
+        paras = NULL;
     }
     symbol &operator=(const symbol &s1)
     {
 
+        this->offset = s1.offset;
         this->name = s1.name;
         this->level = s1.level;
         strcpy(this->type, s1.type);
@@ -86,10 +91,14 @@ struct symbol
         this->name = s1.name;
         this->code_e = s1.code_e;
         this->code_b = s1.code_b;
-
-        for (int i = 0; i < s1.paramnum; i++)
+        if (this->paramnum > 0 && this->flag == 'F')
         {
-            this->paras[i] = s1.paras[i];
+            this->paras = new int[12000];
+            for (int i = 0; i < this->paramnum; i++)
+            {
+                this->paras[i] = s1.paras[i];
+            }
+            // this->paras = s1.paras;
         }
         return *this;
     }
@@ -148,7 +157,7 @@ struct symbol_scope_begin
 //数组内情向量表结点结构；
 struct array_node
 {
-    struct opn lim[10];
+    int lim[MAXLIM];
     int D;
     array_node() { this->D = 0; }
 };
@@ -204,12 +213,12 @@ public:
         }
         else if (this->glo_ymT[this->now_func].func_v != NULL && (*this->glo_ymT[this->now_func].func_v).find(key) != (*this->glo_ymT[this->now_func].func_v).end())
         {
-            return &(*this->glo_ymT[this->now_func].func_v)[key].top();
+            return &(*this->glo_ymT[this->now_func].func_v)[key]->top();
         }
         else if (this->glo_ymT[this->now_func].func_t != NULL && (*this->glo_ymT[this->now_func].func_t).find(key) != (*this->glo_ymT[this->now_func].func_t).end())
         {
 
-            return &(*this->glo_ymT[this->now_func].func_t)[key];
+            return (*this->glo_ymT[this->now_func].func_t)[key];
         }
         else if (this->glo_ymT.find(key) != this->glo_ymT.end())
         {
@@ -229,7 +238,8 @@ extern struct array_table aT;
 extern struct symbol_scope_begin symbol_scope_TX;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
-extern char glo_name[MAXNAME], glo_alias[10], glo_flag;
+extern string glo_name;
+extern char glo_alias[10], glo_flag;
 extern struct opn glo_offset;
 extern char glo_type[MAXTYPE];
 extern int glo_int_val;
@@ -237,7 +247,7 @@ extern float glo_float_val;
 extern int glo_level, glo_paramnum;
 extern char *glo_tmp_type;
 extern int glo_init_sym;
-extern struct opn glo_arr_lim[10];
+extern struct opn glo_arr_lim[MAXLIM];
 extern int glo_D;
 extern struct opn glo_size;
 extern char glo_flage;
@@ -247,7 +257,7 @@ extern char glo_flage;
 int mkarr(struct opn arr_lim[], int D);
 
 //构造新的符号并插入sT。
-void mksym(struct symbolstack *sT, char *name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size);
+void mksym(struct symbolstack *sT, string name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size);
 
 //显示当前数组内情向量表中的内容。
 void DisplayArrTable();

@@ -259,6 +259,8 @@ void cal_alive_num(struct opn *O, int &ans)
 //给临时变量分配寄存器或栈空间；
 void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_begin, struct codenode *head, set<int, greater<int>> *ris_pq, set<int, greater<int>> *vris_pq, int eind)
 {
+    // if (O->id == "t201")
+    //     printf("O->id:%s\tO->cal_type:%c\n", O->id.c_str(), O->cal_type);
     if (O->cal_type == 'i')
     {
         int dlt;
@@ -277,8 +279,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 // printf("特分配%d号寄存器\n", 12);
 
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = 12;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = 12;
                 O->status = 2;
                 O->no_ris = 12;
             }
@@ -298,13 +300,15 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.kind = 'T', glo_opn2.no_ris = 12;
                     glo_opn2.id = "r12";
                     split(glo_begin, next_code), merge(3, glo_begin, mkIR(IR_ASSIGN), next_code);
+                    next_code->prior->opn2.cal_type = 'i';
+
                     //分配空间并维护函数空间大小；
                     dlt = tmp_map.begin()->first;
                     tmp_map.erase(dlt);
 
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 1;
-                    // (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = 12;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address = tmp_sp + 4;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 1;
+                    // (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = 12;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address = tmp_sp + 4;
 
                     O->status = 2, O->no_ris = 12;
                 }
@@ -317,19 +321,21 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_opn1.type = 'v', glo_opn1.kind = 'V', glo_opn1.id = "->s:" + to_string(tmp_sp + 4), glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
                     glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.kind = 'T';
                     glo_opn2.id = "s" + O->id;
-                    glo_opn2.no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].no_ris;
+                    glo_opn2.no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->no_ris;
 
-                    tmp_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].no_ris;
+                    tmp_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->no_ris;
                     merge(3, glo_begin, mkIR(IR_ASSIGN), head);
+                    head->prior->opn2.cal_type = 'i';
+
                     initOpn(&glo_opn1);
                     //修改符号表中的信息，将最晚调用的临时变量设为栈存储。
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].status = 1;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].address = tmp_sp + 4;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->status = 1;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->address = tmp_sp + 4;
                     //将这个临时变量的寄存器分配给新临时变量；改符号表；
                     dlt = tmp_map.begin()->first;
                     tmp_map.erase(dlt);
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = tmp_ris;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = tmp_ris;
                     ris3_status[tmp_ris] = a2i(O->id);
                     O->status = 2, O->no_ris = tmp_ris;
                 }
@@ -343,9 +349,9 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 tmp_map.insert(std::map<int, int>::value_type(O->next_use, a2ians));
 
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = *ris_pq->begin();
-                ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = a2i(O->id);
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = *ris_pq->begin();
+                ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = a2i(O->id);
 
                 O->status = 2;
                 O->no_ris = *ris_pq->begin();
@@ -357,7 +363,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         //该寄存器非第一次出现，且不是最后一次出现；（调用了一个活跃的变量）；
         else if (O->next_use > 2)
         {
-            struct symbol *tmp_Tsym = &(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
+            struct symbol *tmp_Tsym = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
             //当前临时变量分配到了寄存器里；
             if (tmp_Tsym->status == 2)
             {
@@ -381,6 +387,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 12, glo_res.kind = 'T';
                     glo_opn1.id = O->id;
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                    head->prior->result.cal_type = 'i';
+
                     tmp_Tsym->status = 1;
                     // tmp_TsymL->status = 1;
                     dlt = tmp_map.begin()->first;
@@ -391,32 +399,35 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 else if (tmp_t1 != a2i(O->id))
                 {
                     // printf("置换栈中内容\n");
-                    int tmp_ris1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].no_ris;
+                    int tmp_ris1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->no_ris;
                     //做一次move；
                     glo_opn1.status = 2, glo_opn1.no_ris = 12, glo_opn1.kind = 'T';
                     glo_opn2.status = 2, glo_opn2.no_ris = tmp_ris1, glo_opn2.kind = 'T';
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
-
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
+                    head->prior->opn1.cal_type = 'i';
+                    head->prior->opn2.cal_type = 'i';
 
                     //设定一节点地址为变量地址；二节点为寄存器；做一次load；
                     glo_opn1.status = 1, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
-                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
                     glo_res.status = 2, glo_res.no_ris = tmp_ris1, glo_res.kind = 'T', glo_res.type = 'v';
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
 
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                    head->prior->opn1.cal_type = 'i';
 
                     //设定一节点地址为变量地址，二结点为寄存器；做一次store；
                     glo_opn1.status = 1, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
-                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
                     glo_opn2.status = 2, glo_opn2.no_ris = 12, glo_opn2.kind = 'T', glo_opn2.type = 'v';
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
+                    head->prior->opn2.cal_type = 'i';
 
                     //改符号表项；
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2, (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = tmp_ris1;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].status = 1, (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2, (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = tmp_ris1;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->status = 1, (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
 
                     ris3_status[tmp_ris1] = a2i(O->id);
                     dlt = tmp_map.begin()->first;
@@ -424,7 +435,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                     //改下一条语句变量项；
                     O->status = 2, O->no_ris = tmp_ris1;
-                    ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = a2i(O->id);
+                    ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = a2i(O->id);
                     // DisplaySymbolTable(begin->opn1.id);
                 }
             }
@@ -432,14 +443,15 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         //该寄存器是最后一次出现，调用后释放相关栈空间和寄存器（重新进入寄存器分配池队列）；
         else if (O->next_use < 3)
         {
-            struct symbol *tmp_Tsym1 = &(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
+            struct symbol *tmp_Tsym1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
             //存在栈空间分配；不再使用此变量，此时还要调用一次，在栈中的变量要再取一次。
-            if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status % 2 == 1)
+            if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status % 2 == 1)
             {
                 // printf("调用并释放栈中内容！\n");
                 glo_opn1.type = 'v', glo_opn1.status = 1, glo_opn1.address = tmp_Tsym1->address, glo_opn1.kind = 'V', glo_opn1.flage = '0';
-                glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 12, glo_res.kind = 'T';
+                glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 12, glo_res.kind = 'T', glo_res.cal_type = 'i';
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                head->prior->result.cal_type = 'i';
                 tmp_Tsym1->status = 1;
                 // tmp_Tsym1L->status = 1;
                 // GSL中分配方式是1，而O中分配方式是2，即从本条命令从寄存器10中取用，下一次调用语句仍然访问栈空间；
@@ -452,15 +464,15 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             else
             {
                 O->status = 2;
-                O->no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris;
+                O->no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris;
 
-                if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris != 12)
-                    ris_pq->insert((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris);
+                if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris != 12)
+                    ris_pq->insert((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris);
                 // printf("当前最小号寄存器号数%d\n", *ris_pq->begin());
                 tmp_map.erase(O->next_use);
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
 
-                ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = -1;
+                ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = -1;
             }
         }
         tmp_map.erase(eind);
@@ -470,6 +482,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
     }
     else if (O->cal_type == 'f')
     {
+
         // printf("i-op:%d-%s arm_op_strs[arm_bne]:%s\n", eind, IR_op_strs[head->op], arm_op_strs[arm_bne]);
 
         int dlt;
@@ -488,8 +501,8 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 // printf("特分配%d号寄存器\n", 104);
 
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = 104;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = 104;
                 O->status = 2;
                 O->no_ris = 104;
             }
@@ -510,12 +523,14 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_opn2.id = "s4";
                     split(glo_begin, next_code), merge(3, glo_begin, mkIR(IR_ASSIGN), next_code);
                     //分配空间并维护函数空间大小；
+                    next_code->prior->cal_type = 'f';
+                    next_code->prior->opn2.cal_type = 'f';
                     dlt = vtmp_map.begin()->first;
                     vtmp_map.erase(dlt);
 
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 1;
-                    // (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = 104;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address = tmp_sp + 4;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 1;
+                    // (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = 104;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address = tmp_sp + 4;
 
                     O->status = 2, O->no_ris = 104;
                 }
@@ -528,19 +543,22 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_opn1.type = 'v', glo_opn1.kind = 'V', glo_opn1.id = "->s:" + to_string(tmp_sp + 4), glo_opn1.address = tmp_sp + 4, glo_opn1.status = 1, glo_opn1.flage = '0';
                     glo_opn2.type = 'v', glo_opn2.status = 2, glo_opn2.kind = 'T';
                     glo_opn2.id = "s" + O->id;
-                    glo_opn2.no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].no_ris;
+                    glo_opn2.no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->no_ris;
+                    glo_opn2.cal_type = 'f';
 
-                    tmp_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].no_ris;
+                    tmp_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->no_ris;
                     merge(3, glo_begin, mkIR(IR_ASSIGN), head);
+                    head->prior->cal_type = 'f';
+                    head->prior->opn2.cal_type = 'f';
                     initOpn(&glo_opn1);
                     //修改符号表中的信息，将最晚调用的临时变量设为栈存储。
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].status = 1;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)].address = tmp_sp + 4;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->status = 1;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t)]->address = tmp_sp + 4;
                     //将这个临时变量的寄存器分配给新临时变量；改符号表；
                     dlt = vtmp_map.begin()->first;
                     vtmp_map.erase(dlt);
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = tmp_ris;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = tmp_ris;
                     // ris3_status[tmp_ris] = a2i(O->id);
                     O->status = 2, O->no_ris = tmp_ris;
                 }
@@ -554,9 +572,9 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 vtmp_map.insert(std::map<int, int>::value_type(O->next_use, a2ians));
 
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = *vris_pq->begin();
-                // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = a2i(O->id);
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = *vris_pq->begin();
+                // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = a2i(O->id);
 
                 O->status = 2;
                 O->no_ris = *vris_pq->begin();
@@ -568,7 +586,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         //该寄存器非第一次出现，且不是最后一次出现；（调用了一个活跃的变量）；
         else if (O->next_use > 2)
         {
-            struct symbol *tmp_Tsym = &(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
+            struct symbol *tmp_Tsym = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
             //当前临时变量分配到了寄存器里；
             if (tmp_Tsym->status == 2)
             {
@@ -591,7 +609,10 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     glo_opn1.type = 'v', glo_opn1.status = 1, glo_opn1.address = tmp_Tsym->address, glo_opn1.kind = 'V', glo_opn1.flage = '0';
                     glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 104, glo_res.kind = 'T';
                     glo_opn1.id = O->id;
+                    glo_res.cal_type = 'f';
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                    head->prior->cal_type = 'f';
+                    head->prior->result.cal_type = 'f';
                     tmp_Tsym->status = 1;
                     // tmp_TsymL->status = 1;
                     dlt = vtmp_map.begin()->first;
@@ -602,32 +623,40 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 else if (tmp_t1 != a2i(O->id))
                 {
                     // printf("置换栈中内容\n");
-                    int tmp_ris1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].no_ris;
+                    int tmp_ris1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->no_ris;
                     //做一次move；
                     glo_opn1.status = 2, glo_opn1.no_ris = 104, glo_opn1.kind = 'T';
                     glo_opn2.status = 2, glo_opn2.no_ris = tmp_ris1, glo_opn2.kind = 'T';
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
-
+                    glo_opn1.cal_type = 'f';
+                    glo_opn2.cal_type = 'f';
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
-
+                    head->prior->cal_type = 'f';
+                    head->prior->opn1.cal_type = 'f';
+                    head->prior->opn2.cal_type = 'f';
                     //设定一节点地址为变量地址；二节点为寄存器；做一次load；
                     glo_opn1.status = 1, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
-                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
                     glo_res.status = 2, glo_res.no_ris = tmp_ris1, glo_res.kind = 'T', glo_res.type = 'v';
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
-
+                    glo_res.cal_type = 'f';
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                    head->prior->cal_type = 'f';
+                    head->prior->result.cal_type = 'f';
 
                     //设定一节点地址为变量地址，二结点为寄存器；做一次store；
                     glo_opn1.status = 1, glo_opn1.id = tmp_Tsym->name, glo_opn1.kind = 'V', glo_opn1.flage = '0';
-                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    glo_opn1.address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
                     glo_opn1.type = 'v', glo_opn2.type = 'v';
                     glo_opn2.status = 2, glo_opn2.no_ris = 104, glo_opn2.kind = 'T', glo_opn2.type = 'v';
+                    glo_opn2.cal_type = 'f';
                     split(glo_begin, head), merge(3, glo_begin, mkIR(IR_ASSIGN), head);
+                    head->prior->cal_type = 'f';
+                    head->prior->opn2.cal_type = 'f';
 
                     //改符号表项；
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2, (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris = tmp_ris1;
-                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].status = 1, (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)].address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].address;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2, (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = tmp_ris1;
+                    (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->status = 1, (*g_sL.glo_ymT[begin->opn1.id].func_t)[i2s(tmp_t1)]->address = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->address;
 
                     // ris3_status[tmp_ris1] = a2i(O->id);
                     dlt = vtmp_map.begin()->first;
@@ -635,7 +664,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                     //改下一条语句变量项；
                     O->status = 2, O->no_ris = tmp_ris1;
-                    // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = a2i(O->id);
+                    // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = a2i(O->id);
                     // DisplaySymbolTable(begin->opn1.id);
                 }
             }
@@ -643,14 +672,18 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
         //该寄存器是最后一次出现，调用后释放相关栈空间和寄存器（重新进入寄存器分配池队列）；
         else if (O->next_use < 3)
         {
-            struct symbol *tmp_Tsym1 = &(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
+            struct symbol *tmp_Tsym1 = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id];
             //存在栈空间分配；不再使用此变量，此时还要调用一次，在栈中的变量要再取一次。
-            if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status % 2 == 1)
+            if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status % 2 == 1)
             {
                 // printf("调用并释放栈中内容！\n");
                 glo_opn1.type = 'v', glo_opn1.status = 1, glo_opn1.address = tmp_Tsym1->address, glo_opn1.kind = 'V', glo_opn1.flage = '0';
                 glo_res.type = 'v', glo_res.status = 2, glo_res.no_ris = 104, glo_res.kind = 'T';
+                glo_res.cal_type = 'f';
                 split(glo_begin, head), merge(3, glo_begin, mkIR(IR_LOAD), head);
+                head->prior->cal_type = 'f';
+                head->prior->result.cal_type = 'f';
+
                 tmp_Tsym1->status = 1;
                 // tmp_Tsym1L->status = 1;
                 // GSL中分配方式是1，而O中分配方式是2，即从本条命令从寄存器10中取用，下一次调用语句仍然访问栈空间；
@@ -663,16 +696,16 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             else
             {
                 O->status = 2;
-                O->no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris;
+                O->no_ris = (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris;
 
-                if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris != 104)
-                    vris_pq->insert((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris);
+                if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris != 104)
+                    vris_pq->insert((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris);
                 // printf("当前最小号寄存器号数%d\n", *vris_pq->begin());
                 if (vtmp_map.find(O->next_use) != vtmp_map.end())
                     vtmp_map.erase(O->next_use);
-                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].status = 2;
+                (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
 
-                // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id].no_ris] = -1;
+                // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = -1;
             }
         }
         vtmp_map.erase(eind);
@@ -687,7 +720,7 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
         ris3_status[rssi] = -1;
     set<int, greater<int>> ris_pq = {4, 5, 6, 7, 8, 9, 10};
     set<int, greater<int>> vris_pq = {131, 130, 129, 128, 127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 116, 115, 114, 113, 112, 111, 110, 109, 108, 107, 106};
-    int pre_func_size = g_sL.glo_ymT[begin->opn1.id].size.const_int;
+    int pre_func_size = g_sL.glo_ymT[begin->opn1.id].size;
 
     //反向循环计算临时变量的失效时间及维护每个语句的临时变量的下次使用信息；
     //维护用到的寄存器号最大值，方便函数进入保护现场，退出恢复现场；
@@ -762,8 +795,8 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
             tmp_ris_allot(&cur_C->result, begin, glo_begin, cur_C, &ris_pq, &vris_pq, 3 * (begin_index + i) + 2);
         }
     }
-    // printf("func:%s\tpsize:%d\tnsize:%d\ttmp_sp:%d\n", begin->opn1.id.c_str(), g_sL.glo_ymT[begin->opn1.id].size.const_int, g_sL.glo_ymT[begin->opn1.id].size.const_int + tmp_sp, tmp_sp);
-    g_sL.glo_ymT[begin->opn1.id].size.const_int += tmp_sp - 4;
+    // printf("func:%s\tpsize:%d\tnsize:%d\ttmp_sp:%d\n", begin->opn1.id.c_str(), g_sL.glo_ymT[begin->opn1.id].size, g_sL.glo_ymT[begin->opn1.id].size + tmp_sp, tmp_sp);
+    g_sL.glo_ymT[begin->opn1.id].size += tmp_sp - 4;
 
     // DisplaySymbolTable();
 
@@ -806,7 +839,7 @@ void glo_ris_allot()
 
                 func_ris_allot(now_begin, now_end, now_end_index, hC);
 
-                // g_sL.glo_ymT[g_sL.now_func].size.const_int += add_size;
+                // g_sL.glo_ymT[g_sL.now_func].size += add_size;
 
                 // if (add_size < 41)
                 // {
@@ -816,9 +849,9 @@ void glo_ris_allot()
                 // else if (add_size > 40)
                 // {
                 now_begin->opn2.type = 'i', now_begin->opn2.const_int = 40;
-                now_begin->result.type = 'i', now_begin->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
+                now_begin->result.type = 'i', now_begin->result.const_int = g_sL.glo_ymT[g_sL.now_func].size;
                 now_end->opn2.type = 'i', now_end->opn2.const_int = 40;
-                now_end->result.type = 'i', now_end->result.const_int = g_sL.glo_ymT[g_sL.now_func].size.const_int;
+                now_end->result.type = 'i', now_end->result.const_int = g_sL.glo_ymT[g_sL.now_func].size;
                 // }
 
                 now_begin = now_end = NULL;
@@ -842,7 +875,7 @@ void trslt_arg(int a_index, struct codenode *glo_begin, struct codenode *head, i
 
     int tmp_ris1 = head->result.no_ris, tmp_ris2 = a_index;
     int tmp_t1 = ris3_status[a_index], tmp_t2 = a2i(head->result.id);
-    // printf("调用了函数：%s,参数个数：%d ,当前实参序号：%d\tname:%s\n", toid.c_str(), g_sL.find(toid)->paramnum, a_index, head->result.id.c_str());
+    // printf("调用了函数：%s,参数个数：%d ,当前实参序号：%d\tname:%s\t%c\n", toid.c_str(), g_sL.find(toid)->paramnum, a_index, head->result.id.c_str(), head->result.cal_type);
     if (g_sL.find(toid)->paramnum == a_index)
     {
         head->op = IR_ASSIGN;
@@ -893,8 +926,8 @@ void trslt_arg(int a_index, struct codenode *glo_begin, struct codenode *head, i
         }
         else if (head->result.cal_type == 'f')
         {
+            // printf("\t%d %s:%d\n", a_index, head->result.id.c_str(), ris3_status[a_index]);
 
-            // printf("\t%d %s:%d\n", a_index, head->result.id, ris3_status[a_index]);
             head->op = IR_ASSIGN, head->cal_type = 'f';
             head->opn2 = head->result;
             head->opn1.type = 'v', head->opn1.kind = 'T', head->opn1.status = 2, head->opn1.no_ris = a_index + 100;
@@ -1165,14 +1198,14 @@ void func_trslt(struct codenode *glo_begin, struct codenode *begin, struct coden
                 cur_C = tmp_C->prior;
             }
         }
-        if (cur_C->op > IR_MOD && cur_C->op < IR_EQ || cur_C->op == IR_NEQ)
+        if ((cur_C->op > IR_MOD && cur_C->op < IR_EQ) || cur_C->op == IR_NEQ)
         {
             trslt_goto(glo_begin, cur_C);
         }
     }
-    g_sL.glo_ymT[begin->opn1.id].size.const_int += max_arg * 4;
-    if (g_sL.glo_ymT[begin->opn1.id].size.const_int % 8 == 0)
-        g_sL.glo_ymT[begin->opn1.id].size.const_int += 4;
+    g_sL.glo_ymT[begin->opn1.id].size += max_arg * 4;
+    if (g_sL.glo_ymT[begin->opn1.id].size % 8 == 0)
+        g_sL.glo_ymT[begin->opn1.id].size += 4;
 }
 
 //全局翻译；
@@ -1232,6 +1265,10 @@ void glo_trslt()
                             {
                                 nnext->op = IR_VOID;
                                 nnext2->result = nnext->opn2;
+                                if (nnext2->result.type == 'i' && now_C->opn2.type == 'f')
+                                    nnext2->result.const_float = float(nnext2->result.const_int), nnext2->result.cal_type = 'f';
+                                if (nnext2->result.type == 'f' && now_C->opn2.type == 'i')
+                                    nnext2->result.const_int = int(nnext2->result.const_float), nnext2->result.cal_type = 'i';
                                 nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                                 nnext2->op = IR_ARROFF_EXPie;
                             }
@@ -1240,6 +1277,10 @@ void glo_trslt()
                                 nnext->opn1.type = 'v', nnext->opn1.id = "\t.space";
                                 nnext->result.type = 'i', nnext->result.const_int = nnext2->opn2.const_int - tmp_offset - 4;
                                 nnext2->result = nnext->opn2;
+                                if (nnext2->result.type == 'i' && now_C->opn2.type == 'f')
+                                    nnext2->result.const_float = float(nnext2->result.const_int), nnext2->result.cal_type = 'f';
+                                if (nnext2->result.type == 'f' && now_C->opn2.type == 'i')
+                                    nnext2->result.const_int = int(nnext2->result.const_float), nnext2->result.cal_type = 'i';
                                 nnext2->opn1.type = 'v', nnext2->opn1.id = "\t.word";
                                 nnext2->op = IR_ARROFF_EXPie;
                                 nnext->op = IR_ARROFF_EXPie;
@@ -1264,6 +1305,12 @@ void glo_trslt()
                         now_C->op = IR_EXT_ALLOCA;
                         nnext2->op = IR_VOID, nnext->op = IR_VOID;
                         now_C = nnext2;
+                        if (nnext2->next->op == IR_VCVT)
+                        {
+                            nnext2->next->op = IR_VOID;
+                            nnext2->next->next->op = IR_VOID;
+                            now_C = nnext2->next->next;
+                        }
                     }
                     else if (nnext->op != IR_ASSIGN)
                     {
@@ -1271,6 +1318,10 @@ void glo_trslt()
                         now_C->op = IR_EXT_ALLOCA;
                     }
                 }
+            }
+            else if (now_C->op != IR_ALLOCA&&now_C->op != IR_EXT_ALLOCA)
+            {
+                now_C->op = IR_VOID;
             }
         }
     }

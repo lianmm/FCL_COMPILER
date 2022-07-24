@@ -144,9 +144,9 @@ void print_arm(arm_instruction *h)
         fprintf(fp, "\t.align\t2\n\t.global"), printOpn_arm2(h->opn1);
         fprintf(fp, "\n\t.type"), printOpn_arm2(h->opn1), fprintf(fp, ", %%function\n");
         if (g_sL.find(h->opn1.id)->paramnum > 4)
-            printOpn_arm1(h->opn1), fprintf(fp, ":\n\t@ args = %d, pretend = 0, frame = %d\n", 4 * (g_sL.find(h->opn1.id)->paramnum - 4), g_sL.find(h->opn1.id)->size.const_int - 4);
+            printOpn_arm1(h->opn1), fprintf(fp, ":\n\t@ args = %d, pretend = 0, frame = %d\n", 4 * (g_sL.find(h->opn1.id)->paramnum - 4), g_sL.find(h->opn1.id)->size - 4);
         else
-            printOpn_arm1(h->opn1), fprintf(fp, ":\n\t@ args = %d, pretend = 0, frame = %d\n", 0, g_sL.find(h->opn1.id)->size.const_int - 4);
+            printOpn_arm1(h->opn1), fprintf(fp, ":\n\t@ args = %d, pretend = 0, frame = %d\n", 0, g_sL.find(h->opn1.id)->size - 4);
 
         fprintf(fp, "\t@ frame_needed = 1, uses_anonymous_args = 0\n\t@ link register save eliminated.\n");
         if (h->opn2.const_int / 4 > 0)
@@ -154,13 +154,13 @@ void print_arm(arm_instruction *h)
         else if (h->opn2.const_int / 4 == 0)
             fprintf(fp, "\tstmfd\tsp!, {r0,fp, lr}\n");
         fprintf(fp, "\tadd\tfp, sp, #0"); //, h->result.const_int
-        if (g_sL.find(h->opn1.id)->size.const_int > 12)
+        if (g_sL.find(h->opn1.id)->size > 12)
         {
-            if (g_sL.find(h->opn1.id)->size.const_int < 501)
-                fprintf(fp, "\n\tsub\tsp, sp, #%d", g_sL.find(h->opn1.id)->size.const_int);
+            if (g_sL.find(h->opn1.id)->size < 501)
+                fprintf(fp, "\n\tsub\tsp, sp, #%d", g_sL.find(h->opn1.id)->size);
             else
             {
-                fprintf(fp, "\n\tldr\tr12, =%d", g_sL.find(h->opn1.id)->size.const_int);
+                fprintf(fp, "\n\tldr\tr12, =%d", g_sL.find(h->opn1.id)->size);
                 fprintf(fp, "\n\tsub\tsp, sp, r12");
             }
         }
@@ -169,10 +169,15 @@ void print_arm(arm_instruction *h)
     }
     case arm_func_end:
     {
-        if (h->opn2.const_int / 4 > 0)
-            fprintf(fp, "\tadd\tsp, fp, #%d\n\tldmfd\tsp!, {r4-r10,fp, pc}\n", 0);
-        else if (h->opn2.const_int / 4 == 0)
-            fprintf(fp, "\tadd\tsp, fp, #%d\n\tldmfd\tsp!, {r0,fp, pc}\n", 0);
+        if (g_sL.find(h->opn1.id)->size / 4 > 255)
+        {
+            fprintf(fp, "\tldr\tr12, =%d\n", g_sL.find(h->opn1.id)->size);
+            fprintf(fp, "\tadd\tsp, sp, r12\n\tldmfd\tsp!, {r4-r10,fp, pc}\n");
+        }
+        else if (g_sL.find(h->opn1.id)->size / 4 > 0)
+            fprintf(fp, "\tadd\tsp, sp, #%d\n\tldmfd\tsp!, {r4-r10,fp, pc}\n", g_sL.find(h->opn1.id)->size);
+        else if (g_sL.find(h->opn1.id)->size / 4 == 0)
+            fprintf(fp, "\tadd\tsp, sp, #%d\n\tldmfd\tsp!, {r0,fp, pc}\n", 0);
         fprintf(fp, "\t.size\t%s, .-%s\n", h->opn1.id.c_str(), h->opn1.id.c_str());
         g_sL.now_func = "glo";
         break;
@@ -198,7 +203,12 @@ void print_arm(arm_instruction *h)
         else if (strcmp(g_sL.find(h->result.id)->type, "int") == 0)
             fprintf(fp, "\n\t.word\t%d\n", h->opn2.const_int);
         else
-            fprintf(fp, "\n\t.word\t%d\n", *(int *)(&h->opn2.const_float));
+        {
+            if (h->opn2.type == 'f')
+                fprintf(fp, "\n\t.word\t%d\n", *(int *)(&h->opn2.const_float));
+            else
+                h->opn2.const_float = float(h->opn2.const_int), fprintf(fp, "\n\t.word\t%d\n", *(int *)(&h->opn2.const_float));
+        }
         break;
     }
 
