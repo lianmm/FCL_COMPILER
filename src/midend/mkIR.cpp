@@ -25,9 +25,6 @@ struct index_table iT;
 class if_while_sym iwT;
 struct if_whi_top iwtT;
 
-map<string, string> node_id;
-// map<string, string> fun_id;
-
 int no_tmp = 0;
 int no_lab = 1;
 int no_par = 0;
@@ -245,48 +242,48 @@ string i2s(int in)
 //预处理结点id防止超出字符串静态分配范围；
 void split_id(struct node *T)
 {
-
     if (sizeof(T->type_id) > 20)
         T->type_id = T->type_id.substr(0, 20);
-    // if (T->type_id =="main") != 0 && T->var_name == " ")
-    // {
-    //     if (node_id.find(string(T->type_id)) != node_id.end())
-    //     {
-    //         cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
-
-    //         T->var_name = node_id[string(T->type_id)];
-    //     }
-    //     else
-    //     {
-    //         string ans = newVal();
-    //         cout << "新key-value：" << T->type_id << " " << ans << endl;
-    //         node_id[string(T->type_id)] = ans;
-    //         T->var_name = node_id[string(T->type_id)];
-    //     }
-    // }
+    if (T->var_name == " ")
+    {
+        if (node_id.find(string(T->type_id)) != node_id.end())
+        {
+            // cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
+            T->var_name = node_id[string(T->type_id)];
+            T->type_id = T->var_name;
+        }
+        else
+        {
+            string ans = newVal();
+            // cout << "新key-value：" << T->type_id << " " << ans << endl;
+            node_id[string(T->type_id)] = ans;
+            T->var_name = node_id[string(T->type_id)];
+            T->type_id = T->var_name;
+        }
+    }
 }
 
 void split_fid(struct node *T)
 {
-
     if (sizeof(T->type_id) > 20)
         T->type_id = T->type_id.substr(0, 20);
-    // if (T->type_id =="main") != 0 && T->var_name == " ")
-    // {
-    //     if (node_id.find(string(T->type_id)) != node_id.end())
-    //     {
-    //         cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
-
-    //         T->var_name = node_id[string(T->type_id)];
-    //     }
-    //     else
-    //     {
-    //         string ans = newVal();
-    //         cout << "新key-value：" << T->type_id << " " << ans << endl;
-    //         node_id[string(T->type_id)] = ans;
-    //         T->var_name = node_id[string(T->type_id)];
-    //     }
-    // }
+    if (T->type_id != "main" && T->var_name == " ")
+    {
+        if (fun_id.find(string(T->type_id)) != fun_id.end())
+        {
+            // cout << "对应名：" << T->type_id << " " << fun_id[string(T->type_id)] << endl;
+            T->var_name = fun_id[string(T->type_id)];
+            T->type_id = T->var_name;
+        }
+        else
+        {
+            string ans = newFunc();
+            // cout << "新key-value：" << T->type_id << " " << ans << endl;
+            fun_id[string(T->type_id)] = ans;
+            T->var_name = fun_id[string(T->type_id)];
+            T->type_id = T->var_name;
+        }
+    }
 }
 
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
@@ -371,7 +368,7 @@ void mksymt()
     init();
     strcpy(glo_tmp_type, "int");
     glo_name = newTemp(), glo_paramnum = -1, glo_flag = 'T', glo_init_sym = 0, glo_size.const_int = 4;
-    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
+    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
     if (glo_level > 0)
         (*g_sL.glo_ymT[g_sL.now_func].func_t)[g_sL.last_sym]->flage = '0';
     else
@@ -666,6 +663,16 @@ void set_opn_float(codenode *oneir)
     }
     else
     {
+    }
+}
+
+void transfer_label(struct node *s, struct node *t)
+{
+    if (t)
+    {
+        strcpy(t->Etrue, s->Etrue), strcpy(t->Efalse, s->Efalse), strcpy(t->Snext, s->Snext);
+        strcpy(t->while_head, s->while_head), strcpy(t->while_tail, s->while_tail), strcpy(t->while_true, s->while_true);
+        t->fun_end = s->fun_end;
     }
 }
 

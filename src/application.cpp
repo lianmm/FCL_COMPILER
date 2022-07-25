@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
         gen_IR(out_ast);   //生成中间代码；
         putout_IR(out_IR); //打印中间代码；
 
-        // DisplaySymbolTable(); //打印符号表；
+        // // DisplaySymbolTable(); //打印符号表；
 
         mid_optimization();  //中端优化；
         translation();       //生成汇编代码；
@@ -62,17 +62,17 @@ int main(int argc, char *argv[])
 
         // DisplaySymbolTable(); //打印符号表；
 
-        // print_arm();//以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
+        // print_arm();  //以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
         putout_arm(); //将可运行的arm代码打印到文件中；
 
         free_Memory(); //释放内存；
 
         /*关闭编译计时，并打印出编译时间和所使用的空间（堆空间和栈空间都算上）*/
-        pid_t pid = getpid();
-        clock_t endTime = clock();
-        cout << "Time: " << (endTime - beginTime) / 1000000.0 << "s" << endl;
-        cout << "Mem: ";
-        system(string("cat /proc/" + to_string(pid) + "/status | grep VmHWM | awk '{print $2 $3}' > /dev/fd/2 >>../test_out.txt").data());
+        // pid_t pid = getpid();
+        // clock_t endTime = clock();
+        // cout << "Time: " << (endTime - beginTime) / 1000000.0 << "s" << endl;
+        // cout << "Mem: ";
+        // system(string("cat /proc/" + to_string(pid) + "/status | grep VmHWM | awk '{print $2 $3}' > /dev/fd/2 >>../test_out.txt").data());
 
         return 0;
     }

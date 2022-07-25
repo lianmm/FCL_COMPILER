@@ -115,7 +115,7 @@ void putout_IR(struct codenode *C)
     int i = 0;
     codenode *ir = C, *head = ir;
 
-    if (ir != &null_ir)
+    if (ir != &null_ir && ir != NULL)
     {
         for (i = 0; 1; i++)
         {
@@ -123,7 +123,13 @@ void putout_IR(struct codenode *C)
             printIR(ir);
             if (ir->next == head)
                 break;
-            ir = ir->next;
+            if (ir->next != &null_ir && ir->next != NULL)
+                ir = ir->next;
+            else
+            {
+                ir->next = C;
+                break;
+            }
         }
     }
 
@@ -176,11 +182,12 @@ void gen_IR(struct node *T)
         case EXP_STMT:
         {
             // printf("表达式语句：%s\n", T->Etrue);
-            if (T->ptr[0])
-            {
-                strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_tail, T->while_tail), strcpy(T->ptr[0]->while_true, T->while_true);
-            }
+            // if (T->ptr[0])
+            // {
+            //     strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
+            //     strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_tail, T->while_tail), strcpy(T->ptr[0]->while_true, T->while_true);
+            // }
+            transfer_label(T, T->ptr[0]);
             assign_sym = 1;
             gen_IR(T->ptr[0]);
             if (T->ptr[0])
@@ -211,10 +218,10 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
-            if (T->ptr[0] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+            if (T->ptr[0] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[0]->fun_end = T->fun_end;
             if (T->ptr[0]->kind == COMP_STM)
                 comp_stm_type = 0;
             gen_IR(T->ptr[0]); //显示第一条语句
@@ -229,8 +236,8 @@ void gen_IR(struct node *T)
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
             }
-            if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            if (T->ptr[1] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[1]->fun_end = T->fun_end;
             gen_IR(T->ptr[1]); //显示剩下语句
             if (T->ptr[1] != NULL)
             {
@@ -331,7 +338,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             gen_IR(T->ptr[0]);
             if (T->ptr[0]->out.type == 'i' || T->ptr[0]->out.type == 'f')
@@ -375,7 +382,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             gen_IR(T->ptr[0]);
             if (T->ptr[0]->out.type == 'i' || T->ptr[0]->out.type == 'f')
@@ -424,7 +431,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -433,7 +440,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
             //有初始化的值的变量；
             if (!T->ptr[1])
@@ -531,7 +538,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -540,7 +547,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             // printf("局部变量定义: \n");
@@ -567,7 +574,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -576,7 +583,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             gen_IR(T->ptr[0]);
@@ -592,7 +599,7 @@ void gen_IR(struct node *T)
                 glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
                 glo_size.type = 'i';
                 T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
-                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
+                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
 
                 if (glo_level == 0)
                 {
@@ -630,7 +637,7 @@ void gen_IR(struct node *T)
             else
             {
                 T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
-                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
+                mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //局部变量入表
                 if (glo_level == 0)
                 {
                     g_sL.find(g_sL.last_sym)->flage = 'E';
@@ -700,7 +707,7 @@ void gen_IR(struct node *T)
                     strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
                 }
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
                 gen_IR(T->ptr[0]);
                 TERM_gen_ir_if(T, tmp_assign_sym);
             }
@@ -732,7 +739,7 @@ void gen_IR(struct node *T)
                 if (T0->ptr[0])
                 {
                     strcpy(T0->ptr[0]->Etrue, T->Etrue), strcpy(T0->ptr[0]->Efalse, T->Efalse), strcpy(T0->ptr[0]->Snext, T->Snext);
-                    strcpy(T0->ptr[0]->fun_end, T->fun_end);
+                    T0->ptr[0]->fun_end = T->fun_end;
                 }
 
                 gen_IR(T0->ptr[0]);
@@ -775,7 +782,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -784,7 +791,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             T->ptr[0]->length = T->length;
@@ -844,7 +851,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
 
             if (T->ptr[0])
@@ -871,7 +878,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -880,7 +887,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             init();
@@ -908,7 +915,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -917,7 +924,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             gen_IR(T->ptr[0]);
@@ -936,7 +943,7 @@ void gen_IR(struct node *T)
                     glo_size.const_int = arr_size(glo_paramnum).const_int * 4;
                     glo_size.type = 'i';
 
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
+                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size);
                     if (glo_level == 0)
                     {
                         g_sL.find(g_sL.last_sym)->flage = 'E';
@@ -971,7 +978,7 @@ void gen_IR(struct node *T)
                 {
                     T->place == 1 ? strcpy(glo_type, "int") : strcpy(glo_type, "float");
 
-                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_alias, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //常量入表
+                    mksym(&sT, glo_name, glo_level, glo_type, glo_paramnum, glo_flag, glo_offset, glo_init_sym, glo_int_val, glo_float_val, glo_size); //常量入表
                     if (glo_level == 0)
                     {
                         g_sL.find(g_sL.last_sym)->flage = 'E';
@@ -1006,7 +1013,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[1] && check_process(2, T, *T))
             {
@@ -1015,7 +1022,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+                T->ptr[1]->fun_end = T->fun_end;
             }
 
             if (!T->ptr[1])
@@ -1114,7 +1121,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
 
             int tmp_D = glo_D;
@@ -1376,8 +1383,8 @@ void gen_IR(struct node *T)
             {
                 strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
             }
-            if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            if (T->ptr[1] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[1]->fun_end = T->fun_end;
             if (T->ptr[1]->kind == COMP_STM)
                 comp_stm_type = 0;
             gen_IR(T->ptr[1]); //显示循环体
@@ -1472,8 +1479,8 @@ void gen_IR(struct node *T)
             {
                 strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
             } //递归加循环标签。
-            if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            if (T->ptr[1] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[1]->fun_end = T->fun_end;
             if (T->ptr[1]->kind == COMP_STM)
                 comp_stm_type = 0;
             if (T->ptr[1])
@@ -1563,8 +1570,8 @@ void gen_IR(struct node *T)
 
             //打then进入标签。
             add_label_IR(T->Etrue, &(*T));
-            if (T->ptr[1] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[1]->fun_end, T->fun_end);
+            if (T->ptr[1] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[1]->fun_end = T->fun_end;
             if (T->ptr[1]->kind == COMP_STM)
                 comp_stm_type = 0;
             if (T->ptr[1])
@@ -1599,8 +1606,8 @@ void gen_IR(struct node *T)
             iwtT.top++;
             //打else进入标签。
             add_label_IR(T->Efalse, &(*T));
-            if (T->ptr[2] && strstr(T->fun_end, ".L") != 0)
-                strcpy(T->ptr[2]->fun_end, T->fun_end);
+            if (T->ptr[2] && T->fun_end.find(".L") != T->fun_end.npos)
+                T->ptr[2]->fun_end = T->fun_end;
             if (T->ptr[2]->kind == COMP_STM)
                 comp_stm_type = 0;
             if (T->ptr[2])
@@ -1670,7 +1677,7 @@ void gen_IR(struct node *T)
             // split_id(T->ptr[1]);
             g_sL.now_func = T->ptr[1]->type_id;
 
-            strcpy(T->fun_end, newLabel());
+            T->fun_end = newLabel();
 
             // printf("函数定义：\n");
             init();
@@ -1684,7 +1691,7 @@ void gen_IR(struct node *T)
             if (T->ptr[1])
                 T->code = merge(2, T->code, T->ptr[1]->code);
             func_state = 1;
-            strcpy(T->ptr[2]->fun_end, T->fun_end);
+            T->ptr[2]->fun_end = T->fun_end;
             no_tmp = 0, no_par = 0;
             comp_stm_type = 1;
 
@@ -1715,7 +1722,7 @@ void gen_IR(struct node *T)
             set_opn_float(oneir);
             T->code = merge(2, oneir, T->code);
             g_sL.find(g_sL.now_func)->code_b = T->code;
-            add_label_IR(T->fun_end, T);
+            add_label_IR((char *)T->fun_end.c_str(), T);
             // glo_opn1.type = 'v', glo_opn1.id = T->ptr[1]->type_id, glo_opn1.offset = sT.index - 1, glo_opn1.level = glo_level;
             // glo_opn1.address = g_sL.find(glo_opn1.id)->offset;
             // glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
@@ -1758,7 +1765,7 @@ void gen_IR(struct node *T)
                     sT.index = sT.index - glo_paramnum - 1;
 
                     glo_name = T->type_id;
-                    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
+                    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_flag, glo_offset, 0, 0, 0, glo_size);
 
                     if (ceil(glo_paramnum / (float)2) == 0)
                         g_sL.glo_ymT[g_sL.now_func].size = 12;
@@ -1784,7 +1791,7 @@ void gen_IR(struct node *T)
                     glo_size.const_int = DX;
                     glo_size.type = 'i';
                     glo_name = T->type_id;
-                    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_alias, glo_flag, glo_offset, 0, 0, 0, glo_size);
+                    mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_flag, glo_offset, 0, 0, 0, glo_size);
                     g_sL.find(g_sL.last_sym)->flage = 'E';
                     g_sL.glo_ymT[g_sL.now_func].size = 12;
 
@@ -1903,7 +1910,7 @@ void gen_IR(struct node *T)
             {
                 glo_flage = 'P';
             }
-            mksym(&sT, (char *)T->ptr[1]->type_id.c_str(), glo_level + 1, tmp_type1, tmp_paramnum, glo_alias, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
+            mksym(&sT, (char *)T->ptr[1]->type_id.c_str(), glo_level + 1, tmp_type1, tmp_paramnum, glo_flag, glo_offset, T->ptr[0]->type == (int)INT ? 1 : 2, glo_int_val, glo_float_val, glo_size);
 
             g_sL.find(g_sL.last_sym)->status = 0, g_sL.find(g_sL.last_sym)->no_ris = 0;
             g_sL.find(g_sL.last_sym)->flage = 'P';
@@ -1923,7 +1930,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
 
             if (T->ptr[0])
@@ -1977,7 +1984,7 @@ void gen_IR(struct node *T)
                 // oneir=mkIR();T->code = merge(2, T->code, oneir(IR_RETURN));
             }
 
-            add_goto_IR(T->fun_end, T, NULL, 0);
+            add_goto_IR((char *)T->fun_end.c_str(), T, NULL, 0);
             break;
         }
         case FUNC_CALL:
@@ -1994,7 +2001,7 @@ void gen_IR(struct node *T)
             if (T->ptr[0])
             {
                 strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-                strcpy(T->ptr[0]->fun_end, T->fun_end);
+                T->ptr[0]->fun_end = T->fun_end;
             }
             if (T->ptr[0])
             {
@@ -2033,7 +2040,7 @@ void gen_IR(struct node *T)
                 glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
 
                 glo_size.const_int = 4;
-                mksym(&sT, newTemp(), glo_level, re_type, glo_paramnum, glo_alias, 'T', glo_offset, 1, glo_int_val, glo_float_val, glo_size);
+                mksym(&sT, newTemp(), glo_level, re_type, glo_paramnum, 'T', glo_offset, 1, glo_int_val, glo_float_val, glo_size);
                 g_sL.find(g_sL.last_sym)->flage = '0';
 
                 // copyTsym(sT.index - 1);

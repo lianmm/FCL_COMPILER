@@ -40,7 +40,7 @@ public:
     if_while_sym()
     {
         this->top = 0;
-        for (int i = 0; i < MAXLENGTH / 2; i++)
+        for (int i = 0; i < MAXLENGTH; i++)
             sym_name[i] = " ";
     }
 };
@@ -84,6 +84,7 @@ int a2i(char *in);
 int a2i(string in);
 string i2s(int in);
 //预处理结点id防止超出字符串静态分配范围；
+
 void split_id(struct node *T);
 void split_fid(struct node *T);
 
@@ -122,6 +123,9 @@ void display_iwT();
 void displayiT();
 
 void set_opn_float(codenode *oneir);
+
+void transfer_label(struct node *s, struct node *t);
+
 /*--------------------------------模块化各类代码生成的函数实现区-------------------------------*/
 //将语法树上运算结点类型转化成IR结点类型。
 enum IR_op get_OpType(struct node T);

@@ -809,20 +809,23 @@ void glo_ris_allot()
     // printf("glo_ris_alloting\n");
 
     struct codenode *hC, *now_C;
-
+    if (out_IR == NULL || out_IR == &null_ir)
+    {
+        return;
+    }
     hC = out_IR;
     now_C = hC;
     int i = 0;
     int now_begin_index, now_end_index;
 
     struct codenode *now_begin, *now_end; //当前的函数体的开始语句索引与终止语句索引；
-    //大循环,找出所有的func_end和function语句并按函数体分别分配寄存器；
+    // 大循环,找出所有的func_end和function语句并按函数体分别分配寄存器；
     if (now_C->op == IR_FUNCTION)
     {
-
+        g_sL.now_func = now_C->opn1.id;
         now_begin = now_C, now_begin_index = i;
     }
-    if (now_C->next != NULL)
+    if (now_C->next != NULL && now_C->next != &null_ir)
     {
         now_C = now_C->next;
 
@@ -830,8 +833,10 @@ void glo_ris_allot()
         {
 
             if (now_C->op == IR_FUNCTION)
+            {
                 now_begin = now_C, g_sL.now_func = now_C->opn1.id,
                 now_begin_index = i;
+            }
             else if (now_C->op == IR_FUNC_END)
             {
 
@@ -848,22 +853,31 @@ void glo_ris_allot()
                 // }
                 // else if (add_size > 40)
                 // {
+                if (g_sL.glo_ymT.find(g_sL.now_func) == g_sL.glo_ymT.end())
+                    return;
                 now_begin->opn2.type = 'i', now_begin->opn2.const_int = 40;
                 now_begin->result.type = 'i', now_begin->result.const_int = g_sL.glo_ymT[g_sL.now_func].size;
+                // printf("%s: %d\n", g_sL.now_func.c_str(), g_sL.glo_ymT[g_sL.now_func].size);
+                // DisplaySymbolTable();
+
                 now_end->opn2.type = 'i', now_end->opn2.const_int = 40;
                 now_end->result.type = 'i', now_end->result.const_int = g_sL.glo_ymT[g_sL.now_func].size;
                 // }
 
-                now_begin = now_end = NULL;
+                now_begin = NULL, now_end = NULL;
                 g_sL.now_func = "glo";
 
                 // printf("%d: now_begin:%d; now_end:%d", i, now_begin_index, now_end_index);
                 // printf("\tOP: %s\n", IR_op_strs[int(now_C->op)]);
             }
-            if (now_C->next != NULL)
+
+            if (now_C->next != NULL || now_C->next != &null_ir)
                 now_C = now_C->next;
             else
+            {
+                now_C->next = hC;
                 break;
+            }
         }
     }
 }
@@ -1319,7 +1333,7 @@ void glo_trslt()
                     }
                 }
             }
-            else if (now_C->op != IR_ALLOCA&&now_C->op != IR_EXT_ALLOCA)
+            else if (now_C->op != IR_ALLOCA && now_C->op != IR_EXT_ALLOCA)
             {
                 now_C->op = IR_VOID;
             }

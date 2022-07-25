@@ -11,7 +11,7 @@ using namespace std;
 /*----------------------------------信息存储结构定义-----------------------------------------*/
 struct symbol
 {
-    string name;        //这里只列出了一个符号表项的部分属性，没考虑属性间的互斥
+    string name;        //
     int level;          //层号，外部变量名或函数名层号为0，形参名为1，每到1个复合语句层号加1，退出减1
     char type[MAXTYPE]; //变量类型或函数返回值类型
     int paramnum;       //形式参数个数;数组的向量内情表索引;
@@ -237,9 +237,11 @@ extern struct func_table fT;
 extern struct array_table aT;
 extern struct symbol_scope_begin symbol_scope_TX;
 
+extern map<string, string> fun_id;
+extern map<string, string> node_id;
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 extern string glo_name;
-extern char glo_alias[10], glo_flag;
+extern char glo_flag;
 extern struct opn glo_offset;
 extern char glo_type[MAXTYPE];
 extern int glo_int_val;
@@ -257,7 +259,7 @@ extern char glo_flage;
 int mkarr(struct opn arr_lim[], int D);
 
 //构造新的符号并插入sT。
-void mksym(struct symbolstack *sT, string name, int level, char *type, int paramnum, char *alias, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size);
+void mksym(struct symbolstack *sT, string name, int level, char *type, int paramnum, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size);
 
 //显示当前数组内情向量表中的内容。
 void DisplayArrTable();

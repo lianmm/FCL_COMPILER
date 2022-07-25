@@ -57,8 +57,8 @@ void COMP_STM_gen_ir_1(struct node *T)
 
     // printf("复合语句: \n");
     glo_level++;
-    if (strstr(T->fun_end, ".L") != 0)
-        strcpy(T->ptr[0]->fun_end, T->fun_end);
+    if (T->fun_end.find(".L") != T->fun_end.npos)
+        T->ptr[0]->fun_end = T->fun_end;
     symbol_scope_TX.TX[symbol_scope_TX.top] = sT.index;
     symbol_scope_TX.top++;
     if (T->ptr[0] && check_process(2, T, *T))
@@ -144,7 +144,7 @@ void MOD_gen_ir_1(struct node *T, string *next_label, string *last_label, string
     if (T->ptr[0])
     {
         strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-        strcpy(T->ptr[0]->fun_end, T->fun_end);
+        T->ptr[0]->fun_end = T->fun_end;
     }
     if (T->ptr[1] && check_process(2, T, *T))
     {
@@ -153,7 +153,7 @@ void MOD_gen_ir_1(struct node *T, string *next_label, string *last_label, string
     if (T->ptr[1])
     {
         strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-        strcpy(T->ptr[1]->fun_end, T->fun_end);
+        T->ptr[1]->fun_end = T->fun_end;
     }
     if (T->ptr[0])
     {
@@ -526,9 +526,9 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
         }
         iT.top = 0;
         T->out = tmp_out;
-        glo_name= tmp_name;
+        glo_name = tmp_name;
         glo_flag = tmp_flag;
-        glo_name= T->type_id;
+        glo_name = T->type_id;
 
         if (strcmp(glo_type, "int") == 0 || strcmp(glo_type, "float") == 0)
         {
@@ -634,7 +634,7 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
     {
         glo_flag = 'V';
         glo_tmp_type = strcat(glo_type, "");
-        glo_name= T->type_id;
+        glo_name = T->type_id;
     }
 
     initOpn(&glo_res);

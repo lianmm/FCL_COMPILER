@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 21 14:33:19 2022
+# Make data base, printed on Sat Jul 23 19:28:51 2022
 
 # Variables
 
@@ -19,17 +19,23 @@ GNUMAKEFLAGS :=
 # automatic
 ?F = $(notdir $?)
 # environment
+STRINGS = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-strings
+# environment
 DESKTOP_SESSION = ubuntu
 # default
 .SHELLFLAGS := -c
 # environment
+GPROF = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-gprof
+# environment
 XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
-# automatic
-?D = $(patsubst %/,%,$(dir $?))
+# environment
+OBJCOPY = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-objcopy
 # environment
 IM_CONFIG_PHASE = 1
+# environment
+GCC_NM = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-gcc-nm
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -39,21 +45,29 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=fcitx
 # makefile
-CURDIR := /home/chui/桌面/compiler_fcl
+CURDIR := /home/chui/compiler_fcl
 # makefile
 SHELL = /bin/sh
+# environment
+NM = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-nm
 # environment
 VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"1d735750dbb1b9066c7513078396ba0f.zh-cn","_translationsConfigFile":"/home/chui/.config/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/tcf.json","_cacheRoot":"/home/chui/.config/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn","_resolvedLanguagePackCoreLocation":"/home/chui/.config/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a","_corruptedFile":"/home/chui/.config/Code/clp/1d735750dbb1b9066c7513078396ba0f.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /usr/share/code/code
 # environment
-JOURNAL_STREAM = 8:56389
+CFLAGS = -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/chui/anaconda3/include
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+JOURNAL_STREAM = 8:51529
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile
 MAKEFILE_LIST := 
 # automatic
 @F = $(notdir $@)
+# environment
+GCC = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-gcc
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /home/chui/桌面/code.desktop
 # environment
@@ -65,9 +79,17 @@ MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop:/opt/apps/com.jisuoffice.deepin/entries:/opt/apps/com.qq.im.deepin/entries:/opt/apps/com.qq.office.deepin/entries:/opt/apps/com.qq.weixin.deepin/entries:/opt/apps/com.jisuoffice.deepin/entries:/opt/apps/com.qq.im.deepin/entries:/opt/apps/com.qq.office.deepin/entries:/opt/apps/com.qq.weixin.deepin/entries
 # environment
+ADDR2LINE = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-addr2line
+# environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-MANAGERPID = 2641
+CC = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-cc
+# environment
+CPPFLAGS = -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/chui/anaconda3/include
+# environment
+MANAGERPID = 2625
+# environment
+_CONDA_PYTHON_SYSCONFIGDATA_NAME = _sysconfigdata_x86_64_conda_cos6_linux_gnu
 # environment
 CLUTTER_IM_MODULE = fcitx
 # environment
@@ -75,11 +97,17 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 LC_NAME = zh_CN.UTF-8
 # environment
+CPP = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-cpp
+# environment
 VSCODE_CWD = /home/chui
+# environment
+ELFEDIT = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-elfedit
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
 PATH = /home/chui/anaconda3/bin:/home/chui/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/arm/gcc-4.6.4/bin:/usr/local/go/bin:/home/chui/go/bin:/home/chui/go/src/github.com/hyperledger/fabric/release/linux-amd64/bin:/usr/local/arm/gcc-4.6.4/bin:/usr/local/arm/gcc-4.6.4/bin:/usr/local/go/bin:/home/chui/go/bin:/home/chui/go/src/github.com/hyperledger/fabric/release/linux-amd64/bin
+# environment
+LD = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-ld
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
@@ -87,31 +115,43 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 C_INCLUDE_PATH = :/usr/local/include
 # environment
-SESSION_MANAGER = local/chui:@/tmp/.ICE-unix/2923,unix/chui:/tmp/.ICE-unix/2923
+SESSION_MANAGER = local/chui:@/tmp/.ICE-unix/2902,unix/chui:/tmp/.ICE-unix/2902
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 LIBRARY_PATH = :/usr/local/lib
 # environment
+LD_GOLD = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-ld.gold
+# environment
 GOPATH = /home/chui/go
 # environment
 CONDA_PREFIX = /home/chui/anaconda3
+# environment
+AR = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-ar
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 09ade073ac9845d29d4accea550f0f8c
+INVOCATION_ID = 68f20b0834024a67beb7747a38a7ae28
+# environment
+LDFLAGS = -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/home/chui/anaconda3/lib -Wl,-rpath-link,/home/chui/anaconda3/lib -L/home/chui/anaconda3/lib
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
+CMAKE_PREFIX_PATH = /home/chui/anaconda3:/home/chui/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr
+# environment
 LS_COLORS = 
+# environment
+CONDA_BACKUP_HOST = x86_64-conda_cos6-linux-gnu
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 10001
+GIO_LAUNCHED_DESKTOP_FILE_PID = 92029
+# environment
+SIZE = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-size
 # automatic
 %F = $(notdir $%)
 # environment
@@ -123,11 +163,13 @@ CONDA_EXE = /home/chui/anaconda3/bin/conda
 # environment
 GTK_IM_MODULE = fcitx
 # environment
-PWD = /home/chui/桌面/compiler_fcl
+PWD = /home/chui/compiler_fcl
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2859
+SSH_AGENT_PID = 2851
+# environment
+RANLIB = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-ranlib
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -145,11 +187,13 @@ VSCODE_CODE_CACHE_PATH = /home/chui/.config/Code/CachedData/b06ae3b2d2dbfe28bca3
 # environment
 LOGNAME = chui
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 CONDA_PROMPT_MODIFIER = (base) 
 # automatic
 +F = $(notdir $+)
+# environment
+CXXFILT = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-c++filt
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -169,6 +213,10 @@ QT_IM_MODULE = fcitx
 # environment
 SHLVL = 0
 # environment
+AS = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-as
+# environment
+GCC_AR = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-gcc-ar
+# environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # default
 MAKE_VERSION := 4.2.1
@@ -184,10 +232,14 @@ XDG_CURRENT_DESKTOP = Unity
 GOROOT = /usr/local/go
 # environment
 CLASSPATH = .:/usr/local/lib/antlr-4.9.3-complete.jar:
+# environment
+CONDA_BUILD_SYSROOT = /home/chui/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 LC_TELEPHONE = zh_CN.UTF-8
+# environment
+READELF = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-readelf
 # environment
 CONDA_SHLVL = 1
 # default
@@ -209,15 +261,22 @@ MFLAGS = -pqrR
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
+OBJDUMP = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-objdump
+# environment
 GDK_BACKEND = x11
 # environment
 LC_PAPER = zh_CN.UTF-8
+# environment
+STRIP = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-strip
 # environment
 QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # default
 MAKEFILES := 
+# environment
+DEBUG_CFLAGS = -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -ffunction-sections -pipe -isystem /home/chui/anaconda3/include
+ 
 # environment
 LC_NUMERIC = zh_CN.UTF-8
 # automatic
@@ -228,6 +287,8 @@ LC_MEASUREMENT = zh_CN.UTF-8
 LC_ALL = C
 # environment
 CONDA_PYTHON_EXE = /home/chui/anaconda3/bin/python
+# environment
+DEBUG_CPPFLAGS = -D_DEBUG -D_FORTIFY_SOURCE=2 -Og -isystem /home/chui/anaconda3/include
 # environment
 QT4_IM_MODULE = fcitx
 # environment
@@ -251,13 +312,17 @@ LC_IDENTIFICATION = zh_CN.UTF-8
 # environment
 LC_ADDRESS = zh_CN.UTF-8
 # environment
+GCC_RANLIB = /home/chui/anaconda3/bin/x86_64-conda_cos6-linux-gnu-gcc-ranlib
+# environment
 LANG = C
 # environment
-VSCODE_PID = 10001
+VSCODE_PID = 92029
 # environment
 _CE_CONDA = 
+# environment
+HOST = x86_64-conda_cos6-linux-gnu
 # variable set hash-table stats:
-# Load=122/1024=12%, Rehash=0, Collisions=19/144=13%
+# Load=154/1024=15%, Rehash=0, Collisions=28/176=16%
 
 # Pattern-specific Variable Values
 
@@ -265,9 +330,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 66309, inode 4571974): 23 files, no impossibilities.
+# . (device 66309, inode 4571974): 28 files, no impossibilities.
 
-# 23 files, no impossibilities in 1 directories.
+# 28 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -302,7 +367,6 @@ makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
- 
 # Not a target:
 GNUmakefile:
 #  Implicit rule search has been done.
@@ -318,12 +382,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 31 / storage = 295 B / avg = 9 B
-# current buf: size = 8162 B / used = 295 B / count = 31 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 36 / storage = 355 B / avg = 9 B
+# current buf: size = 8162 B / used = 355 B / count = 36 / avg = 9 B
 
-# strcache performance: lookups = 34 / hit rate = 8%
+# strcache performance: lookups = 39 / hit rate = 7%
 # hash-table stats:
-# Load=31/8192=0%, Rehash=0, Collisions=1/34=3%
-# Finished Make data base on Thu Jul 21 14:33:19 2022
+# Load=36/8192=0%, Rehash=0, Collisions=1/39=3%
+# Finished Make data base on Sat Jul 23 19:28:51 2022
 
  

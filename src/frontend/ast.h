@@ -235,14 +235,14 @@ struct node
     char Etrue[15], Efalse[15];                          //对布尔表达式的翻译时，真假转移目标的标号
     char Snext[15];                                      //该结点对应语句执行后的下一条语句位置标号
     char while_head[15], while_tail[15], while_true[15]; //控制while内部的跳转位置。
-    struct codenode *code;                               //该结点中间代码链表头指针
+    class codenode *code;                                //该结点中间代码链表头指针
     char op[10];
     int type;                 //结点对应值的类型
     int pos;                  //语法单位所在位置行号
     int offset;               //偏移量，没用；
     struct opn out;           //部分结点的表达式输出变量，方便递归生成代码；
     struct opn depth, length; //数组初始化结点维护地址时使用的结点；
-    char fun_end[36];         //传递函数内return的跳转位置。
+    string fun_end;           //传递函数内return的跳转位置。
     string call_name;         //调用函数语句的函数名；方便实参结点知道当前调用函数的形参类型；
     struct node *parent;      //结点的父节点指针，目前没用；
     node()
@@ -250,7 +250,7 @@ struct node
         this->Etrue[0] = '\0', this->Efalse[0] = '\0';
         this->Snext[0] = '\0';
         this->while_head[0] = '\0', this->while_tail[0] = '\0', this->while_true[0] = '\0';
-        this->type_id = " ", this->op[0] = '\0', this->fun_end[0] = '\0';
+        this->type_id = " ", this->op[0] = '\0', this->fun_end = " ";
         this->ptr[0] = this->ptr[1] = this->ptr[2] = NULL;
         this->code = NULL;
         this->var_name = " ";

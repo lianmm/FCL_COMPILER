@@ -33,9 +33,9 @@ fcl编译器 v2.0版。
 
 ```shell
 1.编译构建项目；
-./build.sh # 使用 clang++ 编译
+./script/build.sh # 使用 clang++ 编译
 或 
-./build_g++.sh #  使用 g++ 编译
+./script/build_g++.sh #  使用 g++ 编译
 
 2.运行项目编译sy源文件；
 ./compiler -S -o {outfile} {infile}  # 只生成汇编；
@@ -53,7 +53,7 @@ fcl编译器 v2.0版。
 2、脚本批量自动运行全部用例并与参考正确输出相对比；
 
 ```shell
-./test_func.sh  
+./script/test_func.sh  
 # 自动编译并运行位于./f2022 的所有.c文件，并将结果输出到./test_out.txt中；
 # 统计通过数目打印到终端；
 ```
@@ -61,14 +61,14 @@ fcl编译器 v2.0版。
 3、脚本自动编译运行f2022中指定编号的源文件并与参考正确输出对比；同时将用例源文件内容复制到test/test.c中方便debug；
 
 ```shell
-./test_one.sh  
+./script/test_one.sh  
 # 编译并运行位于./test/test_in/ 的test.c文件，并将结果输出到test_out.txt；
 ```
 
 4、脚本自动编译运行./test/test.c并与参考编译器输出对比，生成对应ir文件，方便调试；
 
 ```shell
-./test_tmp.sh  
+./script/test_tmp.sh  
 # 同时编译并运行位于./test/test_in/ 的test.c文件，并将结果输出到test_out.txt；
 # 需在运行过test_one.sh之后运行；
 ```
@@ -83,7 +83,7 @@ fcl编译器 v2.0版。
 
 8、用例由于过大github中不方便上传，需要从官方的包中直接分别复制到f2022，p2022文件夹中。
 
-9、这几个依赖包除了flex和bison都是ubuntu上编译运行arm文件必用的，去网上搜经验贴安装上避免环境问题。不装flex和bison需要将构建脚本中对应的几行注释掉。
+9、这几个依赖包除了flex和bison都是ubuntu上编译运行arm文件必用的，去网上搜经验贴安装上避免环境问题。
 
 ### 项目文件组织：
 
@@ -92,6 +92,10 @@ compiler_fcl
 ├── f2022 # 功能测试用例；
 |   └── ......
 ├── p2022 # 性能测试用例；
+|   └── ......
+├── create_test # 后期自己设计的用例，带星表示对应隐藏用例仍未通过；
+|   └── ......
+├── fuzz # 模糊测试输入输出文件夹；
 |   └── ......
 ├── ref_compiler # 参考编译器的可执行文件；
 |   └── compiler
@@ -151,17 +155,21 @@ compiler_fcl
 │   ├── test.out*
 │   ├── test.right.s*
 │   └── test.right.target*
-├── build.sh 
-├── build_g++.sh 
+├── script # 运行与测试的脚本；
+│   ├── afl_fuzz.sh
+│   ├── build_g++.sh
+│   ├── build.sh
+│   ├── diff_pf.sh
+│   ├── submit.sh  # 向gitlab提交的脚本；
+│   ├── test_fone.sh
+│   ├── test_func.sh
+│   ├── test_per.sh
+│   ├── test_pone.sh
+│   └── test_tmp.sh
 ├── compiler* # 主体编译输出可执行文件；
 ├── readme.md 
-├── test_fone.sh 
-├── test_pone.sh 
-├── test_func.sh 
-├── test_per.sh 
-├── diff_pf.sh 
 ├── test_out.txt* # 测试结果文件；
-└── test_tmp.sh 
+└── f16tof10  # 将f16的科学计数表示转化成f10的科学计数表示；
 
 #其中星号指可能不存在或在运行中产生的文件项；
 ```

@@ -1,5 +1,0 @@
-const nt a[5]={0,#,const2,3,4};
-
-int main(){
-    return a[];
-}
