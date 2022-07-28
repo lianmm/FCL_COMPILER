@@ -17,7 +17,7 @@ char IR_op_strs[50][32] = {
 
     "goto_neq ", "CALL", "not", "uminus", "load", "alloca",
 
-    "function: ", "func_end:", "param", "label:", "goto",
+    "function: ", "func_end:", "param", "label:", "goto", "block",
 
     "arg", "return", "call_void",
     ".ltorg"};

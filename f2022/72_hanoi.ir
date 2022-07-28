@@ -1,0 +1,114 @@
+0	
+func1.i:
+1		param	var1.i
+2		alloca	#4	var2.i
+3		param	var2.i
+4		alloca	#4	.i
+5		load	var1.i	t0.i
+6		arg	t0.i
+7		call_void	putint.i
+8		ASSIGN	t1.i	#32
+9		arg	t1.i
+10		call_void	putch.i
+11		load	var2.i	t2.i
+12		arg	t2.i
+13		call_void	putint.i
+14		ASSIGN	t3.i	#44
+15		arg	t3.i
+16		call_void	putch.i
+17		ASSIGN	t4.i	#32
+18		arg	t4.i
+19		call_void	putch.i
+20	
+.L1.i:
+21		func_end:	func1.i
+22	
+func2.i:
+23		param	var3.i
+24		alloca	#4	var4.i
+25		param	var4.i
+26		alloca	#4	var5.i
+27		param	var5.i
+28		alloca	#4	var6.i
+29		param	var6.i
+30		alloca	#4	.i
+31		load	var3.i	t0.i
+32		ASSIGN	t1.i	#1
+33		eq	t0.i	t1.i	t2.i
+34		goto_eq	t2.i	#1	.L3.i
+35		goto	.L4.i
+36	
+.L3.i:
+37		load	var6.i	t3.i
+38		load	var4.i	t4.i
+39		arg	t3.i
+40		arg	t4.i
+41		call_void	func1.i
+42		goto	.L5.i
+43	
+.L4.i:
+44		load	var4.i	t5.i
+45		load	var6.i	t6.i
+46		load	var5.i	t7.i
+47		load	var3.i	t8.i
+48		ASSIGN	t9.i	#1
+49		sub	t8.i	t9.i	t10.i
+50		arg	t5.i
+51		arg	t6.i
+52		arg	t7.i
+53		arg	t10.i
+54		call_void	func2.i
+55		arg	t6.i
+56		arg	t5.i
+57		call_void	func1.i
+58		ASSIGN	t11.i	#1
+59		sub	t8.i	t11.i	t12.i
+60		arg	t7.i
+61		arg	t5.i
+62		arg	t6.i
+63		arg	t12.i
+64		call_void	func2.i
+65	
+.L5.i:
+66	
+.L2.i:
+67		func_end:	func2.i
+68	
+main.i:
+69		CALL	getint.i	t0.i
+70		alloca	#4	var7.i
+71		ASSIGN	var7.i	t0.i
+72	
+.L16.i:
+73		load	var7.i	t1.i
+74		ASSIGN	t2.i	#0
+75		jgt	t1.i	t2.i	t3.i
+76		goto_eq	t3.i	#1	.L17.i
+77		goto	.L18.i
+78	
+.L17.i:
+79		ASSIGN	t4.i	#1
+80		ASSIGN	t5.i	#2
+81		ASSIGN	t6.i	#3
+82		CALL	getint.i	t7.i
+83		arg	t4.i
+84		arg	t5.i
+85		arg	t6.i
+86		arg	t7.i
+87		call_void	func2.i
+88		ASSIGN	t8.i	#10
+89		arg	t8.i
+90		call_void	putch.i
+91		load	var7.i	t9.i
+92		ASSIGN	t10.i	#1
+93		sub	t9.i	t10.i	t11.i
+94		ASSIGN	var7.i	t11.i
+95		goto	.L16.i
+96	
+.L18.i:
+97		ASSIGN	t12.i	#0
+98		ASSIGN	r0.i	t12.i
+99		goto	.L15.i
+100	
+.L15.i:
+101		func_end:	main.i

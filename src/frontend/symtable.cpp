@@ -11,7 +11,7 @@ struct array_table aT;
 struct func_table fT;
 class sym_list g_sL;
 map<string, string> fun_id;
-map<string, string> node_id;
+map<string, string> var_id;
 
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 string glo_name;
@@ -55,13 +55,16 @@ void display_fT()
     printf("\n");
 }
 //构造新的符号并插入sT。
+
 void mksym(struct symbolstack *sT, string name, int level, char *type, int paramnum, char flag, struct opn offset, int init_sym, int int_val, float float_val, struct opn size)
 {
+    if (flag != 'T')
+    {
+        sT->symbols[sT->index].name = name;
+        sT->symbols[sT->index].flag = flag;
+        sT->index++;
+    }
 
-    if (sT->symbols[sT->index].flag != 'F')
-        sT->symbols[sT->index].flag = '0';
-    sT->symbols[sT->index].name = name;
-    sT->symbols[sT->index].flag = flag;
     struct symbol tmp_sym_in;
 
     tmp_sym_in.name = name;
@@ -84,24 +87,17 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     }
     else if (flag == 'F')
     {
-
         if (name == g_sL.now_func && g_sL.glo_ymT.find(g_sL.now_func) != g_sL.glo_ymT.end())
         {
             tmp_sym_in.func_v = g_sL.glo_ymT[g_sL.now_func].func_v;
-            tmp_sym_in.paras = new int[12000];
             for (int pai = 0; pai < tmp_sym_in.paramnum; pai++)
             {
                 tmp_sym_in.paras[pai] = g_sL.glo_ymT[g_sL.now_func].paras[pai];
             }
-            delete[] g_sL.glo_ymT[g_sL.now_func].paras;
-            g_sL.glo_ymT[g_sL.now_func].paras = NULL;
         }
         else
         {
-            if (paramnum > 0)
-                tmp_sym_in.paras = new int[12000];
-            else
-                tmp_sym_in.paras = NULL;
+
             tmp_sym_in.func_v = NULL;
         }
         g_sL.glo_ymT[name] = tmp_sym_in;
@@ -109,13 +105,11 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     }
     else
     {
-
         if (g_sL.glo_ymT.find(g_sL.now_func) == g_sL.glo_ymT.end())
         {
             struct symbol tmp_sym_inf;
             tmp_sym_inf.name = g_sL.now_func, tmp_sym_inf.flag = 'F', tmp_sym_inf.flage = 'E';
             g_sL.glo_ymT[g_sL.now_func] = tmp_sym_inf;
-            g_sL.glo_ymT[g_sL.now_func].paras = new int[1200];
             // printf("tmp_sym_inf.name:%s \n", g_sL.glo_ymT[g_sL.now_func].name.c_str());
         }
 
@@ -293,8 +287,6 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     }
     }
 
-    sT->index++;
-
     if (flag != 'T' && flag != 'F' && g_sL.now_func != "glo")
     {
         // printf("g_sL.now_func:%s;name:%s;offset:%d\n", g_sL.now_func.c_str(), name, (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int);
@@ -308,9 +300,6 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     // printf("\t%d\n", sT->index);
     // if (g_sL.glo_ymT.size() > 15)
     //     printf("g_sL.last_v:%s\n", g_sL.last_v.c_str()), DisplaySymbolTable(), DisplaySymbolTable(*sT);
-    if (tmp_sym_in.paras != NULL)
-        delete[] tmp_sym_in.paras;
-    tmp_sym_in.paras = NULL;
 }
 
 //显示当前数组内情向量表中的内容。
@@ -496,11 +485,10 @@ void DisplaySymbolTable()
             {
                 printf("%d\t%s\t%d\t%s\t%c\t参数个数:%d", i, it->second.name.c_str(), it->second.level, it->second.type, it->second.flag, it->second.paramnum);
                 printf("\t函数形参标识表： ");
-                if (it->second.paras != NULL)
-                {
-                    for (int ji = 0; ji < it->second.paramnum; ji++)
-                        printf("\t%d", it->second.paras[ji]);
-                }
+
+                for (int ji = 0; ji < it->second.paramnum; ji++)
+                    printf("\t%d", it->second.paras[ji]);
+
                 printf("\tsize: %d\t", it->second.size);
                 if (it->second.code_b != NULL)
                 {
@@ -661,59 +649,59 @@ void add_lib()
     struct opn topn;
 
     topn.type = 'i', topn.const_int = 0;
-    mksym(&sT, (char *)"getint", 0, (char *)"int(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"getint", 0, (char *)"int", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("getint")] = "getint";
 
-    mksym(&sT, (char *)"getch", 0, (char *)"int(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"getch", 0, (char *)"int", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("getch")] = "getch";
 
-    mksym(&sT, (char *)"getarray", 0, (char *)"int(int[])", 1, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"getarray", 0, (char *)"int", 1, 'F', topn, 0, 0, 0, topn);
     fun_id[string("getarray")] = "getarray";
     g_sL.glo_ymT["getarray"].paras[0] = 3;
 
-    mksym(&sT, (char *)"getfloat", 0, (char *)"float(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"getfloat", 0, (char *)"float", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("getfloat")] = "getfloat";
 
-    mksym(&sT, (char *)"getfarray", 0, (char *)"int(float[])", 1, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"getfarray", 0, (char *)"int", 1, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["getfarray"].paras[0] = 4;
     fun_id[string("getfarray")] = "getfarray";
 
-    mksym(&sT, (char *)"putint", 0, (char *)"void(int)", 1, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"putint", 0, (char *)"void", 1, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["putint"].paras[0] = 1;
     fun_id[string("putint")] = "putint";
 
-    mksym(&sT, (char *)"putch", 0, (char *)"void(int)", 1, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"putch", 0, (char *)"void", 1, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["putch"].paras[0] = 1;
     fun_id[string("putch")] = "putch";
 
-    mksym(&sT, (char *)"putarray", 0, (char *)"void(int,int[])", 2, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"putarray", 0, (char *)"void", 2, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["putarray"].paras[0] = 1, g_sL.glo_ymT["putarray"].paras[1] = 3;
     fun_id[string("putarray")] = "putarray";
 
-    mksym(&sT, (char *)"putfloat", 0, (char *)"void(float)", 1, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"putfloat", 0, (char *)"void", 1, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["putfloat"].paras[0] = 2;
     fun_id[string("putfloat")] = "putfloat";
 
-    mksym(&sT, (char *)"putfarray", 0, (char *)"void(int,float[])", 2, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"putfarray", 0, (char *)"void", 2, 'F', topn, 0, 0, 0, topn);
     g_sL.glo_ymT["putfarray"].paras[0] = 1, g_sL.glo_ymT["putfarray"].paras[1] = 4;
     fun_id[string("putfarray")] = "putfarray";
 
-    mksym(&sT, (char *)"putf", 0, (char *)"void(char[],...)", -2, 'F', topn, 0, 0, 0, topn); //支持可变参数。
+    mksym(&sT, (char *)"putf", 0, (char *)"void", -2, 'F', topn, 0, 0, 0, topn); //支持可变参数。
     fun_id[string("putf")] = "putf";
 
-    mksym(&sT, (char *)"before_main", 0, (char *)"void(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"before_main", 0, (char *)"void", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("before_main")] = "before_main";
 
-    mksym(&sT, (char *)"after_main", 0, (char *)"void(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"after_main", 0, (char *)"void", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("after_main")] = "after_main";
 
-    mksym(&sT, (char *)"starttime", 0, (char *)"int(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"starttime", 0, (char *)"int", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("starttime")] = "starttime";
 
-    mksym(&sT, (char *)"stoptime", 0, (char *)"int(void)", 0, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"stoptime", 0, (char *)"int", 0, 'F', topn, 0, 0, 0, topn);
     fun_id[string("stoptime")] = "stoptime";
 
-    mksym(&sT, (char *)"memset(PLT)", 0, (char *)"int(void)", 3, 'F', topn, 0, 0, 0, topn);
+    mksym(&sT, (char *)"memset(PLT)", 0, (char *)"int", 3, 'F', topn, 0, 0, 0, topn);
     fun_id[string("memset(PLT)")] = "memset(PLT)";
     g_sL.glo_ymT["memset(PLT)"].paras[0] = 1, g_sL.glo_ymT["memset(PLT)"].paras[1] = 1, g_sL.glo_ymT["memset(PLT)"].paras[2] = 1;
 

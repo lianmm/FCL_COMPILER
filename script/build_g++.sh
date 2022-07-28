@@ -9,7 +9,8 @@ flex sysy.l
 mv lex.yy.c lex.yy.cpp
 cd ../../
 #使用g++编译；更稳定;若g++编译与clang++编译结果不同，应是初始化问题；
-g++ -g src/midend/*.cpp src/frontend/*.cpp src/backend/*.cpp src/*.cpp -I src/baskend -I src/frontend -I src/midend -o compiler
+g++ -g  src/midend/*.cpp src/frontend/*.cpp src/backend/*.cpp src/optimization/*.cpp src/*.cpp -I src/baskend -I src/optimization -I src/frontend -I src/midend -o compiler 
+
 #在优化写完后，在此添加文件编译在上条命令的第一个-I前添加 "src/midend/mid_optimization/*.cpp" 与 "src/backend/back_optimization/*.cpp" 即可同时编译；
 
 rm junk.txt

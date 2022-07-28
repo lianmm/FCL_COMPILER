@@ -1,5 +1,7 @@
 /*符号表的相关结构定义*/
 //前端文件不需要修改；
+#ifndef SYMTABLE_H_
+#define SYMTABLE_H_
 
 #include "ast.h"
 #include <string>
@@ -30,9 +32,9 @@ struct symbol
     //函数活动记录大小，目标代码生成时使用
     int status;
     //分配状态；有栈上已分配，寄存器上已分配几种；
-    int address; //栈上地址；栈上已分配才有效；
-    int no_ris;  //对应寄存器编号，寄存器已分配才有效；
-    int *paras;  //形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
+    int address;     //栈上地址；栈上已分配才有效；
+    int no_ris;      //对应寄存器编号，寄存器已分配才有效；
+    int paras[1200]; //形参类型标识数组；0——void；1——int；2——float；3——int【】；4——float【】；
     map<string, stack<struct symbol> *> *func_v;
     map<string, struct symbol *> *func_t;
     struct codenode *code_b, *code_e;
@@ -64,7 +66,7 @@ struct symbol
         name = " ";
         code_b = NULL;
         code_e = NULL;
-        paras = NULL;
+        memset(paras, 0, 1200);
     }
     symbol &operator=(const symbol &s1)
     {
@@ -93,7 +95,6 @@ struct symbol
         this->code_b = s1.code_b;
         if (this->paramnum > 0 && this->flag == 'F')
         {
-            this->paras = new int[12000];
             for (int i = 0; i < this->paramnum; i++)
             {
                 this->paras[i] = s1.paras[i];
@@ -146,7 +147,7 @@ struct symbolstack
 
 struct symbol_scope_begin
 { /*当前作用域的符号在符号表的起始位置序号,这是一个栈结构，每到达一个复合语句，将符号表的index值进栈，离开复合语句时，取其退栈值修改符号表的index值，完成删除该复合语句中的所有变量和临时变量*/
-    int TX[30];
+    int TX[100];
     //数组栈结构；
     int top;
     //栈顶索引；
@@ -238,7 +239,7 @@ extern struct array_table aT;
 extern struct symbol_scope_begin symbol_scope_TX;
 
 extern map<string, string> fun_id;
-extern map<string, string> node_id;
+extern map<string, string> var_id;
 /*----------------------------------添加新符号用的暂存全局变量------------------------------------*/
 extern string glo_name;
 extern char glo_flag;
@@ -283,3 +284,5 @@ void add_lib();
 void DisplaySymbolTable(string funcid);
 
 void printOpn(struct opn topn);
+
+#endif

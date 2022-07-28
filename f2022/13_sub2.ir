@@ -1,0 +1,13 @@
+0	
+main.i:
+1		alloca	#4	var2.i
+2		ASSIGN	t0.i	#2
+3		ASSIGN	var2.i	t0.i
+4		load	var2.i	t1.i
+5		ASSIGN	t2.i	#10
+6		sub	t1.i	t2.i	t3.i
+7		ASSIGN	r0.i	t3.i
+8		goto	.L1.i
+9	
+.L1.i:
+10		func_end:	main.i

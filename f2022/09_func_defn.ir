@@ -1,0 +1,29 @@
+0		alloca	#4	var1.i
+1	
+func1.i:
+2		param	var2.i
+3		alloca	#4	.i
+4		load	var2.i	t0.i
+5		ASSIGN	t1.i	#1
+6		sub	t0.i	t1.i	t2.i
+7		ASSIGN	var2.i	t2.i
+8		ASSIGN	r0.i	t2.i
+9		goto	.L1.i
+10	
+.L1.i:
+11		func_end:	func1.i
+12	
+main.i:
+13		alloca	#4	var3.i
+14		ASSIGN	t0.i	#10
+15		ASSIGN	var1.i	t0.i
+16		load	var1.i	t1.i
+17		arg	t1.i
+18		CALL	func1.i	t2.i
+19		ASSIGN	var3.i	t2.i
+20		load	var3.i	t3.i
+21		ASSIGN	r0.i	t3.i
+22		goto	.L8.i
+23	
+.L8.i:
+24		func_end:	main.i

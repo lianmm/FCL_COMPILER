@@ -246,18 +246,18 @@ void split_id(struct node *T)
         T->type_id = T->type_id.substr(0, 20);
     if (T->var_name == " ")
     {
-        if (node_id.find(string(T->type_id)) != node_id.end())
+        if (var_id.find(string(T->type_id)) != var_id.end())
         {
-            // cout << "对应名：" << T->type_id << " " << node_id[string(T->type_id)] << endl;
-            T->var_name = node_id[string(T->type_id)];
+            // cout << "对应名：" << T->type_id << " " << var_id[string(T->type_id)] << endl;
+            T->var_name = var_id[string(T->type_id)];
             T->type_id = T->var_name;
         }
         else
         {
             string ans = newVal();
             // cout << "新key-value：" << T->type_id << " " << ans << endl;
-            node_id[string(T->type_id)] = ans;
-            T->var_name = node_id[string(T->type_id)];
+            var_id[string(T->type_id)] = ans;
+            T->var_name = var_id[string(T->type_id)];
             T->type_id = T->var_name;
         }
     }
@@ -286,6 +286,22 @@ void split_fid(struct node *T)
     }
 }
 
+void display_id2id()
+{
+    std::map<string, string>::iterator it = var_id.begin();
+    printf("------------var_id:---------------------------------\n");
+    for (; it != var_id.end(); it++)
+    {
+        cout << it->second << ":\t" << it->first << endl;
+    }
+    printf("---------------------------------------------------\n\n");
+    printf("------------func_id:---------------------------------\n");
+    for (it = fun_id.begin(); it != fun_id.end(); it++)
+    {
+        cout << it->second << ":\t" << it->first << endl;
+    }
+    printf("---------------------------------------------------\n");
+};
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
 //初始化变量结点；
 void initOpn(struct opn *tmp_opn)
@@ -923,37 +939,66 @@ void add_load_IR(struct opn *O, struct node *T)
 void check_load(struct node *T, struct opn *O, int type)
 {
 
+    // if ((O->type == 'v') && (g_sL.find(O->id)->flag == 'V' || g_sL.find(O->id)->flag == 'P'))
+    // {
+    //     if ((strstr(T->Etrue, ".L") != NULL) || (strstr(T->while_head, ".L") != NULL))
+    //     {
+    //         if (g_sL.find(O->id)->flag != 'T')
+    //         {
+    //             iwT.sym_indexs[iwT.top] = O->offset;
+    //             iwT.sym_name[iwT.top] = g_sL.find(O->id)->name;
+    //             iwT.top++;
+    //         }
+    //     }
+    //     if (g_sL.find(O->id)->status == 0)
+    //     {
+
+    //         g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
+    //         add_load_IR(O, T);
+    //     }
+    //     else if ((strstr(T->while_head, ".L") != NULL))
+    //     {
+
+    //         g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
+    //         add_load_IR(O, T);
+    //     }
+    //     else
+    //     {
+
+    //         char tmp[35];
+    //         sprintf(tmp, "t%d", g_sL.find(O->id)->no_ris);
+    //         O->type = 'v', O->id = tmp;
+    //         O->kind = 'T';
+    //     }
+    // }
     if ((O->type == 'v') && (g_sL.find(O->id)->flag == 'V' || g_sL.find(O->id)->flag == 'P'))
     {
         if ((strstr(T->Etrue, ".L") != NULL) || (strstr(T->while_head, ".L") != NULL))
         {
-            if (g_sL.find(O->id)->flag != 'T')
+
+            iwT.sym_indexs[iwT.top] = O->offset;
+            iwT.sym_name[iwT.top] = g_sL.find(O->id)->name;
+            iwT.top++;
+
             {
-                iwT.sym_indexs[iwT.top] = O->offset;
-                iwT.sym_name[iwT.top] = g_sL.find(O->id)->name;
-                iwT.top++;
+                g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
+                add_load_IR(O, T);
             }
-        }
-        if (g_sL.find(O->id)->status == 0)
-        {
-
-            g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
-            add_load_IR(O, T);
-        }
-        else if ((strstr(T->while_head, ".L") != NULL))
-        {
-
-            g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
-
-            add_load_IR(O, T);
         }
         else
         {
-
-            char tmp[35];
-            sprintf(tmp, "t%d", g_sL.find(O->id)->no_ris);
-            O->type = 'v', O->id = tmp;
-            O->kind = 'T';
+            if (g_sL.find(O->id)->status == 0)
+            {
+                g_sL.find(O->id)->status = 1, g_sL.find(O->id)->no_ris = no_tmp;
+                add_load_IR(O, T);
+            }
+            else
+            {
+                string tmp;
+                tmp = "t" + to_string(g_sL.find(O->id)->no_ris);
+                O->type = 'v', O->id = tmp;
+                O->kind = 'T';
+            }
         }
     }
     if (type == 0 && (O->type == 'i' || O->type == 'f'))
@@ -1162,12 +1207,18 @@ void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
     }
     else if (op_type == ".s32.f32")
     {
-        glo_opn2 = *O, glo_res = glo_opn2;
-        glo_res.cal_type = glo_opn2.cal_type = 'f';
+        mksymt();
+        glo_res.id = g_sL.last_sym;
+        glo_res.cal_type = 'f';
+        glo_res.type = 'v', glo_res.kind = 'T';
+        strcpy(g_sL.find(g_sL.last_sym)->type, "float");
+        glo_opn2 = *O;
+        glo_opn2.cal_type = 'f';
         glo_opn1.type = 'v', glo_opn1.id = op_type;
         oneir = mkIR(IR_VCVT);
         T->code = merge(2, T->code, oneir);
 
+        glo_opn2 = glo_res;
         glo_opn2.cal_type = 'f';
         mksymt();
         // DisplaySymbolTable();
@@ -1176,6 +1227,7 @@ void add_vcvt_IR(struct node *T, struct opn *O, string op_type)
         T->code = merge(2, T->code, oneir);
         strcpy(g_sL.find(g_sL.last_sym)->type, "int");
         T->code->prior->opn1.cal_type = 'i';
+
         O->type = 'v', O->id = g_sL.last_sym, O->kind = 'T', O->cal_type = 'i';
     }
 }

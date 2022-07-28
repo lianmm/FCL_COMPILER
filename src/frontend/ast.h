@@ -1,5 +1,7 @@
 /*抽象语法树结构定义，变量结点定义，中间代码结构定义*/
 //做优化时前端文件不需要修改，但是变量结点结构，中间代码结构需要清晰；
+#ifndef AST_H_
+#define AST_H_
 
 #include "stdio.h"
 #include "stdlib.h"
@@ -129,6 +131,8 @@ enum IR_op
     IR_PARAM,
     IR_LABEL,
     IR_GOTO,
+    BLOCK,
+
 
     IR_ARG,
     IR_RETURN,
@@ -256,8 +260,51 @@ struct node
         this->var_name = " ";
         call_name = " ";
     }
+    void EXT_DEF_LIST_ir();
+    void EXT_VAR_DEF_ir();
+    void CONST_VAR_DEF_ir();
+    void FUNC_DEF_ir();
+    void FUNC_DEC_ir();
+    void EXT_DEC_LIST_ir();
+    void PARAM_LIST_ir();
+    void PARAM_DEC_ir();
+    void VAR_DEF_ir();
+    void VAR_DEC_ir();
+    void DEC_LIST_ir();
+    void COMP_STM_ir();
+    void STM_DEF_LIST_ir();
+    void EXP_STMT_ir();
+    void IF_THEN_ir();
+    void IF_THEN_ELSE_ir();
+    void FUNC_CALL_ir();
+    void ARGS_ir();
+    void CONTINUE_STMT_ir();
+    void BREAK_STMT_ir();
+    void FOR_STMT_ir();
+    void FOR_ARGS_ir();
+    void FUNCTION_ir();
+    void PARAM_ir();
+    void ARG_ir();
+    void CALL_ir();
+    void LABEL_ir();
+    void GOTO_ir();
+    void JLT_ir();
+    void JLE_ir();
+    void JGT_ir();
+    void JGE_ir();
+    void EQ_ir();
+    void NEQ_ir();
+    void TERM_ir();
+    void ARRAYS_ir();
+    void EXP_LIST_ir();
+    void EXP_DES_ir();
+    void CONST_VAR_DEC_ir();
+    void CONST_DEC_LIST_ir();
+    void CONST_TERM_ir();
+    void VOID_STMT_ir();
 };
 
 //结点生成；
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos);
 void display_ast(struct node *T, int indent);
+#endif

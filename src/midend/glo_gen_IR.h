@@ -1,4 +1,6 @@
-//勿改；
+
+#ifndef GLO_GEN_IR_
+#define GLO_GEN_IR_
 
 #include "stdio.h"
 #include "stdlib.h"
@@ -25,3 +27,5 @@ void putout_IR(struct codenode *C);
 /*--------------------------------------功能主体-----------------------------------------*/
 
 void gen_IR(struct node *T);
+
+#endif

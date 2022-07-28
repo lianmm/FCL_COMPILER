@@ -1,0 +1,418 @@
+0		alloca	#4	var1.i
+1		alloca	#4	var2.i
+2		alloca	#4	var3.i
+3	
+func1.i:
+4		param	var4.i
+5		alloca	#4	.i
+6		load	var4.i	t0.i
+7		ASSIGN	var1.i	t0.i
+8		load	var1.i	t1.i
+9		ASSIGN	r0.i	t1.i
+10		goto	.L1.i
+11	
+.L1.i:
+12		func_end:	func1.i
+13	
+func2.i:
+14		param	var5.i
+15		alloca	#4	.i
+16		load	var5.i	t0.i
+17		ASSIGN	var2.i	t0.i
+18		load	var2.i	t1.i
+19		ASSIGN	r0.i	t1.i
+20		goto	.L5.i
+21	
+.L5.i:
+22		func_end:	func2.i
+23	
+func3.i:
+24		param	var6.i
+25		alloca	#4	.i
+26		load	var6.i	t0.i
+27		ASSIGN	var3.i	t0.i
+28		load	var3.i	t1.i
+29		ASSIGN	r0.i	t1.i
+30		goto	.L9.i
+31	
+.L9.i:
+32		func_end:	func3.i
+33	
+main.i:
+34		ASSIGN	t0.i	#2
+35		ASSIGN	var1.i	t0.i
+36		ASSIGN	t1.i	#3
+37		ASSIGN	var2.i	t1.i
+38		ASSIGN	t2.i	#0
+39		arg	t2.i
+40		CALL	func1.i	t3.i
+41		neq	t3.i	#0	t5.i
+42		goto_eq	t3.i	#1	.L23.i
+43		goto	.L22.i
+44	
+.L23.i:
+45		ASSIGN	t4.i	#1
+46		arg	t4.i
+47		CALL	func2.i	t5.i
+48		neq	t5.i	#0	t6.i
+49	
+.L24.i:
+50	
+.L22.i:
+51		goto_eq	t3.i	#1	.L20.i
+52		goto	.L21.i
+53	
+.L20.i:
+54	
+.L21.i:
+55		load	var1.i	t7.i
+56		arg	t7.i
+57		call_void	putint.i
+58		ASSIGN	t8.i	#32
+59		arg	t8.i
+60		call_void	putch.i
+61		load	var2.i	t9.i
+62		arg	t9.i
+63		call_void	putint.i
+64		ASSIGN	t10.i	#32
+65		arg	t10.i
+66		call_void	putch.i
+67		ASSIGN	t11.i	#2
+68		ASSIGN	var1.i	t11.i
+69		ASSIGN	t12.i	#3
+70		ASSIGN	var2.i	t12.i
+71		ASSIGN	t13.i	#0
+72		arg	t13.i
+73		CALL	func1.i	t14.i
+74		neq	t14.i	#0	t16.i
+75		goto_eq	t14.i	#1	.L34.i
+76		goto	.L33.i
+77	
+.L34.i:
+78		ASSIGN	t15.i	#1
+79		arg	t15.i
+80		CALL	func2.i	t16.i
+81		neq	t16.i	#0	t17.i
+82	
+.L35.i:
+83	
+.L33.i:
+84		goto_eq	t14.i	#1	.L31.i
+85		goto	.L32.i
+86	
+.L31.i:
+87	
+.L32.i:
+88		load	var1.i	t18.i
+89		arg	t18.i
+90		call_void	putint.i
+91		ASSIGN	t19.i	#32
+92		arg	t19.i
+93		call_void	putch.i
+94		load	var2.i	t20.i
+95		arg	t20.i
+96		call_void	putint.i
+97		ASSIGN	t21.i	#10
+98		arg	t21.i
+99		call_void	putch.i
+100		ASSIGN	t22.i	#2
+101		ASSIGN	var3.i	t22.i
+102		ASSIGN	t25.i	#1
+103		neq	t25.i	#0	t24.i
+104		goto_eq	t25.i	#1	.L42.i
+105		goto	.L41.i
+106	
+.L42.i:
+107		ASSIGN	t23.i	#3
+108		arg	t23.i
+109		CALL	func3.i	t24.i
+110		neq	t24.i	#0	t26.i
+111	
+.L43.i:
+112	
+.L41.i:
+113		goto_eq	t25.i	#1	.L39.i
+114		goto	.L40.i
+115	
+.L39.i:
+116	
+.L40.i:
+117		load	var3.i	t27.i
+118		arg	t27.i
+119		call_void	putint.i
+120		ASSIGN	t28.i	#32
+121		arg	t28.i
+122		call_void	putch.i
+123		ASSIGN	t31.i	#1
+124		neq	t31.i	#0	t30.i
+125		goto_eq	t31.i	#1	.L49.i
+126		goto	.L50.i
+127	
+.L50.i:
+128		ASSIGN	t29.i	#4
+129		arg	t29.i
+130		CALL	func3.i	t30.i
+131		neq	t30.i	#0	t32.i
+132	
+.L51.i:
+133	
+.L49.i:
+134		goto_eq	t31.i	#1	.L47.i
+135		goto	.L48.i
+136	
+.L47.i:
+137	
+.L48.i:
+138		arg	t27.i
+139		call_void	putint.i
+140		ASSIGN	t33.i	#10
+141		arg	t33.i
+142		call_void	putch.i
+143		ASSIGN	t34.i	#1
+144		neq	t34.i	#0	putch.i
+145		goto_eq	t34.i	#1	.L55.i
+146		goto	.L56.i
+147	
+.L55.i:
+148		ASSIGN	t35.i	#65
+149		arg	t35.i
+150		call_void	putch.i
+151	
+.L56.i:
+152		ASSIGN	t36.i	#0
+153		neq	t36.i	#0	putch.i
+154		goto_eq	t36.i	#1	.L66.i
+155		goto	.L67.i
+156	
+.L66.i:
+157		ASSIGN	t37.i	#66
+158		arg	t37.i
+159		call_void	putch.i
+160	
+.L67.i:
+161		ASSIGN	t38.i	#0
+162		neq	t38.i	#0	putch.i
+163		goto_eq	t38.i	#1	.L80.i
+164		goto	.L81.i
+165	
+.L80.i:
+166		ASSIGN	t39.i	#67
+167		arg	t39.i
+168		call_void	putch.i
+169	
+.L81.i:
+170		ASSIGN	t40.i	#1
+171		neq	t40.i	#0	putch.i
+172		goto_eq	t40.i	#1	.L91.i
+173		goto	.L92.i
+174	
+.L91.i:
+175		ASSIGN	t41.i	#68
+176		arg	t41.i
+177		call_void	putch.i
+178	
+.L92.i:
+179		ASSIGN	t42.i	#0
+180		neq	t42.i	#0	putch.i
+181		goto_eq	t42.i	#1	.L99.i
+182		goto	.L100.i
+183	
+.L99.i:
+184		ASSIGN	t43.i	#69
+185		arg	t43.i
+186		call_void	putch.i
+187	
+.L100.i:
+188		ASSIGN	t44.i	#1
+189		neq	t44.i	#0	putch.i
+190		goto_eq	t44.i	#1	.L107.i
+191		goto	.L108.i
+192	
+.L107.i:
+193		ASSIGN	t45.i	#70
+194		arg	t45.i
+195		call_void	putch.i
+196	
+.L108.i:
+197		ASSIGN	t46.i	#10
+198		arg	t46.i
+199		call_void	putch.i
+200		alloca	#4	var8.i
+201		ASSIGN	t47.i	#0
+202		ASSIGN	var8.i	t47.i
+203		alloca	#4	var9.i
+204		ASSIGN	t48.i	#1
+205		ASSIGN	var9.i	t48.i
+206		alloca	#4	var10.i
+207		ASSIGN	t49.i	#2
+208		ASSIGN	var10.i	t49.i
+209		alloca	#4	var11.i
+210		ASSIGN	t50.i	#3
+211		ASSIGN	var11.i	t50.i
+212		alloca	#4	var12.i
+213		ASSIGN	t51.i	#4
+214		ASSIGN	var12.i	t51.i
+215	
+.L115.i:
+216		load	var8.i	t52.i
+217		load	var9.i	t53.i
+218		neq	t52.i	#0	t53.i
+219		goto_eq	t52.i	#1	.L119.i
+220		goto	.L118.i
+221	
+.L119.i:
+222		neq	t53.i	#0	t54.i
+223	
+.L120.i:
+224	
+.L118.i:
+225		goto_eq	t52.i	#1	.L116.i
+226		goto	.L117.i
+227	
+.L116.i:
+228		ASSIGN	t55.i	#32
+229		arg	t55.i
+230		call_void	putch.i
+231		goto	.L115.i
+232	
+.L117.i:
+233		load	var8.i	t56.i
+234		load	var9.i	t57.i
+235		neq	t56.i	#0	t57.i
+236		goto_eq	t56.i	#1	.L123.i
+237		goto	.L124.i
+238	
+.L124.i:
+239		neq	t57.i	#0	t58.i
+240	
+.L125.i:
+241	
+.L123.i:
+242		goto_eq	t56.i	#1	.L121.i
+243		goto	.L122.i
+244	
+.L121.i:
+245		ASSIGN	t59.i	#67
+246		arg	t59.i
+247		call_void	putch.i
+248	
+.L122.i:
+249		load	var8.i	t60.i
+250		load	var9.i	t61.i
+251		jge	t60.i	t61.i	t62.i
+252		goto_eq	t62.i	#1	.L128.i
+253		goto	.L129.i
+254	
+.L129.i:
+255		jle	t61.i	t60.i	t63.i
+256	
+.L130.i:
+257	
+.L128.i:
+258		goto_eq	t62.i	#1	.L126.i
+259		goto	.L127.i
+260	
+.L126.i:
+261		ASSIGN	t65.i	#72
+262		arg	t65.i
+263		call_void	putch.i
+264	
+.L127.i:
+265		load	var10.i	t66.i
+266		load	var9.i	t67.i
+267		jge	t66.i	t67.i	t68.i
+268		goto_eq	t68.i	#1	.L140.i
+269		goto	.L139.i
+270	
+.L140.i:
+271		load	var12.i	t69.i
+272		load	var11.i	t70.i
+273		neq	t69.i	t70.i	t71.i
+274	
+.L141.i:
+275	
+.L139.i:
+276		goto_eq	t68.i	#1	.L137.i
+277		goto	.L138.i
+278	
+.L137.i:
+279		ASSIGN	t73.i	#73
+280		arg	t73.i
+281		call_void	putch.i
+282	
+.L138.i:
+283		load	var8.i	t76.i
+284		load	var9.i	t74.i
+285		not	t74.i	t75.i
+286		eq	t76.i	t75.i	t77.i
+287		goto_eq	t77.i	#1	.L154.i
+288		goto	.L153.i
+289	
+.L154.i:
+290		load	var11.i	t78.i
+291		jlt	t78.i	t78.i	t79.i
+292	
+.L155.i:
+293	
+.L153.i:
+294		goto_eq	t77.i	#1	.L150.i
+295		goto	.L151.i
+296	
+.L151.i:
+297		load	var12.i	t81.i
+298		jge	t81.i	t81.i	t82.i
+299	
+.L152.i:
+300	
+.L150.i:
+301		goto_eq	t77.i	#1	.L148.i
+302		goto	.L149.i
+303	
+.L148.i:
+304		ASSIGN	t84.i	#74
+305		arg	t84.i
+306		call_void	putch.i
+307	
+.L149.i:
+308		load	var8.i	t87.i
+309		load	var9.i	t85.i
+310		not	t85.i	t86.i
+311		eq	t87.i	t86.i	t88.i
+312		goto_eq	t88.i	#1	.L167.i
+313		goto	.L168.i
+314	
+.L168.i:
+315		load	var11.i	t89.i
+316		jlt	t89.i	t89.i	t90.i
+317		goto_eq	t90.i	#1	.L174.i
+318		goto	.L173.i
+319	
+.L174.i:
+320		load	var12.i	t91.i
+321		jge	t91.i	t91.i	t92.i
+322	
+.L175.i:
+323	
+.L173.i:
+324	
+.L169.i:
+325	
+.L167.i:
+326		goto_eq	t88.i	#1	.L165.i
+327		goto	.L166.i
+328	
+.L165.i:
+329		ASSIGN	t95.i	#75
+330		arg	t95.i
+331		call_void	putch.i
+332	
+.L166.i:
+333		ASSIGN	t96.i	#10
+334		arg	t96.i
+335		call_void	putch.i
+336		ASSIGN	t97.i	#0
+337		ASSIGN	r0.i	t97.i
+338		goto	.L13.i
+339	
+.L13.i:
+340		func_end:	main.i

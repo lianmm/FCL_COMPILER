@@ -1,6 +1,9 @@
 /*定义ARM代码在内存中的结构*/
 //做优化不添加新指令不需要修改此文件，但是必须熟悉指令的结构，如果不清楚可以群里讨论。
-#include "../midend/mid_optimization.h"
+#ifndef TRANSLATION_
+#define TRANSLATION_
+
+#include "../midend/glo_gen_IR.h"
 #include <queue>
 #include <map>
 #include <string>
@@ -62,7 +65,9 @@ enum ARM_op
     vfp_cmp,
     vfp_msr,
     vfp_mrs,
-    vfp_vcvt
+    vfp_vcvt,
+    vfp_moveq,
+    vfp_movne
 };
 
 // ARM指令的具体结构；
@@ -111,3 +116,5 @@ struct arm_instruction *merge_a(int num, ...);                              // A
 void split_a(struct arm_instruction *head1, struct arm_instruction *head2); // ARM指令一段分成两段；
 struct arm_instruction *mkarm(struct codenode *C, ARM_op op);               //构造一条新的ARM指令；
 void translation();
+
+#endif

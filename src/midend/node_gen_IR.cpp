@@ -4,41 +4,11 @@
 using namespace std;
 extern class codenode *oneir;
 
-void EXT_DEF_LIST_gen_ir_1(struct node *T)
-{
-    displayIR_sym++;
-    if (displayIR_sym == 1)
-        add_lib();
-    symbol_scope_TX.TX[symbol_scope_TX.top] = 0;
-    symbol_scope_TX.top++;
-    glo_level = 0;
-}
-void EXT_DEF_LIST_gen_ir_2(struct node *T)
-{
-    if (T->ptr[0])
-        T->code = merge(2, T->code, T->ptr[0]->code);
-    if (T->ptr[1])
-        T->code = merge(2, T->code, T->ptr[1]->code);
-    glo_err = 1;
-
-    if (displayIR_sym == 1 && glo_err == 1)
-    {
-        out_ast = T;
-        out_IR = T->code;
-        // DisplaySymbolTable();
-        // DisplaySymbolTable(sT);
-    }
-    displayIR_sym--;
-}
-
 void EXP_STMT_gen_ir_1(struct node *T)
 {
     // printf("表达式语句：%s\n", T->Etrue);
-    if (T->ptr[0])
-    {
-        strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-        strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_tail, T->while_tail), strcpy(T->ptr[0]->while_true, T->while_true);
-    }
+
+    transfer_label(T, T->ptr[0]);
     assign_sym = 1;
 }
 void EXP_STMT_gen_ir_2(struct node *T)
@@ -57,18 +27,11 @@ void COMP_STM_gen_ir_1(struct node *T)
 
     // printf("复合语句: \n");
     glo_level++;
-    if (T->fun_end.find(".L") != T->fun_end.npos)
-        T->ptr[0]->fun_end = T->fun_end;
+
     symbol_scope_TX.TX[symbol_scope_TX.top] = sT.index;
     symbol_scope_TX.top++;
-    if (T->ptr[0] && check_process(2, T, *T))
-    {
-        strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
-    }
-    if (T->ptr[0])
-    {
-        strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-    }
+
+    transfer_label(T, T->ptr[0]);
 }
 void COMP_STM_gen_ir_2(struct node *T)
 {
@@ -84,7 +47,6 @@ void COMP_STM_gen_ir_2(struct node *T)
 
     if (glo_level > 0)
     {
-
         // printf("symbol_scope_TX.TX[symbol_scope_TX.top-1]:%d -> sT.index:%d\n", symbol_scope_TX.TX[symbol_scope_TX.top - 1], sT.index);
         // DisplaySymbolTable(sT); // DisplaySymbolTable();
         struct symbol tmp_sym1;
@@ -93,42 +55,50 @@ void COMP_STM_gen_ir_2(struct node *T)
         for (i = symbol_scope_TX.TX[symbol_scope_TX.top - 1]; i < sT.index; i++)
         {
             // printf("\t%s", sT.symbols[i].name.c_str());
-            if (sT.symbols[i].flag != 'T')
+            if (1)
             {
-                if (g_sL.glo_ymT[g_sL.now_func].func_v != NULL && (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name) != (*g_sL.glo_ymT[g_sL.now_func].func_v).end())
+                if (g_sL.glo_ymT[g_sL.now_func].func_v != NULL && (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name) != (*g_sL.glo_ymT[g_sL.now_func].func_v).end() && (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name] != NULL)
                 {
                     // printf("\t1");
-                    erase_sym = 1;
                     // printf("(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size());
-                    if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size() > 1)
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
-                    else if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size() == 1)
+                    stack<class symbol> tmp_stk = (*(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]);
+                    int func_v_stack_size = tmp_stk.size();
+                    if (func_v_stack_size > 1)
                     {
-
+                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
+                        erase_sym = 1;
+                    }
+                    else if (func_v_stack_size == 1 && g_sL.glo_ymT.find(sT.symbols[i].name) != g_sL.glo_ymT.end())
+                    {
                         (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
                         auto itt = (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name);
-                        delete itt->second;
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v).erase(itt);
+                        if (itt != (*g_sL.glo_ymT[g_sL.now_func].func_v).end())
+                        {
+                            erase_sym = 1;
+                            delete itt->second;
+                            itt->second = NULL;
+                            (*g_sL.glo_ymT[g_sL.now_func].func_v).erase(itt->first);
+                            // printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+                        }
                     }
                     // DisplaySymbolTable();
-                    g_sL.last_v = sT.symbols[i].name;
+                    // g_sL.last_v = sT.symbols[i].name;
                 }
             }
         }
         // printf("\t\n");
-
         if (erase_sym == 1)
         {
             i = symbol_scope_TX.TX[symbol_scope_TX.top - 1] - 1;
-            while (sT.symbols[i].flag == 'T')
-                i--;
             g_sL.last_v = sT.symbols[i].name;
             // printf("g_sL.last_v:%s\n", g_sL.last_v.c_str());
         }
         // DisplaySymbolTable();
     }
+
     symbol_scope_TX.top--;
     sT.index = symbol_scope_TX.TX[symbol_scope_TX.top];
+    // DisplaySymbolTable(sT);
 }
 
 void MOD_gen_ir_1(struct node *T, string *next_label, string *last_label, string *tmp_label)
@@ -137,296 +107,13 @@ void MOD_gen_ir_1(struct node *T, string *next_label, string *last_label, string
         T->place = 2; //关系型表达式标识；
 
     *next_label = newLabel(), *last_label = newLabel(), *tmp_label = newLabel();
-    if (T->ptr[0] && check_process(2, T, *T))
-    {
-        strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_true, T->while_true), strcpy(T->ptr[0]->while_tail, T->while_tail);
-    }
-    if (T->ptr[0])
-    {
-        strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-        T->ptr[0]->fun_end = T->fun_end;
-    }
-    if (T->ptr[1] && check_process(2, T, *T))
-    {
-        strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_true, T->while_true), strcpy(T->ptr[1]->while_tail, T->while_tail);
-    }
-    if (T->ptr[1])
-    {
-        strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-        T->ptr[1]->fun_end = T->fun_end;
-    }
-    if (T->ptr[0])
-    {
-        strcpy(T->ptr[0]->Etrue, T->Etrue), strcpy(T->ptr[0]->Efalse, T->Efalse), strcpy(T->ptr[0]->Snext, T->Snext);
-        strcpy(T->ptr[0]->while_head, T->while_head), strcpy(T->ptr[0]->while_tail, T->while_tail), strcpy(T->ptr[0]->while_true, T->while_true);
-    }
-    if (T->ptr[1])
-    {
-        strcpy(T->ptr[1]->Etrue, T->Etrue), strcpy(T->ptr[1]->Efalse, T->Efalse), strcpy(T->ptr[1]->Snext, T->Snext);
-        strcpy(T->ptr[1]->while_head, T->while_head), strcpy(T->ptr[1]->while_tail, T->while_tail), strcpy(T->ptr[1]->while_true, T->while_true);
-    }
+
+    transfer_label(T, T->ptr[0]), transfer_label(T, T->ptr[1]);
+
     // printf("%s\n", T->type_id);
 }
 void MOD_gen_ir_2(struct node *T, string next_label, string last_label, string tmp_label, int lint)
 {
-    //常量计算；g_sL.find(T->ptr[0]->out.id)->
-    if ((int)T->kind != (int)ASSIGN && (T->ptr[0]->out.type != 'v' || (g_sL.find(T->ptr[0]->out.id)->flag == 'C' && g_sL.find(T->ptr[0]->out.id)->flagca != 'A')) && (T->ptr[1]->out.type != 'v' || (g_sL.find(T->ptr[1]->out.id)->flag == 'C' && g_sL.find(T->ptr[1]->out.id)->flagca != 'A')))
-    {
-
-        if (check_int(T->ptr[0]->out) && check_int(T->ptr[1]->out))
-        {
-
-            int_cal(&T->ptr[0]->out, &T->ptr[1]->out, T);
-        }
-        else
-        {
-            if (T->ptr[0]->out.type == 'i')
-                T->ptr[0]->out.const_float = (float)T->ptr[0]->out.const_int;
-            if (T->ptr[1]->out.type == 'i')
-                T->ptr[1]->out.const_float = (float)T->ptr[1]->out.const_int;
-            float_cal(&T->ptr[0]->out, &T->ptr[1]->out, T);
-        }
-        if ((int)T->kind == (int)OR || (int)T->kind == (int)AND)
-        {
-            if (T->out.const_int != 0)
-                T->out.const_int = 1;
-            glo_opn1 = T->out;
-            glo_opn2.type = 'i', glo_opn2.const_int = 1;
-            oneir = mkIR(IR_EQ);
-            T->code = merge(2, T->code, oneir);
-        }
-        T->place = 0; //可计算的表达式不能直接跳转，需额外比较；
-        return;
-    }
-
-    if ((int)T->kind != (int)ASSIGN)
-    {
-        check_load(T, &T->ptr[0]->out, 0);
-        // if (T->ptr[0]->out.id == "a" )
-        // DisplaySymbolTable();
-        glo_opn1 = glo_res;
-    }
-    // printf("\t%s\t%s\n", T->ptr[0]->out.id, T->Etrue);
-    //作用域屏蔽；
-    if ((int)T->kind == (int)ASSIGN && ((strstr(T->Etrue, ".L") != NULL) || (strstr(T->while_head, ".L") != NULL)))
-    {
-        if (g_sL.find(T->ptr[0]->out.id)->flag != 'T')
-        {
-            iwT.sym_indexs[iwT.top] = T->ptr[0]->out.offset;
-            iwT.sym_name[iwT.top] = g_sL.find(T->ptr[0]->out.id)->name;
-            iwT.top++;
-        }
-    }
-
-    if ((int)T->kind != (int)ASSIGN)
-    {
-        if (T->ptr[0])
-            T->code = merge(2, T->code, T->ptr[0]->code);
-        check_load(T, &T->ptr[1]->out, 0);
-        if ((int)T->kind == (int)OR)
-        {
-            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
-            {
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.type = 'i', glo_opn2.const_int = 0;
-                oneir = mkIR(IR_NEQ);
-                T->code = merge(2, T->code, oneir);
-            }
-            add_goto_IR((char *)next_label.c_str(), T, &T->ptr[0]->out, 1);
-            add_goto_IR((char *)last_label.c_str(), T, &T->ptr[0]->out, 0);
-            add_label_IR((char *)last_label.c_str(), T);
-        }
-        else if ((int)T->kind == (int)AND)
-        {
-            if (T->ptr[0]->kind == TERM || T->ptr[0]->kind == FUNC_CALL || T->ptr[0]->place != 2)
-            {
-
-                check_load(T, &T->ptr[0]->out, 0);
-                glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
-                glo_opn1 = T->ptr[0]->out;
-                glo_opn2.flage = '0';
-                oneir = mkIR(IR_NEQ);
-                T->code = merge(2, T->code, oneir);
-            }
-            add_goto_IR((char *)last_label.c_str(), T, &T->ptr[0]->out, 1);
-            add_goto_IR((char *)next_label.c_str(), T, &T->ptr[0]->out, 0);
-            add_label_IR((char *)last_label.c_str(), T);
-        }
-        if (T->ptr[1])
-            T->code = merge(2, T->code, T->ptr[1]->code);
-    }
-    else
-    {
-        check_load(T, &T->ptr[1]->out, 0);
-        if (T->ptr[1])
-            T->code = merge(2, T->code, T->ptr[1]->code);
-        if (T->ptr[0])
-            T->code = merge(2, T->code, T->ptr[0]->code);
-    }
-
-    if ((int)T->kind != (int)ASSIGN)
-    {
-        if (strcmp(g_sL.find(T->ptr[0]->out.id)->type, "float") == 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "float") != 0)
-        {
-            add_vcvt_IR(T, &T->ptr[1]->out, (string) ".f32.s32");
-        }
-        else if (strcmp(g_sL.find(T->ptr[0]->out.id)->type, "float") != 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "float") == 0)
-        {
-            add_vcvt_IR(T, &T->ptr[0]->out, (string) ".f32.s32");
-        }
-    }
-
-    initOpn(&glo_opn2);
-    glo_opn2 = T->ptr[1]->out;
-    check_cal_type(*T);
-    g_sL.find(T->ptr[0]->type_id)->init_sym = 1;
-    //不考虑执行失败的情况，只要作为左值运算过，即认为已初始化TODO。
-
-    if ((int)T->kind == (int)ASSIGN)
-    {
-        if (check_cal_type(*T) == 2 || check_cal_type(*T) == 4)
-        {
-            if (strcmp(g_sL.find(T->ptr[0]->type_id)->type, "float") == 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "int") == 0)
-                add_vcvt_IR(T, &T->ptr[1]->out, (string) ".f32.s32");
-            else if (strcmp(g_sL.find(T->ptr[0]->type_id)->type, "int") == 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "float") == 0)
-                add_vcvt_IR(T, &T->ptr[1]->out, (string) ".s32.f32");
-
-            if (g_sL.find(T->ptr[0]->type_id)->flage == 'P')
-            {
-                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T->ptr[0]->type_id)->offset, glo_opn1.id = T->ptr[0]->type_id;
-                glo_opn1.id = T->ptr[0]->type_id;
-                glo_opn1.flage = g_sL.find(T->ptr[0]->type_id)->flage;
-                glo_opn1.flaga = g_sL.find(T->ptr[0]->type_id)->flagca;
-                mksymt();
-                glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
-                glo_res.flage = g_sL.find(glo_res.id)->flage;
-
-                glo_res.address = g_sL.find(glo_res.id)->offset;
-                glo_res.kind = g_sL.find(glo_res.id)->flag;
-                oneir = mkIR(IR_LOAD);
-                T->code = merge(2, T->code, oneir);
-                if (strcmp(g_sL.find(T->ptr[0]->type_id)->type, "float") == 0)
-                {
-                    T->code->prior->result.cal_type = 'i';
-                    T->code->prior->opn1.cal_type = 'i';
-                }
-                glo_opn1 = glo_res;
-                glo_opn2 = T->ptr[0]->out;
-                glo_res = T->ptr[1]->out;
-            }
-            else
-            {
-                glo_opn2 = T->ptr[0]->out;
-                glo_res = T->ptr[1]->out;
-                glo_opn1.type = 'v', glo_opn1.offset = find(T->ptr[0]->type_id), glo_opn1.level = glo_level, glo_opn1.id = T->ptr[0]->type_id;
-                // if (glo_opn1.id == "count_arr")
-                glo_opn1.address = g_sL.find(glo_opn1.id)->offset + g_sL.find(glo_opn1.id)->size - 4;
-                glo_opn1.flage = g_sL.find(glo_opn1.id)->flage;
-
-                glo_opn1.kind = g_sL.find(glo_opn1.id)->flag;
-            }
-            //构造结果变量代码结点。
-            oneir = mkIR(IR_ARROFF_EXP);
-            T->code = merge(2, T->code, oneir);
-            if (g_sL.find(T->ptr[0]->type_id)->flage == 'P' && strcmp(g_sL.find(T->ptr[0]->type_id)->type, "float") == 0)
-            {
-                // strcpy(g_sL.find(T->code->prior->result.id)->type, "int");
-                T->code->prior->result.cal_type = 'f';
-                T->code->prior->opn1.cal_type = 'i';
-                T->code->prior->cal_type = 'f';
-
-                // T->code->prior->opn2.cal_type = 'i';
-                // glo_res = T->code->prior->result;
-                // add_cal_IR(1, T, NULL, glo_res, 0);
-                // strcpy(g_sL.find(g_sL.last_sym)->type, "float");
-                // T->code->prior->opn1.cal_type = 'f';
-                // T->code->prior->opn2.cal_type = 'i';
-                // glo_res = T->code->prior->opn1;
-            }
-        }
-        else
-        {
-            if ((T->ptr[1]->out.type == 'i' || T->ptr[1]->out.type == 'f') && (T->ptr[0]->out.kind == 'P' || T->ptr[0]->out.kind == 'V'))
-            {
-                add_cal_IR(1, T, NULL, T->ptr[1]->out, 0);
-                glo_opn2 = glo_opn1;
-            }
-
-            // DisplaySymbolTable();
-            // cout << T->ptr[0]->out.id << " , " << T->ptr[1]->out.id << endl;
-            if (strcmp(g_sL.find(T->ptr[0]->out.id)->type, "float") == 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "int") == 0)
-                add_vcvt_IR(T, &T->ptr[1]->out, (string) ".f32.s32");
-            else if (strcmp(g_sL.find(T->ptr[0]->out.id)->type, "int") == 0 && strcmp(g_sL.find(T->ptr[1]->out.id)->type, "float") == 0)
-                add_vcvt_IR(T, &T->ptr[1]->out, (string) ".s32.f32");
-
-            initOpn(&glo_opn1), initOpn(&glo_opn2);
-            glo_opn1 = T->ptr[0]->out;
-            glo_opn1.flage = g_sL.find(T->ptr[0]->out.id)->flage;
-            glo_opn1.flaga = g_sL.find(T->ptr[0]->out.id)->flagca;
-            glo_opn2 = T->ptr[1]->out;
-            glo_opn2.flage = g_sL.find(T->ptr[1]->out.id)->flage;
-            glo_opn2.flaga = g_sL.find(T->ptr[1]->out.id)->flagca;
-            T->out = T->ptr[0]->out;
-            oneir = mkIR(IR_ASSIGN);
-            T->code = merge(2, T->code, oneir);
-
-            if (T->ptr[0]->out.type == 'v' && (T->ptr[0]->out.kind = 'V' || T->ptr[0]->out.kind == 'P') && T->ptr[1]->out.type == 'v' && T->ptr[1]->out.kind == 'T')
-            {
-                if (g_sL.find(T->ptr[0]->out.id)->flage == 'E')
-                {
-
-                    g_sL.find(T->ptr[0]->out.id)->no_ris = 0, g_sL.find(T->ptr[0]->out.id)->status = 0;
-                }
-                else
-                {
-                    g_sL.find(T->ptr[0]->out.id)->no_ris = a2i(T->ptr[1]->out.id);
-                }
-            } //
-        }
-    }
-    else
-    {
-
-        initOpn(&glo_opn1);
-        glo_opn1 = T->ptr[0]->out;
-        lint = check_int(glo_opn1);
-
-        mksymt();
-        //插入临时变量。
-
-        initOpn(&glo_res);
-        glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
-
-        glo_res.flage = g_sL.find(glo_res.id)->flage;
-        glo_res.address = g_sL.find(glo_res.id)->offset;
-        glo_res.kind = g_sL.find(glo_res.id)->flag;
-
-        T->out = glo_res;
-        // printf("%s\n", T->type_id);
-        if ((int)T->kind != (int)AND && (int)T->kind != (int)OR)
-        //构造结点变量代码结点。
-        {
-            oneir = mkIR(get_OpType(*T));
-            T->code = merge(2, T->code, oneir);
-        }
-    }
-
-    if ((int)T->kind == (int)OR || (int)T->kind == (int)AND)
-    {
-        if (T->ptr[1]->kind == TERM || T->ptr[1]->kind == FUNC_CALL || T->ptr[1]->place != 2)
-        {
-
-            check_load(T, &T->ptr[1]->out, 0);
-            glo_opn2.type = 'i', glo_opn2.const_int = 0, glo_opn2.offset = -1, glo_opn2.level = glo_level;
-            glo_opn1 = T->ptr[1]->out;
-            glo_opn2.flage = '0';
-            oneir = mkIR(IR_NEQ);
-            T->code = merge(2, T->code, oneir);
-        }
-        T->out = T->ptr[0]->out;
-        add_label_IR((char *)tmp_label.c_str(), T);
-        add_label_IR((char *)next_label.c_str(), T);
-    }
 }
 
 void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
@@ -475,6 +162,11 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
             else
             {
                 check_load(T, &iT.indexs[iT.top - 1], 0);
+                if (strcmp(g_sL.find((iT.indexs[iT.top - 1]).id)->type, "float") == 0)
+                {
+                    add_vcvt_IR(T, &iT.indexs[iT.top - 1], (string) ".s32.f32");
+                    // DisplaySymbolTable();
+                }
                 glo_opn1 = iT.indexs[iT.top - 1];
             }
             iT.top--;
@@ -489,6 +181,11 @@ void TERM_gen_ir_if(struct node *T, int tmp_assign_sym)
                     add_cal_IR(1, T, NULL, tmp_size, -1);
                     tmp_opn2 = glo_opn1;
                     check_load(T, &(iT.indexs[iT.top - 1]), 0);
+                    if (strcmp(g_sL.find((iT.indexs[iT.top - 1]).id)->type, "float") == 0)
+                    {
+                        add_vcvt_IR(T, &iT.indexs[iT.top - 1], (string) ".s32.f32");
+                        // DisplaySymbolTable();
+                    }
                     glo_opn1 = tmp_opn2;
                     add_cal_IR(3, T, NULL, (iT.indexs[iT.top - 1]), 0);
 
@@ -780,3 +477,46 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
         }
     }
 }
+
+void node::EXT_DEF_LIST_ir() {}
+void node::EXT_VAR_DEF_ir() {}
+void node::CONST_VAR_DEF_ir() {}
+void node::FUNC_DEF_ir() {}
+void node::FUNC_DEC_ir() {}
+void node::EXT_DEC_LIST_ir() {}
+void node::PARAM_LIST_ir() {}
+void node::PARAM_DEC_ir() {}
+void node::VAR_DEF_ir() {}
+void node::VAR_DEC_ir() {}
+void node::DEC_LIST_ir() {}
+void node::COMP_STM_ir() {}
+void node::STM_DEF_LIST_ir() {}
+void node::EXP_STMT_ir() {}
+void node::IF_THEN_ir() {}
+void node::IF_THEN_ELSE_ir() {}
+void node::FUNC_CALL_ir() {}
+void node::ARGS_ir() {}
+void node::CONTINUE_STMT_ir() {}
+void node::BREAK_STMT_ir() {}
+void node::FOR_STMT_ir() {}
+void node::FOR_ARGS_ir() {}
+void node::FUNCTION_ir() {}
+void node::PARAM_ir() {}
+void node::ARG_ir() {}
+void node::CALL_ir() {}
+void node::LABEL_ir() {}
+void node::GOTO_ir() {}
+void node::JLT_ir() {}
+void node::JLE_ir() {}
+void node::JGT_ir() {}
+void node::JGE_ir() {}
+void node::EQ_ir() {}
+void node::NEQ_ir() {}
+void node::TERM_ir() {}
+void node::ARRAYS_ir() {}
+void node::EXP_LIST_ir() {}
+void node::EXP_DES_ir() {}
+void node::CONST_VAR_DEC_ir() {}
+void node::CONST_DEC_LIST_ir() {}
+void node::CONST_TERM_ir() {}
+void node::VOID_STMT_ir() {}

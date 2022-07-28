@@ -1,0 +1,1043 @@
+0		alloca	#40000	var1.i
+1		alloca	#4	var2.i
+2		alloca	#40000	var3.i
+3		alloca	#4	var4.i
+4		alloca	#4	var5.i
+5		ASSIGN	t0.i	#0
+6		ASSIGN	var5.i	t0.i
+7		alloca	#4	var6.i
+8		ASSIGN	t1.i	#1
+9		ASSIGN	var6.i	t1.i
+10		alloca	#4	var7.i
+11		alloca	#40000	var8.i
+12		alloca	#40000	var9.i
+13	
+func1.i:
+14		param	var10.i
+15		alloca	#4	.i
+16		load	var10.i	t0.i
+17		ASSIGN	t1.i	#48
+18		jge	t0.i	t1.i	t2.i
+19		goto_eq	t2.i	#1	.L5.i
+20		goto	.L4.i
+21	
+.L5.i:
+22		ASSIGN	t3.i	#57
+23		jle	t0.i	t3.i	t4.i
+24	
+.L6.i:
+25	
+.L4.i:
+26		goto_eq	t2.i	#1	.L2.i
+27		goto	.L3.i
+28	
+.L2.i:
+29		ASSIGN	t6.i	#1
+30		ASSIGN	r0.i	t6.i
+31		goto	.L1.i
+32	
+.L3.i:
+33		ASSIGN	t7.i	#0
+34		ASSIGN	r0.i	t7.i
+35		goto	.L1.i
+36	
+.L1.i:
+37		func_end:	func1.i
+38	
+func2.i:
+39		param	var11.i
+40		alloca	#4	var12.i
+41		param	var12.i
+42		alloca	#4	.i
+43		alloca	#4	var13.i
+44		ASSIGN	t0.i	#1
+45		ASSIGN	var13.i	t0.i
+46	
+.L14.i:
+47		load	var12.i	t1.i
+48		ASSIGN	t2.i	#0
+49		neq	t1.i	t2.i	t3.i
+50		goto_eq	t3.i	#1	.L15.i
+51		goto	.L16.i
+52	
+.L15.i:
+53		load	var13.i	t4.i
+54		load	var11.i	t5.i
+55		mul	t4.i	t5.i	t6.i
+56		ASSIGN	var13.i	t6.i
+57		load	var12.i	t7.i
+58		ASSIGN	t8.i	#1
+59		sub	t7.i	t8.i	t9.i
+60		ASSIGN	var12.i	t9.i
+61		goto	.L14.i
+62	
+.L16.i:
+63		load	var13.i	t10.i
+64		ASSIGN	r0.i	t10.i
+65		goto	.L13.i
+66	
+.L13.i:
+67		func_end:	func2.i
+68	
+func3.i:
+69		param	var14.i
+70		alloca	#4	var13.i
+71		CALL	getch.i	t0.i
+72		alloca	#4	var15.i
+73		ASSIGN	var15.i	t0.i
+74		alloca	#4	var16.i
+75		ASSIGN	t1.i	#0
+76		ASSIGN	var16.i	t1.i
+77	
+.L33.i:
+78		load	var15.i	t2.i
+79		ASSIGN	t3.i	#13
+80		neq	t2.i	t3.i	t4.i
+81		goto_eq	t4.i	#1	.L37.i
+82		goto	.L36.i
+83	
+.L37.i:
+84		load	var15.i	t5.i
+85		ASSIGN	t6.i	#10
+86		neq	t5.i	t6.i	t7.i
+87	
+.L38.i:
+88	
+.L36.i:
+89		goto_eq	t4.i	#1	.L34.i
+90		goto	.L35.i
+91	
+.L34.i:
+92		load	var15.i	t10.i
+93		load	var16.i	t9.i
+94		load	var14.i	t11.i
+95		arroff_exp	t10.i,	[t11.i, t9.i]
+96		load	var16.i	t12.i
+97		ASSIGN	t13.i	#1
+98		add	t12.i	t13.i	t14.i
+99		ASSIGN	var16.i	t14.i
+100		CALL	getch.i	t15.i
+101		ASSIGN	var15.i	t15.i
+102		goto	.L33.i
+103	
+.L35.i:
+104		load	var16.i	t16.i
+105		ASSIGN	r0.i	t16.i
+106		goto	.L32.i
+107	
+.L32.i:
+108		func_end:	func3.i
+109	
+func4.i:
+110		param	var17.i
+111		alloca	#4	var16.i
+112		load	var2.i	t0.i
+113		ASSIGN	t1.i	#1
+114		add	t0.i	t1.i	t2.i
+115		ASSIGN	var2.i	t2.i
+116		load	var17.i	t4.i
+117		load	var2.i	t3.i
+118		arroff_exp	t4.i,	[var1.i, t3.i]
+119	
+.L57.i:
+120		func_end:	func4.i
+121	
+func5.i:
+122		param	var18.i
+123		alloca	#4	.i
+124		load	var4.i	t0.i
+125		ASSIGN	t1.i	#1
+126		add	t0.i	t1.i	t2.i
+127		ASSIGN	var4.i	t2.i
+128		load	var18.i	t4.i
+129		load	var4.i	t3.i
+130		arroff_exp	t4.i,	[var3.i, t3.i]
+131	
+.L67.i:
+132		func_end:	func5.i
+133	
+func6.i:
+134		load	var2.i	t0.i
+135		ASSIGN	t1.i	#1
+136		sub	t0.i	t1.i	t2.i
+137		ASSIGN	var2.i	t2.i
+138		load	var2.i	t3.i
+139		ASSIGN	t4.i	#1
+140		add	t3.i	t4.i	t5.i
+141		exp_arroff	t6.i,	[var1.i, t5.i]
+142		ASSIGN	r0.i	t6.i
+143		goto	.L77.i
+144	
+.L77.i:
+145		func_end:	func6.i
+146	
+func7.i:
+147		load	var4.i	t0.i
+148		ASSIGN	t1.i	#1
+149		sub	t0.i	t1.i	t2.i
+150		ASSIGN	var4.i	t2.i
+151		load	var4.i	t3.i
+152		ASSIGN	t4.i	#1
+153		add	t3.i	t4.i	t5.i
+154		exp_arroff	t6.i,	[var3.i, t5.i]
+155		ASSIGN	r0.i	t6.i
+156		goto	.L87.i
+157	
+.L87.i:
+158		func_end:	func7.i
+159	
+func8.i:
+160		param	var19.i
+161		alloca	#4	.i
+162		load	var2.i	t0.i
+163		exp_arroff	t1.i,	[var1.i, t0.i]
+164		ASSIGN	t2.i	#10
+165		mul	t1.i	t2.i	t3.i
+166		arroff_exp	t3.i,	[var1.i, t0.i]
+167		exp_arroff	t4.i,	[var1.i, t0.i]
+168		load	var19.i	t5.i
+169		add	t4.i	t5.i	t6.i
+170		arroff_exp	t6.i,	[var1.i, t0.i]
+171	
+.L97.i:
+172		func_end:	func8.i
+173	
+func9.i:
+174		CALL	func7.i	t0.i
+175		ASSIGN	var7.i	t0.i
+176		ASSIGN	t2.i	#32
+177		load	var6.i	t1.i
+178		arroff_exp	t2.i,	[var9.i, t1.i]
+179		load	var7.i	t5.i
+180		ASSIGN	t3.i	#1
+181		add	t1.i	t3.i	t4.i
+182		arroff_exp	t5.i,	[var9.i, t4.i]
+183		ASSIGN	t6.i	#2
+184		add	t1.i	t6.i	t7.i
+185		ASSIGN	var6.i	t7.i
+186		load	var4.i	t8.i
+187		ASSIGN	t9.i	#0
+188		eq	t8.i	t9.i	t10.i
+189		goto_eq	t10.i	#1	.L129.i
+190		goto	.L130.i
+191	
+.L129.i:
+192		ASSIGN	t11.i	#0
+193		ASSIGN	r0.i	t11.i
+194		goto	.L110.i
+195	
+.L130.i:
+196		ASSIGN	t12.i	#1
+197		ASSIGN	r0.i	t12.i
+198		goto	.L110.i
+199	
+.L110.i:
+200		func_end:	func9.i
+201	
+main.i:
+202		ASSIGN	t0.i	#0
+203		ASSIGN	var2.i	t0.i
+204		ASSIGN	t1.i	#0
+205		ASSIGN	var4.i	t1.i
+206		ASSIGN	t2.i	#0
+207		arg	var8.i
+208		CALL	func3.i	t3.i
+209		alloca	#4	var20.i
+210		ASSIGN	var20.i	t3.i
+211	
+.L141.i:
+212		load	var5.i	t4.i
+213		load	var20.i	t5.i
+214		jlt	t4.i	t5.i	t6.i
+215		goto_eq	t6.i	#1	.L142.i
+216		goto	.L143.i
+217	
+.L142.i:
+218		load	var5.i	t7.i
+219		exp_arroff	t8.i,	[var8.i, t7.i]
+220		arg	t8.i
+221		CALL	func1.i	t9.i
+222		ASSIGN	t10.i	#1
+223		eq	t9.i	t10.i	t11.i
+224		goto_eq	t11.i	#1	.L147.i
+225		goto	.L148.i
+226	
+.L147.i:
+227		load	var5.i	t12.i
+228		exp_arroff	t13.i,	[var8.i, t12.i]
+229		load	var6.i	t14.i
+230		arroff_exp	t13.i,	[var9.i, t14.i]
+231		load	var6.i	t15.i
+232		ASSIGN	t16.i	#1
+233		add	t15.i	t16.i	t17.i
+234		ASSIGN	var6.i	t17.i
+235		goto	.L149.i
+236	
+.L148.i:
+237		load	var5.i	t18.i
+238		exp_arroff	t19.i,	[var8.i, t18.i]
+239		ASSIGN	t20.i	#40
+240		eq	t19.i	t20.i	t21.i
+241		goto_eq	t21.i	#1	.L162.i
+242		goto	.L163.i
+243	
+.L162.i:
+244		ASSIGN	t22.i	#40
+245		arg	t22.i
+246		call_void	func5.i
+247	
+.L163.i:
+248		load	var5.i	t23.i
+249		exp_arroff	t24.i,	[var8.i, t23.i]
+250		ASSIGN	t25.i	#94
+251		eq	t24.i	t25.i	t26.i
+252		goto_eq	t26.i	#1	.L167.i
+253		goto	.L168.i
+254	
+.L167.i:
+255		ASSIGN	t27.i	#94
+256		arg	t27.i
+257		call_void	func5.i
+258	
+.L168.i:
+259		load	var5.i	t28.i
+260		exp_arroff	t29.i,	[var8.i, t28.i]
+261		ASSIGN	t30.i	#41
+262		eq	t29.i	t30.i	t31.i
+263		goto_eq	t31.i	#1	.L172.i
+264		goto	.L173.i
+265	
+.L172.i:
+266		CALL	func7.i	t32.i
+267		ASSIGN	var7.i	t32.i
+268	
+.L180.i:
+269		load	var7.i	t33.i
+270		ASSIGN	t34.i	#40
+271		neq	t33.i	t34.i	t35.i
+272		goto_eq	t35.i	#1	.L181.i
+273		goto	.L182.i
+274	
+.L181.i:
+275		ASSIGN	t37.i	#32
+276		load	var6.i	t36.i
+277		arroff_exp	t37.i,	[var9.i, t36.i]
+278		load	var7.i	t41.i
+279		load	var6.i	t38.i
+280		ASSIGN	t39.i	#1
+281		add	t38.i	t39.i	t40.i
+282		arroff_exp	t41.i,	[var9.i, t40.i]
+283		load	var6.i	t42.i
+284		ASSIGN	t43.i	#2
+285		add	t42.i	t43.i	t44.i
+286		ASSIGN	var6.i	t44.i
+287		CALL	func7.i	t45.i
+288		ASSIGN	var7.i	t45.i
+289		goto	.L180.i
+290	
+.L182.i:
+291	
+.L173.i:
+292		load	var5.i	t46.i
+293		exp_arroff	t47.i,	[var8.i, t46.i]
+294		ASSIGN	t48.i	#43
+295		eq	t47.i	t48.i	t49.i
+296		goto_eq	t49.i	#1	.L204.i
+297		goto	.L205.i
+298	
+.L204.i:
+299	
+.L209.i:
+300		load	var4.i	t50.i
+301		exp_arroff	t51.i,	[var3.i, t50.i]
+302		ASSIGN	t52.i	#43
+303		eq	t51.i	t52.i	t53.i
+304		goto_eq	t53.i	#1	.L224.i
+305		goto	.L225.i
+306	
+.L225.i:
+307		load	var4.i	t54.i
+308		exp_arroff	t55.i,	[var3.i, t54.i]
+309		ASSIGN	t56.i	#45
+310		eq	t55.i	t56.i	t57.i
+311	
+.L226.i:
+312	
+.L224.i:
+313		goto_eq	t53.i	#1	.L221.i
+314		goto	.L222.i
+315	
+.L222.i:
+316		load	var4.i	t59.i
+317		exp_arroff	t60.i,	[var3.i, t59.i]
+318		ASSIGN	t61.i	#42
+319		eq	t60.i	t61.i	t62.i
+320	
+.L223.i:
+321	
+.L221.i:
+322		goto_eq	t53.i	#1	.L218.i
+323		goto	.L219.i
+324	
+.L219.i:
+325		load	var4.i	t64.i
+326		exp_arroff	t65.i,	[var3.i, t64.i]
+327		ASSIGN	t66.i	#47
+328		eq	t65.i	t66.i	t67.i
+329	
+.L220.i:
+330	
+.L218.i:
+331		goto_eq	t53.i	#1	.L215.i
+332		goto	.L216.i
+333	
+.L216.i:
+334		load	var4.i	t69.i
+335		exp_arroff	t70.i,	[var3.i, t69.i]
+336		ASSIGN	t71.i	#37
+337		eq	t70.i	t71.i	t72.i
+338	
+.L217.i:
+339	
+.L215.i:
+340		goto_eq	t53.i	#1	.L212.i
+341		goto	.L213.i
+342	
+.L213.i:
+343		load	var4.i	t74.i
+344		exp_arroff	t75.i,	[var3.i, t74.i]
+345		ASSIGN	t76.i	#94
+346		eq	t75.i	t76.i	t77.i
+347	
+.L214.i:
+348	
+.L212.i:
+349		goto_eq	t53.i	#1	.L210.i
+350		goto	.L211.i
+351	
+.L210.i:
+352		CALL	func9.i	t79.i
+353		ASSIGN	t80.i	#0
+354		eq	t79.i	t80.i	t81.i
+355		goto_eq	t81.i	#1	.L245.i
+356		goto	.L246.i
+357	
+.L245.i:
+358		goto	.L211.i
+359	
+.L246.i:
+360		goto	.L209.i
+361	
+.L211.i:
+362		ASSIGN	t82.i	#43
+363		arg	t82.i
+364		call_void	func5.i
+365	
+.L205.i:
+366		load	var5.i	t83.i
+367		exp_arroff	t84.i,	[var8.i, t83.i]
+368		ASSIGN	t85.i	#45
+369		eq	t84.i	t85.i	t86.i
+370		goto_eq	t86.i	#1	.L250.i
+371		goto	.L251.i
+372	
+.L250.i:
+373	
+.L255.i:
+374		load	var4.i	t87.i
+375		exp_arroff	t88.i,	[var3.i, t87.i]
+376		ASSIGN	t89.i	#43
+377		eq	t88.i	t89.i	t90.i
+378		goto_eq	t90.i	#1	.L270.i
+379		goto	.L271.i
+380	
+.L271.i:
+381		load	var4.i	t91.i
+382		exp_arroff	t92.i,	[var3.i, t91.i]
+383		ASSIGN	t93.i	#45
+384		eq	t92.i	t93.i	t94.i
+385	
+.L272.i:
+386	
+.L270.i:
+387		goto_eq	t90.i	#1	.L267.i
+388		goto	.L268.i
+389	
+.L268.i:
+390		load	var4.i	t96.i
+391		exp_arroff	t97.i,	[var3.i, t96.i]
+392		ASSIGN	t98.i	#42
+393		eq	t97.i	t98.i	t99.i
+394	
+.L269.i:
+395	
+.L267.i:
+396		goto_eq	t90.i	#1	.L264.i
+397		goto	.L265.i
+398	
+.L265.i:
+399		load	var4.i	t101.i
+400		exp_arroff	t102.i,	[var3.i, t101.i]
+401		ASSIGN	t103.i	#47
+402		eq	t102.i	t103.i	t104.i
+403	
+.L266.i:
+404	
+.L264.i:
+405		goto_eq	t90.i	#1	.L261.i
+406		goto	.L262.i
+407	
+.L262.i:
+408		load	var4.i	t106.i
+409		exp_arroff	t107.i,	[var3.i, t106.i]
+410		ASSIGN	t108.i	#37
+411		eq	t107.i	t108.i	t109.i
+412	
+.L263.i:
+413	
+.L261.i:
+414		goto_eq	t90.i	#1	.L258.i
+415		goto	.L259.i
+416	
+.L259.i:
+417		load	var4.i	t111.i
+418		exp_arroff	t112.i,	[var3.i, t111.i]
+419		ASSIGN	t113.i	#94
+420		eq	t112.i	t113.i	t114.i
+421	
+.L260.i:
+422	
+.L258.i:
+423		goto_eq	t90.i	#1	.L256.i
+424		goto	.L257.i
+425	
+.L256.i:
+426		CALL	func9.i	t116.i
+427		ASSIGN	t117.i	#0
+428		eq	t116.i	t117.i	t118.i
+429		goto_eq	t118.i	#1	.L291.i
+430		goto	.L292.i
+431	
+.L291.i:
+432		goto	.L257.i
+433	
+.L292.i:
+434		goto	.L255.i
+435	
+.L257.i:
+436		ASSIGN	t119.i	#45
+437		arg	t119.i
+438		call_void	func5.i
+439	
+.L251.i:
+440		load	var5.i	t120.i
+441		exp_arroff	t121.i,	[var8.i, t120.i]
+442		ASSIGN	t122.i	#42
+443		eq	t121.i	t122.i	t123.i
+444		goto_eq	t123.i	#1	.L296.i
+445		goto	.L297.i
+446	
+.L296.i:
+447	
+.L301.i:
+448		load	var4.i	t124.i
+449		exp_arroff	t125.i,	[var3.i, t124.i]
+450		ASSIGN	t126.i	#42
+451		eq	t125.i	t126.i	t127.i
+452		goto_eq	t127.i	#1	.L310.i
+453		goto	.L311.i
+454	
+.L311.i:
+455		load	var4.i	t128.i
+456		exp_arroff	t129.i,	[var3.i, t128.i]
+457		ASSIGN	t130.i	#47
+458		eq	t129.i	t130.i	t131.i
+459	
+.L312.i:
+460	
+.L310.i:
+461		goto_eq	t127.i	#1	.L307.i
+462		goto	.L308.i
+463	
+.L308.i:
+464		load	var4.i	t133.i
+465		exp_arroff	t134.i,	[var3.i, t133.i]
+466		ASSIGN	t135.i	#37
+467		eq	t134.i	t135.i	t136.i
+468	
+.L309.i:
+469	
+.L307.i:
+470		goto_eq	t127.i	#1	.L304.i
+471		goto	.L305.i
+472	
+.L305.i:
+473		load	var4.i	t138.i
+474		exp_arroff	t139.i,	[var3.i, t138.i]
+475		ASSIGN	t140.i	#94
+476		eq	t139.i	t140.i	t141.i
+477	
+.L306.i:
+478	
+.L304.i:
+479		goto_eq	t127.i	#1	.L302.i
+480		goto	.L303.i
+481	
+.L302.i:
+482		CALL	func9.i	t143.i
+483		ASSIGN	t144.i	#0
+484		eq	t143.i	t144.i	t145.i
+485		goto_eq	t145.i	#1	.L325.i
+486		goto	.L326.i
+487	
+.L325.i:
+488		goto	.L303.i
+489	
+.L326.i:
+490		goto	.L301.i
+491	
+.L303.i:
+492		ASSIGN	t146.i	#42
+493		arg	t146.i
+494		call_void	func5.i
+495	
+.L297.i:
+496		load	var5.i	t147.i
+497		exp_arroff	t148.i,	[var8.i, t147.i]
+498		ASSIGN	t149.i	#47
+499		eq	t148.i	t149.i	t150.i
+500		goto_eq	t150.i	#1	.L330.i
+501		goto	.L331.i
+502	
+.L330.i:
+503	
+.L335.i:
+504		load	var4.i	t151.i
+505		exp_arroff	t152.i,	[var3.i, t151.i]
+506		ASSIGN	t153.i	#42
+507		eq	t152.i	t153.i	t154.i
+508		goto_eq	t154.i	#1	.L344.i
+509		goto	.L345.i
+510	
+.L345.i:
+511		load	var4.i	t155.i
+512		exp_arroff	t156.i,	[var3.i, t155.i]
+513		ASSIGN	t157.i	#47
+514		eq	t156.i	t157.i	t158.i
+515	
+.L346.i:
+516	
+.L344.i:
+517		goto_eq	t154.i	#1	.L341.i
+518		goto	.L342.i
+519	
+.L342.i:
+520		load	var4.i	t160.i
+521		exp_arroff	t161.i,	[var3.i, t160.i]
+522		ASSIGN	t162.i	#37
+523		eq	t161.i	t162.i	t163.i
+524	
+.L343.i:
+525	
+.L341.i:
+526		goto_eq	t154.i	#1	.L338.i
+527		goto	.L339.i
+528	
+.L339.i:
+529		load	var4.i	t165.i
+530		exp_arroff	t166.i,	[var3.i, t165.i]
+531		ASSIGN	t167.i	#94
+532		eq	t166.i	t167.i	t168.i
+533	
+.L340.i:
+534	
+.L338.i:
+535		goto_eq	t154.i	#1	.L336.i
+536		goto	.L337.i
+537	
+.L336.i:
+538		CALL	func9.i	t170.i
+539		ASSIGN	t171.i	#0
+540		eq	t170.i	t171.i	t172.i
+541		goto_eq	t172.i	#1	.L359.i
+542		goto	.L360.i
+543	
+.L359.i:
+544		goto	.L337.i
+545	
+.L360.i:
+546		goto	.L335.i
+547	
+.L337.i:
+548		ASSIGN	t173.i	#47
+549		arg	t173.i
+550		call_void	func5.i
+551	
+.L331.i:
+552		load	var5.i	t174.i
+553		exp_arroff	t175.i,	[var8.i, t174.i]
+554		ASSIGN	t176.i	#37
+555		eq	t175.i	t176.i	t177.i
+556		goto_eq	t177.i	#1	.L364.i
+557		goto	.L365.i
+558	
+.L364.i:
+559	
+.L369.i:
+560		load	var4.i	t178.i
+561		exp_arroff	t179.i,	[var3.i, t178.i]
+562		ASSIGN	t180.i	#42
+563		eq	t179.i	t180.i	t181.i
+564		goto_eq	t181.i	#1	.L378.i
+565		goto	.L379.i
+566	
+.L379.i:
+567		load	var4.i	t182.i
+568		exp_arroff	t183.i,	[var3.i, t182.i]
+569		ASSIGN	t184.i	#47
+570		eq	t183.i	t184.i	t185.i
+571	
+.L380.i:
+572	
+.L378.i:
+573		goto_eq	t181.i	#1	.L375.i
+574		goto	.L376.i
+575	
+.L376.i:
+576		load	var4.i	t187.i
+577		exp_arroff	t188.i,	[var3.i, t187.i]
+578		ASSIGN	t189.i	#37
+579		eq	t188.i	t189.i	t190.i
+580	
+.L377.i:
+581	
+.L375.i:
+582		goto_eq	t181.i	#1	.L372.i
+583		goto	.L373.i
+584	
+.L373.i:
+585		load	var4.i	t192.i
+586		exp_arroff	t193.i,	[var3.i, t192.i]
+587		ASSIGN	t194.i	#94
+588		eq	t193.i	t194.i	t195.i
+589	
+.L374.i:
+590	
+.L372.i:
+591		goto_eq	t181.i	#1	.L370.i
+592		goto	.L371.i
+593	
+.L370.i:
+594		CALL	func9.i	t197.i
+595		ASSIGN	t198.i	#0
+596		eq	t197.i	t198.i	t199.i
+597		goto_eq	t199.i	#1	.L393.i
+598		goto	.L394.i
+599	
+.L393.i:
+600		goto	.L371.i
+601	
+.L394.i:
+602		goto	.L369.i
+603	
+.L371.i:
+604		ASSIGN	t200.i	#37
+605		arg	t200.i
+606		call_void	func5.i
+607	
+.L365.i:
+608		ASSIGN	t202.i	#32
+609		load	var6.i	t201.i
+610		arroff_exp	t202.i,	[var9.i, t201.i]
+611		load	var6.i	t203.i
+612		ASSIGN	t204.i	#1
+613		add	t203.i	t204.i	t205.i
+614		ASSIGN	var6.i	t205.i
+615	
+.L149.i:
+616		load	var5.i	t206.i
+617		ASSIGN	t207.i	#1
+618		add	t206.i	t207.i	t208.i
+619		ASSIGN	var5.i	t208.i
+620		goto	.L141.i
+621	
+.L143.i:
+622	
+.L413.i:
+623		load	var4.i	t209.i
+624		ASSIGN	t210.i	#0
+625		jgt	t209.i	t210.i	t211.i
+626		goto_eq	t211.i	#1	.L414.i
+627		goto	.L415.i
+628	
+.L414.i:
+629		CALL	func7.i	t212.i
+630		alloca	#4	var21.i
+631		ASSIGN	var21.i	t212.i
+632		ASSIGN	t214.i	#32
+633		load	var6.i	t213.i
+634		arroff_exp	t214.i,	[var9.i, t213.i]
+635		load	var21.i	t218.i
+636		load	var6.i	t215.i
+637		ASSIGN	t216.i	#1
+638		add	t215.i	t216.i	t217.i
+639		arroff_exp	t218.i,	[var9.i, t217.i]
+640		load	var6.i	t219.i
+641		ASSIGN	t220.i	#2
+642		add	t219.i	t220.i	t221.i
+643		ASSIGN	var6.i	t221.i
+644		goto	.L413.i
+645	
+.L415.i:
+646		ASSIGN	t223.i	#64
+647		load	var6.i	t222.i
+648		arroff_exp	t223.i,	[var9.i, t222.i]
+649		ASSIGN	t224.i	#1
+650		ASSIGN	var5.i	t224.i
+651	
+.L440.i:
+652		load	var5.i	t225.i
+653		exp_arroff	t226.i,	[var9.i, t225.i]
+654		ASSIGN	t227.i	#64
+655		neq	t226.i	t227.i	t228.i
+656		goto_eq	t228.i	#1	.L441.i
+657		goto	.L442.i
+658	
+.L441.i:
+659		load	var5.i	t229.i
+660		exp_arroff	t230.i,	[var9.i, t229.i]
+661		ASSIGN	t231.i	#43
+662		eq	t230.i	t231.i	t232.i
+663		goto_eq	t232.i	#1	.L461.i
+664		goto	.L462.i
+665	
+.L462.i:
+666		load	var5.i	t233.i
+667		exp_arroff	t234.i,	[var9.i, t233.i]
+668		ASSIGN	t235.i	#45
+669		eq	t234.i	t235.i	t236.i
+670	
+.L463.i:
+671	
+.L461.i:
+672		goto_eq	t232.i	#1	.L458.i
+673		goto	.L459.i
+674	
+.L459.i:
+675		load	var5.i	t238.i
+676		exp_arroff	t239.i,	[var9.i, t238.i]
+677		ASSIGN	t240.i	#42
+678		eq	t239.i	t240.i	t241.i
+679	
+.L460.i:
+680	
+.L458.i:
+681		goto_eq	t232.i	#1	.L455.i
+682		goto	.L456.i
+683	
+.L456.i:
+684		load	var5.i	t243.i
+685		exp_arroff	t244.i,	[var9.i, t243.i]
+686		ASSIGN	t245.i	#47
+687		eq	t244.i	t245.i	t246.i
+688	
+.L457.i:
+689	
+.L455.i:
+690		goto_eq	t232.i	#1	.L452.i
+691		goto	.L453.i
+692	
+.L453.i:
+693		load	var5.i	t248.i
+694		exp_arroff	t249.i,	[var9.i, t248.i]
+695		ASSIGN	t250.i	#37
+696		eq	t249.i	t250.i	t251.i
+697	
+.L454.i:
+698	
+.L452.i:
+699		goto_eq	t232.i	#1	.L449.i
+700		goto	.L450.i
+701	
+.L450.i:
+702		load	var5.i	t253.i
+703		exp_arroff	t254.i,	[var9.i, t253.i]
+704		ASSIGN	t255.i	#94
+705		eq	t254.i	t255.i	t256.i
+706	
+.L451.i:
+707	
+.L449.i:
+708		goto_eq	t232.i	#1	.L446.i
+709		goto	.L447.i
+710	
+.L446.i:
+711		CALL	func6.i	t258.i
+712		alloca	#4	var22.i
+713		ASSIGN	var22.i	t258.i
+714		CALL	func6.i	t259.i
+715		alloca	#4	var23.i
+716		ASSIGN	var23.i	t259.i
+717		alloca	#4	var24.i
+718		load	var5.i	t260.i
+719		exp_arroff	t261.i,	[var9.i, t260.i]
+720		ASSIGN	t262.i	#43
+721		eq	t261.i	t262.i	t263.i
+722		goto_eq	t263.i	#1	.L482.i
+723		goto	.L483.i
+724	
+.L482.i:
+725		load	var22.i	t264.i
+726		load	var23.i	t265.i
+727		add	t264.i	t265.i	t266.i
+728		ASSIGN	var24.i	t266.i
+729	
+.L483.i:
+730		load	var5.i	t267.i
+731		exp_arroff	t268.i,	[var9.i, t267.i]
+732		ASSIGN	t269.i	#45
+733		eq	t268.i	t269.i	t270.i
+734		goto_eq	t270.i	#1	.L493.i
+735		goto	.L494.i
+736	
+.L493.i:
+737		load	var23.i	t271.i
+738		load	var22.i	t272.i
+739		sub	t271.i	t272.i	t273.i
+740		ASSIGN	var24.i	t273.i
+741	
+.L494.i:
+742		load	var5.i	t274.i
+743		exp_arroff	t275.i,	[var9.i, t274.i]
+744		ASSIGN	t276.i	#42
+745		eq	t275.i	t276.i	t277.i
+746		goto_eq	t277.i	#1	.L504.i
+747		goto	.L505.i
+748	
+.L504.i:
+749		load	var22.i	t278.i
+750		load	var23.i	t279.i
+751		mul	t278.i	t279.i	t280.i
+752		ASSIGN	var24.i	t280.i
+753	
+.L505.i:
+754		load	var5.i	t281.i
+755		exp_arroff	t282.i,	[var9.i, t281.i]
+756		ASSIGN	t283.i	#47
+757		eq	t282.i	t283.i	t284.i
+758		goto_eq	t284.i	#1	.L515.i
+759		goto	.L516.i
+760	
+.L515.i:
+761		load	var23.i	t285.i
+762		load	var22.i	t286.i
+763		div	t285.i	t286.i	t287.i
+764		ASSIGN	var24.i	t287.i
+765	
+.L516.i:
+766		load	var5.i	t288.i
+767		exp_arroff	t289.i,	[var9.i, t288.i]
+768		ASSIGN	t290.i	#37
+769		eq	t289.i	t290.i	t291.i
+770		goto_eq	t291.i	#1	.L526.i
+771		goto	.L527.i
+772	
+.L526.i:
+773		load	var23.i	t292.i
+774		load	var22.i	t293.i
+775		mod	t292.i	t293.i	t294.i
+776		ASSIGN	var24.i	t294.i
+777	
+.L527.i:
+778		load	var5.i	t295.i
+779		exp_arroff	t296.i,	[var9.i, t295.i]
+780		ASSIGN	t297.i	#94
+781		eq	t296.i	t297.i	t298.i
+782		goto_eq	t298.i	#1	.L537.i
+783		goto	.L538.i
+784	
+.L537.i:
+785		load	var22.i	t299.i
+786		load	var23.i	t300.i
+787		arg	t299.i
+788		arg	t300.i
+789		CALL	func2.i	t301.i
+790		ASSIGN	var24.i	t301.i
+791	
+.L538.i:
+792		load	var24.i	t302.i
+793		arg	t302.i
+794		call_void	func4.i
+795		goto	.L448.i
+796	
+.L447.i:
+797		load	var5.i	t303.i
+798		exp_arroff	t304.i,	[var9.i, t303.i]
+799		ASSIGN	t305.i	#32
+800		neq	t304.i	t305.i	t306.i
+801		goto_eq	t306.i	#1	.L545.i
+802		goto	.L546.i
+803	
+.L545.i:
+804		load	var5.i	t307.i
+805		exp_arroff	t308.i,	[var9.i, t307.i]
+806		ASSIGN	t309.i	#48
+807		sub	t308.i	t309.i	t310.i
+808		arg	t310.i
+809		call_void	func4.i
+810		ASSIGN	t311.i	#1
+811		ASSIGN	var6.i	t311.i
+812	
+.L556.i:
+813		load	var5.i	t312.i
+814		load	var6.i	t313.i
+815		add	t312.i	t313.i	t314.i
+816		exp_arroff	t315.i,	[var9.i, t314.i]
+817		ASSIGN	t316.i	#32
+818		neq	t315.i	t316.i	t317.i
+819		goto_eq	t317.i	#1	.L557.i
+820		goto	.L558.i
+821	
+.L557.i:
+822		load	var5.i	t318.i
+823		load	var6.i	t319.i
+824		add	t318.i	t319.i	t320.i
+825		exp_arroff	t321.i,	[var9.i, t320.i]
+826		ASSIGN	t322.i	#48
+827		sub	t321.i	t322.i	t323.i
+828		arg	t323.i
+829		call_void	func8.i
+830		load	var6.i	t324.i
+831		ASSIGN	t325.i	#1
+832		add	t324.i	t325.i	t326.i
+833		ASSIGN	var6.i	t326.i
+834		goto	.L556.i
+835	
+.L558.i:
+836		load	var5.i	t327.i
+837		load	var6.i	t328.i
+838		add	t327.i	t328.i	t329.i
+839		ASSIGN	t330.i	#1
+840		sub	t329.i	t330.i	t331.i
+841		ASSIGN	var5.i	t331.i
+842	
+.L546.i:
+843	
+.L448.i:
+844		load	var5.i	t332.i
+845		ASSIGN	t333.i	#1
+846		add	t332.i	t333.i	t334.i
+847		ASSIGN	var5.i	t334.i
+848		goto	.L440.i
+849	
+.L442.i:
+850		ASSIGN	t335.i	#1
+851		exp_arroff	t336.i,	[var1.i, t335.i]
+852		arg	t336.i
+853		call_void	putint.i
+854		ASSIGN	t337.i	#0
+855		ASSIGN	r0.i	t337.i
+856		goto	.L134.i
+857	
+.L134.i:
+858		func_end:	main.i

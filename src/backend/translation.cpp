@@ -15,7 +15,7 @@ int tmp_sp;
 int block_num = 0;
 //寄存器分配支持；
 int ris[10] = {4, 5, 6, 7, 8, 9, 10}; //寄存器太少了，应考虑想办法将1，2，3用起来；TODO
-int sris[32] = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
+int sris[32] = {31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16};
 map<int, int, greater<int>> tmp_map;
 map<int, int, greater<int>> vtmp_map;
 //实参设置的支持；
@@ -40,7 +40,9 @@ char arm_op_strs[75][15] = {
 
     "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32",
 
-    "vmsr", "vmsr", "vcvt"};
+    "vmsr", "vmsr", "vcvt",
+
+    "vmoveq.f32", "vmovne.f32"};
 
 extern class codenode *oneir;
 
@@ -141,6 +143,16 @@ void IR_op_cal_type()
                     if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f')
                         now->cal_type = 'f';
                 }
+                else if ((int)now->op < (int)IR_JLT)
+                {
+                    if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f' || now->result.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
+                else if ((int)now->op < (int)IR_GOTO_JLT)
+                {
+                    if (now->opn1.cal_type == 'f' || now->opn2.cal_type == 'f')
+                        now->cal_type = 'f';
+                }
                 else if ((int)now->op < (int)IR_VCVT)
                 {
                     // printf("%s: %c:%c", IR_op_strs[(int)now->op], now->opn2.type, now->opn2.cal_type);
@@ -228,6 +240,12 @@ void float_trslt()
                 break;
             case arm_sub:
                 now->op = vfp_sub;
+                break;
+            case arm_moveq:
+                now->op = vfp_moveq;
+                break;
+            case arm_movne:
+                now->op = vfp_movne;
                 break;
             default:
                 break;
@@ -475,15 +493,12 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = -1;
             }
         }
-        tmp_map.erase(eind);
 
         // printmap(&tmp_map);
         // printris(ris_pq);
     }
     else if (O->cal_type == 'f')
     {
-
-        // printf("i-op:%d-%s arm_op_strs[arm_bne]:%s\n", eind, IR_op_strs[head->op], arm_op_strs[arm_bne]);
 
         int dlt;
         // if (1)
@@ -499,7 +514,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             if (O->next_use < 3)
             {
 
-                // printf("特分配%d号寄存器\n", 104);
+                // printf("特分配s%d号寄存器\n", 4);
 
                 (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
                 (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = 104;
@@ -563,7 +578,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     O->status = 2, O->no_ris = tmp_ris;
                 }
                 tmp_sp += 4;
-                // DisplaySymbolTable();
+                DisplaySymbolTable(g_sL.now_func);
             }
             else //寄存器有空，分配寄存器；
             {
@@ -571,6 +586,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 int a2ians = a2i(O->id);
 
                 vtmp_map.insert(std::map<int, int>::value_type(O->next_use, a2ians));
+                // printmap(&vtmp_map);
 
                 (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
                 (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris = *vris_pq->begin();
@@ -599,7 +615,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
             {
                 O->status = 2;
                 vtmp_map[O->next_use] = a2i(O->id);
-
+                // printmap(&vtmp_map);
                 int tmp_t1 = vtmp_map.begin()->second;
                 //如果本次调用的变量下次调用的时间是所有存在寄存器中的变量中最晚的，则直接取到寄存器104中用完即删，仍放在栈中；
                 if (tmp_t1 == a2i(O->id))
@@ -667,6 +683,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                     // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = a2i(O->id);
                     // DisplaySymbolTable(begin->opn1.id);
                 }
+                DisplaySymbolTable(g_sL.now_func);
             }
         }
         //该寄存器是最后一次出现，调用后释放相关栈空间和寄存器（重新进入寄存器分配池队列）；
@@ -700,7 +717,7 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
 
                 if ((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris != 104)
                     vris_pq->insert((*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris);
-                // printf("当前最小号寄存器号数%d\n", *vris_pq->begin());
+                // printf("最后一次调用%d号寄存器。\n", (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris);
                 if (vtmp_map.find(O->next_use) != vtmp_map.end())
                     vtmp_map.erase(O->next_use);
                 (*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->status = 2;
@@ -708,18 +725,22 @@ void tmp_ris_allot(struct opn *O, struct codenode *begin, struct codenode *glo_b
                 // ris3_status[(*g_sL.glo_ymT[begin->opn1.id].func_t)[O->id]->no_ris] = -1;
             }
         }
-        vtmp_map.erase(eind);
     }
+    if (vtmp_map.find(eind) != vtmp_map.end())
+        vtmp_map.erase(eind);
+    if (tmp_map.find(eind) != tmp_map.end())
+        tmp_map.erase(eind);
 }
 
 //以一个函数为单位进行寄存器分配；
 int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, struct codenode *glo_begin)
 {
+    int float_cal_sym = 0;
     //初始化寄存器状态数组;
     for (int rssi = 0; rssi < 10; rssi++)
         ris3_status[rssi] = -1;
     set<int, greater<int>> ris_pq = {4, 5, 6, 7, 8, 9, 10};
-    set<int, greater<int>> vris_pq = {131, 130, 129, 128, 127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 116, 115, 114, 113, 112, 111, 110, 109, 108, 107, 106};
+    set<int, greater<int>> vris_pq = {131, 130, 129, 128, 127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 116};
     int pre_func_size = g_sL.glo_ymT[begin->opn1.id].size;
 
     //反向循环计算临时变量的失效时间及维护每个语句的临时变量的下次使用信息；
@@ -735,14 +756,17 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
 
         if (cur_C->opn1.type == 'v' && cur_C->opn1.kind == 'T')
         {
+
             maintain_tmp_use(&cur_C->opn1, 3 * (end_index - i));
         }
         if (cur_C->opn2.type == 'v' && cur_C->opn2.kind == 'T')
         {
+
             maintain_tmp_use(&cur_C->opn2, 3 * (end_index - i) + 1);
         }
         if (cur_C->result.type == 'v' && cur_C->result.kind == 'T')
         {
+
             maintain_tmp_use(&cur_C->result, 3 * (end_index - i) + 2);
         }
     }
@@ -783,16 +807,22 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
         if (cur_C->opn1.type == 'v' && cur_C->opn1.kind == 'T' && a2i(cur_C->opn1.id) > -1)
         {
             tmp_ris_allot(&cur_C->opn1, begin, glo_begin, cur_C, &ris_pq, &vris_pq, 3 * (begin_index + i));
+            if (cur_C->opn1.no_ris > 99)
+                float_cal_sym = 1;
         }
 
         if (cur_C->opn2.type == 'v' && cur_C->opn2.kind == 'T' && a2i(cur_C->opn2.id) > -1)
         {
             tmp_ris_allot(&cur_C->opn2, begin, glo_begin, cur_C, &ris_pq, &vris_pq, 3 * (begin_index + i) + 1);
+            if (cur_C->opn2.no_ris > 99)
+                float_cal_sym = 1;
         }
 
         if (cur_C->result.type == 'v' && cur_C->result.kind == 'T' && a2i(cur_C->result.id) > -1)
         {
             tmp_ris_allot(&cur_C->result, begin, glo_begin, cur_C, &ris_pq, &vris_pq, 3 * (begin_index + i) + 2);
+            if (cur_C->result.no_ris > 99)
+                float_cal_sym = 1;
         }
     }
     // printf("func:%s\tpsize:%d\tnsize:%d\ttmp_sp:%d\n", begin->opn1.id.c_str(), g_sL.glo_ymT[begin->opn1.id].size, g_sL.glo_ymT[begin->opn1.id].size + tmp_sp, tmp_sp);
@@ -800,6 +830,11 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
 
     // DisplaySymbolTable();
 
+    if (float_cal_sym == 1)
+    {
+        begin->cal_type = 'f';
+        end->cal_type = 'f';
+    }
     return max_alive_tmp * 4;
 }
 
@@ -1218,6 +1253,7 @@ void func_trslt(struct codenode *glo_begin, struct codenode *begin, struct coden
         }
     }
     g_sL.glo_ymT[begin->opn1.id].size += max_arg * 4;
+
     if (g_sL.glo_ymT[begin->opn1.id].size % 8 == 0)
         g_sL.glo_ymT[begin->opn1.id].size += 4;
 }
@@ -1407,12 +1443,28 @@ void gen_arm()
 
                     else if (cur_IR->opn1.type == 'v' && (cur_IR->opn1.kind == 'V' || cur_IR->opn1.kind == 'P'))
                     {
-                        if (cur_IR->opn1.address < 4096)
+                        if (cur_IR->opn1.address < 4096 && cur_IR->cal_type == 'i')
                         {
                             out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_str));
                             out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 11;
                             out_arm->prior->opn1 = cur_IR->opn2;
                             // printf("cur_IR->opn2name:%s.type:%c\n", cur_IR->opn2.id.c_str(), cur_IR->opn2.cal_type);
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
+                            out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
+                        }
+                        else if (cur_IR->cal_type == 'f' && cur_IR->opn1.address < 1024)
+                        {
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_str));
+                            out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 11;
+                            out_arm->prior->opn1 = cur_IR->opn2;
+                            // printf("cur_IR->opn2name:%s.type:%c\n", cur_IR->opn2.id.c_str(), cur_IR->opn2.cal_type);
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
                             out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
                         }
                         else
@@ -1420,6 +1472,10 @@ void gen_arm()
 
                             out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_ldr_ri));
                             out_arm->prior->opn1.type = 'v', out_arm->prior->opn1.kind = 'T', out_arm->prior->opn1.no_ris = 0;
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
                             out_arm->prior->opn2.type = 'i', out_arm->prior->opn2.const_int = -cur_IR->opn1.address;
                             out_arm->prior->cal_type = 'i';
                             if (cur_IR->cal_type == 'i')
@@ -1446,10 +1502,31 @@ void gen_arm()
                     }
                     else if (cur_IR->opn1.type == 'v' && (cur_IR->opn1.kind == 'R')) // R表示实参；
                     {
-                        out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_str));
-                        out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 13;
-                        out_arm->prior->opn1 = cur_IR->opn2;
-                        out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
+                        if ((cur_IR->cal_type == 'f' && cur_IR->opn1.address > -1022) || cur_IR->cal_type == 'i')
+                        {
+
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_str));
+                            out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 13;
+                            out_arm->prior->opn1 = cur_IR->opn2;
+                            out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
+                        }
+                        else
+                        {
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_ldr_ri));
+                            out_arm->prior->opn1.type = 'v', out_arm->prior->opn1.kind = 'T', out_arm->prior->opn1.no_ris = 0;
+                            out_arm->prior->opn2.type = 'i', out_arm->prior->opn2.const_int = -cur_IR->opn1.address;
+                            out_arm->prior->cal_type = 'i';
+
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_add));
+                            out_arm->prior->opn1.type = 'v', out_arm->prior->opn1.kind = 'T', out_arm->prior->opn1.no_ris = 0;
+                            out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 13;
+                            out_arm->prior->result.type = 'v', out_arm->prior->result.kind = 'T', out_arm->prior->result.no_ris = 0;
+                            out_arm->prior->cal_type = 'i';
+
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_str));
+                            out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 0;
+                            out_arm->prior->opn1 = cur_IR->opn2;
+                        }
                     }
                     break;
                 }
@@ -1837,11 +1914,26 @@ void gen_arm()
                     }
                     else
                     {
-                        if (cur_IR->opn1.address < 4096)
+                        if (cur_IR->opn1.address < 4096 && cur_IR->cal_type == 'i')
                         {
                             out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_ldr));
                             out_arm->prior->opn1 = cur_IR->result;
                             out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 11;
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
+                            out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
+                        }
+                        else if (cur_IR->opn1.address < 1024 && cur_IR->cal_type == 'f')
+                        {
+                            out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_ldr));
+                            out_arm->prior->opn1 = cur_IR->result;
+                            out_arm->prior->opn2.type = 'v', out_arm->prior->opn2.kind = 'T', out_arm->prior->opn2.no_ris = 11;
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
                             out_arm->prior->result.type = 'i', out_arm->prior->result.const_int = -cur_IR->opn1.address;
                         }
                         else
@@ -1849,6 +1941,10 @@ void gen_arm()
 
                             out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_ldr_ri));
                             out_arm->prior->opn1.type = 'v', out_arm->prior->opn1.kind = 'T', out_arm->prior->opn1.no_ris = 0;
+                            if (g_sL.glo_ymT[g_sL.now_func].code_b->cal_type == 'f' && cur_IR->opn1.address < 0)
+                            {
+                                cur_IR->opn1.address -= 64;
+                            }
                             out_arm->prior->opn2.type = 'i', out_arm->prior->opn2.const_int = -cur_IR->opn1.address;
                             out_arm->prior->cal_type = 'i';
                             if (cur_IR->cal_type == 'i')
@@ -1877,10 +1973,13 @@ void gen_arm()
                 }
                 case IR_FUNCTION:
                 {
+
                     out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_func));
                     out_arm->prior->opn1 = cur_IR->opn1;
                     out_arm->prior->opn2 = cur_IR->opn2;
                     out_arm->prior->result = cur_IR->result;
+                    out_arm->prior->cal_type = cur_IR->cal_type;
+                    g_sL.now_func = cur_IR->opn1.id;
                     // printf("out_arm->prior->op: %d\t%c\n", out_arm->prior->op, out_arm->prior->opn1.type);
                     break;
                 }
@@ -1890,6 +1989,9 @@ void gen_arm()
                     out_arm->prior->opn1 = cur_IR->opn1;
                     out_arm->prior->opn2 = cur_IR->opn2;
                     out_arm->prior->result = cur_IR->result;
+                    out_arm->prior->cal_type = cur_IR->cal_type;
+                    g_sL.now_func = "glo";
+
                     break;
                 }
 

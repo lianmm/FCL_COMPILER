@@ -1,3 +1,6 @@
+#ifndef PUTOUT_ARM_
+#define PUTOUT_ARM_
+
 #include "translation.h"
 #include "stdio.h"
 
@@ -13,3 +16,5 @@
 using namespace std;
 void putout_arm();
 void print_arm();
+
+#endif

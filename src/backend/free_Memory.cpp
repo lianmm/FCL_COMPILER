@@ -15,7 +15,8 @@ void clear_arm()
             if (cp != cn)
             {
                 cp->next = cn, cn->prior = cp;
-                delete (code), code = cn;
+                delete (code);
+                code = cn;
             }
             else
             {
@@ -80,19 +81,22 @@ void clear_symlist()
         for (; it != g_sL.glo_ymT.end(); it++)
         {
             //释放参数表；
-            if (it->second.paras != NULL)
-            {
-                delete[] it->second.paras;
-                it->second.paras = NULL;
-            }
+            // if (it->second.paras != NULL)
+            // {
+            //     delete[] it->second.paras;
+            //     it->second.paras = NULL;
+            // }
 
             //释放局部变量表；
             if (it->second.func_v != NULL)
             {
                 for (auto it1 = (*it->second.func_v).begin(); it1 != (*it->second.func_v).end(); it1++)
                 {
-                    delete it1->second;
-                    it1->second = NULL;
+                    if (it1->second != NULL)
+                    {
+                        delete it1->second;
+                        it1->second = NULL;
+                    }
                 }
                 (*it->second.func_v).clear();
                 delete it->second.func_v;
@@ -104,8 +108,11 @@ void clear_symlist()
             {
                 for (auto it1 = (*it->second.func_t).begin(); it1 != (*it->second.func_t).end(); it1++)
                 {
-                    delete it1->second;
-                    it1->second = NULL;
+                    if (it1->second != NULL)
+                    {
+                        delete it1->second;
+                        it1->second = NULL;
+                    }
                 }
                 (*it->second.func_t).clear();
                 delete it->second.func_t;

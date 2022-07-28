@@ -1,4 +1,7 @@
 //生成中间代码的支持结构；
+#ifndef MK_IR_
+#define MK_IR_
+
 #include "../frontend/semantic.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -87,6 +90,7 @@ string i2s(int in);
 
 void split_id(struct node *T);
 void split_fid(struct node *T);
+void display_id2id();
 
 /*--------------------------------------基础支持函数实现区--------------------------------------*/
 //初始化变量结点；
@@ -168,3 +172,5 @@ void int_cal(struct opn *O1, struct opn *O2, struct node *T);
 void float_cal(struct opn *O1, struct opn *O2, struct node *T);
 
 void arroffset_cal(int aTindex);
+
+#endif

@@ -1,5 +1,7 @@
 /*静态语义检查，已弃用*/
 //前端文件不需要修改；
+#ifndef SEMANTIC_H_
+#define SEMANTIC_H_
 
 #include "symtable.h"
 #include <string>
@@ -38,3 +40,5 @@ int check_cal_type(struct node T);
 
 //运算类型检查；判断变量结点类型是否是int。
 bool check_int(struct opn tmp_opn);
+
+#endif

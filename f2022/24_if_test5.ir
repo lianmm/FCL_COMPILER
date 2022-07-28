@@ -1,0 +1,49 @@
+0	
+func1.i:
+1		alloca	#4	var1.i
+2		ASSIGN	t0.i	#5
+3		ASSIGN	var1.i	t0.i
+4		alloca	#4	var2.i
+5		ASSIGN	t1.i	#10
+6		ASSIGN	var2.i	t1.i
+7		load	var1.i	t2.i
+8		ASSIGN	t3.i	#5
+9		eq	t2.i	t3.i	t4.i
+10		goto_eq	t4.i	#1	.L8.i
+11		goto	.L9.i
+12	
+.L8.i:
+13		load	var2.i	t5.i
+14		ASSIGN	t6.i	#10
+15		eq	t5.i	t6.i	t7.i
+16		goto_eq	t7.i	#1	.L14.i
+17		goto	.L15.i
+18	
+.L14.i:
+19		ASSIGN	t8.i	#25
+20		ASSIGN	var1.i	t8.i
+21	
+.L15.i:
+22		goto	.L10.i
+23	
+.L9.i:
+24		load	var1.i	t9.i
+25		ASSIGN	t10.i	#15
+26		add	t9.i	t10.i	t11.i
+27		ASSIGN	var1.i	t11.i
+28	
+.L10.i:
+29		load	var1.i	t12.i
+30		ASSIGN	r0.i	t12.i
+31		goto	.L1.i
+32	
+.L1.i:
+33		func_end:	func1.i
+34	
+main.i:
+35		CALL	func1.i	t0.i
+36		ASSIGN	r0.i	t0.i
+37		goto	.L28.i
+38	
+.L28.i:
+39		func_end:	main.i

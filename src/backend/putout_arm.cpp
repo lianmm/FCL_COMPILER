@@ -17,7 +17,9 @@ char arm_ir_op[75][15] = {"store", "ext_alloca", "",
 
                           "vmov.f32", "vmov.f32", "vfp_mov_rE",
 
-                          "vldr.f32", "vstr.32", "vstr.32", "vldr.32", "vldr.32", "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32", "vmsr", "vmsr", "vcvt"};
+                          "vldr.f32", "vstr.32", "vstr.32", "vldr.32", "vldr.32", "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32", "vmsr", "vmsr", "vcvt",
+
+                          "vmoveq.f32", "vmovne.f32"};
 
 void printOpn_arm1(struct opn topn)
 {
@@ -135,6 +137,8 @@ void print_arm(arm_instruction *h)
     {
     case arm_func:
     {
+        // printf("当前函数类型：\t%s: %c\n", h->opn1.id.c_str(), h->cal_type);
+
         g_sL.now_func = h->opn1.id;
 
         fprintf(fp, "\n\t.global\t__aeabi_idiv\n");
@@ -150,9 +154,13 @@ void print_arm(arm_instruction *h)
 
         fprintf(fp, "\t@ frame_needed = 1, uses_anonymous_args = 0\n\t@ link register save eliminated.\n");
         if (h->opn2.const_int / 4 > 0)
-            fprintf(fp, "\tstmfd\tsp!, {r4-r10,fp, lr}\n");
+            fprintf(fp, "\tpush\t{r4-r10,fp, lr}\n");
         else if (h->opn2.const_int / 4 == 0)
-            fprintf(fp, "\tstmfd\tsp!, {r0,fp, lr}\n");
+            fprintf(fp, "\tpush\t{r0,fp, lr}\n");
+        if (h->cal_type == 'f')
+        {
+            fprintf(fp, "\tvpush.f32\t{s16-s31}\n");
+        }
         fprintf(fp, "\tadd\tfp, sp, #0"); //, h->result.const_int
         if (g_sL.find(h->opn1.id)->size > 12)
         {
@@ -169,15 +177,29 @@ void print_arm(arm_instruction *h)
     }
     case arm_func_end:
     {
+
         if (g_sL.find(h->opn1.id)->size / 4 > 255)
         {
             fprintf(fp, "\tldr\tr12, =%d\n", g_sL.find(h->opn1.id)->size);
-            fprintf(fp, "\tadd\tsp, sp, r12\n\tldmfd\tsp!, {r4-r10,fp, pc}\n");
+            fprintf(fp, "\tadd\tsp, sp, r12\n");
+            if (h->cal_type == 'f')
+            {
+                fprintf(fp, "\tvpop.f32\t {s16-s31}\n");
+            }
+            fprintf(fp, "\tpop\t{r4-r10,fp, pc}\n");
         }
         else if (g_sL.find(h->opn1.id)->size / 4 > 0)
-            fprintf(fp, "\tadd\tsp, sp, #%d\n\tldmfd\tsp!, {r4-r10,fp, pc}\n", g_sL.find(h->opn1.id)->size);
+        {
+            fprintf(fp, "\tadd\tsp, sp, #%d\n", g_sL.find(h->opn1.id)->size);
+            if (h->cal_type == 'f')
+            {
+                fprintf(fp, "\tvpop.f32\t {s16-s31}\n");
+            }
+            fprintf(fp, "\tpop\t{r4-r10,fp, pc}\n");
+        }
         else if (g_sL.find(h->opn1.id)->size / 4 == 0)
-            fprintf(fp, "\tadd\tsp, sp, #%d\n\tldmfd\tsp!, {r0,fp, pc}\n", 0);
+            fprintf(fp, "\tadd\tsp, sp, #%d\n\tpop\t{r0,fp, pc}\n", 0);
+
         fprintf(fp, "\t.size\t%s, .-%s\n", h->opn1.id.c_str(), h->opn1.id.c_str());
         g_sL.now_func = "glo";
         break;
@@ -331,6 +353,10 @@ void print_arm(arm_instruction *h)
     case arm_moveq:
 
     case arm_movne:
+
+    case vfp_moveq:
+
+    case vfp_movne:
 
     case vfp_add:
 

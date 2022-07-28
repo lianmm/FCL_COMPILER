@@ -15,6 +15,7 @@
 #include "sysy.tab.h"
 #include <sys/wait.h>
 #include <sys/resource.h>
+#include "optimization/mid_optimization.h"
 
 using namespace std;
 extern int yylineno;
@@ -46,23 +47,29 @@ int main(int argc, char *argv[])
     // p1 = fork();一开始认为申请的栈空间只对子进程生效，后来发现不是，故不再建立子进程，但仍然保留方便出问题回撤；
     if (p1 == 0)
     {
-        clock_t beginTime = clock(); //打开编译计时；
+        // clock_t beginTime = clock(); //打开编译计时；
 
         yyparse(), fclose(yyin); //生成语法树；
+
         // display_ast(out_ast, 0); //打印语法树；
 
-        gen_IR(out_ast);   //生成中间代码；
-        putout_IR(out_IR); //打印中间代码；
+        if (out_ast == NULL)
+            return 0;
+        gen_IR(out_ast); //生成中间代码；
 
-        // // DisplaySymbolTable(); //打印符号表；
+        // mid_optimization(); //中端优化；
 
-        mid_optimization();  //中端优化；
-        translation();       //生成汇编代码；
-        back_optimization(); //后端优化；
+        putout_IR(out_IR);
 
         // DisplaySymbolTable(); //打印符号表；
 
-        // print_arm();  //以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
+        translation(); //生成汇编代码；
+
+        // putout_IR(out_IR);
+
+        // DisplaySymbolTable(); //打印符号表；
+        // display_id2id();      //打印变量函数别名与真名对应关系；
+        // // print_arm();  //以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
         putout_arm(); //将可运行的arm代码打印到文件中；
 
         free_Memory(); //释放内存；

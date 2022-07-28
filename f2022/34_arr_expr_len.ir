@@ -1,0 +1,48 @@
+0		alloca	#24	var2.i
+1		ASSIGN	t0.i	#1
+2		arroff_expi	var2.i	#0	t0.i
+3		ASSIGN	t1.i	#2
+4		arroff_expi	var2.i	#4	t1.i
+5		ASSIGN	t2.i	#33
+6		arroff_expi	var2.i	#8	t2.i
+7		ASSIGN	t3.i	#4
+8		arroff_expi	var2.i	#12	t3.i
+9		ASSIGN	t4.i	#5
+10		arroff_expi	var2.i	#16	t4.i
+11		ASSIGN	t5.i	#6
+12		arroff_expi	var2.i	#20	t5.i
+13	
+main.i:
+14		alloca	#4	var3.i
+15		ASSIGN	t0.i	#0
+16		ASSIGN	var3.i	t0.i
+17		alloca	#4	var4.i
+18		ASSIGN	t1.i	#0
+19		ASSIGN	var4.i	t1.i
+20	
+.L26.i:
+21		load	var3.i	t2.i
+22		ASSIGN	t3.i	#6
+23		jlt	t2.i	t3.i	t4.i
+24		goto_eq	t4.i	#1	.L27.i
+25		goto	.L28.i
+26	
+.L27.i:
+27		load	var4.i	t7.i
+28		load	var3.i	t5.i
+29		exp_arroff	t6.i,	[var2.i, t5.i]
+30		add	t7.i	t6.i	t8.i
+31		ASSIGN	var4.i	t8.i
+32		load	var3.i	t9.i
+33		ASSIGN	t10.i	#1
+34		add	t9.i	t10.i	t11.i
+35		ASSIGN	var3.i	t11.i
+36		goto	.L26.i
+37	
+.L28.i:
+38		load	var4.i	t12.i
+39		ASSIGN	r0.i	t12.i
+40		goto	.L25.i
+41	
+.L25.i:
+42		func_end:	main.i
