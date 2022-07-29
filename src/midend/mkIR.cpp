@@ -1003,6 +1003,12 @@ void check_load(struct node *T, struct opn *O, int type)
     }
     if (type == 0 && (O->type == 'i' || O->type == 'f'))
     {
+        if ((int)T->kind == (int)MUL && O->type == 'i' && O->const_int > 0 && T->ptr[0]->out.type == 'i' && T->ptr[1]->out.type == 'i')
+        {
+            double ans = log2(O->const_int);
+            if (ans == (int)ans)
+                return;
+        }
         add_cal_IR(1, T, NULL, *O, 0);
         *O = glo_opn1;
     }

@@ -146,7 +146,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
         else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
             // if (g_sL.find(g_sL.now_func)->paramnum > 0)
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 4;
             // else if (g_sL.find(g_sL.now_func)->paramnum == 0)
             // {
             //     (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int = 4;
@@ -200,14 +200,14 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     {
         if (glo_flage == 'P' && offset.const_int > 3)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int +5);
         }
         else if (level == 0)
         {
         }
         else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 4;
         }
         else
         {
@@ -226,7 +226,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
             tmp_sym--;
         if (glo_flage == 'P' && offset.const_int > 3)
         {
-            offset.const_int = -4 * (offset.const_int + 5);
+            offset.const_int = -4 * (offset.const_int +5);
         } //外部数组偏移；
         else if (level == 0)
         {
@@ -251,14 +251,14 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
         //首形参偏移维护；
         if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 4;
         }
         else
         {
             if (offset.const_int < 4)
                 (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
             else
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int +5);
         }
 
         break;
@@ -269,7 +269,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
             ;
         else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 16;
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 4;
         }
         else
         {

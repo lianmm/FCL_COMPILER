@@ -22,6 +22,7 @@ enum ARM_op
     arm_mov_r0,
     arm_mov_rr,
     arm_mov_rE,
+    arm_mov_asr,
     arm_ldr_ri,
     arm_ltorg,
     arm_str,

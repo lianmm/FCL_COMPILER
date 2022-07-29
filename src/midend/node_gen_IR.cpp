@@ -358,69 +358,7 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
 void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
 {
 
-    if (T0)
-    {
-        check_load(T0, &T0->out, 0);
-        // load数组地址到临时变量方便读取；
-        if (T0->out.kind == 'A')
-        {
-            if (g_sL.find(T0->out.id)->flage == 'P')
-            {
 
-                glo_opn1.type = 'v', glo_opn1.kind = 'A', glo_opn1.status = 1, glo_opn1.address = g_sL.find(T0->out.id)->offset;
-                glo_opn1.id = g_sL.find(T0->out.id)->name;
-                glo_opn1.flage = g_sL.find(T0->out.id)->flage;
-                glo_opn1.flaga = g_sL.find(T0->out.id)->flagca;
-                mksymt();
-                glo_res.id = glo_name, glo_res.type = 'v', glo_res.level = glo_level, glo_res.offset = sT.index - 1;
-
-                glo_res.flage = g_sL.find(glo_res.id)->flage;
-                glo_res.address = g_sL.find(glo_res.id)->offset;
-                glo_res.kind = g_sL.find(glo_res.id)->flag;
-                strcpy(g_sL.find(glo_res.id)->type, "int");
-                oneir = mkIR(IR_LOAD);
-                T0->code = merge(2, T0->code, oneir);
-                T0->code->prior->cal_type = 'i';
-                T0->code->prior->result.cal_type = 'i';
-                T0->code->prior->opn1.cal_type = 'i';
-                T0->out = glo_res;
-            }
-            else
-            {
-                T0->out.type = 'i', T0->out.const_int = -(g_sL.find(T0->out.id)->offset + g_sL.find(T0->out.id)->size - 4);
-
-                add_cal_IR(1, T0, NULL, T0->out, 0);
-                if (g_sL.find(T0->out.id)->flage != 'E')
-                {
-                    glo_opn2.type = 'v', glo_opn2.kind = 'T', glo_opn2.status = 2, glo_opn2.no_ris = 11, glo_opn2.id = "fp";
-                    add_cal_IR(4, T0, &glo_opn1, glo_opn2, 0);
-                }
-                T0->out = glo_res;
-            }
-        }
-        // DisplaySymbolTable(sT);
-        // printf("hT->place:%d\n", hT->place);
-        if (g_sL.find(hT->call_name)->paras[0] > 2)
-        {
-            // DisplayIR(T0->code);
-            if (T0->code != &null_ir)
-            {
-                if (T0->code->prior->prior->op == IR_EXP_ARROFF)
-                {
-                    T0->code->prior->prior->op = IR_EXP_ARROFFa;
-                    T0->code->prior->result.cal_type = 'i';
-                    strcpy(g_sL.find(T0->code->prior->result.id)->type, "int");
-                }
-                if (T0->code->prior->op == IR_EXP_ARROFF)
-                {
-                    T0->code->prior->op = IR_EXP_ARROFFa;
-                    T0->code->prior->result.cal_type = 'i';
-                    strcpy(g_sL.find(T0->code->prior->result.id)->type, "int");
-                }
-            }
-        }
-        // printf("aaaaaaaaaaaaaaaa :%d\n", num_in_para);
-    }
     T0 = hT->ptr[0];
     if (T0)
     {
@@ -441,6 +379,7 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
             {
                 add_vcvt_IR(hT, &T0->out, ".f32.s32");
             }
+            
             initOpn(&glo_res);
             glo_res = T0->out;
             oneir = mkIR(IR_ARG);

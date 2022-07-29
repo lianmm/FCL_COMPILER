@@ -4,7 +4,7 @@
 #include "../midend/glo_gen_IR.h"
 using namespace std;
 
-codenode *search_func();
+void search_func();
 
 void func_replace();
 

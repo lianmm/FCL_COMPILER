@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
         // mid_optimization(); //中端优化；
 
-        putout_IR(out_IR);
+        // putout_IR(out_IR);
 
         // DisplaySymbolTable(); //打印符号表；
 

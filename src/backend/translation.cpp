@@ -28,7 +28,7 @@ map<int, struct block, greater<int>> b_list;
 char arm_op_strs[75][15] = {
     "ARM_FUNC", "ARM_FUNC_END", "ARM_BLOCK", "ARM_BLOCK_END", "ARM_VOID", "ARM_ALLOC_E",
 
-    "mov", "mov", "mov_RE", "ldr", ".ltorg", "str", "str", "ldr", "ldr", ".word", ".space",
+    "mov", "mov", "mov_RE", "mov", "ldr", ".ltorg", "str", "str", "ldr", "ldr", ".word", ".space",
 
     "add", "add", "rsb", "sub", "mul",
 
@@ -826,7 +826,8 @@ int func_ris_allot(struct codenode *begin, struct codenode *end, int end_index, 
         }
     }
     // printf("func:%s\tpsize:%d\tnsize:%d\ttmp_sp:%d\n", begin->opn1.id.c_str(), g_sL.glo_ymT[begin->opn1.id].size, g_sL.glo_ymT[begin->opn1.id].size + tmp_sp, tmp_sp);
-    g_sL.glo_ymT[begin->opn1.id].size += tmp_sp - 4;
+    // printf("g_sL.glo_ymT[begin->opn1.id].size: %d,tmp_sp:%d\n", g_sL.glo_ymT[begin->opn1.id].size, tmp_sp);
+    g_sL.glo_ymT[begin->opn1.id].size = tmp_sp;
 
     // DisplaySymbolTable();
 
@@ -1017,7 +1018,7 @@ void trslt_para(int a_index, struct codenode *glo_begin, struct codenode *head, 
     if (a_index < 4)
     {
         head->opn1.type = 'v', head->opn1.status = 2, head->opn1.kind = 'T', head->opn1.no_ris = a_index;
-        head->opn2.type = 'v', head->opn2.status = 1, head->opn2.kind = 'V', head->opn2.address = -(16 + 4 * a_index);
+        head->opn2.type = 'v', head->opn2.status = 1, head->opn2.kind = 'V', head->opn2.address = -(4 + 4 * a_index);
     }
     else
     {
@@ -1033,6 +1034,16 @@ void trslt_div(struct codenode *glo_begin, struct codenode *head, int st_index, 
 {
     if (head->cal_type == 'i')
     {
+        double ans = -1;
+        if (head->opn2.type == 'i')
+        {
+            ans = log2(head->opn2.const_int);
+        }
+        if (ans != -1 && ans == (int)ans)
+        {
+
+            return;
+        }
         int a_index = 0;
         int tmp_ris1, tmp_ris2, tmp_t1, tmp_t2;
         for (a_index = 0; a_index < 2; a_index++)
@@ -1252,7 +1263,10 @@ void func_trslt(struct codenode *glo_begin, struct codenode *begin, struct coden
             trslt_goto(glo_begin, cur_C);
         }
     }
-    g_sL.glo_ymT[begin->opn1.id].size += max_arg * 4;
+    max_arg--;
+    // printf("g_sL.glo_ymT[begin->opn1.id].size:%d, max_arg: %d\n", g_sL.glo_ymT[begin->opn1.id].size, max_arg);
+    if (max_arg > 4)
+        g_sL.glo_ymT[begin->opn1.id].size += (max_arg - 4) * 4;
 
     if (g_sL.glo_ymT[begin->opn1.id].size % 8 == 0)
         g_sL.glo_ymT[begin->opn1.id].size += 4;
@@ -1579,10 +1593,21 @@ void gen_arm()
                 }
                 case IR_DIV:
                 {
-                    out_arm = merge_a(2, out_arm, mkarm(cur_IR, vfp_div));
-                    out_arm->prior->opn2 = cur_IR->opn1;
-                    out_arm->prior->opn1 = cur_IR->result;
-                    out_arm->prior->result = cur_IR->opn2;
+                    if (cur_IR->cal_type == 'f')
+                    {
+                        out_arm = merge_a(2, out_arm, mkarm(cur_IR, vfp_div));
+                        out_arm->prior->opn2 = cur_IR->opn1;
+                        out_arm->prior->opn1 = cur_IR->result;
+                        out_arm->prior->result = cur_IR->opn2;
+                    }
+                    else
+                    {
+                        out_arm = merge_a(2, out_arm, mkarm(cur_IR, arm_mov_asr));
+                        out_arm->prior->opn2 = cur_IR->opn1;
+                        out_arm->prior->opn1 = cur_IR->result;
+                        out_arm->prior->result = cur_IR->opn2;
+                        out_arm->prior->result.const_int = (int)log2(cur_IR->opn2.const_int);
+                    }
                     break;
                 }
                 case IR_EQ:

@@ -621,7 +621,20 @@ void gen_IR(struct node *T)
 
             if (T->ptr[0])
                 T->code = merge(2, T->code, T->ptr[0]->code);
-            check_load(T, &T->ptr[1]->out, 0);
+
+            if ((int)T->kind != (int)DIV || T->ptr[1]->out.type != 'i' || (T->ptr[0]->out.type == 'v' && strcmp(g_sL.find(T->ptr[0]->out.id)->type, "float") == 0) || T->ptr[1]->out.const_int <= 0)
+                check_load(T, &T->ptr[1]->out, 0);
+            else
+            {
+                double ans = log2(T->ptr[1]->out.const_int);
+                if (ans == (int)ans)
+                    ;
+                else
+                {
+                    check_load(T, &T->ptr[1]->out, 0);
+                }
+            }
+
             if (T->ptr[1])
                 T->code = merge(2, T->code, T->ptr[1]->code);
             if ((int)T->kind != (int)MOD)
@@ -1951,15 +1964,23 @@ void gen_IR(struct node *T)
                     glo_name = T->type_id;
                     mksym(&sT, glo_name, glo_level, glo_tmp_type, glo_paramnum, glo_flag, glo_offset, 0, 0, 0, glo_size);
 
-                    if (ceil(glo_paramnum / (float)2) == 0)
-                        g_sL.glo_ymT[g_sL.now_func].size = 12;
-                    else if (ceil(glo_paramnum / (float)2) == 1)
-                        g_sL.glo_ymT[g_sL.now_func].size = 28;
-                    else if (ceil(glo_paramnum / (float)2) == 2)
-                        g_sL.glo_ymT[g_sL.now_func].size = 44;
+                    // if (ceil(glo_paramnum / (float)2) == 0)
+                    //     g_sL.glo_ymT[g_sL.now_func].size = 12;
+                    // else if (ceil(glo_paramnum / (float)2) == 1)
+                    //     g_sL.glo_ymT[g_sL.now_func].size = 28;
+                    // else if (ceil(glo_paramnum / (float)2) == 2)
+                    //     g_sL.glo_ymT[g_sL.now_func].size = 44;
+                    // else
+                    // {
+                    //     g_sL.glo_ymT[g_sL.now_func].size = 44;
+                    // }
+                    if (glo_paramnum > 3)
+                    {
+                        g_sL.glo_ymT[g_sL.now_func].size = 16;
+                    }
                     else
                     {
-                        g_sL.glo_ymT[g_sL.now_func].size = 44;
+                        g_sL.glo_ymT[g_sL.now_func].size = 4 * glo_paramnum;
                     }
                     sT.index = sT.index + glo_paramnum; //函数入符号表；
                 }
@@ -1982,7 +2003,7 @@ void gen_IR(struct node *T)
                         printf("gen_ir_error!!!\n");
                         return;
                     }
-                    g_sL.glo_ymT[g_sL.now_func].size = 12;
+                    g_sL.glo_ymT[g_sL.now_func].size = 0;
 
                     //函数入符号表；
                 }
@@ -2061,7 +2082,7 @@ void gen_IR(struct node *T)
             if (glo_paramnum == 0)
             {
                 // g_sL.find(g_sL.last_sym)->flag = 'F', g_sL.find(g_sL.last_sym)->name = " ";
-                glo_offset.const_int = 12, glo_offset.type = 'i';
+                glo_offset.const_int = 0, glo_offset.type = 'i';
             } //首参清除预留函数位置的过时数据。
             glo_flag = 'P';
             if (T->ptr[1]->ptr[0])
@@ -2238,8 +2259,8 @@ void gen_IR(struct node *T)
             struct node *hT = T;
             struct node *T0;
             i = 2;
-            T = hT->ptr[1];
-            num_in_para++;
+            T = hT;
+            // num_in_para++;
             while (T)
             { // ARGS表示实际参数表达式序列结点，其第一棵子树为其一个实际参数表达式，第二棵子树为剩下的。
                 assign_sym = 1;
@@ -2340,7 +2361,7 @@ void gen_IR(struct node *T)
                 T = T->ptr[1];
             }
 
-            T = hT->ptr[1];
+            T = hT;
             while (T)
             {
                 T0 = T->ptr[0];
@@ -2351,17 +2372,6 @@ void gen_IR(struct node *T)
                 T = T->ptr[1];
             }
 
-            // ARGS表示实际参数表达式序列结点，其第一棵子树为其一个实际参数表达式，第二棵子树为剩下的。
-            assign_sym = 1;
-            T0 = hT->ptr[0];
-            // printf("第%d个实际参数表达式：\n", i++);
-            if (T0)
-            {
-                strcpy(T0->Etrue, hT->Etrue), strcpy(T0->Efalse, hT->Efalse), strcpy(T0->Snext, hT->Snext);
-                strcpy(T0->while_head, hT->while_head), strcpy(T0->while_tail, hT->while_tail), strcpy(T0->while_true, hT->while_true);
-            }
-
-            gen_IR(T0);
             ARGS_gen_ir_3(T, T0, hT);
             break;
         }

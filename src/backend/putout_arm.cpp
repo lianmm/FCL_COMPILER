@@ -162,16 +162,15 @@ void print_arm(arm_instruction *h)
             fprintf(fp, "\tvpush.f32\t{s16-s31}\n");
         }
         fprintf(fp, "\tadd\tfp, sp, #0"); //, h->result.const_int
-        if (g_sL.find(h->opn1.id)->size > 12)
+
+        if (g_sL.find(h->opn1.id)->size < 501)
+            fprintf(fp, "\n\tsub\tsp, sp, #%d", g_sL.find(h->opn1.id)->size);
+        else
         {
-            if (g_sL.find(h->opn1.id)->size < 501)
-                fprintf(fp, "\n\tsub\tsp, sp, #%d", g_sL.find(h->opn1.id)->size);
-            else
-            {
-                fprintf(fp, "\n\tldr\tr12, =%d", g_sL.find(h->opn1.id)->size);
-                fprintf(fp, "\n\tsub\tsp, sp, r12");
-            }
+            fprintf(fp, "\n\tldr\tr12, =%d", g_sL.find(h->opn1.id)->size);
+            fprintf(fp, "\n\tsub\tsp, sp, r12");
         }
+
         fprintf(fp, "\n");
         break;
     }
@@ -244,11 +243,30 @@ void print_arm(arm_instruction *h)
 
     case arm_ldr_ri:
     {
-        fprintf(fp, "\tldr\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", h->opn2.const_int);
+        if (h->opn2.const_int < 65535 && h->opn2.const_int > 0)
+            fprintf(fp, "\tmov\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%d\n", h->opn2.const_int);
+        else
+        {
+            unsigned int value = *(unsigned int *)(&h->opn2.const_int);
+            // fprintf(fp, "\tldr\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", value);
+            fprintf(fp, "\tmov\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%u\n", value % 65536);
+            fprintf(fp, "\tmovt\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%u\n", value / 65536);
+        }
         break;
     }
     case vfp_ldr_si:
     {
+        // unsigned int value = *(unsigned int *)(&h->opn2.const_int);
+
+        // if (value < 65535)
+        //     fprintf(fp, "\tmov\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%u\n", value);
+        // else
+        // {
+        //     // fprintf(fp, "\tldr\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", value);
+        //     fprintf(fp, "\tmov\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%u\n", value % 65536);
+        //     fprintf(fp, "\tmovt\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%u\n", value / 65536);
+        // }
+        // break;
         fprintf(fp, "\tvldr.f32\t"), printOpn_arm1(h->opn1), fprintf(fp, ", =%d\n", h->opn2.const_int);
         break;
     }
@@ -323,6 +341,19 @@ void print_arm(arm_instruction *h)
         break;
     }
 
+    case arm_mov_asr:
+    {
+        fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        if (h->opn1.type != '0')
+            printOpn_arm2(h->opn1);
+        if (h->opn2.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", ASR"), printOpn_arm1(h->result);
+        fprintf(fp, "\n");
+        break;
+    }
+
     case arm_mov_r0:
     case arm_mov_rr:
 
@@ -331,8 +362,6 @@ void print_arm(arm_instruction *h)
     case arm_rsb:
 
     case arm_sub:
-
-    case arm_mul:
 
     case arm_b:
 
@@ -380,6 +409,101 @@ void print_arm(arm_instruction *h)
         if (h->result.type != '0')
             fprintf(fp, ", "), printOpn_arm1(h->result);
         fprintf(fp, "\n");
+        break;
+    }
+
+    case arm_mul:
+    {
+
+        if (h->opn2.type == 'i')
+        {
+            double ans2 = log2(h->opn2.const_int);
+
+            if (ans2 == (int)ans2)
+            {
+                if (ans2 < 31)
+                {
+                    fprintf(fp, "\tmov");
+                    if (h->opn1.type != '0')
+                        printOpn_arm2(h->opn1);
+                    if (h->result.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->result);
+                    fprintf(fp, ",LSL#%d\n", (int)ans2);
+                }
+                else
+                {
+                    fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+                    if (h->opn1.type != '0')
+                        printOpn_arm2(h->opn1);
+                    if (h->opn2.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                    if (h->result.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->result);
+                    fprintf(fp, "\n");
+                }
+            }
+            else
+            {
+                fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+                if (h->opn1.type != '0')
+                    printOpn_arm2(h->opn1);
+                if (h->opn2.type != '0')
+                    fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                if (h->result.type != '0')
+                    fprintf(fp, ", "), printOpn_arm1(h->result);
+                fprintf(fp, "\n");
+            }
+        }
+        else if (h->result.type == 'i')
+        {
+            double ans2 = log2(h->result.const_int);
+
+            if (ans2 == (int)ans2)
+            {
+                if (ans2 < 31)
+                {
+                    fprintf(fp, "\tmov");
+                    if (h->opn1.type != '0')
+                        printOpn_arm2(h->opn1);
+                    if (h->opn2.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                    fprintf(fp, ",LSL#%d\n", (int)ans2);
+                }
+                else
+                {
+                    fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+                    if (h->opn1.type != '0')
+                        printOpn_arm2(h->opn1);
+                    if (h->opn2.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                    if (h->result.type != '0')
+                        fprintf(fp, ", "), printOpn_arm1(h->result);
+                    fprintf(fp, "\n");
+                }
+            }
+            else
+            {
+                fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+                if (h->opn1.type != '0')
+                    printOpn_arm2(h->opn1);
+                if (h->opn2.type != '0')
+                    fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                if (h->result.type != '0')
+                    fprintf(fp, ", "), printOpn_arm1(h->result);
+                fprintf(fp, "\n");
+            }
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
         break;
     }
     case vfp_cmp:
@@ -479,7 +603,7 @@ void putout_arm()
                 break;
             arm = arm->next;
         }
-
+    fprintf(fp, "\t.section .note.GNU-stack,\"\",%%progbits\n");
     fclose(fp);
 }
 
