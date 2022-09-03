@@ -1,0 +1,39 @@
+0.0	
+main-F.i_0:.0
+1.1		alloca.i0	#4	var1-V.i_1
+2.1		alloca.i0	#4	var2-V.i_1
+3.1		alloca.i0	#4	var3-V.i_1
+4.2		ASSIGN.i0	t17-H.i_0 0	#0
+5.2		ASSIGN.i0	t18-H.i_0 0	#1
+6.0		goto.i0	.L2-L.i_0
+7.1	
+.L2-L.i_0:.2
+8.1		load.i2	t17-H.i_1	t3-T.i
+9.1		jlt.i2	t3-T.i	#14	t5-T.i
+10.1		goto_eq.i2	t5-T.i	#1	.L3-L.i_0lt
+11.1		goto.i2	.L4-L.i_0
+12.1	
+.L3-L.i_0:.3
+13.2		load.i3	t18-H.i_1	t6-T.i
+14.2		load.i3	t17-H.i_1	t7-T.i
+15.2		add.i3	t6-T.i	t7-T.i	t8-T.i
+18.2		add.i3	t7-T.i	#1	t11-T.i
+20.2		ASSIGN.i3	t17-H.i_0 0	t11-T.i
+21.2		ASSIGN.i3	t18-H.i_0 0	t8-T.i
+24.2		load.i3	t18-H.i_1	t21-T.i
+25.2		load.i3	t17-H.i_1	t22-T.i
+26.2		add.i3	t21-T.i	t22-T.i	t23-T.i
+29.2		add.i3	t22-T.i	#1	t25-T.i
+31.2		ASSIGN.i3	t17-H.i_1 0	t25-T.i
+32.2		ASSIGN.i3	t18-H.i_1 0	t23-T.i
+33.1		goto.i3	.L2-L.i_0
+34.1	
+.L4-L.i_0:.4
+35.1		load.i4	t18-H.i_1	t12-T.i
+36.1		arg.i4	t12-T.i
+37.1		call_void.i4	putint-F.i_0
+38.1		ASSIGN.i4	r0-T.i 0	#0
+39.1		goto.i4	.L1-L.i_0
+40.0	
+.L1-L.i_0:.1
+41.0		func_end:.i1	main-F.i_0

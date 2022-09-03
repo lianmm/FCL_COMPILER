@@ -2,8 +2,10 @@
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
-#include "../backend/free_Memory.h"
+#include "../include/backend/free_Memory.h"
 #include <string>
+#include <fstream>
+#include <sstream>
 #include <iostream>
 #include <filesystem>
 #include <algorithm>
@@ -12,10 +14,9 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <stdio.h>
-#include "sysy.tab.h"
 #include <sys/wait.h>
 #include <sys/resource.h>
-#include "optimization/mid_optimization.h"
+#include "../include/optimization/mid_optimization.h"
 
 using namespace std;
 extern int yylineno;
@@ -37,14 +38,20 @@ int main(int argc, char *argv[])
     /*命令行参数处理*/
     apply_stack();
     yyin = fopen(argv[4], "r");
-    if (!yyin)
-        return 0;
-    strcpy(filename, argv[4]);
-    strcpy(out_file, argv[3]);
-    // if (argv[5] && strcmp(argv[5], "-O2") == 0)
+    // if (!yyin)
     //     return 0;
 
-    // p1 = fork();一开始认为申请的栈空间只对子进程生效，后来发现不是，故不再建立子进程，但仍然保留方便出问题回撤；
+    strcpy(filename, argv[4]);
+    strcpy(out_file, argv[3]);
+    if (argv[5] && strcmp(argv[5], "-O2") == 0)
+    {
+        opti_flag = 1;
+    }
+    if (argv[6] && strcmp(argv[6], "-de") == 0)
+    {
+        DeFlag = 1;
+    }
+
     if (p1 == 0)
     {
         // clock_t beginTime = clock(); //打开编译计时；
@@ -57,19 +64,23 @@ int main(int argc, char *argv[])
             return 0;
         gen_IR(out_ast); //生成中间代码；
 
-        // mid_optimization(); //中端优化；
-
-        // putout_IR(out_IR);
+        // putout_IR(out_IR, ".irg");
+        // opti_flag = 0;
+        if (opti_flag)
+            mid_optimization(); //中端优化；
+        // putout_IR(out_IR, ".irn");
 
         // DisplaySymbolTable(); //打印符号表；
 
         translation(); //生成汇编代码；
+        // putout_IR(out_IR, ".irn");
 
-        // putout_IR(out_IR);
+        // // putout_IR(out_IR);
+        if (DeFlag)
+            DisplaySymbolTable(); //打印符号表；
+        // display_id2id(); //打印变量函数别名与真名对应关系；
+        // print_arm(); //以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
 
-        // DisplaySymbolTable(); //打印符号表；
-        // display_id2id();      //打印变量函数别名与真名对应关系；
-        // // print_arm();  //以内存中代码结构的形式打印汇编；（会打印到文件.s中，与putout_arm冲突）
         putout_arm(); //将可运行的arm代码打印到文件中；
 
         free_Memory(); //释放内存；

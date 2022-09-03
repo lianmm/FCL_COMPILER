@@ -5,7 +5,7 @@ export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_6
 rm ./test_out.txt
 
 #读取测试用例           
-cd ./p2022/
+cd ./f2022/
 li=`ls`
 totalpassed=0
 index=0

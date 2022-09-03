@@ -1,6 +1,6 @@
 //从glo_gen_IR中模块化出的部分；某些结点生成对应中间代码的函数；
 
-#include "node_gen_IR.h"
+#include "../../include/midend/node_gen_IR.h"
 using namespace std;
 extern class codenode *oneir;
 
@@ -55,35 +55,33 @@ void COMP_STM_gen_ir_2(struct node *T)
         for (i = symbol_scope_TX.TX[symbol_scope_TX.top - 1]; i < sT.index; i++)
         {
             // printf("\t%s", sT.symbols[i].name.c_str());
-            if (1)
+
+            if (g_sL.glo_ymT[g_sL.now_func].func_v != NULL && (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name) != (*g_sL.glo_ymT[g_sL.now_func].func_v).end() && (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name] != NULL)
             {
-                if (g_sL.glo_ymT[g_sL.now_func].func_v != NULL && (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name) != (*g_sL.glo_ymT[g_sL.now_func].func_v).end() && (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name] != NULL)
+                // printf("\t1");
+                // printf("(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size());
+                stack<class symbol> tmp_stk = (*(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]);
+                int func_v_stack_size = tmp_stk.size();
+                if (func_v_stack_size > 1)
                 {
-                    // printf("\t1");
-                    // printf("(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size():%lu\n", (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->size());
-                    stack<class symbol> tmp_stk = (*(*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]);
-                    int func_v_stack_size = tmp_stk.size();
-                    if (func_v_stack_size > 1)
-                    {
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
-                        erase_sym = 1;
-                    }
-                    else if (func_v_stack_size == 1 && g_sL.glo_ymT.find(sT.symbols[i].name) != g_sL.glo_ymT.end())
-                    {
-                        (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
-                        auto itt = (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name);
-                        if (itt != (*g_sL.glo_ymT[g_sL.now_func].func_v).end())
-                        {
-                            erase_sym = 1;
-                            delete itt->second;
-                            itt->second = NULL;
-                            (*g_sL.glo_ymT[g_sL.now_func].func_v).erase(itt->first);
-                            // printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
-                        }
-                    }
-                    // DisplaySymbolTable();
-                    // g_sL.last_v = sT.symbols[i].name;
+                    (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
+                    erase_sym = 1;
                 }
+                else
+                {
+                    auto itt = (*g_sL.glo_ymT[g_sL.now_func].func_v).find(sT.symbols[i].name);
+                    if (itt != (*g_sL.glo_ymT[g_sL.now_func].func_v).end())
+                    {
+                        // (*g_sL.glo_ymT[g_sL.now_func].func_v)[sT.symbols[i].name]->pop();
+                        erase_sym = 1;
+                        delete itt->second;
+                        itt->second = NULL;
+                        (*g_sL.glo_ymT[g_sL.now_func].func_v).erase(itt->first);
+                        // printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+                    }
+                }
+                // DisplaySymbolTable();
+                // g_sL.last_v = sT.symbols[i].name;
             }
         }
         // printf("\t\n");
@@ -345,8 +343,16 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
 
     if (g_sL.find(T->type_id)->flag == 'C')
     {
-        if (strcmp(g_sL.find(T->type_id)->type, "int") == 0)
-            T->out.type = 'i', T->out.const_int = g_sL.find(T->type_id)->int_val;
+        if (g_sL.find(T->type_id)->flagca == 'A')
+        {
+            T->out.type = 'v', T->out.id = T->type_id, T->out.level = glo_level, T->out.offset = find(T->type_id);
+            T->out.flage = g_sL.find(T->out.id)->flage;
+            T->out.address = g_sL.find(T->out.id)->offset;
+            T->out.kind = 'A';
+        }
+        else if (strcmp(g_sL.find(T->type_id)->type, "int") == 0)
+            T->out.type = 'i',
+            T->out.const_int = g_sL.find(T->type_id)->int_val;
         else
             T->out.type = 'f', T->out.const_float = g_sL.find(T->type_id)->float_val;
     }
@@ -357,7 +363,6 @@ void TERM_gen_ir_else(struct node *T, int tmp_assign_sym)
 
 void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
 {
-
 
     T0 = hT->ptr[0];
     if (T0)
@@ -379,11 +384,12 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
             {
                 add_vcvt_IR(hT, &T0->out, ".f32.s32");
             }
-            
+
             initOpn(&glo_res);
             glo_res = T0->out;
             oneir = mkIR(IR_ARG);
             hT->code = merge(2, hT->code, oneir);
+
             if (g_sL.find(hT->call_name)->paras[para_no] == 4)
             {
                 hT->code->prior->cal_type = 'i';
@@ -407,6 +413,9 @@ void ARGS_gen_ir_3(struct node *T, struct node *T0, struct node *hT)
         }
         initOpn(&glo_res);
         glo_res = T0->out;
+
+        // printf("数组访问：%s\n", hT->code->prior->opn1.id.c_str());
+        // DisplaySymbolTable();
         oneir = mkIR(IR_ARG);
         hT->code = merge(2, hT->code, oneir);
         if (g_sL.find(hT->call_name)->paras[para_no] == 4)

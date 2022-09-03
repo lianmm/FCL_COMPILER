@@ -1,0 +1,568 @@
+0.0		alloca.i0	#12	var1-A.i_0x0
+1.0		ASSIGN.i0	t0-T.i 0	#19971231
+2.0		arroff_expi.i0	var1-A.i_0x0	#0	t0-T.i
+3.0		ASSIGN.i0	t1-T.i 0	#19981013
+4.0		arroff_expi.i0	var1-A.i_0x0	#4	t1-T.i
+5.0		ASSIGN.i0	t2-T.i 0	#1000000007
+6.0		arroff_expi.i0	var1-A.i_0x0	#8	t2-T.i
+7.0		alloca.i0	#4	var2-V.i_0
+8.0		ASSIGN.i0	t3-T.i 0	#0
+9.0		ASSIGN.i0	var2-V.i_0 0	t3-T.i
+10.0		alloca.i0	#40000	var3-A.i_0x0
+11.0	
+func1-F.i_0:.0
+12.0		param.i0	var3-A.i_1x4P
+13.0		alloca.i0	#4	var4-P.i_1
+14.1		load.i0	var4-T.i	t170-T.iP
+15.1		ASSIGN.i0	t146-S.i_1 10	t170-T.iP
+16.0		alloca.i0	#4	var5-P.i_1
+17.1		ASSIGN.i0	t147-S.i_1 2	var5-T.iP
+18.0		alloca.i0	#4	-0.i_0
+19.1		alloca.i0	#124	var7-A.i_1x12
+20.1		ASSIGN.i0	t171-T.i 0	#0
+21.1		arg.i0	t171-T.i
+22.1		ASSIGN.i0	t172-T.i 0	#124
+23.1		arg.i0	t172-T.i
+24.1		ASSIGN.i0	t173-T.i 0	#-132
+25.1		add.i0	t173-T.i	fp-T.i	t3-T.i
+26.1		arg.i0	t3-T.i
+27.1		call_void.i0	memset(PLT)-F.i_0
+28.1		arroff_expi0.i0	var7-A.i_1x132	#124	#0
+29.1		ASSIGN.i0	t174-T.i 0	#0
+30.1		ASSIGN.i0	t175-T.i 0	#1
+31.1		arroff_exp.i0	t175-T.i,	[var7-A.i_1x132, t174-T.i]
+32.1		ASSIGN.i0	t176-T.i 0	#0
+33.1		exp_arroff.i0	t7-T.i,	[var7-A.i_1x132, t176-T.i]
+34.1		mul.i0	t7-T.i	#2	t9-T.i
+35.1		ASSIGN.i0	t177-T.i 0	#1
+36.1		arroff_exp.i0	t9-T.i,	[var7-A.i_1x132, t177-T.i]
+37.1		ASSIGN.i0	t178-T.i 0	#1
+38.1		exp_arroff.i0	t12-T.i,	[var7-A.i_1x132, t178-T.i]
+39.1		mul.i0	t12-T.i	#2	t14-T.i
+40.1		ASSIGN.i0	t179-T.i 0	#2
+41.1		arroff_exp.i0	t14-T.i,	[var7-A.i_1x132, t179-T.i]
+42.1		ASSIGN.i0	t180-T.i 0	#2
+43.1		exp_arroff.i0	t17-T.i,	[var7-A.i_1x132, t180-T.i]
+44.1		mul.i0	t17-T.i	#2	t19-T.i
+45.1		ASSIGN.i0	t181-T.i 0	#3
+46.1		arroff_exp.i0	t19-T.i,	[var7-A.i_1x132, t181-T.i]
+47.1		ASSIGN.i0	t182-T.i 0	#3
+48.1		exp_arroff.i0	t22-T.i,	[var7-A.i_1x132, t182-T.i]
+49.1		mul.i0	t22-T.i	#2	t24-T.i
+50.1		ASSIGN.i0	t183-T.i 0	#4
+51.1		arroff_exp.i0	t24-T.i,	[var7-A.i_1x132, t183-T.i]
+52.1		ASSIGN.i0	t184-T.i 0	#4
+53.1		exp_arroff.i0	t27-T.i,	[var7-A.i_1x132, t184-T.i]
+54.1		mul.i0	t27-T.i	#2	t29-T.i
+55.1		ASSIGN.i0	t185-T.i 0	#5
+56.1		arroff_exp.i0	t29-T.i,	[var7-A.i_1x132, t185-T.i]
+57.1		ASSIGN.i0	t186-T.i 0	#5
+58.1		exp_arroff.i0	t32-T.i,	[var7-A.i_1x132, t186-T.i]
+59.1		mul.i0	t32-T.i	#2	t34-T.i
+60.1		ASSIGN.i0	t187-T.i 0	#6
+61.1		arroff_exp.i0	t34-T.i,	[var7-A.i_1x132, t187-T.i]
+62.1		ASSIGN.i0	t188-T.i 0	#6
+63.1		exp_arroff.i0	t37-T.i,	[var7-A.i_1x132, t188-T.i]
+64.1		mul.i0	t37-T.i	#2	t39-T.i
+65.1		ASSIGN.i0	t189-T.i 0	#7
+66.1		arroff_exp.i0	t39-T.i,	[var7-A.i_1x132, t189-T.i]
+67.1		ASSIGN.i0	t190-T.i 0	#7
+68.1		exp_arroff.i0	t42-T.i,	[var7-A.i_1x132, t190-T.i]
+69.1		mul.i0	t42-T.i	#2	t44-T.i
+70.1		ASSIGN.i0	t191-T.i 0	#8
+71.1		arroff_exp.i0	t44-T.i,	[var7-A.i_1x132, t191-T.i]
+72.1		ASSIGN.i0	t192-T.i 0	#8
+73.1		exp_arroff.i0	t47-T.i,	[var7-A.i_1x132, t192-T.i]
+74.1		mul.i0	t47-T.i	#2	t49-T.i
+75.1		ASSIGN.i0	t193-T.i 0	#9
+76.1		arroff_exp.i0	t49-T.i,	[var7-A.i_1x132, t193-T.i]
+77.1		ASSIGN.i0	t194-T.i 0	#9
+78.1		exp_arroff.i0	t52-T.i,	[var7-A.i_1x132, t194-T.i]
+79.1		mul.i0	t52-T.i	#2	t54-T.i
+80.1		ASSIGN.i0	t195-T.i 0	#10
+81.1		arroff_exp.i0	t54-T.i,	[var7-A.i_1x132, t195-T.i]
+82.1		alloca.i0	#4	var8-V.i_1
+83.1		ASSIGN.i0	t196-T.i 0	#10
+84.1		ASSIGN.i0	t149-H.i_0 10	t196-T.i
+85.0		goto.i0	.L74-L.i_0
+86.1	
+.L74-L.i_0:.74
+87.1		load.i74	t149-H.i_1	t57-T.i
+88.1		jlt.i74	t57-T.i	#30	t59-T.i
+89.1		goto_eq.i74	t59-T.i	#1	.L75-L.i_0lt
+92.1		goto.i74	.L76-L.i_0
+93.1	
+.L75-L.i_0:.75
+94.2		load.i75	t149-H.i_1	t60-T.i
+95.2		add.i75	#1	t60-T.i	t62-T.i
+98.2		sub.i75	t62-T.i	#1	t65-T.i
+99.2		exp_arroff.i75	t66-T.i,	[var7-A.i_1x132, t65-T.i]
+100.2		mul.i75	t66-T.i	#2	t68-T.i
+102.2		arroff_exp.i75	t68-T.i,	[var7-A.i_1x132, t62-T.i]
+103.2		ASSIGN.i75	t149-H.i_0 10	t62-T.i
+104.1		goto.i75	.L74-L.i_0
+105.1	
+.L76-L.i_0:.76
+106.1		alloca.i76	#4	var9-V.i_1
+108.1		ASSIGN.i0	t164-T.i 204	t146-S.i_1
+109.1		div.i76	t164-T.i	#30	t73-T.i
+110.1		ASSIGN.i0	t197-T.i 0	#10000
+111.1		jge.i76	t73-T.i	t197-T.i	t75-T.i
+112.1		goto_eq.i76	t75-T.i	#1	.L95-L.i_0ge
+113.1		ASSIGN.i0	t198-T.i 0	#0
+114.2		ASSIGN.i76	t161-H.i_0 10	t198-T.i
+115.1		ASSIGN.i0	t199-T.i 0	#0
+116.2		ASSIGN.i76	t156-H.i_0 10	t199-T.i
+117.1		goto.i76	.L96-L.i_0
+118.1	
+.L95-L.i_0:.95
+119.1		ASSIGN.i95	r0-T.i 0	#0
+120.1		goto.i95	.L4-L.i_0
+121.1	
+.L96-L.i_0:.96
+123.1		ASSIGN.i0	t165-T.i 204	t146-S.i_1
+124.1		div.i96	t165-T.i	#30	t79-T.i
+125.1		load.i96	var3-A.i_1x4	t80-T.i
+126.1		exp_arroff.i96	t81-T.i,	[t80-T.i, t79-T.i]
+128.1		ASSIGN.i0	t166-T.i 204	t146-S.i_1
+129.1		ASSIGN.i0	t200-T.i 0	#30
+130.1		mod.i96	t166-T.i	t200-T.i	t84-T.i
+131.1		exp_arroff.i96	t85-T.i,	[var7-A.i_1x132, t84-T.i]
+132.1		div.i96	t81-T.i	t85-T.i	t86-T.i
+133.1		ASSIGN.i0	t201-T.i 0	#2
+134.1		mod.i96	t86-T.i	t201-T.i	t88-T.i
+136.1		ASSIGN.i0	t162-T.i 205	t147-S.i_1
+137.1		neq.i96	t88-T.i	t162-T.i	t90-T.i
+139.1		goto_eq.i96	t90-T.i	#1	.L103-L.i_0ne
+142.1		goto.i96	.L104-L.i_0
+143.1	
+.L103-L.i_0:.103
+145.1		ASSIGN.i0	t167-T.i 204	t146-S.i_1
+146.2		div.i103	t167-T.i	#30	t93-T.i
+147.2		load.i103	var3-A.i_1x4	t94-T.i
+148.2		exp_arroff.i103	t95-T.i,	[t94-T.i, t93-T.i]
+150.1		ASSIGN.i0	t168-T.i 204	t146-S.i_1
+151.1		ASSIGN.i0	t202-T.i 0	#30
+152.2		mod.i103	t168-T.i	t202-T.i	t98-T.i
+153.2		exp_arroff.i103	t99-T.i,	[var7-A.i_1x132, t98-T.i]
+154.2		div.i103	t95-T.i	t99-T.i	t100-T.i
+155.1		ASSIGN.i0	t203-T.i 0	#2
+156.2		mod.i103	t100-T.i	t203-T.i	t102-T.i
+157.2		eq.i103	t102-T.i	#0	t104-T.i
+159.2		goto_eq.i103	t104-T.i	#1	.L120-L.i_0eq
+161.2		goto.i103	.L121-L.i_0
+162.2	
+.L120-L.i_0:.120
+164.1		ASSIGN.i0	t163-T.i 205	t147-S.i_1
+165.2		eq.i120	t163-T.i	#1	t107-T.i
+167.2		goto_eq.i120	t107-T.i	#1	.L137-L.i_0eq
+169.2		goto.i120	.L121-L.i_0
+170.2	
+.L137-L.i_0:.137
+172.1		ASSIGN.i0	t169-T.i 204	t146-S.i_1
+173.1		ASSIGN.i0	t204-T.i 0	#30
+174.2		mod.i137	t169-T.i	t204-T.i	t110-T.i
+175.2		exp_arroff.i137	t111-T.i,	[var7-A.i_1x132, t110-T.i]
+178.3		ASSIGN.i137	t156-H.i_0 10	t111-T.i
+179.2	
+.L138-L.i_0:.138
+180.0		goto.i138	.L121-L.i_0
+181.2	
+.L121-L.i_0:.121
+182.2		load.i121	t153-H.i_1	t112-T.i
+183.2		div.i121	t112-T.i	#30	t114-T.i
+184.2		load.i121	var3-A.i_1x4	t115-T.i
+185.2		exp_arroff.i121	t116-T.i,	[t115-T.i, t114-T.i]
+187.1		ASSIGN.i0	t205-T.i 0	#30
+188.2		mod.i121	t112-T.i	t205-T.i	t119-T.i
+189.2		exp_arroff.i121	t120-T.i,	[var7-A.i_1x132, t119-T.i]
+190.2		div.i121	t116-T.i	t120-T.i	t121-T.i
+191.1		ASSIGN.i0	t206-T.i 0	#2
+192.2		mod.i121	t121-T.i	t206-T.i	t123-T.i
+193.2		eq.i121	t123-T.i	#1	t125-T.i
+197.2		goto_eq.i121	t125-T.i	#1	.L148-L.i_0eq
+202.2		goto.i121	.L104-L.i_0
+203.2	
+.L148-L.i_0:.148
+204.2		load.i148	t154-H.i_1	t126-T.i
+205.2		eq.i148	t126-T.i	#0	t128-T.i
+207.2		goto_eq.i148	t128-T.i	#1	.L165-L.i_0eq
+209.2		goto.i148	.L104-L.i_0
+210.2	
+.L165-L.i_0:.165
+211.2		load.i165	t156-H.i_1	t133-T.i
+212.2		load.i165	t153-H.i_1	t129-T.i
+213.1		ASSIGN.i0	t207-T.i 0	#30
+214.2		mod.i165	t129-T.i	t207-T.i	t131-T.i
+215.2		exp_arroff.i165	t132-T.i,	[var7-A.i_1x132, t131-T.i]
+216.2		sub.i165	t133-T.i	t132-T.i	t134-T.i
+219.3		ASSIGN.i165	t161-H.i_0 10	t134-T.i
+220.2	
+.L166-L.i_0:.0
+221.2	
+.L149-L.i_0:.149
+222.0		goto.i149	.L104-L.i_0
+223.1	
+.L104-L.i_0:.104
+224.1		load.i104	t158-H.i_1	t135-T.i
+225.1		div.i104	t135-T.i	#30	t137-T.i
+226.1		load.i104	var3-A.i_1x4	t138-T.i
+227.1		exp_arroff.i104	t139-T.i,	[t138-T.i, t137-T.i]
+228.1		load.i104	t161-H.i_1	t140-T.i
+229.1		add.i104	t139-T.i	t140-T.i	t141-T.i
+230.1		div.i104	t135-T.i	#30	t143-T.i
+231.1		load.i104	var3-A.i_1x4	t144-T.i
+232.1		arroff_exp.i104	t141-T.i,	[t144-T.i, t143-T.i]
+233.1		ASSIGN.i104	r0-T.i 0	#0
+234.1		goto.i104	.L4-L.i_0
+235.0	
+.L4-L.i_0:.4
+236.0		func_end:.i4	func1-F.i_0
+237.0	
+func2-F.i_0:.0
+238.1		load.i0	var2-V.i_0	t2-T.i
+239.1		ASSIGN.i0	t19-T.i 0	#0
+240.1		exp_arroff.i0	t1-T.i,	[var1-A.i_0x0, t19-T.i]
+241.1		mul.i0	t2-T.i	t1-T.i	t3-T.i
+242.1		ASSIGN.i0	t20-T.i 0	#1
+243.1		exp_arroff.i0	t5-T.i,	[var1-A.i_0x0, t20-T.i]
+244.1		add.i0	t3-T.i	t5-T.i	t6-T.i
+245.1		ASSIGN.i0	var2-V.i_0 10	t6-T.i
+246.1		load.i0	var2-V.i_0	t9-T.i
+247.1		ASSIGN.i0	t21-T.i 0	#2
+248.1		exp_arroff.i0	t8-T.i,	[var1-A.i_0x0, t21-T.i]
+249.1		mod.i0	t9-T.i	t8-T.i	t10-T.i
+250.1		ASSIGN.i0	var2-V.i_0 10	t10-T.i
+251.1		load.i0	var2-V.i_0	t11-T.i
+252.1		jlt.i0	t11-T.i	#0	t13-T.i
+253.1		goto_eq.i0	t13-T.i	#1	.L207-L.i_0lt
+254.1		goto.i0	.L208-L.i_0
+255.1	
+.L207-L.i_0:.207
+256.1		ASSIGN.i0	t22-T.i 0	#2
+257.1		exp_arroff.i207	t15-T.i,	[var1-A.i_0x0, t22-T.i]
+258.1		load.i207	var2-V.i_0	t16-T.i
+259.1		add.i207	t15-T.i	t16-T.i	t17-T.i
+260.1		ASSIGN.i207	var2-V.i_0 10	t17-T.i
+261.0		goto.i207	.L208-L.i_0
+262.1	
+.L208-L.i_0:.208
+263.1		load.i208	var2-V.i_0	t18-T.i
+264.1		ASSIGN.i208	r0-T.i 10	t18-T.i
+265.1		goto.i208	.L191-L.i_0
+266.0	
+.L191-L.i_0:.191
+267.0		func_end:.i191	func2-F.i_0
+268.0	
+main-F.i_0:.0
+269.1		CALL.i0	getint-F.i_0	t0-T.i
+270.1		alloca.i0	#4	var10-V.i_1
+272.1		CALL.i0	getint-F.i_0	t1-T.i
+273.1		ASSIGN.i0	var2-V.i_0 9	t1-T.i
+274.1		CALL.i0	starttime-F.i_0	t2-T.i
+275.1		alloca.i0	#4	var7-V.i_1
+276.1		alloca.i0	#4	var11-V.i_1
+277.2		ASSIGN.i0	t24-H.i_0 10	t0-T.i
+278.2		ASSIGN.f0	t25-H.i_0 0	-0.f_1
+279.2		ASSIGN.f0	t26-H.i_0 0	-0.f_1
+280.0		goto.i0	.L222-L.i_0
+281.1	
+.L222-L.i_0:.222
+282.1		load.i222	t24-H.i_1	t3-T.i
+283.1		jgt.i222	t3-T.i	#0	t5-T.i
+284.1		goto_eq.i222	t5-T.i	#1	.L223-L.i_0gt
+285.1		goto.i222	.L224-L.i_0
+286.1	
+.L223-L.i_0:.223
+287.2		load.i223	t24-H.i_1	t6-T.i
+288.2		sub.i223	t6-T.i	#1	t8-T.i
+289.2		ASSIGN.i223	t27-S.i_1 10	t8-T.i
+291.1		load.i223	var2-V.i_0	t31-T.i
+292.1		ASSIGN.i0	t162-T.i 0	#0
+293.1		exp_arroff.i223	t32-T.i,	[var1-A.i_0x0, t162-T.i]
+294.1		mul.i223	t31-T.i	t32-T.i	t33-T.i
+295.1		ASSIGN.i0	t163-T.i 0	#1
+296.1		exp_arroff.i223	t34-T.i,	[var1-A.i_0x0, t163-T.i]
+297.1		add.i223	t33-T.i	t34-T.i	t35-T.i
+298.1		ASSIGN.i223	var2-V.i_0 10	t35-T.i
+299.1		load.i223	var2-V.i_0	t36-T.i
+300.1		ASSIGN.i0	t164-T.i 0	#2
+301.1		exp_arroff.i223	t37-T.i,	[var1-A.i_0x0, t164-T.i]
+302.1		mod.i223	t36-T.i	t37-T.i	t38-T.i
+303.1		ASSIGN.i223	var2-V.i_0 10	t38-T.i
+304.1		load.i223	var2-V.i_0	t39-T.i
+305.1		jlt.i223	t39-T.i	#0	t40-T.i
+306.1		goto_eq.i223	t40-T.i	#1	.L246-L.i_0lt
+307.1		goto.i223	.L247-L.i_0
+308.1	
+.L246-L.i_0:.246
+309.1		ASSIGN.i0	t165-T.i 0	#2
+310.1		exp_arroff.i246	t41-T.i,	[var1-A.i_0x0, t165-T.i]
+311.1		load.i246	var2-V.i_0	t42-T.i
+312.1		add.i246	t41-T.i	t42-T.i	t43-T.i
+313.1		ASSIGN.i246	var2-V.i_0 10	t43-T.i
+314.0		goto.i246	.L247-L.i_0
+315.1	
+.L247-L.i_0:.247
+316.1		load.i247	var2-V.i_0	t44-T.i
+317.1		ASSIGN.i247	t30-H.i_0 10	t44-T.i
+318.1		goto.i247	.L248-L.i_0
+319.0	
+.L248-L.i_0:.248
+321.1		ASSIGN.i0	t153-T.i 211	t30-H.i_0
+322.1		ASSIGN.i0	t166-T.i 0	#300000
+323.2		mod.i248	t153-T.i	t166-T.i	t11-T.i
+324.2		ASSIGN.i248	t28-S.i_1 10	t11-T.i
+326.1		load.i248	var2-V.i_0	t46-T.i
+327.1		ASSIGN.i0	t167-T.i 0	#0
+328.1		exp_arroff.i248	t47-T.i,	[var1-A.i_0x0, t167-T.i]
+329.1		mul.i248	t46-T.i	t47-T.i	t48-T.i
+330.1		ASSIGN.i0	t168-T.i 0	#1
+331.1		exp_arroff.i248	t49-T.i,	[var1-A.i_0x0, t168-T.i]
+332.1		add.i248	t48-T.i	t49-T.i	t50-T.i
+333.1		ASSIGN.i248	var2-V.i_0 10	t50-T.i
+334.1		load.i248	var2-V.i_0	t51-T.i
+335.1		ASSIGN.i0	t169-T.i 0	#2
+336.1		exp_arroff.i248	t52-T.i,	[var1-A.i_0x0, t169-T.i]
+337.1		mod.i248	t51-T.i	t52-T.i	t53-T.i
+338.1		ASSIGN.i248	var2-V.i_0 10	t53-T.i
+339.1		load.i248	var2-V.i_0	t54-T.i
+340.1		jlt.i248	t54-T.i	#0	t55-T.i
+341.1		goto_eq.i248	t55-T.i	#1	.L249-L.i_0lt
+342.1		goto.i248	.L250-L.i_0
+343.1	
+.L249-L.i_0:.249
+344.1		ASSIGN.i0	t170-T.i 0	#2
+345.1		exp_arroff.i249	t56-T.i,	[var1-A.i_0x0, t170-T.i]
+346.1		load.i249	var2-V.i_0	t57-T.i
+347.1		add.i249	t56-T.i	t57-T.i	t58-T.i
+348.1		ASSIGN.i249	var2-V.i_0 10	t58-T.i
+349.0		goto.i249	.L250-L.i_0
+350.1	
+.L250-L.i_0:.250
+351.1		load.i250	var2-V.i_0	t59-T.i
+352.1		ASSIGN.i250	t45-H.i_0 10	t59-T.i
+353.1		goto.i250	.L251-L.i_0
+354.0	
+.L251-L.i_0:.251
+356.1		ASSIGN.i0	t152-T.i 211	t45-H.i_0
+357.1		ASSIGN.i0	t171-T.i 0	#2
+358.2		mod.i251	t152-T.i	t171-T.i	t14-T.i
+359.2		ASSIGN.i251	t29-S.i_1 10	t14-T.i
+366.0		ASSIGN.i251	t172-T.i 0	var3-A.i_0x0P
+367.1		movCont.i	t61-H.i_1	t172-T.i	 P
+368.1		movCont.i	t173-T.i	t28-S.i_1	 P
+369.1		ASSIGN.i251	t62-S.i_1 10	t173-T.iP
+370.1		movCont.i	t174-T.i	t29-S.i_1	 P
+371.1		ASSIGN.i251	t64-S.i_1 10	t174-T.iP
+372.1		ASSIGN.i0	t175-T.i 0	#0
+373.1		arg.i251	t175-T.i
+374.1		ASSIGN.i0	t176-T.i 0	#124
+375.1		arg.i251	t176-T.i
+376.1		ASSIGN.i0	t177-T.i 0	#-132
+377.1		add.i251	t177-T.i	fp-T.i	t66-T.i
+378.1		arg.i251	t66-T.i
+379.1		call_void.i251	memset(PLT)-F.i_0
+380.1		arroff_expi0.i251	func1var7-A.i_1x132	#124	#0
+381.1		ASSIGN.i0	t178-T.i 0	#0
+382.1		ASSIGN.i0	t179-T.i 0	#1
+383.1		arroff_exp.i251	t179-T.i,	[func1var7-A.i_1x132, t178-T.i]
+384.1		ASSIGN.i0	t180-T.i 0	#0
+385.1		exp_arroff.i251	t67-T.i,	[func1var7-A.i_1x132, t180-T.i]
+386.1		mul.i251	t67-T.i	#2	t68-T.i
+387.1		ASSIGN.i0	t181-T.i 0	#1
+388.1		arroff_exp.i251	t68-T.i,	[func1var7-A.i_1x132, t181-T.i]
+389.1		ASSIGN.i0	t182-T.i 0	#1
+390.1		exp_arroff.i251	t69-T.i,	[func1var7-A.i_1x132, t182-T.i]
+391.1		mul.i251	t69-T.i	#2	t70-T.i
+392.1		ASSIGN.i0	t183-T.i 0	#2
+393.1		arroff_exp.i251	t70-T.i,	[func1var7-A.i_1x132, t183-T.i]
+394.1		ASSIGN.i0	t184-T.i 0	#2
+395.1		exp_arroff.i251	t71-T.i,	[func1var7-A.i_1x132, t184-T.i]
+396.1		mul.i251	t71-T.i	#2	t72-T.i
+397.1		ASSIGN.i0	t185-T.i 0	#3
+398.1		arroff_exp.i251	t72-T.i,	[func1var7-A.i_1x132, t185-T.i]
+399.1		ASSIGN.i0	t186-T.i 0	#3
+400.1		exp_arroff.i251	t73-T.i,	[func1var7-A.i_1x132, t186-T.i]
+401.1		mul.i251	t73-T.i	#2	t74-T.i
+402.1		ASSIGN.i0	t187-T.i 0	#4
+403.1		arroff_exp.i251	t74-T.i,	[func1var7-A.i_1x132, t187-T.i]
+404.1		ASSIGN.i0	t188-T.i 0	#4
+405.1		exp_arroff.i251	t75-T.i,	[func1var7-A.i_1x132, t188-T.i]
+406.1		mul.i251	t75-T.i	#2	t76-T.i
+407.1		ASSIGN.i0	t189-T.i 0	#5
+408.1		arroff_exp.i251	t76-T.i,	[func1var7-A.i_1x132, t189-T.i]
+409.1		ASSIGN.i0	t190-T.i 0	#5
+410.1		exp_arroff.i251	t77-T.i,	[func1var7-A.i_1x132, t190-T.i]
+411.1		mul.i251	t77-T.i	#2	t78-T.i
+412.1		ASSIGN.i0	t191-T.i 0	#6
+413.1		arroff_exp.i251	t78-T.i,	[func1var7-A.i_1x132, t191-T.i]
+414.1		ASSIGN.i0	t192-T.i 0	#6
+415.1		exp_arroff.i251	t79-T.i,	[func1var7-A.i_1x132, t192-T.i]
+416.1		mul.i251	t79-T.i	#2	t80-T.i
+417.1		ASSIGN.i0	t193-T.i 0	#7
+418.1		arroff_exp.i251	t80-T.i,	[func1var7-A.i_1x132, t193-T.i]
+419.1		ASSIGN.i0	t194-T.i 0	#7
+420.1		exp_arroff.i251	t81-T.i,	[func1var7-A.i_1x132, t194-T.i]
+421.1		mul.i251	t81-T.i	#2	t82-T.i
+422.1		ASSIGN.i0	t195-T.i 0	#8
+423.1		arroff_exp.i251	t82-T.i,	[func1var7-A.i_1x132, t195-T.i]
+424.1		ASSIGN.i0	t196-T.i 0	#8
+425.1		exp_arroff.i251	t83-T.i,	[func1var7-A.i_1x132, t196-T.i]
+426.1		mul.i251	t83-T.i	#2	t84-T.i
+427.1		ASSIGN.i0	t197-T.i 0	#9
+428.1		arroff_exp.i251	t84-T.i,	[func1var7-A.i_1x132, t197-T.i]
+429.1		ASSIGN.i0	t198-T.i 0	#9
+430.1		exp_arroff.i251	t85-T.i,	[func1var7-A.i_1x132, t198-T.i]
+431.1		mul.i251	t85-T.i	#2	t86-T.i
+432.1		ASSIGN.i0	t199-T.i 0	#10
+433.1		arroff_exp.i251	t86-T.i,	[func1var7-A.i_1x132, t199-T.i]
+434.1		ASSIGN.i0	t200-T.i 0	#10
+435.1		ASSIGN.i251	t87-H.i_0 10	t200-T.i
+436.0		goto.i251	.L252-L.i_0
+437.1	
+.L252-L.i_0:.252
+438.1		load.i252	t87-H.i_0	t88-T.i
+439.1		jlt.i252	t88-T.i	#30	t89-T.i
+440.1		goto_eq.i252	t89-T.i	#1	.L253-L.i_0lt
+443.1		goto.i252	.L254-L.i_0
+444.1	
+.L253-L.i_0:.253
+445.2		load.i253	t87-H.i_0	t92-T.i
+446.2		add.i253	#1	t92-T.i	t93-T.i
+448.2		sub.i253	t93-T.i	#1	t95-T.i
+449.2		exp_arroff.i253	t96-T.i,	[func1var7-A.i_1x132, t95-T.i]
+450.2		mul.i253	t96-T.i	#2	t97-T.i
+451.2		arroff_exp.i253	t97-T.i,	[func1var7-A.i_1x132, t93-T.i]
+452.2		ASSIGN.i253	t87-H.i_0 10	t93-T.i
+453.1		goto.i253	.L252-L.i_0
+454.1	
+.L254-L.i_0:.254
+455.1		ASSIGN.i0	t154-T.i 208	t62-S.i_1
+456.1		div.i254	t154-T.i	#30	t98-T.i
+457.1		ASSIGN.i0	t201-T.i 0	#10000
+458.1		jge.i254	t98-T.i	t201-T.i	t99-T.i
+459.1		goto_eq.i254	t99-T.i	#1	.L255-L.i_0ge
+460.1		ASSIGN.i0	t202-T.i 0	#0
+461.2		ASSIGN.i254	t100-H.i_0 10	t202-T.i
+462.1		ASSIGN.i0	t203-T.i 0	#0
+463.2		ASSIGN.i254	t101-H.i_0 10	t203-T.i
+464.1		goto.i254	.L256-L.i_0
+465.1	
+.L255-L.i_0:.255
+466.1		ASSIGN.i0	t204-T.i 0	#0
+467.1		ASSIGN.i255	t60-H.i_0 10	t204-T.i
+468.1		goto.i255	.L257-L.i_0
+469.1	
+.L256-L.i_0:.256
+470.1		ASSIGN.i0	t155-T.i 208	t62-S.i_1
+471.1		div.i256	t155-T.i	#30	t102-T.i
+472.1		load.i256	t61-H.i_1	t103-T.i
+473.1		exp_arroff.i256	t104-T.i,	[t103-T.i, t102-T.i]
+474.1		ASSIGN.i0	t156-T.i 208	t62-S.i_1
+475.1		ASSIGN.i0	t205-T.i 0	#30
+476.1		mod.i256	t156-T.i	t205-T.i	t105-T.i
+477.1		exp_arroff.i256	t106-T.i,	[func1var7-A.i_1x132, t105-T.i]
+478.1		div.i256	t104-T.i	t106-T.i	t107-T.i
+479.1		ASSIGN.i0	t206-T.i 0	#2
+480.1		mod.i256	t107-T.i	t206-T.i	t108-T.i
+481.1		ASSIGN.i0	t160-T.i 209	t64-S.i_1
+482.1		neq.i256	t108-T.i	t160-T.i	t109-T.i
+484.1		goto_eq.i256	t109-T.i	#1	.L258-L.i_0ne
+487.1		goto.i256	.L259-L.i_0
+488.1	
+.L258-L.i_0:.258
+489.1		ASSIGN.i0	t157-T.i 208	t62-S.i_1
+490.2		div.i258	t157-T.i	#30	t113-T.i
+491.2		load.i258	t61-H.i_1	t114-T.i
+492.2		exp_arroff.i258	t115-T.i,	[t114-T.i, t113-T.i]
+493.1		ASSIGN.i0	t158-T.i 208	t62-S.i_1
+494.1		ASSIGN.i0	t207-T.i 0	#30
+495.2		mod.i258	t158-T.i	t207-T.i	t116-T.i
+496.2		exp_arroff.i258	t117-T.i,	[func1var7-A.i_1x132, t116-T.i]
+497.2		div.i258	t115-T.i	t117-T.i	t118-T.i
+498.1		ASSIGN.i0	t208-T.i 0	#2
+499.2		mod.i258	t118-T.i	t208-T.i	t119-T.i
+500.2		eq.i258	t119-T.i	#0	t120-T.i
+502.2		goto_eq.i258	t120-T.i	#1	.L260-L.i_0eq
+504.2		goto.i258	.L261-L.i_0
+505.2	
+.L260-L.i_0:.260
+506.1		ASSIGN.i0	t161-T.i 209	t64-S.i_1
+507.2		eq.i260	t161-T.i	#1	t122-T.i
+509.2		goto_eq.i260	t122-T.i	#1	.L262-L.i_0eq
+511.2		goto.i260	.L261-L.i_0
+512.2	
+.L262-L.i_0:.262
+513.1		ASSIGN.i0	t159-T.i 208	t62-S.i_1
+514.1		ASSIGN.i0	t209-T.i 0	#30
+515.2		mod.i262	t159-T.i	t209-T.i	t123-T.i
+516.2		exp_arroff.i262	t124-T.i,	[func1var7-A.i_1x132, t123-T.i]
+519.3		ASSIGN.i262	t101-H.i_0 10	t124-T.i
+520.2	
+.L263-L.i_0:.263
+521.0		goto.i263	.L261-L.i_0
+522.2	
+.L261-L.i_0:.261
+523.2		load.i261	t121-H.i_0	t126-T.i
+524.2		div.i261	t126-T.i	#30	t127-T.i
+525.2		load.i261	t61-H.i_1	t128-T.i
+526.2		exp_arroff.i261	t129-T.i,	[t128-T.i, t127-T.i]
+528.1		ASSIGN.i0	t210-T.i 0	#30
+529.2		mod.i261	t126-T.i	t210-T.i	t131-T.i
+530.2		exp_arroff.i261	t132-T.i,	[func1var7-A.i_1x132, t131-T.i]
+531.2		div.i261	t129-T.i	t132-T.i	t133-T.i
+532.1		ASSIGN.i0	t211-T.i 0	#2
+533.2		mod.i261	t133-T.i	t211-T.i	t134-T.i
+534.2		eq.i261	t134-T.i	#1	t135-T.i
+538.2		goto_eq.i261	t135-T.i	#1	.L264-L.i_0eq
+543.2		goto.i261	.L259-L.i_0
+544.2	
+.L264-L.i_0:.264
+545.2		load.i264	t110-H.i_0	t136-T.i
+546.2		eq.i264	t136-T.i	#0	t137-T.i
+548.2		goto_eq.i264	t137-T.i	#1	.L265-L.i_0eq
+550.2		goto.i264	.L259-L.i_0
+551.2	
+.L265-L.i_0:.265
+552.2		load.i265	t101-H.i_0	t138-T.i
+553.2		load.i265	t121-H.i_0	t139-T.i
+554.1		ASSIGN.i0	t212-T.i 0	#30
+555.2		mod.i265	t139-T.i	t212-T.i	t140-T.i
+556.2		exp_arroff.i265	t141-T.i,	[func1var7-A.i_1x132, t140-T.i]
+557.2		sub.i265	t138-T.i	t141-T.i	t142-T.i
+560.3		ASSIGN.i265	t100-H.i_0 10	t142-T.i
+561.2	
+.L266-L.i_0:.0
+562.2	
+.L267-L.i_0:.267
+563.0		goto.i267	.L259-L.i_0
+564.1	
+.L259-L.i_0:.259
+565.1		load.i259	t111-H.i_0	t144-T.i
+566.1		div.i259	t144-T.i	#30	t145-T.i
+567.1		load.i259	t61-H.i_1	t146-T.i
+568.1		exp_arroff.i259	t147-T.i,	[t146-T.i, t145-T.i]
+569.1		load.i259	t100-H.i_0	t148-T.i
+570.1		add.i259	t147-T.i	t148-T.i	t149-T.i
+571.1		div.i259	t144-T.i	#30	t150-T.i
+572.1		load.i259	t61-H.i_1	t151-T.i
+573.1		arroff_exp.i259	t149-T.i,	[t151-T.i, t150-T.i]
+574.1		ASSIGN.i0	t213-T.i 0	#0
+575.1		ASSIGN.i259	t60-H.i_0 10	t213-T.i
+576.1		goto.i259	.L257-L.i_0
+577.0	
+.L257-L.i_0:.257
+582.1		goto.i257	.L222-L.i_0
+583.1	
+.L224-L.i_0:.224
+584.1		CALL.i224	stoptime-F.i_0	t19-T.i
+585.1		arg.i224	var3-A.i_0x0
+586.1		ASSIGN.i0	t214-T.i 0	#10000
+587.1		arg.i224	t214-T.i
+588.1		call_void.i224	putarray-F.i_0
+589.1		ASSIGN.i224	r0-T.i 0	#0
+590.1		goto.i224	.L218-L.i_0
+591.0	
+.L218-L.i_0:.218
+592.0		func_end:.i218	main-F.i_0

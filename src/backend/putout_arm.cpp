@@ -1,25 +1,19 @@
 /*arm输出的实现文件*/
 //一般优化应该是不需要修改的，如果做指令替换时需要使用表中没有的新指令需再添加；
-#include "putout_arm.h"
+#include "../../include/backend/putout_arm.h"
 
 using namespace std;
 
 // arm语句打印支持;有大写标志说明不一一对应arm语句；
-char arm_ir_op[75][15] = {"store", "ext_alloca", "",
+char armStr[100][40] =
+    {
+        "arm_func", "arm_func_end", "arm_block", "arm_block_end", "arm_void", "arm_alloc_E", "arm_mov_r0", "arm_mov_rr", "arm_mov_rE", "arm_mov_asr", "arm_ldr_ri", "arm_ltorg", "arm_str", "arm_str_l2", "arm_ldr", "arm_ldr_l2", "arm_word", "arm_space", "arm_add", "arm_add_l2", "arm_rsb", "arm_sub", "arm_mul", "arm_label", "arm_cmp", "arm_b", "arm_bl", "arm_blt", "arm_ble", "arm_bgt", "arm_bge", "arm_beq", "arm_bne", "arm_moveq", "arm_movne",
 
-                          "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "cmp", "neq", "and", "orr", "blt", "ble", "bgt", "bge", "beq", "bne", "GOTO_AND", "GOTO_OR", "ldr", "str", "str", "AEIE", "add", "str",
+        "vfp_mov_s0", "vfp_mov_ss", "vfp_mov_rE", "vfp_ldr_si", "vfp_str", "vfp_str_l2", "vfp_ldr", "vfp_ldr_l2", "vfp_add", "vfp_add_l2", "vfp_rsb", "vfp_sub", "vfp_mul", "vfp_div", "vfp_cmp", "vfp_msr", "vfp_mrs", "vfp_vcvt", "vfp_moveq", "vfp_movne",
 
-                          "bne ", "bl", "not", "UMINUS", "load", "alloca",
+        "vfps_mov_dd", "vfps_ldr", "vfps_str", "vfps_moveq", "vfps_movne", "vfps_movCont",
 
-                          "function: ", "func_end:", "param", "label:", "b",
-
-                          "arg", "ret", "bl", "movne", "moveq",
-
-                          "vmov.f32", "vmov.f32", "vfp_mov_rE",
-
-                          "vldr.f32", "vstr.32", "vstr.32", "vldr.32", "vldr.32", "vadd.f32", "vadd.f32", "vfp_rsb", "vsub.f32", "vmul.f32", "vdiv.f32", "vcmp.f32", "vmsr", "vmsr", "vcvt",
-
-                          "vmoveq.f32", "vmovne.f32"};
+        "arm_msr_z1", "arm_msr_z0"};
 
 void printOpn_arm1(struct opn topn)
 {
@@ -30,7 +24,7 @@ void printOpn_arm1(struct opn topn)
         // fprintf(fp, "\t此变量kind：%c", topn.kind);
         // if (topn.kind == 'T')
         //     fprintf(fp, "\t此变量nextuse：%d", topn.next_use);
-        if (topn.kind == 'V' || topn.kind == 'P' || topn.kind == 'L' || topn.kind == 'F')
+        if (topn.kind == 'V' || topn.kind == 'L' || topn.kind == 'P' || topn.kind == 'F')
         {
             if (topn.id == "starttime")
                 fprintf(fp, "_sysy_starttime(PLT)");
@@ -56,6 +50,33 @@ void printOpn_arm1(struct opn topn)
                     topn.no_ris -= 100;
                 fprintf(fp, "s%d", topn.no_ris);
             }
+        }
+        else if (topn.kind == 'H')
+        {
+            topn.no_ris -= 200;
+            fprintf(fp, "d%d[%d]", topn.no_ris / 2, topn.no_ris % 2);
+        }
+        else if (topn.kind == 'S')
+        {
+            if (topn.no_ris > 190)
+            {
+                topn.no_ris -= 200;
+                fprintf(fp, "d%d[%d]", topn.no_ris / 2, topn.no_ris % 2);
+            }
+            else
+            {
+                if (topn.cal_type == 'i')
+                    fprintf(fp, "r%d", topn.no_ris);
+                else if (topn.cal_type == 'f')
+                {
+                    topn.no_ris -= 100;
+                    fprintf(fp, "s%d", topn.no_ris);
+                }
+            }
+        }
+        else if (topn.kind == 'Q')
+        {
+            fprintf(fp, "r%d", topn.no_ris);
         }
         break;
     case 'i':
@@ -111,6 +132,34 @@ void printOpn_arm2(struct opn topn)
                 fprintf(fp, "\ts%d", topn.no_ris);
             }
         }
+        else if (topn.kind == 'H')
+        {
+            topn.no_ris -= 200;
+            fprintf(fp, "\td%d[%d]", topn.no_ris / 2, topn.no_ris % 2);
+        }
+        else if (topn.kind == 'S')
+        {
+            if (topn.no_ris > 190)
+            {
+                topn.no_ris -= 200;
+                fprintf(fp, "\td%d[%d]", topn.no_ris / 2, topn.no_ris % 2);
+            }
+            else
+            {
+                if (topn.cal_type == 'i')
+                    fprintf(fp, "\tr%d", topn.no_ris);
+                else if (topn.cal_type == 'f')
+                {
+                    topn.no_ris -= 100;
+                    fprintf(fp, "\ts%d", topn.no_ris);
+                }
+            }
+        }
+        else if (topn.kind == 'Q')
+        {
+            fprintf(fp, "\tr%d", topn.no_ris);
+            cout << "para:" << topn.id << "寄存器：" << topn.no_ris << endl;
+        }
         break;
     case 'i':
         fprintf(fp, "\t#%d", topn.const_int);
@@ -129,6 +178,9 @@ void printOpn_arm2(struct opn topn)
 
 void print_arm(arm_instruction *h)
 {
+    if (h->cont != "gt" && h->cont != "ge" && h->cont != "lt" && h->cont != "le" && h->cont != "eq" && h->cont != "ne")
+        h->cont = "";
+
     if (h == out_arm)
     {
         fprintf(fp, "\t.arch armv7-a\n\t.fpu vfpv4\n\t.arm\n");
@@ -141,8 +193,8 @@ void print_arm(arm_instruction *h)
 
         g_sL.now_func = h->opn1.id;
 
-        fprintf(fp, "\n\t.global\t__aeabi_idiv\n");
-        fprintf(fp, "\t.global\t__aeabi_idivmod\n");
+        // fprintf(fp, "\n\t.global\t__aeabi_idiv\n");
+        // fprintf(fp, "\t.global\t__aeabi_idivmod\n");
 
         fprintf(fp, "\t.text\n");
         fprintf(fp, "\t.align\t2\n\t.global"), printOpn_arm2(h->opn1);
@@ -154,12 +206,61 @@ void print_arm(arm_instruction *h)
 
         fprintf(fp, "\t@ frame_needed = 1, uses_anonymous_args = 0\n\t@ link register save eliminated.\n");
         if (h->opn2.const_int / 4 > 0)
-            fprintf(fp, "\tpush\t{r4-r10,fp, lr}\n");
-        else if (h->opn2.const_int / 4 == 0)
-            fprintf(fp, "\tpush\t{r0,fp, lr}\n");
+        {
+            if (g_sL.find(g_sL.now_func)->maxRis == 10)
+            {
+                fprintf(fp, "\tpush\t{fp, lr}\n");
+            }
+            else if (g_sL.find(g_sL.now_func)->maxRis == 9)
+            {
+                fprintf(fp, "\tpush\t{r10,fp, lr}\n");
+            }
+            else
+                fprintf(fp, "\tpush\t{r%d-r10,fp, lr}\n", g_sL.find(g_sL.now_func)->maxRis + 1);
+        }
+
         if (h->cal_type == 'f')
         {
-            fprintf(fp, "\tvpush.f32\t{s16-s31}\n");
+            fprintf(fp, "\tvpush.f32\t{s16-s21}\n");
+            if (g_sL.glo_ymT[g_sL.now_func].DrMaxNum > 0)
+            {
+                int p1 = (g_sL.glo_ymT[g_sL.now_func].DrMaxNum - 200) / 2;
+                if (p1 == 11)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d11}\n");
+                }
+                else if (p1 <= 16)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d11-d%d}\n", p1);
+                }
+                else if (p1 > 16)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d16-d%d}\n", p1), fprintf(fp, "\tvpush.s32\t{d11-d15}\n");
+                }
+            }
+        }
+        else
+        {
+            if (g_sL.glo_ymT[g_sL.now_func].DrMaxNum > 0)
+            {
+                int p1 = (g_sL.glo_ymT[g_sL.now_func].DrMaxNum - 200) / 2;
+                if (p1 == 0)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d0}\n");
+                }
+                else if (p1 < 16)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d0-d%d}\n", p1);
+                }
+                else if (p1 == 16)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d16}\n"), fprintf(fp, "\tvpush.s32\t{d0-d15}\n");
+                }
+                else if (p1 > 16)
+                {
+                    fprintf(fp, "\tvpush.s32\t{d16-d%d}\n", p1), fprintf(fp, "\tvpush.s32\t{d0-d15}\n");
+                }
+            }
         }
         fprintf(fp, "\tadd\tfp, sp, #0"); //, h->result.const_int
 
@@ -183,21 +284,111 @@ void print_arm(arm_instruction *h)
             fprintf(fp, "\tadd\tsp, sp, r12\n");
             if (h->cal_type == 'f')
             {
-                fprintf(fp, "\tvpop.f32\t {s16-s31}\n");
+                if (g_sL.glo_ymT[h->opn1.id].DrMaxNum > 0)
+                {
+                    int p1;
+                    p1 = (g_sL.glo_ymT[h->opn1.id].DrMaxNum - 200) / 2;
+
+                    if (p1 == 11)
+                        fprintf(fp, "\tvpop.s32\t{d11}\n");
+                    else if (p1 <= 16)
+                        fprintf(fp, "\tvpop.s32\t{d11-d%d}\n", p1);
+
+                    else if (p1 > 16)
+                        fprintf(fp, "\tvpop.s32\t{d11-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16-d%d}\n", p1);
+                }
+                fprintf(fp, "\tvpop.f32\t {s16-s21}\n");
             }
-            fprintf(fp, "\tpop\t{r4-r10,fp, pc}\n");
+            else
+            {
+                if (g_sL.glo_ymT[h->opn1.id].DrMaxNum > 0)
+                {
+                    int p1 = (g_sL.glo_ymT[h->opn1.id].DrMaxNum - 200) / 2;
+                    if (p1 == 0)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0}\n");
+                    }
+                    else if (p1 < 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d%d}\n", p1);
+                    }
+                    else if (p1 == 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16}\n");
+                    }
+                    else if (p1 > 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16-d%d}\n", p1);
+                    }
+                }
+            }
+            if (g_sL.find(g_sL.now_func)->maxRis == 10)
+            {
+                fprintf(fp, "\tpop\t{fp, pc}\n");
+            }
+            else if (g_sL.find(g_sL.now_func)->maxRis == 9)
+            {
+                fprintf(fp, "\tpop\t{r10,fp, pc}\n");
+            }
+            else
+                fprintf(fp, "\tpop\t{r%d-r10,fp, pc}\n", g_sL.find(g_sL.now_func)->maxRis + 1);
         }
         else if (g_sL.find(h->opn1.id)->size / 4 > 0)
         {
             fprintf(fp, "\tadd\tsp, sp, #%d\n", g_sL.find(h->opn1.id)->size);
             if (h->cal_type == 'f')
             {
-                fprintf(fp, "\tvpop.f32\t {s16-s31}\n");
+                if (g_sL.glo_ymT[h->opn1.id].DrMaxNum > 0)
+                {
+                    int p1;
+                    p1 = (g_sL.glo_ymT[h->opn1.id].DrMaxNum - 200) / 2;
+
+                    if (p1 == 11)
+                        fprintf(fp, "\tvpop.s32\t{d11}\n");
+                    else if (p1 <= 16)
+                        fprintf(fp, "\tvpop.s32\t{d11-d%d}\n", p1);
+
+                    else if (p1 > 16)
+                        fprintf(fp, "\tvpop.s32\t{d11-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16-d%d}\n", p1);
+                }
+                fprintf(fp, "\tvpop.f32\t {s16-s21}\n");
             }
-            fprintf(fp, "\tpop\t{r4-r10,fp, pc}\n");
+            else
+            {
+                if (g_sL.glo_ymT[h->opn1.id].DrMaxNum > 0)
+                {
+                    int p1 = (g_sL.glo_ymT[h->opn1.id].DrMaxNum - 200) / 2;
+                    if (p1 == 0)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0}\n");
+                    }
+                    else if (p1 < 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d%d}\n", p1);
+                    }
+                    else if (p1 == 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16}\n");
+                    }
+                    else if (p1 > 16)
+                    {
+                        fprintf(fp, "\tvpop.s32\t{d0-d15}\n"), fprintf(fp, "\tvpop.s32\t{d16-d%d}\n", p1);
+                    }
+                }
+            }
+            if (g_sL.find(g_sL.now_func)->maxRis == 10)
+            {
+                fprintf(fp, "\tpop\t{fp, pc}\n");
+            }
+            else if (g_sL.find(g_sL.now_func)->maxRis == 9)
+            {
+                fprintf(fp, "\tpop\t{r10,fp, pc}\n");
+            }
+            else
+                fprintf(fp, "\tpop\t{r%d-r10,fp, pc}\n", g_sL.find(g_sL.now_func)->maxRis + 1);
         }
         else if (g_sL.find(h->opn1.id)->size / 4 == 0)
-            fprintf(fp, "\tadd\tsp, sp, #%d\n\tpop\t{r0,fp, pc}\n", 0);
+            fprintf(fp, "\tadd\tsp, sp, #%d\n", 0);
 
         fprintf(fp, "\t.size\t%s, .-%s\n", h->opn1.id.c_str(), h->opn1.id.c_str());
         g_sL.now_func = "glo";
@@ -213,7 +404,15 @@ void print_arm(arm_instruction *h)
     case arm_alloc_E:
     {
         fprintf(fp, "\t.global\t%s\n", h->result.id.c_str());
-        fprintf(fp, "\t.data\n");
+
+        struct arm_instruction *cur = h->next;
+        while (cur->op == arm_space)
+            cur = cur->next;
+        if (cur->op == arm_word || (g_sL.find(h->result.id)->flag != 'A' && g_sL.find(h->result.id)->flagca != 'A'))
+            fprintf(fp, "\t.data\n");
+        else
+            fprintf(fp, "\t.bss\n");
+
         fprintf(fp, "\t.align\t2\n");
         fprintf(fp, "\t.type\t%s, %%object\n", h->result.id.c_str());
         fprintf(fp, "\t.size\t%s, %d\n", h->result.id.c_str(), h->opn1.const_int);
@@ -243,7 +442,7 @@ void print_arm(arm_instruction *h)
 
     case arm_ldr_ri:
     {
-        if (h->opn2.const_int < 65535 && h->opn2.const_int > 0)
+        if (h->opn2.const_int < 65535 && h->opn2.const_int >= 0)
             fprintf(fp, "\tmov\t"), printOpn_arm1(h->opn1), fprintf(fp, ", #%d\n", h->opn2.const_int);
         else
         {
@@ -305,6 +504,9 @@ void print_arm(arm_instruction *h)
         fprintf(fp, "\tadd"), printOpn_arm2(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, ", "), printOpn_arm1(h->opn2);
         fprintf(fp, "\n\t%s", arm_op_strs[(int)h->op]);
         printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2), fprintf(fp, "]\n");
+        fprintf(fp, "\tsub"), printOpn_arm2(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "\n\tmov"), printOpn_arm2(h->result), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, ",ASR#2\n");
+
         break;
     }
 
@@ -326,14 +528,22 @@ void print_arm(arm_instruction *h)
     case arm_str:
     case arm_ldr:
     {
-        fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        if (h->opn1.no_ris < 90)
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        else if (h->opn1.no_ris < 190)
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op + 27]);
+
         printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->result), fprintf(fp, "]\n");
         break;
     }
     case vfp_ldr:
     case vfp_str:
     {
-        fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+        if (h->opn1.no_ris < 90 && h->opn1.cal_type == 'i')
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op - 27]);
+        else
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+
         printOpn_arm2(h->opn1), fprintf(fp, ", ["), printOpn_arm1(h->opn2);
         if (h->result.type != '0')
             fprintf(fp, ", "), printOpn_arm1(h->result);
@@ -343,6 +553,13 @@ void print_arm(arm_instruction *h)
 
     case arm_mov_asr:
     {
+        fprintf(fp, "\tcmp"), printOpn_arm2(h->opn2), fprintf(fp, ", #0\n");
+        fprintf(fp, "\taddlt"), printOpn_arm2(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        if ((int)pow(2, h->result.const_int) < 1023)
+            fprintf(fp, ", #%d\n", (int)pow(2, h->result.const_int) - 1);
+        else
+            fprintf(fp, ", r0\n");
+
         fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
         if (h->opn1.type != '0')
             printOpn_arm2(h->opn1);
@@ -351,11 +568,33 @@ void print_arm(arm_instruction *h)
         if (h->result.type != '0')
             fprintf(fp, ", ASR"), printOpn_arm1(h->result);
         fprintf(fp, "\n");
+        if (h->opn2.next_use < 4) //如不再使用，则不再恢复原值。
+            break;
+        fprintf(fp, "\tsublt"), printOpn_arm2(h->opn2), fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        if ((int)pow(2, h->result.const_int) < 1023)
+            fprintf(fp, ", #%d\n", (int)pow(2, h->result.const_int) - 1);
+        else
+            fprintf(fp, ", r0\n");
+
         break;
     }
 
     case arm_mov_r0:
-    case arm_mov_rr:
+    {
+        if (h->opn2.no_ris > 190)
+            fprintf(fp, "\tvmov.s32\t");
+        else
+            fprintf(fp, "\tmov\t");
+
+        if (h->opn1.type != '0')
+            printOpn_arm2(h->opn1);
+        if (h->opn2.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "\n");
+        break;
+    }
 
     case arm_add:
 
@@ -395,7 +634,6 @@ void print_arm(arm_instruction *h)
 
     case vfp_div:
 
-    case vfp_mov_ss:
     case vfp_mov_s0:
 
     case vfp_msr:
@@ -411,7 +649,22 @@ void print_arm(arm_instruction *h)
         fprintf(fp, "\n");
         break;
     }
-
+    case vfp_mov_ss:
+    case arm_mov_rr:
+    {
+        string op = "mov";
+        if (h->opn1.no_ris > 90 || h->opn2.no_ris > 90)
+            op = "vmov.f32";
+        fprintf(fp, "\t%s%s", op.c_str(), h->cont.c_str());
+        if (h->opn1.type != '0')
+            printOpn_arm2(h->opn1);
+        if (h->opn2.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->opn2);
+        // if (h->result.type != '0')
+        //     fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "\n");
+        break;
+    }
     case arm_mul:
     {
 
@@ -577,6 +830,140 @@ void print_arm(arm_instruction *h)
         break;
     }
 
+    case vfps_mov_dd:
+    {
+
+        if (h->opn1.no_ris > 190 && h->opn2.no_ris > 90 || h->opn1.no_ris > 90 && h->opn2.no_ris > 190)
+        {
+            fprintf(fp, "\tvmov.s32 r0, ");
+            printOpn_arm1(h->opn2);
+            fprintf(fp, "\n\tvmov.s32 ");
+            printOpn_arm1(h->opn1);
+            fprintf(fp, ", r0\n");
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
+        break;
+    }
+    case vfps_ldr:
+    {
+
+        fprintf(fp, "\tldr\tr0, ["), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "]\n");
+
+        fprintf(fp, "\tvmov.s32");
+        printOpn_arm2(h->opn1);
+        fprintf(fp, ", r0\n");
+
+        break;
+    }
+    case vfps_str:
+    {
+        fprintf(fp, "\tvmov.s32\tr0, ");
+        printOpn_arm2(h->opn1);
+        fprintf(fp, "\n");
+
+        fprintf(fp, "\tstr\tr0, ["), printOpn_arm1(h->opn2);
+        if (h->result.type != '0')
+            fprintf(fp, ", "), printOpn_arm1(h->result);
+        fprintf(fp, "]\n");
+        break;
+    }
+    case vfps_moveq:
+    {
+        if (h->opn1.no_ris > 190 && h->opn2.no_ris > 190)
+        {
+            fprintf(fp, "\tvmoveq.s32 r0, ");
+            printOpn_arm1(h->opn2);
+            fprintf(fp, "\n\tvmoveq.s32 ");
+            printOpn_arm1(h->opn1);
+            fprintf(fp, ", r0\n");
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
+        break;
+    }
+    case vfps_movne:
+    {
+        if (h->opn1.no_ris > 190 && h->opn2.no_ris > 190)
+        {
+            fprintf(fp, "\tvmovne.s32 r0, ");
+            printOpn_arm1(h->opn2);
+            fprintf(fp, "\n\tvmovne.s32 ");
+            printOpn_arm1(h->opn1);
+            fprintf(fp, ", r0\n");
+        }
+        else
+        {
+            fprintf(fp, "\t%s", arm_op_strs[(int)h->op]);
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            if (h->result.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->result);
+            fprintf(fp, "\n");
+        }
+        break;
+    }
+    case vfps_movCont:
+    {
+        if (h->opn1.no_ris > 190 && h->opn2.no_ris > 190)
+        {
+            fprintf(fp, "\tvmov%s.s32 r0, ", h->cont.c_str());
+            printOpn_arm1(h->opn2);
+            fprintf(fp, "\n\tvmov%s.s32 ", h->cont.c_str());
+            printOpn_arm1(h->opn1);
+            fprintf(fp, ", r0\n");
+        }
+        else
+        {
+            fprintf(fp, "\tvmov%s.s32", h->cont.c_str());
+            if (h->opn1.type != '0')
+                printOpn_arm2(h->opn1);
+            if (h->opn2.type != '0')
+                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+            fprintf(fp, "\n");
+        }
+        break;
+    }
+
+    case arm_msr_z1:
+    {
+        // fprintf(fp, "\tmsr\tCPSR_f, #0x40000000\n");
+        fprintf(fp, "\tmov r0, #0\n\tcmp r0, #0\n");
+        break;
+    }
+    case arm_msr_z0:
+    {
+        fprintf(fp, "\tmov r0, #1\n\tcmp r0, #0\n");
+
+        // fprintf(fp, "\tmsr\tCPSR_f, #0x00000000\n");
+        break;
+    }
+
+ 
+
     default:
     {
         break;
@@ -617,13 +1004,14 @@ void print_arm()
     if (arm->next != &null_ar)
         for (i = 0; 1; i++)
         {
-            fprintf(fp, "\t%d\t%s.%c", i, arm_op_strs[(int)h->op], h->cal_type);
+            fprintf(fp, "\t%d\t%s.%c", i, armStr[(int)h->op], h->cal_type);
             if (h->opn1.type != '0')
-                printOpn_arm2(h->opn1);
+                fprintf(fp, " %d", h->opn1.no_ris), printOpn_arm1(h->opn1);
             if (h->opn2.type != '0')
-                fprintf(fp, ", "), printOpn_arm1(h->opn2);
+                fprintf(fp, ", %d", h->opn2.no_ris), printOpn_arm1(h->opn2);
+
             if (h->result.type != '0')
-                fprintf(fp, ", "), printOpn_arm1(h->result);
+                fprintf(fp, ", %d", h->result.no_ris), fprintf(fp, ", "), printOpn_arm1(h->result);
             // if (h->opn1.type != '0')
             //     cout << "\t" << h->opn1.id;
             // if (h->opn2.type != '0')

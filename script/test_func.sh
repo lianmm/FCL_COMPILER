@@ -5,7 +5,7 @@ export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_6
 
 #.fcl输出文件，.ir中间代码，.s目标代码；
 
-rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
+rm ./f2022/*.fcl ./f2022/*.irg ./f2022/*.irssa ./f2022/*.irsra ./f2022/*.irsscp ./f2022/*.irs ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
 
 if [ ! -f "compiler" ];
 then
@@ -40,7 +40,7 @@ do
     ansfile=${i/".sy"/".out"}
     # tmpfile=${i/".sy"/".tmp"}
     retnval=0
-    ../compiler -ir -o $asm $i   >>../test_out.txt
+    ../compiler -ir -o $asm $i -O2 >>../test_out.txt
    
     if [ ! -f $asm ];
     then

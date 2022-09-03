@@ -584,7 +584,7 @@ char *yytext;
 #line 1 "sysy.l"
 #line 3 "sysy.l"
 #include "string.h"
-#include "sysy.tab.h"
+#include "../../include/frontend/sysy.tab.h"
 #include <string>
 int yycolumn=1;
 // (\/\*)([^\*]|(\*)*[^\*/])*(\*)*(\*\/)|((([^\*/])|(((\/)*[^\*])*)|(((\*)*[^\/])*))(\*)*([^\/])(\*\/))|(\*\/)

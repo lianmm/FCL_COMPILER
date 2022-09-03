@@ -5,6 +5,29 @@ float p1 = 1, p2[10] = {1}, p3[2][3] = {1}, p4 = 1, p5 = 1, p6 = 1, p7 = 1, p8 =
       p31 = 1, p32[10] = {1}, p33[2][3] = {1}, p34 = 1, p35 = 1, p36 = 1, p37 = 1, p38 = 1, p39 = 1,
       p41 = 1, p42[10] = {1}, p43[2][3] = {1}, p44 = 1, p45 = 1, p46 = 1, p47 = 1, p48 = 1, p49 = 1;
 
+float add(float p1, float p2[], float p3[][3], float p4, float p5, float p6, float p7, float p8, float p9)
+{
+    putint(p1);
+    putch(32);
+    putint(p2[0]);
+    putch(32);
+    putint(p3[0][0]);
+    putch(32);
+    putint(p4);
+    putch(32);
+    putint(p5);
+    putch(32);
+    putint(p6);
+    putch(32);
+    putint(p7);
+    putch(32);
+    putint(p8);
+    putch(32);
+    putint(p9);
+    putch(32);
+    return (p1 + p2[0] + p3[0][0] + p4 + p5 + p6 + p7 + p8 + p9);
+}
+
 float func(float p1, float p2[], float p3[][3], float p4, float p5, float p6, float p7, float p8, float p9, float p11, float p12[], float p13[][3], float p14, float p15, float p16, float p17, float p18, float p19, float p21, float p22[], float p23[][3], float p24, float p25, float p26, float p27, float p28, float p29, float p31, float p32[], float p33[][3], float p34, float p35, float p36, float p37, float p38, float p39, float p41, float p42[], float p43[][3], float p44, float p45, float p46, float p47, float p48, float p49, float p51, float p52[], float p53[][3], float p54, float p55, float p56, float p57, float p58, float p59, float p61, float p62[], float p63[][3], float p64, float p65, float p66, float p67, float p68, float p69, float p71, float p72[], float p73[][3], float p74, float p75, float p76, float p77, float p78, float p79, float p81, float p82[], float p83[][3], float p84, float p85, float p86, float p87, float p88, float p89, float p91, float p92[], float p93[][3], float p94, float p95, float p96, float p97, float p98, float p99)
 {
     return p1 + p2[0] + p3[0][0] + p4 + p5 + p6 + p7 + p8 + p9 +
@@ -16,7 +39,7 @@ float func(float p1, float p2[], float p3[][3], float p4, float p5, float p6, fl
            p61 + p62[0] + p63[0][0] + p64 + p65 + p66 + p67 + p68 + p69 +
            p71 + p72[0] + p73[0][0] + p74 + p75 + p76 + p77 + p78 + p79 +
            p81 + p82[0] + p83[0][0] + p84 + p85 + p86 + p87 + p88 + p89 +
-           p91 + p92[0] + p93[0][0] + p94 + p95 + p96 + p97 + p98 + p99;
+           p91 + p92[0] + p93[0][0] + p94 + p95 + p96 + p97 + p98 + p99 + add(p99, p3[0], p3, p4, p5, p6, p7, p8, p9);
 }
 
 int main()

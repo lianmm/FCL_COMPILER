@@ -1,5 +1,7 @@
 #此脚本会跑p2022中的全部用例，并统计通过个数，通过情况输出到test_out.txt；bug已修复，但运行时间较长；
 rm ./test_out.txt
+rm ./p2022/*.fcl ./p2022/*.irg ./p2022/*.irr ./p2022/*.irlur ./p2022/*.irsscp1 ./p2022/*.irsscp2 ./p2022/*.irt ./p2022/*.irs ./p2022/*.irsra ./p2022/*.irssa ./p2022/*.irsscp ./p2022/*.s ./test_out.txt ./p2022/*.target ./p2022/*.tst  2>>junk.txt >>junk.txt
+
 #!/bin/bash
 export PATH=/root/.opam/system/bin:/usr/local/arm/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabihf/bin:/usr/lib/jvm/jdk-11/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/games:/usr/local/games:/snap/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin:/opt/RISCV/riscv/bin
 
@@ -39,7 +41,7 @@ do
     ansfile=${i/".sy"/".out"}
     # tmpfile=${i/".sy"/".tmp"}
     retnval=0
-    ../compiler -ir -o $asm $i  2>>../test_out.txt
+    ../compiler -ir -o $asm $i -O2 2>>../test_out.txt
    
     if [ ! -f $asm ];
     then

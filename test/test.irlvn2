@@ -1,0 +1,38 @@
+0.0		alloca.i0	#4	var1-V.i_0
+1.0	
+main-F.i_0:.0
+2.1		alloca.i0	#40	var1-A.i_1x4
+3.1		arg.i0	#0
+4.1		arg.i0	#40
+5.1		add.i0	#-40	fp-T.i	t3-T.i
+6.1		arg.i0	t3-T.i
+7.1		call_void.i0	memset(PLT)-F.i_0
+8.1		arroff_expi.i0	var1-A.i_1x40	#0	#1
+9.1		arroff_expi.i0	var1-A.i_1x40	#4	#2
+10.1		arroff_expi.i0	var1-A.i_1x40	#8	#3
+11.1		arroff_expi.i0	var1-A.i_1x40	#12	#4
+12.1		arroff_expi.i0	var1-A.i_1x40	#16	#5
+13.1		arroff_expi.i0	var1-A.i_1x40	#20	#1
+14.1		arroff_expi.i0	var1-A.i_1x40	#24	#2
+15.1		arroff_expi.i0	var1-A.i_1x40	#28	#3
+16.1		arroff_expi.i0	var1-A.i_1x40	#32	#4
+17.1		arroff_expi.i0	var1-A.i_1x40	#36	#5
+18.1		CALL.i0	getint-F.i_0	t14-T.i
+19.1		alloca.i0	#4	var2-V.i_1
+21.1		alloca.i0	#4	var3-V.i_1
+23.1		sub.i0	t14-T.i	#1	t18-T.i
+25.1		add.i0	t18-T.i	#1	t20-T.i
+26.1		mul.i0	#2	t20-T.i	t23-T.i
+27.1		add.i0	#1	t23-T.i	t24-T.i
+28.1		exp_arroff.i0	t25-T.i,	[var1-A.i_1x40, t24-T.i]
+32.1		add.i0	#0	t23-T.i	t32-T.i
+33.1		exp_arroff.i0	t33-T.i,	[var1-A.i_1x40, t32-T.i]
+34.1		add.i0	t25-T.i	t33-T.i	t34-T.i
+35.1		alloca.i0	#4	var4-V.i_1
+38.1		arg.i0	t34-T.i
+39.1		call_void.i0	putint-F.i_0
+40.1		ASSIGN.i0	r0-T.i 0	#0
+41.1		goto.i0	.L1-L.i_0
+42.0	
+.L1-L.i_0:.1
+43.0		func_end:.i1	main-F.i_0

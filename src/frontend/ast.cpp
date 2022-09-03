@@ -1,6 +1,6 @@
 /*实现抽象语法树的相关操作*/
 //前端文件不需要修改；
-#include "ast.h"
+#include "../../include/frontend/ast.h"
 #include <string>
 using namespace std;
 /*-------------------------------全局宏变量定义区--------------------------------------*/
@@ -8,9 +8,12 @@ char filename[50];
 char out_file[50];
 int lev;
 struct node *out_ast;
+int float_flag = 0; //标识源程序是否含浮点
+int opti_flag = 0;  //标识源程序是否需要性能优化；
+int DeFlag = 0;
 
 //存放op字段的字符串数组，便于输出IR。
-char IR_op_strs[50][32] = {
+char IR_op_strs[75][32] = {
     "ASSIGN", "ext_alloca", "",
 
     "add", "sub", "mul", "div", "mod", "jlt", "jle", "jgt", "jge", "eq", "neq", "and", "or", "goto_glt", "goto_gle", "goto_gjt", "goto_gje", "goto_eq", "goto_neq", "goto_and", "goto_or", "exp_arroff", "arroff_exp", "arroff_expi", "arroff_expie", "exp_arroffa", "arroff_expi0", "vcvt",
@@ -20,7 +23,12 @@ char IR_op_strs[50][32] = {
     "function: ", "func_end:", "param", "label:", "goto", "block",
 
     "arg", "return", "call_void",
-    ".ltorg"};
+
+    "movne", "moveq", ".ltorg",
+
+    "movCont",
+
+    "Set_z1", "Set_z0"};
 
 /*-----------------------------语法树生成函数实现区----------------------------------*/
 struct node *mknode(int kind, struct node *first, struct node *second, struct node *third, int pos)

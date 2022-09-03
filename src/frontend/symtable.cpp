@@ -1,7 +1,7 @@
 /*实现符号表的相关操作*/
 //前端文件不需要修改；
 
-#include "symtable.h"
+#include "../../include/frontend/symtable.h"
 
 /*----------------------------------信息存储表结构定义-----------------------------------------*/
 
@@ -145,8 +145,8 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
             ;
         else if ((*g_sL.glo_ymT[g_sL.now_func].func_v).size() == 1 && (*g_sL.glo_ymT[g_sL.now_func].func_v).begin()->second->size() == 1)
         {
-            // if (g_sL.find(g_sL.now_func)->paramnum > 0)
             (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = 4;
+
             // else if (g_sL.find(g_sL.now_func)->paramnum == 0)
             // {
             //     (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int = 4;
@@ -154,13 +154,15 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
         }
         else
         {
-            if (tmp_sym_in.name != g_sL.last_v)
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
-            else if (tmp_sym_in.name == g_sL.last_v)
             {
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->pop();
-                tmp_sym_in.offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->push(tmp_sym_in);
+                if (tmp_sym_in.name != g_sL.last_v)
+                    (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+                else if (tmp_sym_in.name == g_sL.last_v)
+                {
+                    (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->pop();
+                    tmp_sym_in.offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
+                    (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->push(tmp_sym_in);
+                }
             }
         }
 
@@ -181,6 +183,8 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
         {
             int tmp_sym = sT->index - 1;
         }
+        if (opti_flag)
+            g_sL.find(name)->size = 0;
 
         break;
     }
@@ -200,7 +204,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     {
         if (glo_flage == 'P' && offset.const_int > 3)
         {
-            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int +5);
+            (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
         }
         else if (level == 0)
         {
@@ -226,7 +230,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
             tmp_sym--;
         if (glo_flage == 'P' && offset.const_int > 3)
         {
-            offset.const_int = -4 * (offset.const_int +5);
+            offset.const_int = -4 * (offset.const_int + 5);
         } //外部数组偏移；
         else if (level == 0)
         {
@@ -258,7 +262,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
             if (offset.const_int < 4)
                 (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().offset + (*g_sL.glo_ymT[g_sL.now_func].func_v)[g_sL.last_v]->top().size;
             else
-                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int +5);
+                (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset = -4 * (offset.const_int + 5);
         }
 
         break;
@@ -291,7 +295,7 @@ void mksym(struct symbolstack *sT, string name, int level, char *type, int param
     {
         // printf("g_sL.now_func:%s;name:%s;offset:%d\n", g_sL.now_func.c_str(), name, (*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset.const_int);
 
-        if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset > 0)
+        if ((*g_sL.glo_ymT[g_sL.now_func].func_v)[name]->top().offset >= 0)
             g_sL.last_v = name;
     }
     // DisplaySymbolTable();
@@ -505,6 +509,8 @@ void DisplaySymbolTable()
         {
             printf("%d\t%s\t%d\t%s\t%c\t参数个数:%d\t", i, it->second.name.c_str(), it->second.level, it->second.type, it->second.flag, it->second.paramnum);
             printf("size: %d\t", it->second.size);
+            printf("maxRis: %d\t", it->second.maxRis);
+
             if (it->second.code_b != NULL)
             {
                 printf("\tcodeb.op:%s\tname:%s", IR_op_strs[(int)it->second.code_b->op], it->second.code_b->opn1.id.c_str());
@@ -577,6 +583,12 @@ void DisplaySymbolTable()
                     printf("\t伪寄存器分配状态： %d", it2->second->status);
                     printf("\t对应寄存器： r%d", it2->second->no_ris);
                     printf("\t对应栈地址： 0x%d", it2->second->address);
+                    if (it2->second->gencode != NULL && it2->second->genSite != NULL)
+                    {
+                        printf("\tgen: %s %s", IR_op_strs[it2->second->gencode->op], it2->second->genSite->id.c_str());
+                    }
+                    printf("\talias： %s", it2->second->alias.c_str());
+
                     printf("\n");
                 }
                 printf("---------------------------------------------------\n");

@@ -1,6 +1,6 @@
 /*此文件实现整个编译过程中的动态申请的内存的最后释放。*/
 //如果优化需要动态分配空间，在这个文件中添加释放函数，并在最后的功能集成接口中调用。
-#include "free_Memory.h"
+#include "../../include/backend/free_Memory.h"
 using namespace std;
 
 //遍历释放目标代码结点空间；
@@ -122,10 +122,35 @@ void clear_symlist()
     }
 }
 
+void clear_block()
+{
+    std::unordered_map<string, unordered_map<int, struct basic_block *>>::iterator it = g_bbL.glo_list.begin();
+    for (; it != g_bbL.glo_list.end(); it++)
+    {
+        string funcid = it->first;
+        std::unordered_map<int, struct basic_block *>::iterator it2 = it->second.begin();
+        for (; it2 != it->second.end(); it2++)
+        {
+            if (it2->second != NULL && it2->first != -1 && it2->first == it2->second->index)
+            {
+                it2->second->begin = NULL;
+                it2->second->end = NULL;
+                delete it2->second;
+                it2->second = NULL;
+            }
+        }
+    }
+    if (g_bbL.glo_list.find("glo") != g_bbL.glo_list.end())
+    {
+        delete g_bbL.glo_list["glo"][-1];
+    }
+}
+
 //功能集成接口函数；
 void free_Memory()
 {
     clear_arm();
+    clear_block();
     clear_IR();
     clear_ast(out_ast);
     clear_symlist();

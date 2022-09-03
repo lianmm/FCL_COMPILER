@@ -12,9 +12,11 @@
 rm ./test_out.txt 
 cd ./test
 rm test.right.s test.fcl.s  test.fcl.target test.right.target 
-../compiler -ir -o test.fcl.s ./test.c >>../test_out.txt
-../ref_compiler/compiler -S -o test.right.s test.c >>../test_out.txt  #此处修改参考编译器；当前是蔡冰逸队的编译器，仅作为参考，其性能和正确性需要检查；
+# ../ref_compiler/compiler -S -o test.right.s test.c >>../test_out.txt  #
 # arm-linux-gnueabihf-gcc -S -o test.right.s test.c >>../test_out.txt
+../pcompiler  -ir -o test.right.s ./test.c   >>../test_out.txt # 用自己的非性能作为参照； 
+../compiler  -ir -o test.fcl.s ./test.c -O2 -de  >>../test_out.txt 
+
 arm-linux-gnueabihf-gcc -o test.right.target test.right.s -static ../sysy_lib/libsysy.a 
 arm-linux-gnueabihf-gcc -o test.fcl.target test.fcl.s -static ../sysy_lib/libsysy.a 
 

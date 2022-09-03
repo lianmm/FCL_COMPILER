@@ -3,7 +3,7 @@
 
 
 rm ./test/test.s ./test/test.ir ./test/test.c ./test_out.txt ./test/test.out ./test/test.in 2>>junk.txt
-rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
+# rm ./f2022/*.fcl ./f2022/*.ir ./f2022/*.s ./test_out.txt ./f2022/*.target ./f2022/*.tst  2>>junk.txt >>junk.txt
 
 #读取测试用例           
 cd ./f2022/
@@ -29,8 +29,8 @@ i=`find . -name "$in_fi[_A-Za-b0-9]*.sy"`
     ansfile=${i/".sy"/".out"}
     # tmpfile=${i/".sy"/".tmp"}
     retnval=0
-    ../compiler -ir -o $asm $i  2>>../test_out.txt
-   
+    # ../compiler -ir -o $asm $i  -O2  2>>../test_out.txt
+   ../pcompiler -ir -o $asm $i  -O2  2>>../test_out.txt
     if [ ! -f $asm ];
     then
         echo "$i:"  >>../test_out.txt

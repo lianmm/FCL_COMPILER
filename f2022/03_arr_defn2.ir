@@ -1,9 +1,0 @@
-0		alloca	#400	var1.i
-1	
-main.i:
-2		ASSIGN	t0.i	#0
-3		ASSIGN	r0.i	t0.i
-4		goto	.L1.i
-5	
-.L1.i:
-6		func_end:	main.i

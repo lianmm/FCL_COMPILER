@@ -14,3 +14,5 @@ afl-clang-fast++  -g  -std=c++17  -O2 -lm -L/extlibs -I/extlibs -lantlr4-runtime
 #-fsanitize=address
 afl-fuzz -m 800  -o /home/chui/compiler_fcl/fuzz/fuzz_out  -i /home/chui/compiler_fcl/fuzz/fuzz_in -s 123 -- /home/chui/compiler_fcl/compiler -ir -o /home/chui/compiler_fcl/test_out.txt  @@ /home/chui/compiler_fcl/fuzz/fuzz_output
 rm junk.txt
+
+#模糊测试，没有完全弄明白，也没用上

@@ -27,7 +27,7 @@ i=`find . -name "$in_fi.sy"`
     ansfile=${i/".sy"/".out"}
     # tmpfile=${i/".sy"/".tmp"}
     retnval=0
-    ../compiler -ir -o $asm $i  2>>../test_out.txt
+    ../compiler -ir -o $asm $i -O2 2>>../test_out.txt
    
     if [ ! -f $asm ];
     then
@@ -54,12 +54,12 @@ i=`find . -name "$in_fi.sy"`
     # If InFile exists, Redirect and Compare
     if [ -f $infile ];
     then
-        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target < $infile > $outfile 
+        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target < $infile >$outfile 
         retnval=$?
         cat $infile>>../test/test.in
 
     else
-        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target > $outfile 
+        qemu-arm -L /usr/arm-linux-gnueabihf/ ./$target >$outfile 
         retnval=$?
     fi
     
